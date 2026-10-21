@@ -1,0 +1,61 @@
+{
+  "image": "test_987.png",
+  "rows": [
+    "1",
+    "4_BGH1",
+    "4a_BGH1",
+    "4b_BGH1",
+    "4c_BGH1"
+  ],
+  "zoom_xyxy": [
+    6,
+    247,
+    102,
+    343
+  ],
+  "zoom_score": 180,
+  "zoom_rule": "在 4_BGH1 边界上，取距 4 与 4b 掩码差异不超过半径 2 圆盘、且不在原检测器边界半径 2 圆盘内的像素作为台阶代理；逐像素枚举完整 96×96 窗口，选代理像素最多的窗口。并列按上到下、左到右取首个；所有窗口为零时也按此规则取首个，并报告零分。五行使用同一窗口，以最近邻放大，不使用真值选窗。",
+  "six_numbers": {
+    "1": {
+      "pixel_f1": 0.5850561499690512,
+      "pixel_iou": 0.4134836516348365,
+      "boundary_f1_d2": 0.30427566003544065,
+      "object_f1": 0.5271966527196653,
+      "new_false_objects": 0,
+      "decline_fraction": 0.0
+    },
+    "4_BGH1": {
+      "pixel_f1": 0.859180600681512,
+      "pixel_iou": 0.7531258682967491,
+      "boundary_f1_d2": 0.48089895166575725,
+      "object_f1": 0.6551724137931034,
+      "new_false_objects": 8,
+      "decline_fraction": 0.0017709563164108619
+    },
+    "4a_BGH1": {
+      "pixel_f1": 0.8553388746803069,
+      "pixel_iou": 0.7472420053065214,
+      "boundary_f1_d2": 0.46301509066790325,
+      "object_f1": 0.612565445026178,
+      "new_false_objects": 9,
+      "decline_fraction": 0.0005903187721369539
+    },
+    "4b_BGH1": {
+      "pixel_f1": 0.8544738485183229,
+      "pixel_iou": 0.7459226028258773,
+      "boundary_f1_d2": 0.4815067944801433,
+      "object_f1": 0.9011857707509882,
+      "new_false_objects": 0,
+      "decline_fraction": 0.009445100354191263
+    },
+    "4c_BGH1": {
+      "pixel_f1": 0.8113480572529499,
+      "pixel_iou": 0.6825783293449831,
+      "boundary_f1_d2": 0.5009938875913135,
+      "object_f1": 0.6485340868950901,
+      "new_false_objects": 37,
+      "decline_fraction": 0.0023612750885478157
+    }
+  },
+  "decline_fraction_scope": "SECOND test all 1694 images, matching row"
+}
