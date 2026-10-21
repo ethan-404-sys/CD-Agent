@@ -30,8 +30,11 @@ class Encoder(nn.Module):
         layers.extend((nn.AdaptiveAvgPool2d(1), nn.Flatten()))
         self.layers = nn.Sequential(*layers)
 
-    def forward(self, x):
-        return self.layers(x)
+    def forward(self, x, return_spatial=False):
+        if not return_spatial:
+            return self.layers(x)
+        spatial = self.layers[:-2](x)
+        return self.layers[-2:](spatial), spatial
 
 
 class SmallCNN(nn.Module):
@@ -54,20 +57,36 @@ class SmallCNN(nn.Module):
             if isinstance(module, BasicBlock):
                 nn.init.zeros_(module.bn2.weight)
 
-    def forward(self, x):
+    def forward(self, x, return_spatial=False):
+        if return_spatial and self.architecture != "siamese":
+            raise ValueError("Spatial temporal loss requires siamese architecture")
         if self.architecture == "early":
             features = self.encoder(x)
         else:
             t1 = torch.cat((x[:, :3], x[:, 6:8]), dim=1)
             t2 = torch.cat((x[:, 3:6], x[:, 6:8]), dim=1)
             # One shared pass also gives both dates the same BatchNorm statistics.
-            f1, f2 = self.encoder(torch.cat((t1, t2), dim=0)).chunk(2, dim=0)
+            paired = torch.cat((t1, t2), dim=0)
+            if return_spatial:
+                pooled, spatial = self.encoder(paired, return_spatial=True)
+                f1, f2 = pooled.chunk(2, dim=0)
+                spatial1, spatial2 = spatial.chunk(2, dim=0)
+            else:
+                f1, f2 = self.encoder(paired).chunk(2, dim=0)
             features = torch.cat((f1, f2, (f1 - f2).abs()), dim=1)
-        return self.head(features).squeeze(1)
+        logits = self.head(features).squeeze(1)
+        return (logits, spatial1, spatial2) if return_spatial else logits
 
 
-def prepare_inputs(crops, augment=False):
+def prepare_inputs(crops, augment=False, unchanged=None):
+    """Optionally transform a uint8 GT sidecar with the exact same geometry.
+
+    GT never enters the eight model input channels. Zero GT padding excludes
+    synthetic border pixels from the temporal loss; default callers are unchanged.
+    """
     x = crops.float().div_(255)
+    if unchanged is not None:
+        unchanged = unchanged.float().div(255)
     if augment:
         n, device = len(x), x.device
         quarter = torch.randint(0, 4, (n,), device=device)
@@ -86,6 +105,9 @@ def prepare_inputs(crops, augment=False):
                                      align_corners=False)
         interpolated[:, 6:7] = F.grid_sample(x[:, 6:7], grid, mode="nearest",
                                             padding_mode="zeros", align_corners=False)
+        if unchanged is not None:
+            unchanged = F.grid_sample(unchanged, grid, mode="nearest",
+                                      padding_mode="zeros", align_corners=False)
         x = interpolated
         # Geometry is shared; mild color jitter is independently sampled per date.
         for start in (0, 3):
@@ -102,4 +124,4 @@ def prepare_inputs(crops, augment=False):
             x[:, start:start + 3] = rgb.clamp(0, 1)
     # From-scratch input scale; mask/probability remain [0,1].
     x[:, :6] = (x[:, :6] - 0.5) / 0.5
-    return x
+    return (x, unchanged) if unchanged is not None else x

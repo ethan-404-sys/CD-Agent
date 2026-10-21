@@ -1,0 +1,27 @@
+{
+  "rows": {
+    "verifier": {
+      "counts": {
+        "tp": 63293510,
+        "fp": 18279631,
+        "fn": 25819882
+      },
+      "decline_fraction": 0.19893742621015348,
+      "images": 1694,
+      "threshold": 0.772868573665619
+    },
+    "detector_mean": {
+      "counts": {
+        "tp": 63317052,
+        "fp": 18315516,
+        "fn": 25796340
+      },
+      "decline_fraction": 0.10684769775678866,
+      "images": 1694,
+      "threshold": 0.501367211341858
+    }
+  },
+  "source": "exp6/verifier/none/{second/scores.npz,thresholds_second_cv.json}",
+  "check": "full test pixel counts match eval_second.json pixels.remove/*",
+  "note": "batch14 has no rows for these two actual removal branches; separate full-test pass"
+}

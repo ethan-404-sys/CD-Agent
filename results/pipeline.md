@@ -1,344 +1,686 @@
 # 补漏与去误检：方法流程
 
-> 与 `pipeline.html` 内容相同的 Markdown 版，供在 GitHub 上直接阅读。配图在 `pipeline_figs/`。
+输入两期遥感影像，检测器给出初始变化图；候选工具寻找遗漏区域，验证器逐块打分，最后按阈值补漏或去误检。本页展示真实 V1/V2a 输出，同时保留 oracle 理想上界。
 
-变化检测模型（下文叫**检测器**）输入同一地点前后两期的遥感影像，输出“哪里变了”的图。它会犯两类错：**漏检**（真变了但没标出来）和**误检**（没变却标了）。
+```mermaid
+flowchart TD
+  n0["1 · 输入<br/>同一地点两期 RGB：t1（前期）、t2（后期）"]
+  n1["2 · 检测器<br/>一个 MambaSCD-Base → 概率图和 0.5 二值预测"]
+  n2["3 · 候选工具<br/>H1 AnyChange / B SAM3 六类做差 / G0.05 低阈值区域 / C 建筑实例差"]
+  n3["4 · SLIC 切块<br/>候选区域 → 补漏切块；检测器预测区域 → 去误检切块（pred）"]
+  n4["5 · 验证器<br/>V1：表格特征 + MLP；V2：两期 384×384 裁块 + Qwen3.5-4B LoRA"]
+  n5["6 · 最终变化图<br/>补漏：高分块并入；去误检：低分 pred 块删除；两路分别作用于原预测内外"]
+  n0 --> n1
+  n0 --> n2
+  n1 --> n2
+  n1 --> n3
+  n2 --> n3
+  n3 --> n4
+  n4 --> n5
+```
 
-我们的方案不改检测器，而是在它的输出上做“区域级校正”：
-
-- **补漏**：检测器出图 → 用其他模型找“可能漏掉的地方” → 切成小块 → 验证器逐块判断“是不是真变化” → 是就补上
-- **去误检**：检测器自己标出的区域 → 切成小块 → 同一个验证器打分 → 分低就删掉
-
-下文用 SECOND 测试集的一张真实图（`test_987.png`，512×512）走完每一步，每步都放这一步的真实输入和输出。验证器尚未训练，所以暂时用 **oracle**（按真值判断，即假设验证器全对）代替它的输出，作为上界演示。标 ⏳ 的内容要等实验 6 后续部分完成再补。
+总览中检测器预测同时送到切块步骤，t1/t2 同时供候选工具使用。本页 V2a 只展示补漏；去误检展示检测器平均概率与 V1。
 
 ## 先看懂几个词
 
 | 词 | 意思 |
-|---|---|
-| 双时相影像 t1 / t2 | 同一地点前后两期的 RGB 影像。SECOND 每张 512×512 像素。 |
-| 检测器 | 现成的变化检测模型。SECOND 上用 MambaSCD-Base（测试集 F1 74.17）。输出每个像素“变了”的概率，概率 > 0.5 的像素就是它的预测。 |
-| 真值（GT） | 人工标注的变化图。SECOND 还标了每个变化像素前后各是什么地物（6 类），叫两期语义标签。 |
-| 漏检 / 误检 | 漏检：真值有、预测没有（图中蓝色）。误检：预测有、真值没有（红色）。预测对的是绿色。 |
-| 无信号漏检 | 一整块真值变化，检测器的预测只盖住不到 10%（且面积 ≥ 20 像素），等于完全没看到，只能靠别的模型去找。图中用黄框标出。SECOND 上占真值像素的 14.9%。 |
-| 候选（来源） | 别的模型给出的“这里可能变了”的区域。用 4 个来源：H1、B、G0.05、C，见第 ③ 步。 |
-| 覆盖率 | 无信号漏检中，被至少一个候选“盖住”的比例。盖住 = 候选包含目标 ≥ 50% 的像素，且候选不超过目标外框面积的 4 倍（太大的候选不算找到）。 |
-| 纯度 | 候选里真变化像素的比例。纯度低 = 候选里大部分是没变的地方。 |
-| 切细 / 切块 | 候选往往很大，混着变和没变的部分。用超像素（SLIC，按颜色和位置把图分成小片）把大候选切成小块，再逐块判断。 |
-| 验证器 | 一个小模型：输入切块周围的 t1、t2 裁图和检测器概率，输出“这块是真变化”的概率。实验 6 要训练的就是它。 |
-| oracle | “开卷”版本：直接用真值决定一个切块要不要，得到验证器全对时的上界，不是实际结果。 |
-| F1 / ΔF1 | F1 是精度和召回的调和平均（×100）。ΔF1 = 校正后 − 校正前，正数才算有用。 |
-| F1/2 门槛 | 往预测里加一块区域，只有这块里真变化像素的比例超过当前 F1 的一半，F1 才会上升。SECOND 约 37%，SYSU 约 42%。这是验证器要达到的精度。 |
-| AUC / 召回 80% 时误检率 | 衡量打分好坏。AUC 1 为完美，0.5 为随机。“召回 80% 时误检率”：放过 80% 的真变化时，假候选也有多少比例被放过。 |
-| 交叉拟合（K 折） | 把训练集分 3 份，每次用 2 份训检测器，在剩下 1 份上预测。这样每张训练图都有“没见过它的检测器”的输出，和测试时一样会漏检。 |
-| SeK | SECOND 官方的语义变化指标，用来在训练中挑最好的检测器 checkpoint。 |
+| --- | --- |
+| 双时相影像 t1 / t2 | 同一地点前后两期 RGB 影像，SECOND 为 512×512。 |
+| 检测器 | MambaSCD-Base 输出变化概率和 0.5 二值图；下游校正使用已保存的二值 PNG。 |
+| 真值（GT） | 人工变化标注；SECOND 的两期语义标签记录变化前后的六类地物。只用于训练标签和评估。 |
+| 漏检 / 误检 | 蓝色为漏检 FN，红色为误检 FP，绿色为正确预测 TP。 |
+| 无信号漏检 | 预测覆盖不足 10%、面积至少 20 像素的真值目标。历史统计按语义转移拆目标。 |
+| 候选（来源） | 候选工具提出可能变化的区域：H1、B、G0.05、C1/C2。 |
+| 覆盖率 | 候选覆盖目标至少 50%，且候选面积不超过目标外框的 4 倍时算找到；统计无信号漏检目标。 |
+| 纯度 | 区域内真变化像素比例；来源面积合计按候选重复计数，全部来源并集另行去重。 |
+| 切细 / 切块 | SLIC 根据两期颜色与位置划分超像素，大候选与超像素相交后形成切块。 |
+| 验证器 | 逐块判断变化的模型；补漏用高分块，去误检删低分块。 |
+| 验证器 V1 / V2 | V1 为特征加 MLP，本页用 none 表格基线；V2 为 Qwen3.5-4B LoRA，直接看两期裁块。 |
+| 补漏切块 / 去误检切块 | 前者来自候选工具，后者来自检测器自身预测区域（pred）；V1 主模型仅用补漏切块训练。 |
+| oracle | 直接按真值挑块的理想上界。页面将其与真实验证器结果分别标注。 |
+| F1 / ΔF1 | F1 为精度与召回的调和平均；ΔF1 为校正后减校正前。页面 F1 用百分数，ΔF1 用百分点。 |
+| F1/2 门槛 | 并入像素的真变化比例超过当前 F1 的一半时，像素 F1 才会上升；SECOND 约 37.08%。 |
+| AUC / 召回 80% 时误检率 | AUC 衡量排序；误检率为放过真变化的同时放过多少负例。验证阈值与测试 ROC 诊断分别标注。 |
+| 交叉拟合（K 折） | 训练集分三折，用其余两折训练的检测器预测留出折，为训练验证器产生真实漏检。 |
+| SeK | SECOND 语义变化指标，用于选择交叉拟合检测器检查点。 |
 
-**图中颜色**：🟩 预测对（TP）　🟥 误检（FP）　🟦 漏检（FN）　黄框 = 无信号漏检目标　白框 = 盖住了漏检目标的候选。切块：绿 = 标为正（真变化占 ≥ 50%），红 = 标为负（< 10%），灰 = 介于中间、丢弃。
+## 示例选择
 
----
+保留 test_987；其余图要求真值变化像素 ≥ 1000。E1 取行 5 的正 ΔF1 最大图，E2 取负 ΔF1 最小图；同分按文件名升序。测试结果仅用于挑选展示图，不参与模型、来源组合或阈值选择。
 
-# 图 1　推理流程（测试时怎么用）
+统一指标 per_image.jsonl 行5：V1 none，B+G0.05+H1，精确阈值 0.819681704044342。示例的极端提升或下降不能代表全测试集平均收益。
 
-## ① 输入：两期影像
+| 用途 | 图名 | 真值变化像素 | 原 F1 | V1 后 F1 | ΔF1 点 |
+| --- | --- | --- | --- | --- | --- |
+| 固定示例 | test_987.png | 61533 | 58.51% | 64.39% | +5.8875 |
+| E1 | test_1669.png | 32821 | 16.63% | 48.96% | +32.3296 |
+| E2 | test_365.png | 7218 | 92.70% | 63.56% | -29.1367 |
 
-- **输入**：t1、t2 两张 RGB 影像，512×512
-- **输出**：原样交给检测器和各候选来源
+来源：[选图清单与完整规则](pipeline_figs/selection.json)。
 
-| t1（前期） | t2（后期） |
-|:---:|:---:|
-| <img src="pipeline_figs/test_987/t1.jpg" width="300"> | <img src="pipeline_figs/test_987/t2.jpg" width="300"> |
+## 固定示例 · test_987.png · V1 ΔF1 +5.8875 点
 
-以下三张**推理时看不到**，只用于评估和画图：
+来源：[本图数字与规则](pipeline_figs/test_987/example.json)；[全部切块分数](pipeline_figs/test_987/pieces.json)。
 
-| 真值变化图（白 = 变化） | t1 语义标签 | t2 语义标签 |
-|:---:|:---:|:---:|
-| <img src="pipeline_figs/test_987/gt.jpg" width="240"> | <img src="pipeline_figs/test_987/sem_t1.jpg" width="240"> | <img src="pipeline_figs/test_987/sem_t2.jpg" width="240"> |
+| t1 | t2 | gt | prob | base_mask |
+| --- | --- | --- | --- | --- |
+| ![t1](pipeline_figs/test_987/t1.png) | ![t2](pipeline_figs/test_987/t2.png) | ![gt](pipeline_figs/test_987/gt.png) | ![prob](pipeline_figs/test_987/prob.png) | ![base_mask](pipeline_figs/test_987/base_mask.png) |
 
-语义标签颜色：深红 建筑，深绿 低矮植被，亮绿 树木，灰 非植被地表，蓝 水体，红 运动场，白 未变化。
+原预测使用保存 PNG；它与保存概率再取 >0.5 相差 25 像素。候选筛选仍沿用建池时的 prob>0.5，最终结果与统一指标均沿用保存 PNG。
 
-⬇️
+HTML 版提供同一组相对路径 PNG 的图层开关；下列静态图展示相同数据。
 
-## ② 检测器：MambaSCD-Base
+### 1. 各来源候选
 
-- **输入**：t1、t2，两张 512×512×3
-- **输出**：变化概率图 512×512（每像素 0–1），阈值 0.5 得到二值预测图
+H1 用 AnyChange（SAM ViT-H）比较两期特征；B 用 SAM3 六类语义做差；G0.05 从 prob>0.05 的连通域提出候选，筛掉被 prob>0.5 覆盖超过一半的区域；C1 找未匹配建筑实例，C2 找已匹配实例的外观差异。C2 沿用池中的原始集合。来源颜色：H1 橙、B 紫、G0.05 青、C 粉；黄线是真值。
 
-| 概率图（越亮越可能变化） | 二值预测（概率 > 0.5） | 对错分析 |
-|:---:|:---:|:---:|
-| <img src="pipeline_figs/test_987/prob.jpg" width="240"> | <img src="pipeline_figs/test_987/mask.jpg" width="240"> | <img src="pipeline_figs/test_987/errors.jpg" width="240"> |
+| H1 | B | G0.05 | C |
+| --- | --- | --- | --- |
+| ![H1](pipeline_figs/test_987/source_H1.png) | ![B](pipeline_figs/test_987/source_B.png) | ![G0.05](pipeline_figs/test_987/source_G0.05.png) | ![C](pipeline_figs/test_987/source_C.png) |
 
-对错分析：绿对、红误检、蓝漏检；黄框是本图 13 个无信号漏检目标。本图 F1 58.5。
+| 来源 | 候选数 | 面积合计 px（含重叠） | 面积加权纯度 | 并集面积 px | 并集纯度 |
+| --- | --- | --- | --- | --- | --- |
+| H1 | 99 | 100821 | 33.12% | 65839 | 29.76% |
+| B | 28 | 29505 | 17.00% | 29505 | 17.00% |
+| G0.05 | 13 | 87338 | 49.95% | 87338 | 49.95% |
+| C | 6 | 69034 | 18.73% | 69034 | 18.73% |
 
-- 全测试集 F1 74.17；无信号漏检占真值像素 14.9%，是四个数据集里最高的（`summary.md`、`exp1_error_breakdown.md`）
-- 如果把整块漏检全补对，F1 最多 +7.81，这是补漏方向的上限（`exp2_oracle.md`）
+### 2. 全部候选
 
-⬇️ 分两路：**补漏**看检测器没标的地方，**去误检**看检测器标了的地方
+| 全部来源及各来源轮廓 |
+| --- |
+| ![全部来源及各来源轮廓](pipeline_figs/test_987/candidates_all.png) |
 
-## ③ 补漏第 1 步：找候选（4 个来源）
+候选共 146 个；去重并集 179463 像素，占全图 68.46%；并集里真变化占 29.80%。重叠区域可在图层开关中逐个查看来源。
 
-- **输入**：t1、t2；检测器概率图
-- **输出**：一组候选区域（每个是一张 512×512 的二值图 + 一个分数）。已被检测器预测覆盖一半以上的候选去掉。
+### 3. 全部补漏切块
 
-| H1：AnyChange | B：SAM3 语义做差 | G0.05：检测器低概率 | C：SAM3 建筑实例差 |
-|:---:|:---:|:---:|:---:|
-| <img src="pipeline_figs/test_987/src_H1.jpg" width="200"> | <img src="pipeline_figs/test_987/src_B.jpg" width="200"> | <img src="pipeline_figs/test_987/src_G0.05.jpg" width="200"> | <img src="pipeline_figs/test_987/src_C.jpg" width="200"> |
-| 本图 99 个候选，找到 4 个目标 | 28 个，找到 2 个 | 13 个，找到 2 个 | 6 个，找到 4 个 |
+| 绿正、红负、灰无标签，白线切块边界 |
+| --- |
+| ![绿正、红负、灰无标签，白线切块边界](pipeline_figs/test_987/pieces_all.png) |
 
-- **H1 AnyChange**（SAM ViT-H）：在两期上各自分割出物体，比较同一位置前后的特征，差得多就当候选。
-- **B SAM3 语义做差**：用文字提示让 SAM3 在两期上各画出 6 类地物，前后类别不同的区域就是候选。
-- **G0.05 检测器低概率**：概率在 0.05–0.5 之间的区域，即检测器“有点怀疑但没标”的地方。
-- **C SAM3 建筑实例差**：两期分别找出每栋建筑，前后对不上的（新建、拆除）或外观差别大的（改建）当候选。
+共 1407 块：正 421、负 827、无标签 159。有标签正例率 33.73%；正块占全部切块 29.92%。≥50% 真值为正、<10% 为负，中间部分不用于监督训练，但继续参加推理。全来源均展示，重叠块保留各自 ID；标签色重叠时按 piece_id 后绘制者覆盖，边界取全部块轮廓。
 
-每种颜色是一个候选，白框是盖住了某个黄框目标的候选。本图 13 个目标中，4 个来源合起来找到 7 个（各来源找到的有重叠）。四个来源互补：H1 擅长整片地物，C 擅长建筑改建。
+### 4. V1 打分热图
 
-- 全测试集覆盖率：H1 29.3%，B 19.7%，G0.05 16.7%，C 9.3%；合起来 52.2%（`exp4a_candidates.md`、`exp5a_anychange.md`）
-- ⚠️ 问题：候选纯度只有约 5–10%，大部分候选是没变的地方；很多候选太大，把漏检和周围没变的区域连在一起（`exp4a_candidates.md`）
+| V1 全部补漏切块；重叠像素显示最高分 | V1 分数色条与精确阈值 |
+| --- | --- |
+| ![V1 全部补漏切块；重叠像素显示最高分](pipeline_figs/test_987/v1_heat.png) | ![V1 分数色条与精确阈值](pipeline_figs/test_987/v1_colourbar.png) |
 
-⬇️
+V1 none 阈值 0.819681704044342，来自 exp6/verifier/none/thresholds_second_cv.json 的 recall.B+G0.05+H1；白线只标出该组合中 score≥阈值的块。分数来自 none/second/scores.npz。C1/C2 分数也显示，结果比较固定使用 B+G0.05+H1。
 
-## ④ 切细：把大候选切成小块（补漏和去误检共用）
+### 5. V2a 打分热图
 
-- **输入**：一个候选（或检测器预测的一个连通区域）；t1、t2 叠成的 6 通道图
-- **输出**：若干切块。只切面积 > 1192 像素的区域（SECOND 漏检目标面积中位数 298 的 4 倍）；小于 10 像素的块丢掉。
+| V2a 同一批全部补漏切块 | sigmoid(logit 差) 色条 |
+| --- | --- |
+| ![V2a 同一批全部补漏切块](pipeline_figs/test_987/v2a_heat.png) | ![sigmoid(logit 差) 色条](pipeline_figs/test_987/v2a_colourbar.png) |
 
-| 位置（青框为放大范围） | 一个大候选（H1，13,538 像素） | 超像素网格（约 880 片 = 图像面积 ÷ 298） | 切块结果（57 块） |
-|:---:|:---:|:---:|:---:|
-| <img src="pipeline_figs/test_987/split_where.jpg" width="200"> | <img src="pipeline_figs/test_987/split_region.jpg" width="200"> | <img src="pipeline_figs/test_987/split_slic.jpg" width="200"> | <img src="pipeline_figs/test_987/split_pieces.jpg" width="200"> |
+复用 V2 384×384 红色轮廓裁块；不筛除无标签块。验证 recall-80 logit 差阈值为 -1.875，色条对应概率 0.132964240。接受规则直接比较 logit 差，白线同样只标 B+G0.05+H1；阈值出处为 exp6/v2/a/eval/sample/validation_thresholds.json。
 
-切块按真值着色：33 块正（绿），14 块负（红），10 块丢弃（灰）；黄线是真值。
+### 6. 补漏结果对比
 
-- 按真值挑块（oracle）再补上：切细后 ΔF1 +6.96，不切细只有 +3.05。切细让“找到的”大部分能兑现（`exp5c_end_to_end.md`）
+| 检测器原预测：F1 58.51%；ΔF1 +0.0000 点 | V1 none 补漏：F1 64.39%；ΔF1 +5.8875 点 | V2a 补漏（仅三图）：F1 60.70%；ΔF1 +2.1954 点 | oracle 补漏：F1 77.43%；ΔF1 +18.9222 点 |
+| --- | --- | --- | --- |
+| ![检测器原预测：F1 58.51%；ΔF1 +0.0000 点](pipeline_figs/test_987/result_1.png) | ![V1 none 补漏：F1 64.39%；ΔF1 +5.8875 点](pipeline_figs/test_987/result_5.png) | ![V2a 补漏（仅三图）：F1 60.70%；ΔF1 +2.1954 点](pipeline_figs/test_987/result_v2a.png) | ![oracle 补漏：F1 77.43%；ΔF1 +18.9222 点](pipeline_figs/test_987/result_2_BGH1.png) |
 
-⬇️
+绿 TP、红 FP、蓝 FN。三种补漏均使用 B+G0.05+H1；oracle 使用真值挑块。V1 与 V2a 各自沿用验证集已冻结的阈值，两者阈值选择目标不同。
 
-## ⑤ 验证器：给每个切块打分（6b 未开始）
+### 7. 边缘质量
 
-- **输入**：以切块为中心的正方形裁图（边长 = max(4 × 切块长边, 64)），包括 t1 裁图、t2 裁图、切块掩码、检测器概率裁图，外加下面 JSON 里的数值特征
-- **输出**：一个数，即这块是真变化的概率 P ∈ [0, 1]
+| 青框为放大窗口 |
+| --- |
+| ![青框为放大窗口](pipeline_figs/test_987/edge_where.png) |
 
-**正例**：真值标为变化（t1 低矮植被 → t2 建筑）
+放大框 xyxy=[0, 384, 128, 512]。128 像素窗口、步长 16，最大化 4_BGH1 与 4b_BGH1 边界异或像素数；同分先上后左。这是突出边缘变化的可复现展示规则，不宣称找到了人工感知上最锯齿的区域。红线为预测边界，黄线为真值；局部图下的 F1 是整图指标。
 
-| t1 裁图 | t2 裁图 | 切块掩码 | 检测器概率 |
-|:---:|:---:|:---:|:---:|
-| <img src="pipeline_figs/test_987/v_pos_t1.jpg" width="160"> | <img src="pipeline_figs/test_987/v_pos_t2.jpg" width="160"> | <img src="pipeline_figs/test_987/v_pos_mask.jpg" width="160"> | <img src="pipeline_figs/test_987/v_pos_prob.jpg" width="160"> |
+| 检测器原预测：F1 58.51%；ΔF1 +0.0000 点 | oracle 两路：F1 85.92%；ΔF1 +27.4124 点 | oracle 两路：软边界：F1 85.53%；ΔF1 +27.0283 点 | oracle 两路：开闭运算：F1 85.45%；ΔF1 +26.9418 点 |
+| --- | --- | --- | --- |
+| ![检测器原预测：F1 58.51%；ΔF1 +0.0000 点](pipeline_figs/test_987/edge_1.png) | ![oracle 两路：F1 85.92%；ΔF1 +27.4124 点](pipeline_figs/test_987/edge_4_BGH1.png) | ![oracle 两路：软边界：F1 85.53%；ΔF1 +27.0283 点](pipeline_figs/test_987/edge_4a_BGH1.png) | ![oracle 两路：开闭运算：F1 85.45%；ΔF1 +26.9418 点](pipeline_figs/test_987/edge_4b_BGH1.png) |
 
-```json
-{
-  "image": "test_987.png",
-  "source": "H1",
-  "piece_bbox_xyxy": [360, 380, 403, 424],
-  "piece_area_px": 632,
-  "crop_xyxy": [294, 314, 470, 490],
-  "crop_side_px": 176,
-  "detector_prob": {"mean": 0.3929, "max": 0.6265, "p90": 0.5634},
-  "label_rule": "gt_frac >= 0.5 -> 1, < 0.1 -> 0",
-  "gt_frac": 0.9019,
-  "label": 1,
-  "transition": "t1 低矮植被 -> t2 建筑"
-}
+| oracle 补漏：F1 77.43%；ΔF1 +18.9222 点 | oracle 补漏：软边界：F1 77.02%；ΔF1 +18.5116 点 | oracle 补漏：开闭运算：F1 76.91%；ΔF1 +18.4045 点 |
+| --- | --- | --- |
+| ![oracle 补漏：F1 77.43%；ΔF1 +18.9222 点](pipeline_figs/test_987/edge_2_BGH1.png) | ![oracle 补漏：软边界：F1 77.02%；ΔF1 +18.5116 点](pipeline_figs/test_987/edge_2a_BGH1.png) | ![oracle 补漏：开闭运算：F1 76.91%；ΔF1 +18.4045 点](pipeline_figs/test_987/edge_2b_BGH1.png) |
+
+直接调用 batch14 的 eval_metrics_run.reconstruct。2a/4a：已接受切块内保留 prob>0.05，再与该块外扩 2 像素相交；按此先后顺序，相交不会增加切块外像素。2b/4b：对最终整图做半径 2 欧氏圆盘开运算再闭运算，图外为背景。两路合并为 cleaned ∪ (accepted ∖ original)。
+
+### 8. 去误检分支
+
+| 检测器均值；白线为删除块 | 检测器均值阈值 | V1 分数；白线为删除块 | V1 删除阈值 |
+| --- | --- | --- | --- |
+| ![检测器均值；白线为删除块](pipeline_figs/test_987/remove_detector_heat.png) | ![检测器均值阈值](pipeline_figs/test_987/remove_detector_colourbar.png) | ![V1 分数；白线为删除块](pipeline_figs/test_987/remove_v1_heat.png) | ![V1 删除阈值](pipeline_figs/test_987/remove_v1_colourbar.png) |
+
+| 方式 | pred 块数 | 删除阈值（严格小于） | 删除块数 | 删除像素 | 阈值出处 |
+| --- | --- | --- | --- | --- | --- |
+| detector_mean | 316 | 0.501367211341858 | 0 | 0 | exp6/verifier/none/thresholds_second_cv.json: remove.detector_mean |
+| verifier | 316 | 0.772868573665619 | 2 | 45 | exp6/verifier/none/thresholds_second_cv.json: remove.verifier |
+
+pred 掩码与分数均按 6b 池的 image、piece_id 对应，使用 V1 none 的同一 scores.npz。6e 的独立 pieces.jsonl 编号不用于关联这些分数。两个删除阈值均由 297 张验证图的 micro F1 选定。V1 none 尚未用 pred 切块训练。
+
+| 检测器原预测：F1 58.51%；ΔF1 +0.0000 点 | 检测器平均概率去误检：F1 58.51%；ΔF1 +0.0000 点 | V1 去误检：F1 58.53%；ΔF1 +0.0233 点 | oracle 去误检：F1 66.63%；ΔF1 +8.1287 点 |
+| --- | --- | --- | --- |
+| ![检测器原预测：F1 58.51%；ΔF1 +0.0000 点](pipeline_figs/test_987/result_1.png) | ![检测器平均概率去误检：F1 58.51%；ΔF1 +0.0000 点](pipeline_figs/test_987/result_remove_detector_mean.png) | ![V1 去误检：F1 58.53%；ΔF1 +0.0233 点](pipeline_figs/test_987/result_remove_verifier.png) | ![oracle 去误检：F1 66.63%；ΔF1 +8.1287 点](pipeline_figs/test_987/result_3.png) |
+
+### 本图六个数
+
+前五项由 six_numbers 计算本图；最后一项为全测试集下降占比。V2a 只有三图推理，最后一项未评估。实际去误检两行另遍历完整测试集计算下降占比，并核对 6b 保存的 TP/FP/FN。
+
+| 结果 | 像素 F1 | IoU | BF2 | 目标 F1 | 新增误检目标 | 全测试集下降占比 | ΔF1 点 |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 检测器原预测 | 58.51% | 41.35% | 30.43% | 52.72% | 0 | 0.00% | +0.0000 |
+| V1 none 补漏 | 64.39% | 47.49% | 28.28% | 50.72% | 2 | 62.75% | +5.8875 |
+| V2a 补漏（仅三图） | 60.70% | 43.58% | 19.86% | 40.68% | 8 | 未评估 | +2.1954 |
+| oracle 补漏 | 77.43% | 63.17% | 40.82% | 73.55% | 1 | 2.13% | +18.9222 |
+| oracle 去误检 | 66.63% | 49.96% | 37.36% | 49.43% | 8 | 0.06% | +8.1287 |
+| oracle 两路 | 85.92% | 75.31% | 48.09% | 65.52% | 8 | 0.18% | +27.4124 |
+| oracle 补漏：软边界 | 77.02% | 62.62% | 39.19% | 68.28% | 2 | 2.18% | +18.5116 |
+| oracle 补漏：开闭运算 | 76.91% | 62.48% | 40.72% | 84.56% | 0 | 5.55% | +18.4045 |
+| oracle 两路：软边界 | 85.53% | 74.72% | 46.30% | 61.26% | 9 | 0.06% | +27.0283 |
+| oracle 两路：开闭运算 | 85.45% | 74.59% | 48.15% | 90.12% | 0 | 0.94% | +26.9418 |
+| 检测器平均概率去误检 | 58.51% | 41.35% | 30.43% | 52.72% | 0 | 10.68% | +0.0000 |
+| V1 去误检 | 58.53% | 41.37% | 30.49% | 54.78% | 0 | 19.89% | +0.0233 |
+
+来源：[本图六数与各行下降占比出处](pipeline_figs/test_987/example.json)；[统一指标全测试集汇总副本](pipeline_figs/eval_metrics_summary.json)；[实际去误检全测试集汇总](pipeline_figs/removal_summary.json)。
+
+## E1 · test_1669.png · V1 ΔF1 +32.3296 点
+
+来源：[本图数字与规则](pipeline_figs/test_1669/example.json)；[全部切块分数](pipeline_figs/test_1669/pieces.json)。
+
+| t1 | t2 | gt | prob | base_mask |
+| --- | --- | --- | --- | --- |
+| ![t1](pipeline_figs/test_1669/t1.png) | ![t2](pipeline_figs/test_1669/t2.png) | ![gt](pipeline_figs/test_1669/gt.png) | ![prob](pipeline_figs/test_1669/prob.png) | ![base_mask](pipeline_figs/test_1669/base_mask.png) |
+
+原预测使用保存 PNG；它与保存概率再取 >0.5 相差 5 像素。候选筛选仍沿用建池时的 prob>0.5，最终结果与统一指标均沿用保存 PNG。
+
+HTML 版提供同一组相对路径 PNG 的图层开关；下列静态图展示相同数据。
+
+### 1. 各来源候选
+
+H1 用 AnyChange（SAM ViT-H）比较两期特征；B 用 SAM3 六类语义做差；G0.05 从 prob>0.05 的连通域提出候选，筛掉被 prob>0.5 覆盖超过一半的区域；C1 找未匹配建筑实例，C2 找已匹配实例的外观差异。C2 沿用池中的原始集合。来源颜色：H1 橙、B 紫、G0.05 青、C 粉；黄线是真值。
+
+| H1 | B | G0.05 | C |
+| --- | --- | --- | --- |
+| ![H1](pipeline_figs/test_1669/source_H1.png) | ![B](pipeline_figs/test_1669/source_B.png) | ![G0.05](pipeline_figs/test_1669/source_G0.05.png) | ![C](pipeline_figs/test_1669/source_C.png) |
+
+| 来源 | 候选数 | 面积合计 px（含重叠） | 面积加权纯度 | 并集面积 px | 并集纯度 |
+| --- | --- | --- | --- | --- | --- |
+| H1 | 40 | 43073 | 83.18% | 24746 | 74.93% |
+| B | 57 | 17118 | 31.87% | 17118 | 31.87% |
+| G0.05 | 12 | 24381 | 78.72% | 24381 | 78.72% |
+| C | 10 | 118461 | 13.72% | 118415 | 13.73% |
+
+### 2. 全部候选
+
+| 全部来源及各来源轮廓 |
+| --- |
+| ![全部来源及各来源轮廓](pipeline_figs/test_1669/candidates_all.png) |
+
+候选共 119 个；去重并集 143448 像素，占全图 54.72%；并集里真变化占 17.31%。重叠区域可在图层开关中逐个查看来源。
+
+### 3. 全部补漏切块
+
+| 绿正、红负、灰无标签，白线切块边界 |
+| --- |
+| ![绿正、红负、灰无标签，白线切块边界](pipeline_figs/test_1669/pieces_all.png) |
+
+共 935 块：正 348、负 548、无标签 39。有标签正例率 38.84%；正块占全部切块 37.22%。≥50% 真值为正、<10% 为负，中间部分不用于监督训练，但继续参加推理。全来源均展示，重叠块保留各自 ID；标签色重叠时按 piece_id 后绘制者覆盖，边界取全部块轮廓。
+
+### 4. V1 打分热图
+
+| V1 全部补漏切块；重叠像素显示最高分 | V1 分数色条与精确阈值 |
+| --- | --- |
+| ![V1 全部补漏切块；重叠像素显示最高分](pipeline_figs/test_1669/v1_heat.png) | ![V1 分数色条与精确阈值](pipeline_figs/test_1669/v1_colourbar.png) |
+
+V1 none 阈值 0.819681704044342，来自 exp6/verifier/none/thresholds_second_cv.json 的 recall.B+G0.05+H1；白线只标出该组合中 score≥阈值的块。分数来自 none/second/scores.npz。C1/C2 分数也显示，结果比较固定使用 B+G0.05+H1。
+
+### 5. V2a 打分热图
+
+| V2a 同一批全部补漏切块 | sigmoid(logit 差) 色条 |
+| --- | --- |
+| ![V2a 同一批全部补漏切块](pipeline_figs/test_1669/v2a_heat.png) | ![sigmoid(logit 差) 色条](pipeline_figs/test_1669/v2a_colourbar.png) |
+
+复用 V2 384×384 红色轮廓裁块；不筛除无标签块。验证 recall-80 logit 差阈值为 -1.875，色条对应概率 0.132964240。接受规则直接比较 logit 差，白线同样只标 B+G0.05+H1；阈值出处为 exp6/v2/a/eval/sample/validation_thresholds.json。
+
+### 6. 补漏结果对比
+
+| 检测器原预测：F1 16.63%；ΔF1 +0.0000 点 | V1 none 补漏：F1 48.96%；ΔF1 +32.3296 点 | V2a 补漏（仅三图）：F1 62.65%；ΔF1 +46.0231 点 | oracle 补漏：F1 80.33%；ΔF1 +63.6991 点 |
+| --- | --- | --- | --- |
+| ![检测器原预测：F1 16.63%；ΔF1 +0.0000 点](pipeline_figs/test_1669/result_1.png) | ![V1 none 补漏：F1 48.96%；ΔF1 +32.3296 点](pipeline_figs/test_1669/result_5.png) | ![V2a 补漏（仅三图）：F1 62.65%；ΔF1 +46.0231 点](pipeline_figs/test_1669/result_v2a.png) | ![oracle 补漏：F1 80.33%；ΔF1 +63.6991 点](pipeline_figs/test_1669/result_2_BGH1.png) |
+
+绿 TP、红 FP、蓝 FN。三种补漏均使用 B+G0.05+H1；oracle 使用真值挑块。V1 与 V2a 各自沿用验证集已冻结的阈值，两者阈值选择目标不同。
+
+### 7. 边缘质量
+
+| 青框为放大窗口 |
+| --- |
+| ![青框为放大窗口](pipeline_figs/test_1669/edge_where.png) |
+
+放大框 xyxy=[368, 128, 496, 256]。128 像素窗口、步长 16，最大化 4_BGH1 与 4b_BGH1 边界异或像素数；同分先上后左。这是突出边缘变化的可复现展示规则，不宣称找到了人工感知上最锯齿的区域。红线为预测边界，黄线为真值；局部图下的 F1 是整图指标。
+
+| 检测器原预测：F1 16.63%；ΔF1 +0.0000 点 | oracle 两路：F1 80.51%；ΔF1 +63.8753 点 | oracle 两路：软边界：F1 71.91%；ΔF1 +55.2840 点 | oracle 两路：开闭运算：F1 80.16%；ΔF1 +63.5268 点 |
+| --- | --- | --- | --- |
+| ![检测器原预测：F1 16.63%；ΔF1 +0.0000 点](pipeline_figs/test_1669/edge_1.png) | ![oracle 两路：F1 80.51%；ΔF1 +63.8753 点](pipeline_figs/test_1669/edge_4_BGH1.png) | ![oracle 两路：软边界：F1 71.91%；ΔF1 +55.2840 点](pipeline_figs/test_1669/edge_4a_BGH1.png) | ![oracle 两路：开闭运算：F1 80.16%；ΔF1 +63.5268 点](pipeline_figs/test_1669/edge_4b_BGH1.png) |
+
+| oracle 补漏：F1 80.33%；ΔF1 +63.6991 点 | oracle 补漏：软边界：F1 71.74%；ΔF1 +55.1114 点 | oracle 补漏：开闭运算：F1 79.99%；ΔF1 +63.3572 点 |
+| --- | --- | --- |
+| ![oracle 补漏：F1 80.33%；ΔF1 +63.6991 点](pipeline_figs/test_1669/edge_2_BGH1.png) | ![oracle 补漏：软边界：F1 71.74%；ΔF1 +55.1114 点](pipeline_figs/test_1669/edge_2a_BGH1.png) | ![oracle 补漏：开闭运算：F1 79.99%；ΔF1 +63.3572 点](pipeline_figs/test_1669/edge_2b_BGH1.png) |
+
+直接调用 batch14 的 eval_metrics_run.reconstruct。2a/4a：已接受切块内保留 prob>0.05，再与该块外扩 2 像素相交；按此先后顺序，相交不会增加切块外像素。2b/4b：对最终整图做半径 2 欧氏圆盘开运算再闭运算，图外为背景。两路合并为 cleaned ∪ (accepted ∖ original)。
+
+### 8. 去误检分支
+
+| 检测器均值；白线为删除块 | 检测器均值阈值 | V1 分数；白线为删除块 | V1 删除阈值 |
+| --- | --- | --- | --- |
+| ![检测器均值；白线为删除块](pipeline_figs/test_1669/remove_detector_heat.png) | ![检测器均值阈值](pipeline_figs/test_1669/remove_detector_colourbar.png) | ![V1 分数；白线为删除块](pipeline_figs/test_1669/remove_v1_heat.png) | ![V1 删除阈值](pipeline_figs/test_1669/remove_v1_colourbar.png) |
+
+| 方式 | pred 块数 | 删除阈值（严格小于） | 删除块数 | 删除像素 | 阈值出处 |
+| --- | --- | --- | --- | --- | --- |
+| detector_mean | 25 | 0.501367211341858 | 0 | 0 | exp6/verifier/none/thresholds_second_cv.json: remove.detector_mean |
+| verifier | 25 | 0.772868573665619 | 1 | 26 | exp6/verifier/none/thresholds_second_cv.json: remove.verifier |
+
+pred 掩码与分数均按 6b 池的 image、piece_id 对应，使用 V1 none 的同一 scores.npz。6e 的独立 pieces.jsonl 编号不用于关联这些分数。两个删除阈值均由 297 张验证图的 micro F1 选定。V1 none 尚未用 pred 切块训练。
+
+| 检测器原预测：F1 16.63%；ΔF1 +0.0000 点 | 检测器平均概率去误检：F1 16.63%；ΔF1 +0.0000 点 | V1 去误检：F1 16.50%；ΔF1 -0.1327 点 | oracle 去误检：F1 16.69%；ΔF1 +0.0590 点 |
+| --- | --- | --- | --- |
+| ![检测器原预测：F1 16.63%；ΔF1 +0.0000 点](pipeline_figs/test_1669/result_1.png) | ![检测器平均概率去误检：F1 16.63%；ΔF1 +0.0000 点](pipeline_figs/test_1669/result_remove_detector_mean.png) | ![V1 去误检：F1 16.50%；ΔF1 -0.1327 点](pipeline_figs/test_1669/result_remove_verifier.png) | ![oracle 去误检：F1 16.69%；ΔF1 +0.0590 点](pipeline_figs/test_1669/result_3.png) |
+
+### 本图六个数
+
+前五项由 six_numbers 计算本图；最后一项为全测试集下降占比。V2a 只有三图推理，最后一项未评估。实际去误检两行另遍历完整测试集计算下降占比，并核对 6b 保存的 TP/FP/FN。
+
+| 结果 | 像素 F1 | IoU | BF2 | 目标 F1 | 新增误检目标 | 全测试集下降占比 | ΔF1 点 |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 检测器原预测 | 16.63% | 9.07% | 3.71% | 8.96% | 0 | 0.00% | +0.0000 |
+| V1 none 补漏 | 48.96% | 32.42% | 16.30% | 16.81% | 0 | 62.75% | +32.3296 |
+| V2a 补漏（仅三图） | 62.65% | 45.62% | 29.91% | 37.04% | 3 | 未评估 | +46.0231 |
+| oracle 补漏 | 80.33% | 67.13% | 50.11% | 66.47% | 0 | 2.13% | +63.6991 |
+| oracle 去误检 | 16.69% | 9.10% | 3.76% | 9.02% | 0 | 0.06% | +0.0590 |
+| oracle 两路 | 80.51% | 67.37% | 50.55% | 67.59% | 0 | 0.18% | +63.8753 |
+| oracle 补漏：软边界 | 71.74% | 55.94% | 26.76% | 31.01% | 0 | 2.18% | +55.1114 |
+| oracle 补漏：开闭运算 | 79.99% | 66.65% | 47.55% | 58.96% | 0 | 5.55% | +63.3572 |
+| oracle 两路：软边界 | 71.91% | 56.15% | 27.05% | 31.50% | 0 | 0.06% | +55.2840 |
+| oracle 两路：开闭运算 | 80.16% | 66.89% | 47.96% | 60.00% | 0 | 0.94% | +63.5268 |
+| 检测器平均概率去误检 | 16.63% | 9.07% | 3.71% | 8.96% | 0 | 10.68% | +0.0000 |
+| V1 去误检 | 16.50% | 8.99% | 3.71% | 8.96% | 0 | 19.89% | -0.1327 |
+
+来源：[本图六数与各行下降占比出处](pipeline_figs/test_1669/example.json)；[统一指标全测试集汇总副本](pipeline_figs/eval_metrics_summary.json)；[实际去误检全测试集汇总](pipeline_figs/removal_summary.json)。
+
+## E2 · test_365.png · V1 ΔF1 -29.1367 点
+
+来源：[本图数字与规则](pipeline_figs/test_365/example.json)；[全部切块分数](pipeline_figs/test_365/pieces.json)。
+
+| t1 | t2 | gt | prob | base_mask |
+| --- | --- | --- | --- | --- |
+| ![t1](pipeline_figs/test_365/t1.png) | ![t2](pipeline_figs/test_365/t2.png) | ![gt](pipeline_figs/test_365/gt.png) | ![prob](pipeline_figs/test_365/prob.png) | ![base_mask](pipeline_figs/test_365/base_mask.png) |
+
+原预测使用保存 PNG；它与保存概率再取 >0.5 相差 0 像素。候选筛选仍沿用建池时的 prob>0.5，最终结果与统一指标均沿用保存 PNG。
+
+HTML 版提供同一组相对路径 PNG 的图层开关；下列静态图展示相同数据。
+
+### 1. 各来源候选
+
+H1 用 AnyChange（SAM ViT-H）比较两期特征；B 用 SAM3 六类语义做差；G0.05 从 prob>0.05 的连通域提出候选，筛掉被 prob>0.5 覆盖超过一半的区域；C1 找未匹配建筑实例，C2 找已匹配实例的外观差异。C2 沿用池中的原始集合。来源颜色：H1 橙、B 紫、G0.05 青、C 粉；黄线是真值。
+
+| H1 | B | G0.05 | C |
+| --- | --- | --- | --- |
+| ![H1](pipeline_figs/test_365/source_H1.png) | ![B](pipeline_figs/test_365/source_B.png) | ![G0.05](pipeline_figs/test_365/source_G0.05.png) | ![C](pipeline_figs/test_365/source_C.png) |
+
+| 来源 | 候选数 | 面积合计 px（含重叠） | 面积加权纯度 | 并集面积 px | 并集纯度 |
+| --- | --- | --- | --- | --- | --- |
+| H1 | 129 | 55176 | 0.00% | 44352 | 0.00% |
+| B | 162 | 70210 | 0.00% | 70210 | 0.00% |
+| G0.05 | 47 | 23587 | 0.00% | 23587 | 0.00% |
+| C | 75 | 163341 | 0.12% | 147441 | 0.13% |
+
+### 2. 全部候选
+
+| 全部来源及各来源轮廓 |
+| --- |
+| ![全部来源及各来源轮廓](pipeline_figs/test_365/candidates_all.png) |
+
+候选共 413 个；去重并集 203077 像素，占全图 77.47%；并集里真变化占 0.10%。重叠区域可在图层开关中逐个查看来源。
+
+### 3. 全部补漏切块
+
+| 绿正、红负、灰无标签，白线切块边界 |
+| --- |
+| ![绿正、红负、灰无标签，白线切块边界](pipeline_figs/test_365/pieces_all.png) |
+
+共 1760 块：正 2、负 1755、无标签 3。有标签正例率 0.11%；正块占全部切块 0.11%。≥50% 真值为正、<10% 为负，中间部分不用于监督训练，但继续参加推理。全来源均展示，重叠块保留各自 ID；标签色重叠时按 piece_id 后绘制者覆盖，边界取全部块轮廓。
+
+### 4. V1 打分热图
+
+| V1 全部补漏切块；重叠像素显示最高分 | V1 分数色条与精确阈值 |
+| --- | --- |
+| ![V1 全部补漏切块；重叠像素显示最高分](pipeline_figs/test_365/v1_heat.png) | ![V1 分数色条与精确阈值](pipeline_figs/test_365/v1_colourbar.png) |
+
+V1 none 阈值 0.819681704044342，来自 exp6/verifier/none/thresholds_second_cv.json 的 recall.B+G0.05+H1；白线只标出该组合中 score≥阈值的块。分数来自 none/second/scores.npz。C1/C2 分数也显示，结果比较固定使用 B+G0.05+H1。
+
+### 5. V2a 打分热图
+
+| V2a 同一批全部补漏切块 | sigmoid(logit 差) 色条 |
+| --- | --- |
+| ![V2a 同一批全部补漏切块](pipeline_figs/test_365/v2a_heat.png) | ![sigmoid(logit 差) 色条](pipeline_figs/test_365/v2a_colourbar.png) |
+
+复用 V2 384×384 红色轮廓裁块；不筛除无标签块。验证 recall-80 logit 差阈值为 -1.875，色条对应概率 0.132964240。接受规则直接比较 logit 差，白线同样只标 B+G0.05+H1；阈值出处为 exp6/v2/a/eval/sample/validation_thresholds.json。
+
+### 6. 补漏结果对比
+
+| 检测器原预测：F1 92.70%；ΔF1 +0.0000 点 | V1 none 补漏：F1 63.56%；ΔF1 -29.1367 点 | V2a 补漏（仅三图）：F1 20.08%；ΔF1 -72.6155 点 | oracle 补漏：F1 92.70%；ΔF1 +0.0000 点 |
+| --- | --- | --- | --- |
+| ![检测器原预测：F1 92.70%；ΔF1 +0.0000 点](pipeline_figs/test_365/result_1.png) | ![V1 none 补漏：F1 63.56%；ΔF1 -29.1367 点](pipeline_figs/test_365/result_5.png) | ![V2a 补漏（仅三图）：F1 20.08%；ΔF1 -72.6155 点](pipeline_figs/test_365/result_v2a.png) | ![oracle 补漏：F1 92.70%；ΔF1 +0.0000 点](pipeline_figs/test_365/result_2_BGH1.png) |
+
+绿 TP、红 FP、蓝 FN。三种补漏均使用 B+G0.05+H1；oracle 使用真值挑块。V1 与 V2a 各自沿用验证集已冻结的阈值，两者阈值选择目标不同。
+
+### 7. 边缘质量
+
+| 青框为放大窗口 |
+| --- |
+| ![青框为放大窗口](pipeline_figs/test_365/edge_where.png) |
+
+放大框 xyxy=[176, 208, 304, 336]。128 像素窗口、步长 16，最大化 4_BGH1 与 4b_BGH1 边界异或像素数；同分先上后左。这是突出边缘变化的可复现展示规则，不宣称找到了人工感知上最锯齿的区域。红线为预测边界，黄线为真值；局部图下的 F1 是整图指标。
+
+| 检测器原预测：F1 92.70%；ΔF1 +0.0000 点 | oracle 两路：F1 93.46%；ΔF1 +0.7576 点 | oracle 两路：软边界：F1 93.46%；ΔF1 +0.7576 点 | oracle 两路：开闭运算：F1 93.56%；ΔF1 +0.8668 点 |
+| --- | --- | --- | --- |
+| ![检测器原预测：F1 92.70%；ΔF1 +0.0000 点](pipeline_figs/test_365/edge_1.png) | ![oracle 两路：F1 93.46%；ΔF1 +0.7576 点](pipeline_figs/test_365/edge_4_BGH1.png) | ![oracle 两路：软边界：F1 93.46%；ΔF1 +0.7576 点](pipeline_figs/test_365/edge_4a_BGH1.png) | ![oracle 两路：开闭运算：F1 93.56%；ΔF1 +0.8668 点](pipeline_figs/test_365/edge_4b_BGH1.png) |
+
+| oracle 补漏：F1 92.70%；ΔF1 +0.0000 点 | oracle 补漏：软边界：F1 92.70%；ΔF1 +0.0000 点 | oracle 补漏：开闭运算：F1 93.08%；ΔF1 +0.3827 点 |
+| --- | --- | --- |
+| ![oracle 补漏：F1 92.70%；ΔF1 +0.0000 点](pipeline_figs/test_365/edge_2_BGH1.png) | ![oracle 补漏：软边界：F1 92.70%；ΔF1 +0.0000 点](pipeline_figs/test_365/edge_2a_BGH1.png) | ![oracle 补漏：开闭运算：F1 93.08%；ΔF1 +0.3827 点](pipeline_figs/test_365/edge_2b_BGH1.png) |
+
+直接调用 batch14 的 eval_metrics_run.reconstruct。2a/4a：已接受切块内保留 prob>0.05，再与该块外扩 2 像素相交；按此先后顺序，相交不会增加切块外像素。2b/4b：对最终整图做半径 2 欧氏圆盘开运算再闭运算，图外为背景。两路合并为 cleaned ∪ (accepted ∖ original)。
+
+### 8. 去误检分支
+
+| 检测器均值；白线为删除块 | 检测器均值阈值 | V1 分数；白线为删除块 | V1 删除阈值 |
+| --- | --- | --- | --- |
+| ![检测器均值；白线为删除块](pipeline_figs/test_365/remove_detector_heat.png) | ![检测器均值阈值](pipeline_figs/test_365/remove_detector_colourbar.png) | ![V1 分数；白线为删除块](pipeline_figs/test_365/remove_v1_heat.png) | ![V1 删除阈值](pipeline_figs/test_365/remove_v1_colourbar.png) |
+
+| 方式 | pred 块数 | 删除阈值（严格小于） | 删除块数 | 删除像素 | 阈值出处 |
+| --- | --- | --- | --- | --- | --- |
+| detector_mean | 39 | 0.501367211341858 | 0 | 0 | exp6/verifier/none/thresholds_second_cv.json: remove.detector_mean |
+| verifier | 39 | 0.772868573665619 | 0 | 0 | exp6/verifier/none/thresholds_second_cv.json: remove.verifier |
+
+pred 掩码与分数均按 6b 池的 image、piece_id 对应，使用 V1 none 的同一 scores.npz。6e 的独立 pieces.jsonl 编号不用于关联这些分数。两个删除阈值均由 297 张验证图的 micro F1 选定。V1 none 尚未用 pred 切块训练。
+
+| 检测器原预测：F1 92.70%；ΔF1 +0.0000 点 | 检测器平均概率去误检：F1 92.70%；ΔF1 +0.0000 点 | V1 去误检：F1 92.70%；ΔF1 +0.0000 点 | oracle 去误检：F1 93.46%；ΔF1 +0.7576 点 |
+| --- | --- | --- | --- |
+| ![检测器原预测：F1 92.70%；ΔF1 +0.0000 点](pipeline_figs/test_365/result_1.png) | ![检测器平均概率去误检：F1 92.70%；ΔF1 +0.0000 点](pipeline_figs/test_365/result_remove_detector_mean.png) | ![V1 去误检：F1 92.70%；ΔF1 +0.0000 点](pipeline_figs/test_365/result_remove_verifier.png) | ![oracle 去误检：F1 93.46%；ΔF1 +0.7576 点](pipeline_figs/test_365/result_3.png) |
+
+### 本图六个数
+
+前五项由 six_numbers 计算本图；最后一项为全测试集下降占比。V2a 只有三图推理，最后一项未评估。实际去误检两行另遍历完整测试集计算下降占比，并核对 6b 保存的 TP/FP/FN。
+
+| 结果 | 像素 F1 | IoU | BF2 | 目标 F1 | 新增误检目标 | 全测试集下降占比 | ΔF1 点 |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 检测器原预测 | 92.70% | 86.39% | 42.46% | 25.00% | 0 | 0.00% | +0.0000 |
+| V1 none 补漏 | 63.56% | 46.59% | 20.82% | 22.22% | 1 | 62.75% | -29.1367 |
+| V2a 补漏（仅三图） | 20.08% | 11.16% | 3.11% | 1.89% | 98 | 未评估 | -72.6155 |
+| oracle 补漏 | 92.70% | 86.39% | 42.46% | 25.00% | 0 | 2.13% | +0.0000 |
+| oracle 去误检 | 93.46% | 87.71% | 48.88% | 40.00% | 0 | 0.06% | +0.7576 |
+| oracle 两路 | 93.46% | 87.71% | 48.88% | 40.00% | 0 | 0.18% | +0.7576 |
+| oracle 补漏：软边界 | 92.70% | 86.39% | 42.46% | 25.00% | 0 | 2.18% | +0.0000 |
+| oracle 补漏：开闭运算 | 93.08% | 87.06% | 45.28% | 100.00% | 0 | 5.55% | +0.3827 |
+| oracle 两路：软边界 | 93.46% | 87.71% | 48.88% | 40.00% | 0 | 0.06% | +0.7576 |
+| oracle 两路：开闭运算 | 93.56% | 87.91% | 49.26% | 100.00% | 0 | 0.94% | +0.8668 |
+| 检测器平均概率去误检 | 92.70% | 86.39% | 42.46% | 25.00% | 0 | 10.68% | +0.0000 |
+| V1 去误检 | 92.70% | 86.39% | 42.46% | 25.00% | 0 | 19.89% | +0.0000 |
+
+来源：[本图六数与各行下降占比出处](pipeline_figs/test_365/example.json)；[统一指标全测试集汇总副本](pipeline_figs/eval_metrics_summary.json)；[实际去误检全测试集汇总](pipeline_figs/removal_summary.json)。
+
+## MLLM 验证器：真实输入、生成回答与分数
+
+在三图全部有标签补漏切块中，优先选 V2a 验证 recall-80 阈值下的正例答对、负例答错；再尝试正例答错、负例答对；否则各取一正一负。各桶取离阈值最远者，同分按图名、piece_id 升序。此处答对指阈值分类，生成答案另行报告；仅作展示。
+
+V2a 只答是/否，本身没有理由；V2b 先写理由后答；V2c 先答后写理由。下文原文来自 model.generate，不用标签模板冒充回答。打分单独复用 score_one：a/c 在答案前缀后比较首词元，b 先生成至“答案：”再比较；b 的打分理由也保留。完整生成与打分是两次调用，表中同时报告自然生成答案和验证阈值判断。
+
+### test_987.png / 切块 344 / 正例
+
+来源 G0.05，面积 289，真值占比 100.00%，crop=[76, 229, 144, 297]。
+
+| 实际 t1 输入，384×384 | 实际 t2 输入，384×384 |
+| --- | --- |
+| ![实际 t1 输入，384×384](pipeline_figs/mllm/test_987_344/t1.png) | ![实际 t2 输入，384×384](pipeline_figs/mllm/test_987_344/t2.png) |
+
+| 版本 | logit 差 | sigmoid 分数 | 验证阈值 | 阈值判断 / 对错 | 生成答案 / 对错 | 达到长度上限 |
+| --- | --- | --- | --- | --- | --- | --- |
+| V2a | 1.75 | 0.851952802 | -1.875 | 1 / True | 1 / True | False |
+| V2b | 17.75 | 0.99999998 | -20.0 | 1 / True | 1 / True | False |
+| V2c | 1.5 | 0.817574476 | -1.875 | 1 / True | 1 / True | False |
+
+判断 1=是、0=否；None 表示未解析到合法答案，不计为答对。达到长度上限表示回答可能截断，原文完整保留。
+
+#### V2a 完整提示词
+
+输入顺序：Image 1 (T1, earlier): → t1；Image 2 (T2, later): → t2；以下正文。assistant 预填前缀：答案：；enable_thinking=False。
+
+```text
+Image 1 and Image 2 are co-registered remote-sensing images of the same area: Image 1 is the earlier date (T1) and Image 2 the later date (T2). The red contour marks the same location in both.
+Question: inside the red contour, is there a real land-cover change between T1 and T2, for example a building constructed or demolished, a road or other hard surface built, vegetation cleared or planted, water area changed, or bare land converted? Ignore differences caused only by illumination, seasonal colour of the same vegetation, shadows, vehicles, or slight misregistration.
+
+只判断红色轮廓内的地物变化。最后一行只写“答案：是”或“答案：否”。
 ```
 
-**负例**：真值未变化
+#### V2a 原始生成文本（不含预填前缀）
 
-| t1 裁图 | t2 裁图 | 切块掩码 | 检测器概率 |
-|:---:|:---:|:---:|:---:|
-| <img src="pipeline_figs/test_987/v_neg_t1.jpg" width="160"> | <img src="pipeline_figs/test_987/v_neg_t2.jpg" width="160"> | <img src="pipeline_figs/test_987/v_neg_mask.jpg" width="160"> | <img src="pipeline_figs/test_987/v_neg_prob.jpg" width="160"> |
-
-```json
-{
-  "image": "test_987.png",
-  "source": "H1",
-  "piece_bbox_xyxy": [118, 291, 174, 356],
-  "piece_area_px": 997,
-  "crop_xyxy": [16, 194, 276, 454],
-  "crop_side_px": 260,
-  "detector_prob": {"mean": 0.0202, "max": 0.0945, "p90": 0.041},
-  "label_rule": "gt_frac >= 0.5 -> 1, < 0.1 -> 0",
-  "gt_frac": 0.0,
-  "label": 0
-}
-```
-
-两段 JSON 是这两个切块的真实记录。`gt_frac`、`label`、`transition` 来自真值，只在训练时作标签，推理时验证器看不到。
-
-**验证器 V1 的结构**
+```text
+是
 
 ```
-t1 裁图 → 冻结骨干（SAM ViT-H 或 RemoteCLIP）→ 在切块掩码内平均 → f1
-t2 裁图 → 同一骨干                          → 在切块掩码内平均 → f2
-[f1, f2, |f1 − f2|, 检测器概率统计] → 2–3 层 MLP → P(真变化)
+
+来源：[原始回答文件](pipeline_figs/mllm/test_987_344/a_raw.txt)；[序列化完整模型输入](pipeline_figs/mllm/test_987_344/a_model_input.txt)；[提示词文件](pipeline_figs/mllm/test_987_344/a_prompt.txt)；[逐项记录](pipeline_figs/mllm/test_987_344/a.json)。
+
+#### V2b 完整提示词
+
+输入顺序：Image 1 (T1, earlier): → t1；Image 2 (T2, later): → t2；以下正文。assistant 预填前缀：无；enable_thinking=False。
+
+```text
+Image 1 and Image 2 are co-registered remote-sensing images of the same area: Image 1 is the earlier date (T1) and Image 2 the later date (T2). The red contour marks the same location in both.
+Question: inside the red contour, is there a real land-cover change between T1 and T2, for example a building constructed or demolished, a road or other hard surface built, vegetation cleared or planted, water area changed, or bare land converted? Ignore differences caused only by illumination, seasonal colour of the same vegetation, shadows, vehicles, or slight misregistration.
+
+只判断红色轮廓内的地物变化。先用一句中文说明两期地物及变化类型；无变化时说明仅色调或成像差异。最后另起一行写“答案：是”或“答案：否”。
 ```
 
-输出示例（结构）：`{"image": "test_987.png", "piece_bbox_xyxy": [...], "p_change": ⏳ 待 6b}`
+#### V2b 原始生成文本（不含预填前缀）
 
-- ⚠️ 不训练、直接用现成信号打分，最好也只有 AUC 0.85；召回 80% 时误检率至少 29%，补进去会让 F1 下降（`exp5b_confirm.md`）
-- 目标：被放过的切块中，真变化像素超过 F1/2（SECOND 约 37%）（`exp5c_end_to_end.md`）
-- ⏳ V1 的 AUC、召回 80% / 90% 时误检率、像素精度：待 6b（`exp6b_verifier.md`）
+```text
+t1 为非植被地表，t2 为建筑，地物类别改变，是真实变化（新建建筑）。
+答案：是
 
-⬇️ 按分数分两路处理
-
-## ⑥a 补漏：高分切块直接并入
-
-- **输入**：检测器二值图 + 分数高于阈值的候选切块
-- **输出**：补漏后的二值图 512×512（按位“或”）
-
-| 补之前：F1 58.5（召回 53.8） | oracle 补之后：F1 77.4（召回 88.3） |
-|:---:|:---:|
-| <img src="pipeline_figs/test_987/merge_before.jpg" width="300"> | <img src="pipeline_figs/test_987/merge_after.jpg" width="300"> |
-
-很多蓝色漏检变成了绿色。
-
-- 全测试集 oracle 上界：ΔF1 +6.96（B + G0.05），再加 H1 为 +8.50（`exp5c_end_to_end.md`）
-- ⚠️ 不用真值、只按检测器概率挑块：最好也是 −0.73，所以必须训练验证器（`exp5c_end_to_end.md`）
-- ⏳ 用验证器 V1 挑块的实际 ΔF1：待 6b
-
-## ⑥b 去误检：低分切块删掉
-
-- **输入**：检测器二值图；它的每个连通区域按第 ④ 步切细，再用同一验证器打分
-- **输出**：去误检后的二值图 512×512
-
-| 检测器预测区域切块（红 = oracle 要删，绿 = 保留） | oracle 删之后：F1 66.6（精度 64.2 → 88.1） |
-|:---:|:---:|
-| <img src="pipeline_figs/test_987/fp_pieces.jpg" width="300"> | <img src="pipeline_figs/test_987/fp_after.jpg" width="300"> |
-
-- 全测试集 oracle 上界：SECOND +5.74，SYSU +4.07；只删“整块都错”的区域：+2.43 / +1.17（`exp6e_fp_removal.md`）
-- ⏳ 验证器实际效果，以及对照基线（只按检测器自己的概率删块）：待 6e
-
-⬇️
-
-## ⑦ 最终变化图
-
-| 检测器原始结果：F1 58.5 | 两路都做（oracle）：F1 85.9 | 最终二值图 |
-|:---:|:---:|:---:|
-| <img src="pipeline_figs/test_987/errors.jpg" width="240"> | <img src="pipeline_figs/test_987/final.jpg" width="240"> | <img src="pipeline_figs/test_987/final_mask.jpg" width="240"> |
-
-| 本图（test_987） | F1 | 精度 | 召回 |
-|---|---:|---:|---:|
-| 检测器 | 58.51 | 64.18 | 53.75 |
-| + oracle 补漏 | 77.44 | 68.98 | 88.26 |
-| + oracle 去误检 | 66.63 | 88.05 | 53.59 |
-| 两路都做 | 85.92 | 83.85 | 88.10 |
-
-这张图是挑出来演示用的，漏检和误检都多，所以提升比全测试集平均大得多。
-
-- ⏳ 全测试集上用验证器两路都做的 F1；换检测器（SCanNet）、换数据集（SYSU 等）后是否仍有提升；LEVIR/WHU 上是否不下降：待 6c、6e
-
----
-
-# 图 2　训练流程（验证器怎么训出来）
-
-只用 SECOND 训练集，测试集不参与训练和调阈值。难点：官方检测器就是在训练集上训的，在训练图上几乎不漏检；直接在训练图上找候选，得到的样本和测试时完全不一样。所以先做交叉拟合。
-
-## ① SECOND 训练集（已就绪）
-
-- **输入**：2,968 对 t1、t2（512×512），每对都有真值变化图和两期语义标签
-- **输出**：按图像划分好的 3 折
-
-| t1（train_1010） | t2 | 真值变化图 | t1 语义标签 | t2 语义标签 |
-|:---:|:---:|:---:|:---:|:---:|
-| <img src="pipeline_figs/train_example/t1.jpg" width="150"> | <img src="pipeline_figs/train_example/t2.jpg" width="150"> | <img src="pipeline_figs/train_example/gt.jpg" width="150"> | <img src="pipeline_figs/train_example/sem_t1.jpg" width="150"> | <img src="pipeline_figs/train_example/sem_t2.jpg" width="150"> |
-| | | 用来给切块打正负标签 | | 用来给正例写“前是什么、后是什么”（V2 用） |
-
-⬇️
-
-## ② 交叉拟合检测器（已完成，50k / 50k 步）
-
-- **输入**：其中 2 折的影像和标签
-- **输出**：3 个 MambaSCD-Base，每个只在“没见过”的那一折上输出概率图和二值图（512×512）。三折拼起来，就是整个训练集的“测试式”检测结果。
-
-| 折 | 训练 | 选模型（内部验证） | 留出预测 |
-|---|---:|---:|---:|
-| fold0 | 1879 | 99 | 990 |
-| fold1 | 1880 | 99 | 989 |
-| fold2 | 1880 | 99 | 989 |
-
-三折的留出部分互不重叠，合起来正好是全部 2,968 张。另从训练集按图像划出 297 张，作验证器的验证集（选阈值、早停）。
-
-**训练配置**（fold0 真实记录，官方超参）：
-
-```json
-{
-  "model_type": "MambaSCD_Base",
-  "encoder_pretrained_path": "/guisongxia01/pangchao/wangyihan/models/VMamba/vssm_base_0229_ckpt_epoch_237.pth",
-  "max_iters": 50000,
-  "global_batch_size": 16,
-  "batch_size": 8,
-  "world_size": 2,
-  "learning_rate": 0.0001,
-  "weight_decay": 0.005,
-  "lr_step_size": 10000,
-  "crop_size": 512,
-  "fold": 0
-}
 ```
 
-与官方的一处差别：官方单卡 batch 16，这里 2 卡 × 8（总数仍为 16），所以 BatchNorm 每卡只看到 8 张。
+用于 logit 打分的原始理由生成；状态：generated_marker
 
-**内部验证 SeK**（每 500 步评一次，下表每 6k 步取一个点）：
+```text
+t1 为非植被地表，t2 为建筑，地物类别改变，是真实变化（新建建筑）。
+答案：
+```
 
-| 步数 | 6k | 12k | 18k | 24k | 30k | 36k | 42k | 50k | 最好（步数） |
-|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| fold0 | 0.226 | 0.220 | 0.209 | 0.218 | 0.212 | 0.208 | 0.212 | 0.210 | 0.226（6k） |
-| fold1 | 0.173 | 0.182 | 0.191 | 0.190 | 0.190 | 0.189 | 0.190 | 0.190 | 0.198（10k） |
-| fold2 | 0.246 | 0.236 | 0.228 | 0.233 | 0.237 | 0.236 | 0.237 | 0.236 | 0.246（6k） |
+来源：[原始回答文件](pipeline_figs/mllm/test_987_344/b_raw.txt)；[序列化完整模型输入](pipeline_figs/mllm/test_987_344/b_model_input.txt)；[提示词文件](pipeline_figs/mllm/test_987_344/b_prompt.txt)；[逐项记录](pipeline_figs/mllm/test_987_344/b.json)。
 
-三折的最好 SeK 都出现在 6k–10k 步，之后基本持平。
+#### V2c 完整提示词
 
-**留出折检测结果**（三折拼起来覆盖全部 2,968 张训练图，`exp6a_pool.md`）：
+输入顺序：Image 1 (T1, earlier): → t1；Image 2 (T2, later): → t2；以下正文。assistant 预填前缀：答案：；enable_thinking=False。
 
-| | F1 | 精度 | 召回 | 无信号漏检占真值像素 |
-|---|---:|---:|---:|---:|
-| train 交叉拟合（留出折） | 71.04 | 76.98 | 65.96 | 17.83% |
-| test（官方权重） | 74.17 | 77.56 | 71.05 | 14.86% |
+```text
+Image 1 and Image 2 are co-registered remote-sensing images of the same area: Image 1 is the earlier date (T1) and Image 2 the later date (T2). The red contour marks the same location in both.
+Question: inside the red contour, is there a real land-cover change between T1 and T2, for example a building constructed or demolished, a road or other hard surface built, vegetation cleared or planted, water area changed, or bare land converted? Ignore differences caused only by illumination, seasonal colour of the same vegetation, shadows, vehicles, or slight misregistration.
 
-分布接近，交叉拟合达到了目的：检测器在没见过的训练图上同样会漏检。差别集中在召回，因为每折只用了 63% 的训练图。
+只判断红色轮廓内的地物变化。先写“答案：是”或“答案：否”，再另起一行用一句中文说明两期地物及变化类型；无变化时说明仅色调或成像差异。
+```
 
-⬇️
+#### V2c 原始生成文本（不含预填前缀）
 
-## ③ 训练候选池：在留出预测上重跑图 1 的 ③④（待做）
+```text
+是
+t1 为非植被地表，t2 为建筑，地物类别改变，是真实变化（新建建筑）。
 
-- **输入**：训练图 + 交叉拟合检测器的输出
-- **输出**：所有切块，每块带来源、面积、所在图像、检测器概率统计（格式同图 1 第 ⑤ 步的 JSON）
-- ⏳ 训练图上的候选与切块示意图；训练池与测试池的分布对比（正例率、检测器概率、来源占比、面积）：待 6a
+```
 
-⬇️
+来源：[原始回答文件](pipeline_figs/mllm/test_987_344/c_raw.txt)；[序列化完整模型输入](pipeline_figs/mllm/test_987_344/c_model_input.txt)；[提示词文件](pipeline_figs/mllm/test_987_344/c_prompt.txt)；[逐项记录](pipeline_figs/mllm/test_987_344/c.json)。
 
-## ④ 自动打标签（待做）
+### test_365.png / 切块 562 / 负例
 
-- **输入**：切块 + 训练集真值变化图（+ 两期语义标签）
-- **输出**：每块一个 0/1 标签；不人工标注，也不做正负样本平衡，保持真实比例
+来源 G0.05，面积 285，真值占比 0.00%，crop=[433, 382, 501, 450]。
 
-规则示意（用的是图 1 第 ④ 步的测试图，训练图的版本待 6a）：块内真变化 ≥ 50% → 1（绿），< 10% → 0（红），其余丢弃（灰）。
+| 实际 t1 输入，384×384 | 实际 t2 输入，384×384 |
+| --- | --- |
+| ![实际 t1 输入，384×384](pipeline_figs/mllm/test_365_562/t1.png) | ![实际 t2 输入，384×384](pipeline_figs/mllm/test_365_562/t2.png) |
 
-<img src="pipeline_figs/test_987/split_pieces.jpg" width="260">
+| 版本 | logit 差 | sigmoid 分数 | 验证阈值 | 阈值判断 / 对错 | 生成答案 / 对错 | 达到长度上限 |
+| --- | --- | --- | --- | --- | --- | --- |
+| V2a | 1.125 | 0.754914987 | -1.875 | 1 / False | 1 / False | False |
+| V2b | 15.625 | 0.999999836 | -20.0 | 1 / False | 1 / False | False |
+| V2c | 0.75 | 0.679178699 | -1.875 | 1 / False | 1 / False | False |
 
-⬇️
+判断 1=是、0=否；None 表示未解析到合法答案，不计为答对。达到长度上限表示回答可能截断，原文完整保留。
 
-## ⑤ 训练验证器（待做）
+#### V2a 完整提示词
 
-- **输入**：带标签的切块（图 1 第 ⑤ 步那样的裁图 + JSON）
-- **输出**：验证器权重，以及在 297 张验证图上选出的阈值，供图 1 第 ⑥ 步使用
+输入顺序：Image 1 (T1, earlier): → t1；Image 2 (T2, later): → t2；以下正文。assistant 预填前缀：答案：；enable_thinking=False。
 
-| 版本 | 做法 | 状态 |
-|---|---|---|
-| V1（主力） | 冻结骨干 + MLP，结构见图 1 第 ⑤ 步。损失按真实正例率加权。 | 等 6a 的候选池 |
-| V2a | 本地 Qwen3.5-4B 用 LoRA 微调，只学回答“是 / 否” | V1 之后 |
-| V2b | 同上，但先学说“t1 是什么、t2 是什么”，再下结论（理由由语义标签自动生成） | V1 之后 |
-| V3（可选） | 在 V2b 基础上以“答对”为奖励做 GRPO 强化学习；仅当 V2b 明显好于 V2a 时做 | 视 V2 结果 |
+```text
+Image 1 and Image 2 are co-registered remote-sensing images of the same area: Image 1 is the earlier date (T1) and Image 2 the later date (T2). The red contour marks the same location in both.
+Question: inside the red contour, is there a real land-cover change between T1 and T2, for example a building constructed or demolished, a road or other hard surface built, vegetation cleared or planted, water area changed, or bare land converted? Ignore differences caused only by illumination, seasonal colour of the same vegetation, shadows, vehicles, or slight misregistration.
 
-- ⏳ 各版本在测试候选池上的 AUC、误检率、端到端 ΔF1：待 6b、V2、V3（`exp6b_verifier.md`）
+只判断红色轮廓内的地物变化。最后一行只写“答案：是”或“答案：否”。
+```
 
----
+#### V2a 原始生成文本（不含预填前缀）
 
-# 当前进度（2026-10-20 阶段性收尾）
+```text
+是
 
-| 步骤 | 状态 | 结果文件 |
-|---|---|---|
-| 第 0 步：资源与耗时评估 | 完成。卫星版 DINOv3 无下载权限；Zero-OVCD 无公开代码 | `env.md` |
-| 6a 交叉拟合候选池 | 三折检测器训练与留出折推理完成；训练候选池未建 | `exp6a_pool.md` |
-| 6b 验证器 V1 + 端到端 | 未开始（等 6a 候选池） | `exp6b_verifier.md` |
-| 6e 去误检 | oracle 上界完成；对照基线和验证器待做 | `exp6e_fp_removal.md` |
-| 6c 换检测器 / 换数据集 | SCanNet 代码和权重已就位 | `exp6c_generalization.md` |
-| 6d 新候选来源 | RingMo-SAM 待做；Zero-OVCD 停止 | `exp6d_backlog.md` |
-| 流程图 | 完成；验证器相关数字留空 | `pipeline.md`、`pipeline.html` |
+```
 
-配图由 `code/probe/exp6_pipeline_figs.py` 生成，均来自实验 4–6 的真实输出；标 oracle 的结果用了真值，只代表上界。
+来源：[原始回答文件](pipeline_figs/mllm/test_365_562/a_raw.txt)；[序列化完整模型输入](pipeline_figs/mllm/test_365_562/a_model_input.txt)；[提示词文件](pipeline_figs/mllm/test_365_562/a_prompt.txt)；[逐项记录](pipeline_figs/mllm/test_365_562/a.json)。
+
+#### V2b 完整提示词
+
+输入顺序：Image 1 (T1, earlier): → t1；Image 2 (T2, later): → t2；以下正文。assistant 预填前缀：无；enable_thinking=False。
+
+```text
+Image 1 and Image 2 are co-registered remote-sensing images of the same area: Image 1 is the earlier date (T1) and Image 2 the later date (T2). The red contour marks the same location in both.
+Question: inside the red contour, is there a real land-cover change between T1 and T2, for example a building constructed or demolished, a road or other hard surface built, vegetation cleared or planted, water area changed, or bare land converted? Ignore differences caused only by illumination, seasonal colour of the same vegetation, shadows, vehicles, or slight misregistration.
+
+只判断红色轮廓内的地物变化。先用一句中文说明两期地物及变化类型；无变化时说明仅色调或成像差异。最后另起一行写“答案：是”或“答案：否”。
+```
+
+#### V2b 原始生成文本（不含预填前缀）
+
+```text
+t1 为低矮植被，t2 为非植被地表，地物类别改变，是真实变化（地表与植被互变）。
+答案：是
+
+```
+
+用于 logit 打分的原始理由生成；状态：generated_marker
+
+```text
+t1 为低矮植被，t2 为非植被地表，地物类别改变，是真实变化（地表与植被互变）。
+答案：
+```
+
+来源：[原始回答文件](pipeline_figs/mllm/test_365_562/b_raw.txt)；[序列化完整模型输入](pipeline_figs/mllm/test_365_562/b_model_input.txt)；[提示词文件](pipeline_figs/mllm/test_365_562/b_prompt.txt)；[逐项记录](pipeline_figs/mllm/test_365_562/b.json)。
+
+#### V2c 完整提示词
+
+输入顺序：Image 1 (T1, earlier): → t1；Image 2 (T2, later): → t2；以下正文。assistant 预填前缀：答案：；enable_thinking=False。
+
+```text
+Image 1 and Image 2 are co-registered remote-sensing images of the same area: Image 1 is the earlier date (T1) and Image 2 the later date (T2). The red contour marks the same location in both.
+Question: inside the red contour, is there a real land-cover change between T1 and T2, for example a building constructed or demolished, a road or other hard surface built, vegetation cleared or planted, water area changed, or bare land converted? Ignore differences caused only by illumination, seasonal colour of the same vegetation, shadows, vehicles, or slight misregistration.
+
+只判断红色轮廓内的地物变化。先写“答案：是”或“答案：否”，再另起一行用一句中文说明两期地物及变化类型；无变化时说明仅色调或成像差异。
+```
+
+#### V2c 原始生成文本（不含预填前缀）
+
+```text
+是
+t1 为低矮植被，t2 为非植被地表，地物类别改变，是真实变化（地表与植被互变）。
+
+```
+
+来源：[原始回答文件](pipeline_figs/mllm/test_365_562/c_raw.txt)；[序列化完整模型输入](pipeline_figs/mllm/test_365_562/c_model_input.txt)；[提示词文件](pipeline_figs/mllm/test_365_562/c_prompt.txt)；[逐项记录](pipeline_figs/mllm/test_365_562/c.json)。
+
+本次 V2a 对三图共 4102 个补漏切块打分，其中无标签 201 个；本次作业记录耗时 10.8 分钟（含加载模型、打分和六次完整生成）。
+
+## 训练流程与当前证据
+
+```mermaid
+flowchart TD
+  n0["已完成 · SECOND 训练数据<br/>2,968 对影像；训练 / 验证器验证 = 2,671 / 297 张"]
+  n1["已完成 · 三折交叉拟合检测器<br/>各训练 50k 步；留出折输出合计覆盖 2,968 张，F1 71.04"]
+  n2["已完成 · 候选工具与切块池<br/>2,982,956 个补漏切块；有标签正例率约 15.27%"]
+  n3["已完成 · 自动标签<br/>块内真值 ≥50% 为正、<10% 为负；其余退出监督训练"]
+  n4["已完成 · 验证器 V1 none<br/>11 维：概率均值/最大/最小/P90、log 面积、6 维来源 → MLP"]
+  n5["已完成 · 验证器 V2a / V2b / V2c<br/>训练 24,000 块；冻结视觉编码器；语言部分 LoRA r=16、alpha=32"]
+  n6["已完成 · 验证集选择及测试评估<br/>V1 全测试集；V2 验证抽样 3,000 / 测试抽样 6,000"]
+  n0 --> n1
+  n1 --> n2
+  n2 --> n3
+  n3 --> n4
+  n3 --> n5
+  n4 --> n6
+  n5 --> n6
+```
+
+图中的 V1 和 V2 是同一候选池上的两种训练分支；V2 不接收 V1 的输出。交叉拟合只用于准备验证器训练数据，测试仍用官方检测器。SLIC 中位面积沿用实验 5c 冻结值 298，面积 >1192 才切细；补漏小于 10 像素的块不保留，pred 小块保留。
+
+V1 none 实际取 Pool.meta[:, :11]，包含六个来源指示（含 pred），不含是否切细。带骨干的 V1 还取两期切块/外接框池化特征、绝对差、余弦相似度和完整 12 维元数据。V1 为 512→256 隐层 MLP，dropout 0.15，按验证 AP 早停。V2 从验证器训练图中均匀无放回抽样，不做类别平衡；视觉编码器和原语言参数冻结，仅语言部分线性层 LoRA 可训练。正例理由由训练语义标签生成，负例用通用未变化理由；真值不进入推理输入。
+
+来源：[交叉拟合与候选池](exp6a_pool.md)；[V1 / V2 结果](exp6b_verifier.md)。
+
+训练规模与参数出处：exp6/v2/data/data_report.json、exp6/v2/{a,b,c}/best.json；冻结范围与输入实现：code/probe/exp6v2_common.py 的 load_model/input_batch、code/probe/exp6b_common.py 的 Features.batches。训练图交叉拟合 F1 71.04，测试 74.17；候选检测器概率中位数 0.0041 / 0.0371，提示概率刻度不同，但尚不能据此确认失败原因。
+
+| 模型 | 验证 AUC | 测试抽样 AUC | 验证 recall-80 阈值的测试 FPR | 实际测试召回 | 秒/块 | 验证+测试全池 GPU 小时估计 |
+| --- | --- | --- | --- | --- | --- | --- |
+| V2a | 0.8423 | 0.8139 | 30.91% | 78.35% | 0.44 | 328.6 |
+| V2b | 0.7987 | 0.7789 | 44.52% | 81.94% | 2.00 | 1495.0 |
+| V2c | 0.8387 | 0.8114 | 30.19% | 77.01% | 0.49 | 365.6 |
+
+V2 全池预计约 330–1,500 GPU 小时，包含 pred 和无标签块；因此已有评估只做抽样。V1 同一测试抽样 AUC 约 0.873，高于 V2。测试抽样按来源和标签分层，用总体权重统计；抽样分类结果不能代替全测试集端到端像素指标。本页额外仅跑三图全部补漏块。上表直接读取 exp6/v2/{a,b,c}/eval/sample/sample_report.json。
+
+## 全测试集统一指标
+
+| 行 | 设定 | 像素 F1 | IoU | BF2 | 目标 F1 | 每图新增误检目标均值 | 下降图占比 |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 1 | 检测器保存的 0.5 预测 | 74.17% | 58.94% | 34.83% | 50.97% | 0.000 | 0.00% |
+| 2_BG | oracle 补漏，B+G0.05 | 81.13% | 68.25% | 43.94% | 60.15% | 0.774 | 2.48% |
+| 2_BGH1 | oracle 补漏，B+G0.05+H1 | 82.67% | 70.45% | 45.81% | 61.46% | 0.740 | 2.13% |
+| 2a_BG | oracle 补漏，软边界，B+G0.05 | 80.24% | 67.00% | 42.48% | 58.83% | 0.811 | 2.72% |
+| 2a_BGH1 | oracle 补漏，软边界，B+G0.05+H1 | 81.19% | 68.34% | 43.78% | 59.43% | 0.900 | 2.18% |
+| 2b_BG | oracle 补漏，开闭运算，B+G0.05 | 80.73% | 67.69% | 43.21% | 64.36% | 0.040 | 11.87% |
+| 2b_BGH1 | oracle 补漏，开闭运算，B+G0.05+H1 | 82.30% | 69.92% | 45.23% | 66.12% | 0.034 | 5.55% |
+| 3 | oracle 切块去误检 | 79.91% | 66.54% | 40.10% | 49.32% | 0.248 | 0.06% |
+| 4_BG | oracle 两路，B+G0.05 | 86.84% | 76.75% | 49.44% | 60.11% | 0.504 | 0.18% |
+| 4_BGH1 | oracle 两路，B+G0.05+H1 | 88.37% | 79.16% | 51.40% | 62.13% | 0.486 | 0.18% |
+| 4a_BG | oracle 两路，软边界，B+G0.05 | 85.96% | 75.38% | 47.99% | 58.46% | 0.553 | 0.06% |
+| 4a_BGH1 | oracle 两路，软边界，B+G0.05+H1 | 86.91% | 76.85% | 49.35% | 59.41% | 0.596 | 0.06% |
+| 4b_BG | oracle 两路，开闭运算，B+G0.05 | 86.35% | 75.98% | 48.53% | 66.22% | 0.009 | 1.53% |
+| 4b_BGH1 | oracle 两路，开闭运算，B+G0.05+H1 | 87.91% | 78.43% | 50.67% | 68.99% | 0.008 | 0.94% |
+| 5 | V1 none，B+G0.05+H1 | 72.85% | 57.30% | 32.24% | 51.55% | 0.706 | 62.75% |
+| 6 | A2 DINOv3，B+G0.05，k=0.002 | 74.16% | 58.93% | 34.78% | 50.81% | 0.225 | 58.21% |
+
+来源：[实际读入的全测试集汇总](pipeline_figs/eval_metrics_summary.json)。
+
+BF2 使用掩码减 3×3 腐蚀提取边界，距离容差 2 像素；目标按二值 8 连通域，分别以覆盖/重叠 ≥50% 算召回/精度。新增误检目标按零真值重叠连通域数的正向净增量。全测试集像素、边界、目标指标均先累加计数再算 micro；下降占比按逐图 ΔF1<0。历史按语义转移拆分的目标召回，与此二值目标 F1 口径不同。
+
+## 当前进度（2026-10-21）
+
+| 部分 | 最新记录与结论 | 来源文件 |
+| --- | --- | --- |
+| 检测器与候选 | SECOND 检测器 F1 74.17；无信号漏检占真值像素 14.9%；四来源覆盖率 52.2%。 | summary.md；exp5a_anychange.md |
+| 6a | 交叉拟合、候选池和自动标签均完成；训练池 298 万补漏块，有标签正例率 15.27%。 | exp6a_pool.md |
+| 6b V1 | none 测试 AUC 0.8745；B+G0.05+H1 测试 ΔF1 −1.3127 点；骨干版本出现过拟合。 | exp6b_verifier.md；exp6/verifier/none/eval_second.json |
+| 6b V2 | a/b/c 训练和抽样评估完成，均低于同样本 V1；全测试集端到端 ⏳ 未做。 | exp6b_verifier.md 第4节；exp6/v2/*/eval/sample/sample_report.json |
+| 6e | oracle 去误检 SECOND +5.74、SYSU +4.07 点；SECOND 概率基线与 V1 实际去误检已完成，ΔF1 约0；pred 重训与 LEVIR/WHU ⏳。 | exp6e_fp_removal.md（oracle）；exp6b_verifier.md 第3节（较新实际结果） |
+| 6f | A1/A2、D、B1/B2、C 已完成；A3 ⏳。实际并入最接近零是 A2 DINOv3 B+G0.05，−0.00954 点；不并入的0不算收益。 | exp6f_v1_variants.md；exp6/variants/a2_dinov3/eval_second.json |
+| 6g | 320 个样本盲审页面已就绪；人工答案 ⏳ 未返回，干净子集统计 ⏳。 | ../audit/label_audit.html；../audit/samples.json |
+| 6h | 6h-1、6h-2 均完成：6h-1 G1-0/cos/sm 测试 ΔF1 −0.29/−0.17/−0.35 点；6h-2 原分辨率孪生网络各 λ 验证 AP 0.589–0.590，测试 AUC 0.867–0.869，ΔF1 约 0；L_t 无稳定收益。 | exp6h_temporal_consistency.md |
+| 6i | 配准诊断完成；可估计负例约57%偏移>3px，V1 AUC差约−0.029；可估计范围仅约11–12%，暂不处理。 | exp6i_misregistration.md |
+| 6c / 6d / V3 | 泛化数据与预测已准备，验证器泛化评估 ⏳；RingMo-SAM ⏳，Zero-OVCD 停止；V3 待定。 | summary.md；exp6d_backlog.md |
+
+进度与历史数字依据 2026-10-21 的结果文档。统一指标（eval_metrics）与实验 7 正在进行，本页“六个数”取自统一指标第一版（含 A–E 五组，BF d=1/4、拆分/粘连与 SAM 精修行待第二版）；实验 7 结果出来后补“掩码精修”一节。6e 旧页标题仍写只完成上界，本页同时采用更新的 6b 实际去误检记录。6g 没有人工答案，不能给出审核后的准确率或标签噪声结论。
+
+来源：[summary.md](summary.md)；[exp6a_pool.md](exp6a_pool.md)；[exp6b_verifier.md](exp6b_verifier.md)；[exp6e_fp_removal.md](exp6e_fp_removal.md)；[exp6f_v1_variants.md](exp6f_v1_variants.md)；[exp6h_temporal_consistency.md](exp6h_temporal_consistency.md)；[exp6i_misregistration.md](exp6i_misregistration.md)；[6g 审核页](../audit/label_audit.html)。
