@@ -7,8 +7,8 @@
 1. 进度总览：仓库 main 分支 `doc/research_progress.md`。
 2. 新实验任务：仓库 `ethan-404-sys/CD-Agent` main 分支的 `doc/exp8_object_pool.md`。
 3. 核对依据（main 分支）：`results/summary.md`、`results/exp2_oracle.md`、`results/exp5c_end_to_end.md`、`results/exp6b_verifier.md`、`results/exp6e_fp_removal.md`、`results/exp6f_v1_variants.md`、`results/exp6i_misregistration.md`、`results/env.md`、`doc/exp7_prompt_refinement.md`、`doc/eval_metrics.md`、`figures/exp6g/all_pieces/test_759/README.md`、`figures/exp6g/gt_clean/README.md`。
-4. 6g 人工审核：`audit/samples.json`、`audit/audit_answers.json`，以及项目文件 `label_noise/human_vs_gt.md`。
-5. 文献：你整理的论文知识库。
+4. 6g 人工审核：`audit/samples.json`、`audit/audit_answers.json`（人工答案与真值的对照需自行从这两个文件算出）。
+5. 文献：仓库内已有的文献笔记（如有）；凭自身知识补充的内容标注“（非仓库依据）”，不确定的不要写。
 
 ## 请逐项回答
 1. **数字核对**：进度总览和 exp8“为什么做”一节里的每个数字，能否在上面的结果文件中找到出处？列出找不到出处或与原文不符的数字，给出原文位置和正确值。
