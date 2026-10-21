@@ -1,8 +1,13 @@
-"""Calibrate on second_cv validation, then evaluate a frozen verifier on a target pool."""
+"""Calibrate on second_cv validation, then evaluate a frozen verifier on a target pool.
+
+Environment: exp5-env. CPU evaluation: about 8–16 GB, 0.5–3 h per dataset
+(unmeasured estimate); model scoring may use one GPU. Existing CLI is unchanged.
+"""
 from __future__ import annotations
 
 import argparse
 import json
+from pathlib import Path
 
 import numpy as np
 import torch
@@ -85,7 +90,7 @@ def threshold_grid(values, operation):
     return np.unique(np.r_[0.0, values, ABOVE_ONE])
 
 
-def curve_summary(thresholds, tp, fp, fn, base, operation, path):
+def curve_summary(thresholds, tp, fp, fn, base, operation, path, x_label="Threshold"):
     import matplotlib
     matplotlib.use("Agg")
     from matplotlib import pyplot as plt
@@ -111,10 +116,11 @@ def curve_summary(thresholds, tp, fp, fn, base, operation, path):
     figure, axis = plt.subplots(figsize=(7, 4))
     axis.plot(thresholds[shown], delta[shown] * 100, linewidth=1)
     axis.axhline(0, color="grey", linewidth=0.7)
-    axis.axvline(thresholds[best], color="tab:red", linestyle="--", label="Selected threshold")
+    axis.axvline(thresholds[best], color="tab:red", linestyle="--",
+                 label="Selected threshold" if x_label == "Threshold" else "Selected k")
     axis.axvspan(thresholds[left], thresholds[right], color="tab:green", alpha=0.15,
                  label="Within 0.1 F1 pp")
-    axis.set(xlabel="Threshold", ylabel="Delta micro F1 (percentage points)", title=path.stem)
+    axis.set(xlabel=x_label, ylabel="Delta micro F1 (percentage points)", title=path.stem)
     axis.legend()
     figure.tight_layout()
     figure.savefig(path.with_suffix(".svg"))
@@ -202,7 +208,7 @@ def finish(accumulator, baseline_f1):
     return report
 
 
-def evaluate_pixels(pool, scores, images, calibration, diagnostic_threshold):
+def evaluate_pixels(pool, scores, images, calibration, diagnostic_threshold, accepted_fn=None):
     keys = (["baseline"] + ["recall/" + k for k in COMBINATIONS]
             + ["remove/verifier", "remove/detector_mean",
                "combined/verifier", "combined/detector_mean"])
@@ -215,11 +221,14 @@ def evaluate_pixels(pool, scores, images, calibration, diagnostic_threshold):
         buckets = np.asarray([area_bucket(int(area)) for area in areas[1:]])
         common = (labels, areas, buckets)
         accumulate(accumulators["baseline"], gt, base, base, *common)
+        accepted_maps = ({key: add[key] >= calibration["recall"][key]["threshold"]
+                          for key in COMBINATIONS} if accepted_fn is None else
+                         accepted_fn(pool, scores, name, base, calibration))
         for key in COMBINATIONS:
-            accepted = add[key] >= calibration["recall"][key]["threshold"]
+            accepted = accepted_maps[key]
             accumulate(accumulators["recall/" + key], gt, base, base | accepted, *common)
         # Add only outside the original mask. Deletions cannot be undone by overlapping recall pieces.
-        addition = (add[best] >= calibration["recall"][best]["threshold"]) & ~base
+        addition = accepted_maps[best] & ~base
         for key in ("verifier", "detector_mean"):
             deletion = (remove[key] < calibration["remove"][key]["threshold"]) & base
             cleaned = base & ~deletion
@@ -241,6 +250,62 @@ def evaluate_pixels(pool, scores, images, calibration, diagnostic_threshold):
     result["combined_sources"] = best
     result["combination_rule"] = "(original_mask minus rejected_pred) union (accepted_recall minus original_mask)"
     return result
+
+
+def evaluate_scores(pool, scores, out, run_id, backbone, include_pred=False,
+                    feature_config=None, calibrate_fn=calibrate, pixels_fn=evaluate_pixels,
+                    rule="threshold"):
+    """Evaluate Pool-aligned scores, allowing NaN outside second_cv validation.
+
+    This is shared by the original 6b CLI and exp6f_eval's score-file interface.
+    """
+    out = Path(out)
+    report_path = out / f"eval_{pool.dataset}.json"
+    if report_path.exists():
+        raise FileExistsError(f"{report_path}: evaluation already exists; review it before rerunning")
+    scores = np.asarray(scores)
+    _, val_images = verifier_split()
+    images = val_images if pool.dataset == "second_cv" else pool.images
+    selected = pool.image_mask(images)
+    if (scores.shape != (len(pool),) or not np.isfinite(scores[selected]).all()
+            or np.isinf(scores).any()
+            or np.any((scores < 0) | (scores > 1))):
+        raise ValueError("Expected one finite probability per evaluation Pool row")
+    threshold_path = out / "thresholds_second_cv.json"
+    calibration = None
+    if threshold_path.exists():
+        calibration = json.loads(threshold_path.read_text())
+        if (calibration["run_id"] != run_id or calibration["validation_images"] != val_images
+                or calibration.get("rule", "threshold") != rule):
+            raise ValueError("Frozen thresholds belong to a different run or validation split")
+    elif pool.dataset != "second_cv":
+        raise FileNotFoundError("First evaluate second_cv to freeze validation thresholds")
+    if calibration is None:
+        calibration = calibrate_fn(pool, scores, images, out, run_id)
+    classification = grouped_metrics(pool, scores, selected)
+    pred = selected & (pool.source == PRED_INDEX) & (pool.label >= 0)
+    report = dict(
+        run_id=run_id, backbone=backbone, include_pred=include_pred,
+        dataset=pool.dataset, split="verifier_val_images" if pool.dataset == "second_cv" else "test",
+        images=len(images), scored_pieces=int(np.isfinite(scores).sum()),
+        evaluated_pieces=int(selected.sum()),
+        threshold_from="second_cv/verifier_val_images",
+        thresholds_file=str(threshold_path), feature_config=feature_config,
+        recall=classification,
+        pred=dict(verifier=binary_metrics(pool.label[pred], scores[pred]),
+                  detector_mean=binary_metrics(pool.label[pred], pool.meta[pred, 0])),
+        pixels=pixels_fn(pool, scores, images, calibration,
+                         classification["overall"]["recall_80"]["threshold"]),
+        applied_thresholds=dict(
+            recall={k: v["threshold"] for k, v in calibration["recall"].items()},
+            remove={k: v["threshold"] for k, v in calibration["remove"].items()},
+            combined_sources=calibration["best_combination"]),
+    )
+    if rule != "threshold":
+        report["rule"] = rule
+        report["applied_budgets"] = {k: v["k"] for k, v in calibration["recall"].items()}
+    write_json(report_path, report)
+    return report
 
 
 def main():
@@ -283,30 +348,8 @@ def main():
                      checkpoint["std"].numpy(), args.batch_size, args.device)
     save_npz(out / args.dataset / "scores.npz", **pool.score_arrays(scores),
              run_id=checkpoint["run_id"], dataset=args.dataset)
-    images = val_images if args.dataset == "second_cv" else pool.images
-    selected = pool.image_mask(images)
-    if calibration is None:
-        calibration = calibrate(pool, scores, images, out, checkpoint["run_id"])
-    classification = grouped_metrics(pool, scores, selected)
-    pred = selected & (pool.source == PRED_INDEX) & (pool.label >= 0)
-    report = dict(
-        run_id=checkpoint["run_id"], backbone=args.backbone, include_pred=args.include_pred,
-        dataset=args.dataset, split="verifier_val_images" if args.dataset == "second_cv" else "test",
-        images=len(images), scored_pieces=len(pool), evaluated_pieces=int(selected.sum()),
-        threshold_from="second_cv/verifier_val_images",
-        thresholds_file=str(threshold_path), feature_config=features.config,
-        recall=classification,
-        pred=dict(verifier=binary_metrics(pool.label[pred], scores[pred]),
-                  detector_mean=binary_metrics(pool.label[pred], pool.meta[pred, 0])),
-        pixels=evaluate_pixels(
-            pool, scores, images, calibration,
-            classification["overall"]["recall_80"]["threshold"]),
-        applied_thresholds=dict(
-            recall={k: v["threshold"] for k, v in calibration["recall"].items()},
-            remove={k: v["threshold"] for k, v in calibration["remove"].items()},
-            combined_sources=calibration["best_combination"]),
-    )
-    write_json(report_path, report)
+    evaluate_scores(pool, scores, out, checkpoint["run_id"], args.backbone,
+                    args.include_pred, features.config)
     print(f"saved {report_path}", flush=True)
 
 

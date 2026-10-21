@@ -24,6 +24,9 @@ INSTRUCTIONS = {
     "a": "\n只判断红色轮廓内的地物变化。最后一行只写“答案：是”或“答案：否”。",
     "b": ("\n只判断红色轮廓内的地物变化。先用一句中文说明两期地物及变化类型；"
           "无变化时说明仅色调或成像差异。最后另起一行写“答案：是”或“答案：否”。"),
+    # Answer first, reason after (think-after-answer): scored like "a", reason is auxiliary supervision.
+    "c": ("\n只判断红色轮廓内的地物变化。先写“答案：是”或“答案：否”，"
+          "再另起一行用一句中文说明两期地物及变化类型；无变化时说明仅色调或成像差异。"),
 }
 
 
@@ -94,7 +97,7 @@ def input_batch(processor, row, variant, images=None):
     text = processor.apply_chat_template(messages, tokenize=False, add_generation_prompt=True,
                                          enable_thinking=False)
     batch = processor(text=[text], images=images, return_tensors="pt").to("cuda:0")
-    return append_ids(batch, encode(processor, MARKER)) if variant == "a" else batch
+    return append_ids(batch, encode(processor, MARKER)) if variant in ("a", "c") else batch
 
 
 def encode(processor, text):
@@ -116,6 +119,9 @@ def target_ids(processor, row, variant):
     answer = "是" if row["label"] else "否"
     prefix = row["target_b"].rsplit(MARKER, 1)[0] + MARKER if variant == "b" else ""
     # Explicit boundary keeps the supervised answer tokens identical to the scoring tokens.
+    if variant == "c":
+        reason = row["target_b"].rsplit(MARKER, 1)[0].strip()
+        return encode(processor, answer) + encode(processor, "\n" + reason) + [processor.tokenizer.eos_token_id]
     return encode(processor, prefix) + encode(processor, answer) + [processor.tokenizer.eos_token_id]
 
 
