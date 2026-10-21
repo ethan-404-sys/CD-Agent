@@ -117,3 +117,16 @@
 
 6a 候选池加 6b V1 合计约 7.4 GPU 小时，另有约 2 小时 CPU 作业。实测内存峰值：MLP 训练与评估 1–11 GB，V2 训练约 12.6 GB；之后按峰值申请（V1 24G、V2 32G）。
 
+## exp8 第 0 步数据盘点（2026-10-21）
+
+详见 `interim/exp8/step0_inventory.md`。
+
+| 数据集 | 划分 | 说明 |
+|---|---|---|
+| SECOND | train 2,968 / test 1,694 | 512² |
+| SYSU-CD | “train” 16,000 / test 4,000 | 256²；无 val 目录。官方划分为 12,000 / 4,000 / 4,000，本地的 train 疑为官方 train 与 val 合并后重新编号，无法分出 val，也无法按原始航片分组 |
+| LEVIR-CD | train 445 / val 64 / test 128 原图 | 1024² |
+| WHU-CD | train 1,260 / test 690 | 512²；无 val |
+
+SChanger 官方权重是否用 val 选过：未知，按“用过”处理。
+
