@@ -217,7 +217,7 @@ def write_summary(out, report):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--variant", choices=("a", "b"), required=True)
+    parser.add_argument("--variant", choices=("a", "b", "c"), required=True)
     parser.add_argument("--adapter", type=Path, required=True)
     parser.add_argument("--data", type=Path, default=ROOT / "v2/data")
     parser.add_argument("--out", type=Path, required=True)

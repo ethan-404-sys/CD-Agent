@@ -1,0 +1,268 @@
+{
+  "role": "E2",
+  "image": "test_365.png",
+  "delta_f1": -0.29136672636561045,
+  "delta_f1_pp": -29.136672636561045,
+  "before_f1": 0.9269767122346637,
+  "after_f1": 0.6356099858690533,
+  "gt_pixels": 7218,
+  "per_source": {
+    "H1": {
+      "candidates": 129,
+      "area_sum": 55176,
+      "purity": 0.0,
+      "union_area": 44352,
+      "union_purity": 0.0
+    },
+    "B": {
+      "candidates": 162,
+      "area_sum": 70210,
+      "purity": 0.0,
+      "union_area": 70210,
+      "union_purity": 0.0
+    },
+    "G0.05": {
+      "candidates": 47,
+      "area_sum": 23587,
+      "purity": 0.0,
+      "union_area": 23587,
+      "union_purity": 0.0
+    },
+    "C": {
+      "candidates": 75,
+      "area_sum": 163341,
+      "purity": 0.001199943676113162,
+      "union_area": 147441,
+      "union_purity": 0.0013293452974410102
+    }
+  },
+  "candidates_all": {
+    "count": 413,
+    "union_area": 203077,
+    "union_fraction": 0.7746772766113281,
+    "union_purity": 0.0009651511495639585
+  },
+  "pieces": {
+    "total": 1760,
+    "positive": 2,
+    "negative": 1755,
+    "unlabeled": 3,
+    "positive_rate_labeled": 0.0011383039271485487,
+    "positive_rate_all": 0.0011363636363636363
+  },
+  "numbers": {
+    "1": {
+      "pixel_f1": 0.9269767122346637,
+      "pixel_iou": 0.8638924455825864,
+      "boundary_f1_d2": 0.424581292159327,
+      "object_f1": 0.25,
+      "new_false_objects": 0,
+      "decline_fraction": 0.0,
+      "delta_f1": 0.0,
+      "decline_source": "eval_metrics/summary.json: rows.1.delta_f1.decline_fraction",
+      "counts": {
+        "tp": 6747,
+        "fp": 592,
+        "fn": 471
+      }
+    },
+    "5": {
+      "pixel_f1": 0.6356099858690533,
+      "pixel_iou": 0.4658565214389284,
+      "boundary_f1_d2": 0.20815179463965744,
+      "object_f1": 0.2222222222222222,
+      "new_false_objects": 1,
+      "decline_fraction": 0.627508854781582,
+      "delta_f1": -0.29136672636561045,
+      "decline_source": "eval_metrics/summary.json: rows.5.delta_f1.decline_fraction",
+      "counts": {
+        "tp": 6747,
+        "fp": 7265,
+        "fn": 471
+      }
+    },
+    "v2a": {
+      "pixel_f1": 0.20082150191981427,
+      "pixel_iou": 0.11161844260261056,
+      "boundary_f1_d2": 0.03113450807138706,
+      "object_f1": 0.01886792452830189,
+      "new_false_objects": 98,
+      "decline_fraction": null,
+      "delta_f1": -0.7261552103148494,
+      "decline_source": "未评估全测试集；三图不能推导全测试集下降占比",
+      "counts": {
+        "tp": 6747,
+        "fp": 53229,
+        "fn": 471
+      }
+    },
+    "2_BGH1": {
+      "pixel_f1": 0.9269767122346637,
+      "pixel_iou": 0.8638924455825864,
+      "boundary_f1_d2": 0.424581292159327,
+      "object_f1": 0.25,
+      "new_false_objects": 0,
+      "decline_fraction": 0.021251475796930343,
+      "delta_f1": 0.0,
+      "decline_source": "eval_metrics/summary.json: rows.2_BGH1.delta_f1.decline_fraction",
+      "counts": {
+        "tp": 6747,
+        "fp": 592,
+        "fn": 471
+      }
+    },
+    "3": {
+      "pixel_f1": 0.9345522543112403,
+      "pixel_iou": 0.8771450858034321,
+      "boundary_f1_d2": 0.4888183648016201,
+      "object_f1": 0.4,
+      "new_false_objects": 0,
+      "decline_fraction": 0.0005903187721369539,
+      "delta_f1": 0.007575542076576625,
+      "decline_source": "eval_metrics/summary.json: rows.3.delta_f1.decline_fraction",
+      "counts": {
+        "tp": 6747,
+        "fp": 474,
+        "fn": 471
+      }
+    },
+    "4_BGH1": {
+      "pixel_f1": 0.9345522543112403,
+      "pixel_iou": 0.8771450858034321,
+      "boundary_f1_d2": 0.4888183648016201,
+      "object_f1": 0.4,
+      "new_false_objects": 0,
+      "decline_fraction": 0.0017709563164108619,
+      "delta_f1": 0.007575542076576625,
+      "decline_source": "eval_metrics/summary.json: rows.4_BGH1.delta_f1.decline_fraction",
+      "counts": {
+        "tp": 6747,
+        "fp": 474,
+        "fn": 471
+      }
+    },
+    "2a_BGH1": {
+      "pixel_f1": 0.9269767122346637,
+      "pixel_iou": 0.8638924455825864,
+      "boundary_f1_d2": 0.424581292159327,
+      "object_f1": 0.25,
+      "new_false_objects": 0,
+      "decline_fraction": 0.021841794569067298,
+      "delta_f1": 0.0,
+      "decline_source": "eval_metrics/summary.json: rows.2a_BGH1.delta_f1.decline_fraction",
+      "counts": {
+        "tp": 6747,
+        "fp": 592,
+        "fn": 471
+      }
+    },
+    "2b_BGH1": {
+      "pixel_f1": 0.9308037254225595,
+      "pixel_iou": 0.8705639437346755,
+      "boundary_f1_d2": 0.45280683295166185,
+      "object_f1": 1.0,
+      "new_false_objects": 0,
+      "decline_fraction": 0.05548996458087367,
+      "delta_f1": 0.0038270131878958003,
+      "decline_source": "eval_metrics/summary.json: rows.2b_BGH1.delta_f1.decline_fraction",
+      "counts": {
+        "tp": 6746,
+        "fp": 531,
+        "fn": 472
+      }
+    },
+    "4a_BGH1": {
+      "pixel_f1": 0.9345522543112403,
+      "pixel_iou": 0.8771450858034321,
+      "boundary_f1_d2": 0.4888183648016201,
+      "object_f1": 0.4,
+      "new_false_objects": 0,
+      "decline_fraction": 0.0005903187721369539,
+      "delta_f1": 0.007575542076576625,
+      "decline_source": "eval_metrics/summary.json: rows.4a_BGH1.delta_f1.decline_fraction",
+      "counts": {
+        "tp": 6747,
+        "fp": 474,
+        "fn": 471
+      }
+    },
+    "4b_BGH1": {
+      "pixel_f1": 0.9356449375866852,
+      "pixel_iou": 0.8790721918165233,
+      "boundary_f1_d2": 0.4926312596375035,
+      "object_f1": 1.0,
+      "new_false_objects": 0,
+      "decline_fraction": 0.009445100354191263,
+      "delta_f1": 0.008668225352021497,
+      "decline_source": "eval_metrics/summary.json: rows.4b_BGH1.delta_f1.decline_fraction",
+      "counts": {
+        "tp": 6746,
+        "fp": 456,
+        "fn": 472
+      }
+    },
+    "remove_detector_mean": {
+      "pixel_f1": 0.9269767122346637,
+      "pixel_iou": 0.8638924455825864,
+      "boundary_f1_d2": 0.424581292159327,
+      "object_f1": 0.25,
+      "new_false_objects": 0,
+      "decline_fraction": 0.10684769775678866,
+      "delta_f1": 0.0,
+      "decline_source": "pipeline_figs/removal_summary.json: detector_mean",
+      "counts": {
+        "tp": 6747,
+        "fp": 592,
+        "fn": 471
+      }
+    },
+    "remove_verifier": {
+      "pixel_f1": 0.9269767122346637,
+      "pixel_iou": 0.8638924455825864,
+      "boundary_f1_d2": 0.424581292159327,
+      "object_f1": 0.25,
+      "new_false_objects": 0,
+      "decline_fraction": 0.19893742621015348,
+      "delta_f1": 0.0,
+      "decline_source": "pipeline_figs/removal_summary.json: verifier",
+      "counts": {
+        "tp": 6747,
+        "fp": 592,
+        "fn": 471
+      }
+    }
+  },
+  "removal": {
+    "detector_mean": {
+      "threshold": 0.501367211341858,
+      "comparison": "score < threshold",
+      "pieces": 39,
+      "rejected": 0,
+      "removed_pixels": 0,
+      "threshold_source": "exp6/verifier/none/thresholds_second_cv.json: remove.detector_mean"
+    },
+    "verifier": {
+      "threshold": 0.772868573665619,
+      "comparison": "score < threshold",
+      "pieces": 39,
+      "rejected": 0,
+      "removed_pixels": 0,
+      "threshold_source": "exp6/verifier/none/thresholds_second_cv.json: remove.verifier"
+    }
+  },
+  "saved_vs_prob_pixels": 0,
+  "v1_threshold": 0.819681704044342,
+  "v2a_threshold_logit_diff": -1.875,
+  "v2a_threshold_probability": 0.13296424019782926,
+  "zoom": {
+    "box": [
+      176,
+      208,
+      304,
+      336
+    ],
+    "changed_boundary_pixels": 24,
+    "rule": "128 像素窗口、步长 16，最大化 4_BGH1 与 4b_BGH1 边界异或像素数；同分先上后左"
+  },
+  "candidate_count_check": "matched pool per_image.candidates"
+}

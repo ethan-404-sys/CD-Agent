@@ -29,14 +29,14 @@ def teacher_forced_loss(processor, model, rows, variant):
         k = len(encode(processor, "是" if row["label"] else "否"))
         total += float(nll.sum())
         tokens += len(response)
-        answer += float(nll[-k - 1:-1].sum())
+        answer += float((nll[:k] if variant == "c" else nll[-k - 1:-1]).sum())
         answer_tokens += k
     return dict(loss=total / tokens, answer_loss=answer / answer_tokens, n=len(rows))
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--variant", choices=("a", "b"), required=True)
+    parser.add_argument("--variant", choices=("a", "b", "c"), required=True)
     parser.add_argument("--data", type=Path, default=ROOT / "v2/data")
     parser.add_argument("--out", type=Path)
     parser.add_argument("--model", type=Path, default=MODEL)
@@ -81,7 +81,7 @@ def main():
     config = {k: str(v) if isinstance(v, Path) else v for k, v in vars(args).items()}
     metadata = dict(run_id=run_id, variant=args.variant, model=str(args.model.resolve()),
                     train_images=train_images, val_images=val_images, config=config,
-                    scoring=("answer_first_token_logit_difference" if args.variant == "a"
+                    scoring=("answer_first_token_logit_difference" if args.variant in ("a", "c")
                              else "generated_reason_then_answer_first_token_logit_difference"),
                     trainable_parameters=sum(p.numel() for p in parameters),
                     train_samples=len(train), validation_samples=len(val))

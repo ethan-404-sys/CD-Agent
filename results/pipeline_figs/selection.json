@@ -1,0 +1,38 @@
+{
+  "examples": [
+    {
+      "role": "固定示例",
+      "image": "test_987.png",
+      "delta_f1": 0.05887474865195197,
+      "delta_f1_pp": 5.8874748651951965,
+      "before_f1": 0.5850561499690512,
+      "after_f1": 0.6439308986210032,
+      "gt_pixels": 61533
+    },
+    {
+      "role": "E1",
+      "image": "test_1669.png",
+      "delta_f1": 0.32329586776844926,
+      "delta_f1_pp": 32.32958677684493,
+      "before_f1": 0.16630963972736124,
+      "after_f1": 0.4896055074958105,
+      "gt_pixels": 32821
+    },
+    {
+      "role": "E2",
+      "image": "test_365.png",
+      "delta_f1": -0.29136672636561045,
+      "delta_f1_pp": -29.136672636561045,
+      "before_f1": 0.9269767122346637,
+      "after_f1": 0.6356099858690533,
+      "gt_pixels": 7218
+    }
+  ],
+  "rule": "保留 test_987；其余图要求真值变化像素 ≥ 1000。E1 取行 5 的正 ΔF1 最大图，E2 取负 ΔF1 最小图；同分按文件名升序。测试结果仅用于挑选展示图，不参与模型、来源组合或阈值选择。",
+  "eligible": 1690,
+  "metrics_dir": "/guisongxia01/pangchao/wangyihan/Chang-Agent/outputs/CD_1016_probe/eval_metrics",
+  "row": "5",
+  "combo": "B+G0.05+H1",
+  "threshold": 0.819681704044342,
+  "min_gt_pixels": 1000
+}

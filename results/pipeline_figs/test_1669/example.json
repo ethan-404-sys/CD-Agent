@@ -1,0 +1,268 @@
+{
+  "role": "E1",
+  "image": "test_1669.png",
+  "delta_f1": 0.32329586776844926,
+  "delta_f1_pp": 32.32958677684493,
+  "before_f1": 0.16630963972736124,
+  "after_f1": 0.4896055074958105,
+  "gt_pixels": 32821,
+  "per_source": {
+    "H1": {
+      "candidates": 40,
+      "area_sum": 43073,
+      "purity": 0.8318203979290971,
+      "union_area": 24746,
+      "union_purity": 0.7493332255718096
+    },
+    "B": {
+      "candidates": 57,
+      "area_sum": 17118,
+      "purity": 0.31867040542119407,
+      "union_area": 17118,
+      "union_purity": 0.31867040542119407
+    },
+    "G0.05": {
+      "candidates": 12,
+      "area_sum": 24381,
+      "purity": 0.787211353102826,
+      "union_area": 24381,
+      "union_purity": 0.787211353102826
+    },
+    "C": {
+      "candidates": 10,
+      "area_sum": 118461,
+      "purity": 0.1372434809768616,
+      "union_area": 118415,
+      "union_purity": 0.1372967951695309
+    }
+  },
+  "candidates_all": {
+    "count": 119,
+    "union_area": 143448,
+    "union_fraction": 0.547210693359375,
+    "union_purity": 0.1730801405387318
+  },
+  "pieces": {
+    "total": 935,
+    "positive": 348,
+    "negative": 548,
+    "unlabeled": 39,
+    "positive_rate_labeled": 0.38839285714285715,
+    "positive_rate_all": 0.37219251336898396
+  },
+  "numbers": {
+    "1": {
+      "pixel_f1": 0.16630963972736124,
+      "pixel_iou": 0.09069668649107901,
+      "boundary_f1_d2": 0.037086268775754355,
+      "object_f1": 0.08955223880597014,
+      "new_false_objects": 0,
+      "decline_fraction": 0.0,
+      "delta_f1": 0.0,
+      "decline_source": "eval_metrics/summary.json: rows.1.delta_f1.decline_fraction",
+      "counts": {
+        "tp": 2989,
+        "fp": 135,
+        "fn": 29832
+      }
+    },
+    "5": {
+      "pixel_f1": 0.4896055074958105,
+      "pixel_iou": 0.32415737075686696,
+      "boundary_f1_d2": 0.16303429669151098,
+      "object_f1": 0.1680672268907563,
+      "new_false_objects": 0,
+      "decline_fraction": 0.627508854781582,
+      "delta_f1": 0.32329586776844926,
+      "decline_source": "eval_metrics/summary.json: rows.5.delta_f1.decline_fraction",
+      "counts": {
+        "tp": 10810,
+        "fp": 527,
+        "fn": 22011
+      }
+    },
+    "v2a": {
+      "pixel_f1": 0.6265408939864937,
+      "pixel_iou": 0.45617731990946697,
+      "boundary_f1_d2": 0.2991452243063813,
+      "object_f1": 0.37037037037037035,
+      "new_false_objects": 3,
+      "decline_fraction": null,
+      "delta_f1": 0.46023125425913247,
+      "decline_source": "未评估全测试集；三图不能推导全测试集下降占比",
+      "counts": {
+        "tp": 17535,
+        "fp": 5618,
+        "fn": 15286
+      }
+    },
+    "2_BGH1": {
+      "pixel_f1": 0.8033010009820306,
+      "pixel_iou": 0.6712640368557443,
+      "boundary_f1_d2": 0.5011195013251603,
+      "object_f1": 0.6646525679758308,
+      "new_false_objects": 0,
+      "decline_fraction": 0.021251475796930343,
+      "delta_f1": 0.6369913612546694,
+      "decline_source": "eval_metrics/summary.json: rows.2_BGH1.delta_f1.decline_fraction",
+      "counts": {
+        "tp": 23313,
+        "fp": 1909,
+        "fn": 9508
+      }
+    },
+    "3": {
+      "pixel_f1": 0.1668993243620526,
+      "pixel_iou": 0.09104754942276645,
+      "boundary_f1_d2": 0.03757398641141495,
+      "object_f1": 0.09022556390977444,
+      "new_false_objects": 0,
+      "decline_fraction": 0.0005903187721369539,
+      "delta_f1": 0.000589684634691362,
+      "decline_source": "eval_metrics/summary.json: rows.3.delta_f1.decline_fraction",
+      "counts": {
+        "tp": 2989,
+        "fp": 8,
+        "fn": 29832
+      }
+    },
+    "4_BGH1": {
+      "pixel_f1": 0.8050625043165964,
+      "pixel_iou": 0.6737277114701038,
+      "boundary_f1_d2": 0.5055356685286062,
+      "object_f1": 0.6758832565284177,
+      "new_false_objects": 0,
+      "decline_fraction": 0.0017709563164108619,
+      "delta_f1": 0.6387528645892352,
+      "decline_source": "eval_metrics/summary.json: rows.4_BGH1.delta_f1.decline_fraction",
+      "counts": {
+        "tp": 23313,
+        "fp": 1782,
+        "fn": 9508
+      }
+    },
+    "2a_BGH1": {
+      "pixel_f1": 0.7174233546289646,
+      "pixel_iou": 0.5593609997642065,
+      "boundary_f1_d2": 0.26756201818976183,
+      "object_f1": 0.31007751937984496,
+      "new_false_objects": 0,
+      "decline_fraction": 0.021841794569067298,
+      "delta_f1": 0.5511137149016033,
+      "decline_source": "eval_metrics/summary.json: rows.2a_BGH1.delta_f1.decline_fraction",
+      "counts": {
+        "tp": 18978,
+        "fp": 1107,
+        "fn": 13843
+      }
+    },
+    "2b_BGH1": {
+      "pixel_f1": 0.7998820693362931,
+      "pixel_iou": 0.6665028901734104,
+      "boundary_f1_d2": 0.4755344958132001,
+      "object_f1": 0.5895953757225433,
+      "new_false_objects": 0,
+      "decline_fraction": 0.05548996458087367,
+      "delta_f1": 0.6335724296089319,
+      "decline_source": "eval_metrics/summary.json: rows.2b_BGH1.delta_f1.decline_fraction",
+      "counts": {
+        "tp": 23061,
+        "fp": 1779,
+        "fn": 9760
+      }
+    },
+    "4a_BGH1": {
+      "pixel_f1": 0.7191496617973058,
+      "pixel_iou": 0.5614626786189758,
+      "boundary_f1_d2": 0.27046963701768834,
+      "object_f1": 0.3149606299212599,
+      "new_false_objects": 0,
+      "decline_fraction": 0.0005903187721369539,
+      "delta_f1": 0.5528400220699445,
+      "decline_source": "eval_metrics/summary.json: rows.4a_BGH1.delta_f1.decline_fraction",
+      "counts": {
+        "tp": 18978,
+        "fp": 980,
+        "fn": 13843
+      }
+    },
+    "4b_BGH1": {
+      "pixel_f1": 0.8015780600983681,
+      "pixel_iou": 0.6688613028597946,
+      "boundary_f1_d2": 0.4796342434730812,
+      "object_f1": 0.6,
+      "new_false_objects": 0,
+      "decline_fraction": 0.009445100354191263,
+      "delta_f1": 0.6352684203710068,
+      "decline_source": "eval_metrics/summary.json: rows.4b_BGH1.delta_f1.decline_fraction",
+      "counts": {
+        "tp": 23061,
+        "fp": 1657,
+        "fn": 9760
+      }
+    },
+    "remove_detector_mean": {
+      "pixel_f1": 0.16630963972736124,
+      "pixel_iou": 0.09069668649107901,
+      "boundary_f1_d2": 0.037086268775754355,
+      "object_f1": 0.08955223880597014,
+      "new_false_objects": 0,
+      "decline_fraction": 0.10684769775678866,
+      "delta_f1": 0.0,
+      "decline_source": "pipeline_figs/removal_summary.json: detector_mean",
+      "counts": {
+        "tp": 2989,
+        "fp": 135,
+        "fn": 29832
+      }
+    },
+    "remove_verifier": {
+      "pixel_f1": 0.16498232133411286,
+      "pixel_iou": 0.08990775579560627,
+      "boundary_f1_d2": 0.037139833469778956,
+      "object_f1": 0.08955223880597014,
+      "new_false_objects": 0,
+      "decline_fraction": 0.19893742621015348,
+      "delta_f1": -0.0013273183932483723,
+      "decline_source": "pipeline_figs/removal_summary.json: verifier",
+      "counts": {
+        "tp": 2963,
+        "fp": 135,
+        "fn": 29858
+      }
+    }
+  },
+  "removal": {
+    "detector_mean": {
+      "threshold": 0.501367211341858,
+      "comparison": "score < threshold",
+      "pieces": 25,
+      "rejected": 0,
+      "removed_pixels": 0,
+      "threshold_source": "exp6/verifier/none/thresholds_second_cv.json: remove.detector_mean"
+    },
+    "verifier": {
+      "threshold": 0.772868573665619,
+      "comparison": "score < threshold",
+      "pieces": 25,
+      "rejected": 1,
+      "removed_pixels": 26,
+      "threshold_source": "exp6/verifier/none/thresholds_second_cv.json: remove.verifier"
+    }
+  },
+  "saved_vs_prob_pixels": 5,
+  "v1_threshold": 0.819681704044342,
+  "v2a_threshold_logit_diff": -1.875,
+  "v2a_threshold_probability": 0.13296424019782926,
+  "zoom": {
+    "box": [
+      368,
+      128,
+      496,
+      256
+    ],
+    "changed_boundary_pixels": 244,
+    "rule": "128 像素窗口、步长 16，最大化 4_BGH1 与 4b_BGH1 边界异或像素数；同分先上后左"
+  },
+  "candidate_count_check": "matched pool per_image.candidates"
+}

@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>补漏与去误检：方法流程</title>
+<style>
+:root { --bg:#f6f6f3; --panel:#fff; --ink:#1d1f23; --muted:#5b616b; --line:#d4d6db; --accent:#2d6cdf; }
+@media(prefers-color-scheme:dark) {
+  :root { --bg:#15171a; --panel:#1f2226; --ink:#e7e9ec; --muted:#a2a8b1; --line:#3a3f46; --accent:#7aa7ff; }
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--ink); font:15px/1.65 -apple-system,"PingFang SC","Noto Sans CJK SC","Microsoft YaHei",sans-serif; }
+main { max-width:1220px; margin:auto; padding:32px 18px 72px; }
+h1 { font-size:28px; } h2 { margin-top:48px; border-top:2px solid var(--line); padding-top:12px; }
+h3 { margin-top:28px; } p { margin:10px 0; }
+a { color:var(--accent); } .sources, figcaption { color:var(--muted); font-size:13px; }
+.gallery { display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:14px; margin:16px 0; align-items:start; }
+figure { margin:0; max-width:580px; } figure img { display:block; width:100%; border-radius:7px; border:1px solid var(--line); }
+figcaption { margin-top:5px; } .diagram { display:block; max-width:920px; width:100%; margin:18px auto; }
+.table-scroll { overflow-x:auto; margin:12px 0; } table { border-collapse:collapse; width:100%; background:var(--panel); }
+th,td { border:1px solid var(--line); padding:8px 10px; text-align:left; } th { white-space:nowrap; }
+pre { overflow:auto; white-space:pre-wrap; overflow-wrap:anywhere; padding:16px; border:1px solid var(--line); background:var(--panel); border-radius:8px; }
+.viewer { background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:12px; margin:16px 0; }
+fieldset { border:0; display:flex; flex-wrap:wrap; gap:10px 16px; margin:0 0 12px; padding:0; } label { cursor:pointer; }
+select { font:inherit; } input { accent-color:var(--accent); } .canvas { position:relative; max-width:760px; margin:auto; }
+.canvas img { width:100%; display:block; } .canvas .overlay { position:absolute; inset:0; pointer-events:none; }
+.canvas img[hidden] { display:none; } .canvas .base { position:relative; }
+@media print { fieldset,details { display:none; } body { background:white; color:black; } .viewer { break-inside:avoid; } }
+</style>
+</head>
+<body><main>
+{{CONTENT}}
+</main>
+<script>
+'use strict';
+document.querySelectorAll('.viewer').forEach(viewer => {
+  const base = viewer.querySelector('.base');
+  viewer.querySelector('.base-select').addEventListener('change', event => {
+    base.src = base.dataset[event.target.value];
+    base.alt = event.target.value + ' 示例底图';
+  });
+  viewer.querySelectorAll('input[data-layer]').forEach(input => {
+    input.addEventListener('change', () => {
+      viewer.querySelector('img[data-layer="' + input.dataset.layer + '"]').hidden = !input.checked;
+    });
+  });
+});
+</script>
+</body></html>
