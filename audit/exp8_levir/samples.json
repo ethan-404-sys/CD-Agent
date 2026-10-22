@@ -1,0 +1,2880 @@
+{
+  "config": {
+    "dataset": "levir",
+    "unit": "U5_x16",
+    "seed": 20261022,
+    "images": [
+      "test_1.png",
+      "test_10.png",
+      "test_100.png",
+      "test_101.png",
+      "test_102.png",
+      "test_103.png",
+      "test_104.png",
+      "test_105.png",
+      "test_106.png",
+      "test_107.png",
+      "test_108.png",
+      "test_109.png",
+      "test_11.png",
+      "test_110.png",
+      "test_111.png",
+      "test_112.png",
+      "test_113.png",
+      "test_114.png",
+      "test_115.png",
+      "test_116.png",
+      "test_117.png",
+      "test_118.png",
+      "test_119.png",
+      "test_12.png",
+      "test_120.png",
+      "test_121.png",
+      "test_122.png",
+      "test_123.png",
+      "test_124.png",
+      "test_125.png",
+      "test_126.png",
+      "test_127.png",
+      "test_128.png",
+      "test_13.png",
+      "test_14.png",
+      "test_15.png",
+      "test_16.png",
+      "test_17.png",
+      "test_18.png",
+      "test_19.png",
+      "test_2.png",
+      "test_20.png",
+      "test_21.png",
+      "test_22.png",
+      "test_23.png",
+      "test_24.png",
+      "test_25.png",
+      "test_26.png",
+      "test_27.png",
+      "test_28.png",
+      "test_29.png",
+      "test_3.png",
+      "test_30.png",
+      "test_31.png",
+      "test_32.png",
+      "test_33.png",
+      "test_34.png",
+      "test_35.png",
+      "test_36.png",
+      "test_37.png",
+      "test_38.png",
+      "test_39.png",
+      "test_4.png",
+      "test_40.png",
+      "test_41.png",
+      "test_42.png",
+      "test_43.png",
+      "test_44.png",
+      "test_45.png",
+      "test_46.png",
+      "test_47.png",
+      "test_48.png",
+      "test_49.png",
+      "test_5.png",
+      "test_50.png",
+      "test_51.png",
+      "test_52.png",
+      "test_53.png",
+      "test_54.png",
+      "test_55.png",
+      "test_56.png",
+      "test_57.png",
+      "test_58.png",
+      "test_59.png",
+      "test_6.png",
+      "test_60.png",
+      "test_61.png",
+      "test_62.png",
+      "test_63.png",
+      "test_64.png",
+      "test_65.png",
+      "test_66.png",
+      "test_67.png",
+      "test_68.png",
+      "test_69.png",
+      "test_7.png",
+      "test_70.png",
+      "test_71.png",
+      "test_72.png",
+      "test_73.png",
+      "test_74.png",
+      "test_75.png",
+      "test_76.png",
+      "test_77.png",
+      "test_78.png",
+      "test_79.png",
+      "test_8.png",
+      "test_80.png",
+      "test_81.png",
+      "test_82.png",
+      "test_83.png",
+      "test_84.png",
+      "test_85.png",
+      "test_86.png",
+      "test_87.png",
+      "test_88.png",
+      "test_89.png",
+      "test_9.png",
+      "test_90.png",
+      "test_91.png",
+      "test_92.png",
+      "test_93.png",
+      "test_94.png",
+      "test_95.png",
+      "test_96.png",
+      "test_97.png",
+      "test_98.png",
+      "test_99.png"
+    ],
+    "partial": false,
+    "batch18": "/guisongxia01/pangchao/wangyihan/Chang-Agent/outputs/CD_1016_probe/exp8_batch18",
+    "high_negative": "top ceil(10% of negative units) by mean detector probability inside mask; ties: image name, then unit_id",
+    "target_proportions": {
+      "positive": 0.25,
+      "negative": 0.25,
+      "high_negative": 0.25,
+      "middle": 0.25
+    },
+    "shortage": "cap each equal quota by availability; Hamilton-proportional redistribution over remaining stratum capacities",
+    "requested_unique": 100,
+    "requested_duplicates": 0
+  },
+  "original_count": 100,
+  "duplicate_count": 0,
+  "populations": {
+    "positive": 341,
+    "negative": 10194,
+    "high_negative": 1133,
+    "middle": 298
+  },
+  "sampled": {
+    "positive": 25,
+    "negative": 25,
+    "high_negative": 25,
+    "middle": 25
+  },
+  "proportions": {
+    "positive": 0.25,
+    "negative": 0.25,
+    "high_negative": 0.25,
+    "middle": 0.25
+  },
+  "high_negative_boundary": {
+    "image": "test_25.png",
+    "unit_id": 99,
+    "label": "negative",
+    "mean_probability": 0.00034008079092018306,
+    "stratum": "high_negative"
+  },
+  "samples": [
+    {
+      "image": "test_72.png",
+      "unit_id": 25,
+      "label": "positive",
+      "mean_probability": 0.4134957790374756,
+      "stratum": "positive",
+      "id": "afafe4f0848923efb76f180d46da4676",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        759,
+        597,
+        781,
+        618
+      ],
+      "area": 221,
+      "gt_fraction": 0.9909502262443439,
+      "crop": [
+        726,
+        563,
+        814,
+        651
+      ],
+      "piece_id": 25
+    },
+    {
+      "image": "test_76.png",
+      "unit_id": 99,
+      "label": "negative",
+      "mean_probability": 0.0006108825327828526,
+      "stratum": "high_negative",
+      "id": "ba1e266f26212c39a6e12f37553516b1",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        500,
+        263,
+        523,
+        287
+      ],
+      "area": 427,
+      "gt_fraction": 0.0,
+      "crop": [
+        463,
+        227,
+        559,
+        323
+      ],
+      "piece_id": 99
+    },
+    {
+      "image": "test_114.png",
+      "unit_id": 158,
+      "label": "negative",
+      "mean_probability": 0.00034416152630001307,
+      "stratum": "high_negative",
+      "id": "63faa4b2db0d77bcc015e30c123ee2a2",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        796,
+        839,
+        816,
+        856
+      ],
+      "area": 263,
+      "gt_fraction": 0.0,
+      "crop": [
+        766,
+        807,
+        846,
+        887
+      ],
+      "piece_id": 158
+    },
+    {
+      "image": "test_111.png",
+      "unit_id": 4,
+      "label": "negative",
+      "mean_probability": 0.2218504399061203,
+      "stratum": "high_negative",
+      "id": "f1e06ba4ee6d18e19cfad78193582eb5",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        570,
+        185,
+        607,
+        220
+      ],
+      "area": 793,
+      "gt_fraction": 0.0,
+      "crop": [
+        514,
+        128,
+        662,
+        276
+      ],
+      "piece_id": 4
+    },
+    {
+      "image": "test_25.png",
+      "unit_id": 36,
+      "label": "middle",
+      "mean_probability": 0.000786508375313133,
+      "stratum": "middle",
+      "id": "94903c53a751267b3d0bfcc7cfbb95e4",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        913,
+        59,
+        948,
+        93
+      ],
+      "area": 736,
+      "gt_fraction": 0.26902173913043476,
+      "crop": [
+        860,
+        6,
+        1000,
+        146
+      ],
+      "piece_id": 36
+    },
+    {
+      "image": "test_80.png",
+      "unit_id": 37,
+      "label": "negative",
+      "mean_probability": 0.004636071156710386,
+      "stratum": "high_negative",
+      "id": "4a352ad076f6ddfc75d1b142d817128a",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        1005,
+        317,
+        1009,
+        321
+      ],
+      "area": 11,
+      "gt_fraction": 0.0,
+      "crop": [
+        960,
+        287,
+        1024,
+        351
+      ],
+      "piece_id": 37
+    },
+    {
+      "image": "test_84.png",
+      "unit_id": 42,
+      "label": "positive",
+      "mean_probability": 0.4850976765155792,
+      "stratum": "positive",
+      "id": "7958cce1347332576687df20435dd879",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        332,
+        310,
+        395,
+        353
+      ],
+      "area": 1639,
+      "gt_fraction": 0.5344722391702258,
+      "crop": [
+        237,
+        205,
+        489,
+        457
+      ],
+      "piece_id": 42
+    },
+    {
+      "image": "test_74.png",
+      "unit_id": 166,
+      "label": "negative",
+      "mean_probability": 0.11499220132827759,
+      "stratum": "high_negative",
+      "id": "da506b3ac5b8dbeb595f33913a94a76c",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        384,
+        654,
+        405,
+        658
+      ],
+      "area": 31,
+      "gt_fraction": 0.0,
+      "crop": [
+        352,
+        614,
+        436,
+        698
+      ],
+      "piece_id": 166
+    },
+    {
+      "image": "test_79.png",
+      "unit_id": 118,
+      "label": "negative",
+      "mean_probability": 4.0075356082525104e-06,
+      "stratum": "negative",
+      "id": "8f3aa5f4ca4abbd2bb7ea9f3400fe7cf",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        522,
+        305,
+        526,
+        332
+      ],
+      "area": 51,
+      "gt_fraction": 0.0,
+      "crop": [
+        470,
+        264,
+        578,
+        372
+      ],
+      "piece_id": 118
+    },
+    {
+      "image": "test_103.png",
+      "unit_id": 52,
+      "label": "negative",
+      "mean_probability": 0.0009342432022094727,
+      "stratum": "high_negative",
+      "id": "c8d696b6ee7102ceede3e54b818838e1",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        253,
+        265,
+        261,
+        276
+      ],
+      "area": 29,
+      "gt_fraction": 0.0,
+      "crop": [
+        225,
+        238,
+        289,
+        302
+      ],
+      "piece_id": 52
+    },
+    {
+      "image": "test_41.png",
+      "unit_id": 62,
+      "label": "positive",
+      "mean_probability": 0.5530356764793396,
+      "stratum": "positive",
+      "id": "8e3af423564a0aace1d3900568eb964c",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        767,
+        939,
+        797,
+        973
+      ],
+      "area": 696,
+      "gt_fraction": 0.521551724137931,
+      "crop": [
+        714,
+        888,
+        850,
+        1024
+      ],
+      "piece_id": 62
+    },
+    {
+      "image": "test_121.png",
+      "unit_id": 10,
+      "label": "negative",
+      "mean_probability": 6.164163642097265e-05,
+      "stratum": "negative",
+      "id": "118c21590a9a8aeac434b5b4ffd9e1b1",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        23,
+        26,
+        49,
+        75
+      ],
+      "area": 160,
+      "gt_fraction": 0.0,
+      "crop": [
+        0,
+        0,
+        196,
+        196
+      ],
+      "piece_id": 10
+    },
+    {
+      "image": "test_69.png",
+      "unit_id": 29,
+      "label": "middle",
+      "mean_probability": 5.0307637138757855e-05,
+      "stratum": "middle",
+      "id": "3253b5064e9b17d7561ec8aed7725fb6",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        344,
+        320,
+        426,
+        366
+      ],
+      "area": 1764,
+      "gt_fraction": 0.11507936507936507,
+      "crop": [
+        221,
+        179,
+        549,
+        507
+      ],
+      "piece_id": 29
+    },
+    {
+      "image": "test_74.png",
+      "unit_id": 147,
+      "label": "middle",
+      "mean_probability": 0.4604247212409973,
+      "stratum": "middle",
+      "id": "668646d03c92e86207f5f0a2d4693764",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        619,
+        850,
+        677,
+        929
+      ],
+      "area": 2702,
+      "gt_fraction": 0.4078460399703923,
+      "crop": [
+        490,
+        708,
+        806,
+        1024
+      ],
+      "piece_id": 147
+    },
+    {
+      "image": "test_62.png",
+      "unit_id": 110,
+      "label": "negative",
+      "mean_probability": 1.9442468328634277e-06,
+      "stratum": "negative",
+      "id": "a1aa8778a5f49140c21b9e957706738e",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        26,
+        310,
+        35,
+        316
+      ],
+      "area": 21,
+      "gt_fraction": 0.0,
+      "crop": [
+        0,
+        281,
+        64,
+        345
+      ],
+      "piece_id": 110
+    },
+    {
+      "image": "test_37.png",
+      "unit_id": 6,
+      "label": "middle",
+      "mean_probability": 0.43432024121284485,
+      "stratum": "middle",
+      "id": "3a0aa52dd2ce4e3bf80fa7a5112050a0",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        328,
+        168,
+        495,
+        294
+      ],
+      "area": 7320,
+      "gt_fraction": 0.4814207650273224,
+      "crop": [
+        77,
+        0,
+        745,
+        668
+      ],
+      "piece_id": 6
+    },
+    {
+      "image": "test_41.png",
+      "unit_id": 64,
+      "label": "negative",
+      "mean_probability": 0.0010378934675827622,
+      "stratum": "high_negative",
+      "id": "acc60ebfa3292a4579d04b84eb73d54b",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        905,
+        785,
+        949,
+        827
+      ],
+      "area": 1197,
+      "gt_fraction": 0.0,
+      "crop": [
+        839,
+        718,
+        1015,
+        894
+      ],
+      "piece_id": 64
+    },
+    {
+      "image": "test_82.png",
+      "unit_id": 94,
+      "label": "negative",
+      "mean_probability": 1.0159690646105446e-05,
+      "stratum": "negative",
+      "id": "37fae485c16ebf3b439104bf6e19c376",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        605,
+        297,
+        620,
+        322
+      ],
+      "area": 113,
+      "gt_fraction": 0.0,
+      "crop": [
+        562,
+        259,
+        662,
+        359
+      ],
+      "piece_id": 94
+    },
+    {
+      "image": "test_43.png",
+      "unit_id": 27,
+      "label": "middle",
+      "mean_probability": 0.3941567540168762,
+      "stratum": "middle",
+      "id": "be7c8eb56bcef569919a7cb4f4faa6d2",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        772,
+        59,
+        795,
+        71
+      ],
+      "area": 47,
+      "gt_fraction": 0.46808510638297873,
+      "crop": [
+        737,
+        19,
+        829,
+        111
+      ],
+      "piece_id": 27
+    },
+    {
+      "image": "test_47.png",
+      "unit_id": 13,
+      "label": "middle",
+      "mean_probability": 0.31497660279273987,
+      "stratum": "middle",
+      "id": "7589eeab4588581fe874d7f9bf5f7956",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        969,
+        764,
+        992,
+        814
+      ],
+      "area": 365,
+      "gt_fraction": 0.29863013698630136,
+      "crop": [
+        824,
+        689,
+        1024,
+        889
+      ],
+      "piece_id": 13
+    },
+    {
+      "image": "test_47.png",
+      "unit_id": 3,
+      "label": "negative",
+      "mean_probability": 1.31167471408844e-05,
+      "stratum": "negative",
+      "id": "3015b55687e5e21355048349117e53b9",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        427,
+        376,
+        432,
+        382
+      ],
+      "area": 16,
+      "gt_fraction": 0.0,
+      "crop": [
+        397,
+        347,
+        461,
+        411
+      ],
+      "piece_id": 3
+    },
+    {
+      "image": "test_80.png",
+      "unit_id": 85,
+      "label": "middle",
+      "mean_probability": 0.39719223976135254,
+      "stratum": "middle",
+      "id": "c22b18c657d77f1b485bf57d823dfdf9",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        566,
+        521,
+        615,
+        578
+      ],
+      "area": 1715,
+      "gt_fraction": 0.29504373177842563,
+      "crop": [
+        476,
+        435,
+        704,
+        663
+      ],
+      "piece_id": 85
+    },
+    {
+      "image": "test_113.png",
+      "unit_id": 191,
+      "label": "negative",
+      "mean_probability": 0.0001071872902684845,
+      "stratum": "negative",
+      "id": "cf4273f76c410325e52ea0d566d2ff5f",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        244,
+        734,
+        255,
+        762
+      ],
+      "area": 92,
+      "gt_fraction": 0.0,
+      "crop": [
+        193,
+        692,
+        305,
+        804
+      ],
+      "piece_id": 191
+    },
+    {
+      "image": "test_59.png",
+      "unit_id": 25,
+      "label": "negative",
+      "mean_probability": 6.297826985246502e-06,
+      "stratum": "negative",
+      "id": "1f7f86fbdd158138db0da42522a88c06",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        901,
+        47,
+        934,
+        86
+      ],
+      "area": 150,
+      "gt_fraction": 0.0,
+      "crop": [
+        839,
+        0,
+        995,
+        156
+      ],
+      "piece_id": 25
+    },
+    {
+      "image": "test_82.png",
+      "unit_id": 114,
+      "label": "positive",
+      "mean_probability": 0.9998580813407898,
+      "stratum": "positive",
+      "id": "c0b1bf111b36f194bae08f9c1508e939",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        671,
+        617,
+        749,
+        642
+      ],
+      "area": 805,
+      "gt_fraction": 1.0,
+      "crop": [
+        554,
+        473,
+        866,
+        785
+      ],
+      "piece_id": 114
+    },
+    {
+      "image": "test_52.png",
+      "unit_id": 0,
+      "label": "negative",
+      "mean_probability": 8.514949301208219e-10,
+      "stratum": "negative",
+      "id": "d8012117deea82dccd5d3dba69c059cc",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        365,
+        143,
+        378,
+        158
+      ],
+      "area": 140,
+      "gt_fraction": 0.0,
+      "crop": [
+        339,
+        118,
+        403,
+        182
+      ],
+      "piece_id": 0
+    },
+    {
+      "image": "test_96.png",
+      "unit_id": 5,
+      "label": "negative",
+      "mean_probability": 0.0003421209694352001,
+      "stratum": "high_negative",
+      "id": "cfafcca979108a0efa0107d94c39310e",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        338,
+        88,
+        354,
+        109
+      ],
+      "area": 252,
+      "gt_fraction": 0.0,
+      "crop": [
+        304,
+        56,
+        388,
+        140
+      ],
+      "piece_id": 5
+    },
+    {
+      "image": "test_84.png",
+      "unit_id": 59,
+      "label": "positive",
+      "mean_probability": 0.4713693857192993,
+      "stratum": "positive",
+      "id": "d8ac10f972ee5adaab9c5c32fa36d9d8",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        540,
+        710,
+        567,
+        747
+      ],
+      "area": 740,
+      "gt_fraction": 0.5310810810810811,
+      "crop": [
+        479,
+        654,
+        627,
+        802
+      ],
+      "piece_id": 59
+    },
+    {
+      "image": "test_31.png",
+      "unit_id": 2,
+      "label": "positive",
+      "mean_probability": 0.9216024279594421,
+      "stratum": "positive",
+      "id": "7052d0f3d562a9856478b77ff4bca401",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        142,
+        346,
+        201,
+        404
+      ],
+      "area": 984,
+      "gt_fraction": 0.899390243902439,
+      "crop": [
+        53,
+        257,
+        289,
+        493
+      ],
+      "piece_id": 2
+    },
+    {
+      "image": "test_21.png",
+      "unit_id": 59,
+      "label": "middle",
+      "mean_probability": 0.0024101429153233767,
+      "stratum": "middle",
+      "id": "8f1e08960701fd63c7f00121a4088325",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        679,
+        918,
+        691,
+        924
+      ],
+      "area": 37,
+      "gt_fraction": 0.21621621621621623,
+      "crop": [
+        653,
+        889,
+        717,
+        953
+      ],
+      "piece_id": 59
+    },
+    {
+      "image": "test_57.png",
+      "unit_id": 9,
+      "label": "middle",
+      "mean_probability": 0.0004445672093424946,
+      "stratum": "middle",
+      "id": "c65aef320ebfa742985a762909e27c29",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        223,
+        804,
+        230,
+        812
+      ],
+      "area": 10,
+      "gt_fraction": 0.1,
+      "crop": [
+        194,
+        776,
+        258,
+        840
+      ],
+      "piece_id": 9
+    },
+    {
+      "image": "test_84.png",
+      "unit_id": 47,
+      "label": "positive",
+      "mean_probability": 0.46225953102111816,
+      "stratum": "positive",
+      "id": "5cce392e56021bf067f21f163cca99ac",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        690,
+        419,
+        753,
+        488
+      ],
+      "area": 3111,
+      "gt_fraction": 0.5946640951462552,
+      "crop": [
+        583,
+        315,
+        859,
+        591
+      ],
+      "piece_id": 47
+    },
+    {
+      "image": "test_25.png",
+      "unit_id": 117,
+      "label": "negative",
+      "mean_probability": 1.5780036846990697e-05,
+      "stratum": "negative",
+      "id": "e4f0365452b9fa8a77ff8e3321d81030",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        344,
+        410,
+        362,
+        420
+      ],
+      "area": 51,
+      "gt_fraction": 0.0,
+      "crop": [
+        317,
+        379,
+        389,
+        451
+      ],
+      "piece_id": 117
+    },
+    {
+      "image": "test_16.png",
+      "unit_id": 36,
+      "label": "negative",
+      "mean_probability": 0.08800862729549408,
+      "stratum": "high_negative",
+      "id": "cc9d87e9f7c537c3ecb6150c471e8955",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        434,
+        226,
+        438,
+        230
+      ],
+      "area": 15,
+      "gt_fraction": 0.0,
+      "crop": [
+        404,
+        196,
+        468,
+        260
+      ],
+      "piece_id": 36
+    },
+    {
+      "image": "test_50.png",
+      "unit_id": 1,
+      "label": "middle",
+      "mean_probability": 0.4531182646751404,
+      "stratum": "middle",
+      "id": "f0290beec9a03b5e2af73a0695886ed5",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        200,
+        917,
+        299,
+        976
+      ],
+      "area": 4535,
+      "gt_fraction": 0.43175303197353915,
+      "crop": [
+        51,
+        628,
+        447,
+        1024
+      ],
+      "piece_id": 1
+    },
+    {
+      "image": "test_107.png",
+      "unit_id": 253,
+      "label": "negative",
+      "mean_probability": 0.00014147494221106172,
+      "stratum": "negative",
+      "id": "fcbbb1fe412f7092ec5f843cb78de7b8",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        615,
+        697,
+        622,
+        709
+      ],
+      "area": 27,
+      "gt_fraction": 0.0,
+      "crop": [
+        586,
+        671,
+        650,
+        735
+      ],
+      "piece_id": 253
+    },
+    {
+      "image": "test_103.png",
+      "unit_id": 61,
+      "label": "negative",
+      "mean_probability": 0.0011497699888423085,
+      "stratum": "high_negative",
+      "id": "a27ef2bb9bb3647923510d57b4eee012",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        654,
+        294,
+        691,
+        308
+      ],
+      "area": 150,
+      "gt_fraction": 0.0,
+      "crop": [
+        598,
+        227,
+        746,
+        375
+      ],
+      "piece_id": 61
+    },
+    {
+      "image": "test_101.png",
+      "unit_id": 97,
+      "label": "middle",
+      "mean_probability": 0.34340453147888184,
+      "stratum": "middle",
+      "id": "48abfbc907b21da2fb271109cb153ee8",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        367,
+        865,
+        435,
+        928
+      ],
+      "area": 1487,
+      "gt_fraction": 0.26899798251513113,
+      "crop": [
+        265,
+        752,
+        537,
+        1024
+      ],
+      "piece_id": 97
+    },
+    {
+      "image": "test_8.png",
+      "unit_id": 0,
+      "label": "negative",
+      "mean_probability": 1.9632852854556404e-05,
+      "stratum": "negative",
+      "id": "e3c7cde88191a954c391735e694019f1",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        481,
+        0,
+        490,
+        14
+      ],
+      "area": 39,
+      "gt_fraction": 0.0,
+      "crop": [
+        453,
+        0,
+        517,
+        64
+      ],
+      "piece_id": 0
+    },
+    {
+      "image": "test_77.png",
+      "unit_id": 152,
+      "label": "negative",
+      "mean_probability": 0.016792375594377518,
+      "stratum": "high_negative",
+      "id": "6b6c46380daff84d5b46f7743369aa9c",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        4,
+        740,
+        26,
+        771
+      ],
+      "area": 326,
+      "gt_fraction": 0.0,
+      "crop": [
+        0,
+        693,
+        124,
+        817
+      ],
+      "piece_id": 152
+    },
+    {
+      "image": "test_49.png",
+      "unit_id": 151,
+      "label": "negative",
+      "mean_probability": 3.622523581725545e-05,
+      "stratum": "negative",
+      "id": "666b01c57e7173929321c9c751000b9b",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        358,
+        873,
+        370,
+        903
+      ],
+      "area": 58,
+      "gt_fraction": 0.0,
+      "crop": [
+        304,
+        828,
+        424,
+        948
+      ],
+      "piece_id": 151
+    },
+    {
+      "image": "test_36.png",
+      "unit_id": 10,
+      "label": "middle",
+      "mean_probability": 0.3348912298679352,
+      "stratum": "middle",
+      "id": "804c778b8db3ae38629d997c11bfe97c",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        771,
+        830,
+        869,
+        913
+      ],
+      "area": 3227,
+      "gt_fraction": 0.3275488069414317,
+      "crop": [
+        624,
+        632,
+        1016,
+        1024
+      ],
+      "piece_id": 10
+    },
+    {
+      "image": "test_82.png",
+      "unit_id": 143,
+      "label": "positive",
+      "mean_probability": 0.9996163249015808,
+      "stratum": "positive",
+      "id": "d4c8cf268ed897c66242d8e16ad60758",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        745,
+        613,
+        754,
+        629
+      ],
+      "area": 42,
+      "gt_fraction": 1.0,
+      "crop": [
+        717,
+        589,
+        781,
+        653
+      ],
+      "piece_id": 143
+    },
+    {
+      "image": "test_43.png",
+      "unit_id": 7,
+      "label": "positive",
+      "mean_probability": 0.8697305917739868,
+      "stratum": "positive",
+      "id": "27f2a5166b655934b633be8f5472ffeb",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        642,
+        21,
+        685,
+        55
+      ],
+      "area": 830,
+      "gt_fraction": 0.8879518072289156,
+      "crop": [
+        577,
+        0,
+        749,
+        172
+      ],
+      "piece_id": 7
+    },
+    {
+      "image": "test_68.png",
+      "unit_id": 8,
+      "label": "negative",
+      "mean_probability": 0.0002808421850204468,
+      "stratum": "negative",
+      "id": "38490aa803fa2c96cb96f5fec29f3169",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        209,
+        743,
+        219,
+        749
+      ],
+      "area": 48,
+      "gt_fraction": 0.0,
+      "crop": [
+        182,
+        714,
+        246,
+        778
+      ],
+      "piece_id": 8
+    },
+    {
+      "image": "test_77.png",
+      "unit_id": 26,
+      "label": "positive",
+      "mean_probability": 0.0003688188153319061,
+      "stratum": "positive",
+      "id": "2629e1423a67532da4e933dfe91fdd5d",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        642,
+        204,
+        697,
+        244
+      ],
+      "area": 1345,
+      "gt_fraction": 0.7613382899628253,
+      "crop": [
+        559,
+        114,
+        779,
+        334
+      ],
+      "piece_id": 26
+    },
+    {
+      "image": "test_126.png",
+      "unit_id": 34,
+      "label": "negative",
+      "mean_probability": 3.6656856536865234e-06,
+      "stratum": "negative",
+      "id": "f200ae32938bbe14293d7438e1a8a628",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        675,
+        271,
+        696,
+        280
+      ],
+      "area": 58,
+      "gt_fraction": 0.0,
+      "crop": [
+        643,
+        233,
+        727,
+        317
+      ],
+      "piece_id": 34
+    },
+    {
+      "image": "test_86.png",
+      "unit_id": 7,
+      "label": "negative",
+      "mean_probability": 3.1576269066135865e-06,
+      "stratum": "negative",
+      "id": "892b845da940bc10dfd7b208bcf7fb8f",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        424,
+        9,
+        440,
+        34
+      ],
+      "area": 294,
+      "gt_fraction": 0.0,
+      "crop": [
+        382,
+        0,
+        482,
+        100
+      ],
+      "piece_id": 7
+    },
+    {
+      "image": "test_48.png",
+      "unit_id": 14,
+      "label": "middle",
+      "mean_probability": 0.09876832365989685,
+      "stratum": "middle",
+      "id": "c9ae8da80514bceea944811d1720da0f",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        491,
+        17,
+        514,
+        34
+      ],
+      "area": 47,
+      "gt_fraction": 0.14893617021276595,
+      "crop": [
+        456,
+        0,
+        548,
+        92
+      ],
+      "piece_id": 14
+    },
+    {
+      "image": "test_82.png",
+      "unit_id": 115,
+      "label": "positive",
+      "mean_probability": 0.9861434102058411,
+      "stratum": "positive",
+      "id": "39426204f1da20eddebe3da1c48d4751",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        498,
+        646,
+        525,
+        667
+      ],
+      "area": 452,
+      "gt_fraction": 0.9203539823008849,
+      "crop": [
+        457,
+        602,
+        565,
+        710
+      ],
+      "piece_id": 115
+    },
+    {
+      "image": "test_49.png",
+      "unit_id": 82,
+      "label": "middle",
+      "mean_probability": 0.34336453676223755,
+      "stratum": "middle",
+      "id": "ee4c1205f092ef499bfe4a45ef83728e",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        348,
+        513,
+        358,
+        524
+      ],
+      "area": 53,
+      "gt_fraction": 0.1320754716981132,
+      "crop": [
+        321,
+        486,
+        385,
+        550
+      ],
+      "piece_id": 82
+    },
+    {
+      "image": "test_126.png",
+      "unit_id": 12,
+      "label": "negative",
+      "mean_probability": 0.000360192236257717,
+      "stratum": "high_negative",
+      "id": "e17fb81cf44a58c2feb032e119634554",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        657,
+        155,
+        672,
+        167
+      ],
+      "area": 44,
+      "gt_fraction": 0.0,
+      "crop": [
+        632,
+        129,
+        696,
+        193
+      ],
+      "piece_id": 12
+    },
+    {
+      "image": "test_96.png",
+      "unit_id": 11,
+      "label": "negative",
+      "mean_probability": 4.8005204007495195e-06,
+      "stratum": "negative",
+      "id": "4634d65a11595d10b1aae25fb74945ad",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        961,
+        401,
+        984,
+        417
+      ],
+      "area": 254,
+      "gt_fraction": 0.0,
+      "crop": [
+        926,
+        363,
+        1018,
+        455
+      ],
+      "piece_id": 11
+    },
+    {
+      "image": "test_103.png",
+      "unit_id": 16,
+      "label": "positive",
+      "mean_probability": 0.3221952021121979,
+      "stratum": "positive",
+      "id": "20b0cb397749de458c1ce190a052e026",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        344,
+        84,
+        385,
+        126
+      ],
+      "area": 996,
+      "gt_fraction": 0.6184738955823293,
+      "crop": [
+        280,
+        21,
+        448,
+        189
+      ],
+      "piece_id": 16
+    },
+    {
+      "image": "test_100.png",
+      "unit_id": 13,
+      "label": "middle",
+      "mean_probability": 2.1315139520083903e-07,
+      "stratum": "middle",
+      "id": "211da4a140418508503893fdc362c31d",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        556,
+        188,
+        572,
+        206
+      ],
+      "area": 184,
+      "gt_fraction": 0.3858695652173913,
+      "crop": [
+        528,
+        161,
+        600,
+        233
+      ],
+      "piece_id": 13
+    },
+    {
+      "image": "test_6.png",
+      "unit_id": 22,
+      "label": "positive",
+      "mean_probability": 0.18575091660022736,
+      "stratum": "positive",
+      "id": "d10ba3d19328adcedbcbcddc96c6bf2d",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        263,
+        141,
+        302,
+        163
+      ],
+      "area": 561,
+      "gt_fraction": 0.7700534759358288,
+      "crop": [
+        204,
+        74,
+        360,
+        230
+      ],
+      "piece_id": 22
+    },
+    {
+      "image": "test_124.png",
+      "unit_id": 4,
+      "label": "negative",
+      "mean_probability": 0.00035692291567102075,
+      "stratum": "high_negative",
+      "id": "752af5859206b6aa2226169d1d24378a",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        650,
+        891,
+        671,
+        903
+      ],
+      "area": 191,
+      "gt_fraction": 0.0,
+      "crop": [
+        618,
+        855,
+        702,
+        939
+      ],
+      "piece_id": 4
+    },
+    {
+      "image": "test_14.png",
+      "unit_id": 6,
+      "label": "middle",
+      "mean_probability": 0.012680219486355782,
+      "stratum": "middle",
+      "id": "413c4fe0d5eb9f5f17c5502c99cbfd9d",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        36,
+        157,
+        42,
+        171
+      ],
+      "area": 23,
+      "gt_fraction": 0.13043478260869565,
+      "crop": [
+        7,
+        132,
+        71,
+        196
+      ],
+      "piece_id": 6
+    },
+    {
+      "image": "test_95.png",
+      "unit_id": 5,
+      "label": "positive",
+      "mean_probability": 0.3424791395664215,
+      "stratum": "positive",
+      "id": "15efdf4bf0a864f47313dd011ad1aaa4",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        0,
+        1005,
+        13,
+        1024
+      ],
+      "area": 214,
+      "gt_fraction": 0.5841121495327103,
+      "crop": [
+        0,
+        948,
+        76,
+        1024
+      ],
+      "piece_id": 5
+    },
+    {
+      "image": "test_119.png",
+      "unit_id": 199,
+      "label": "negative",
+      "mean_probability": 0.19072577357292175,
+      "stratum": "high_negative",
+      "id": "e63932fd5522ff7237fefe469d875d4a",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        193,
+        808,
+        216,
+        828
+      ],
+      "area": 302,
+      "gt_fraction": 0.0,
+      "crop": [
+        158,
+        772,
+        250,
+        864
+      ],
+      "piece_id": 199
+    },
+    {
+      "image": "test_53.png",
+      "unit_id": 75,
+      "label": "negative",
+      "mean_probability": 1.648990837566089e-05,
+      "stratum": "negative",
+      "id": "248e9a45c5b3e1dc90ebaad79950a54a",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        212,
+        726,
+        231,
+        759
+      ],
+      "area": 84,
+      "gt_fraction": 0.0,
+      "crop": [
+        155,
+        676,
+        287,
+        808
+      ],
+      "piece_id": 75
+    },
+    {
+      "image": "test_81.png",
+      "unit_id": 106,
+      "label": "positive",
+      "mean_probability": 0.1345464140176773,
+      "stratum": "positive",
+      "id": "79bbea9b37f92d5a1c2b1efe72420546",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        402,
+        888,
+        414,
+        898
+      ],
+      "area": 60,
+      "gt_fraction": 0.9333333333333333,
+      "crop": [
+        376,
+        861,
+        440,
+        925
+      ],
+      "piece_id": 106
+    },
+    {
+      "image": "test_71.png",
+      "unit_id": 1,
+      "label": "middle",
+      "mean_probability": 0.3771883547306061,
+      "stratum": "middle",
+      "id": "fdcda1e4bf262b327be87d3366ff7183",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        398,
+        0,
+        459,
+        28
+      ],
+      "area": 1262,
+      "gt_fraction": 0.3549920760697306,
+      "crop": [
+        306,
+        0,
+        550,
+        244
+      ],
+      "piece_id": 1
+    },
+    {
+      "image": "test_109.png",
+      "unit_id": 311,
+      "label": "negative",
+      "mean_probability": 0.0013532890006899834,
+      "stratum": "high_negative",
+      "id": "9a67c1357f8b180a6a1b6573067034fa",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        13,
+        966,
+        77,
+        1020
+      ],
+      "area": 1145,
+      "gt_fraction": 0.07510917030567686,
+      "crop": [
+        0,
+        768,
+        256,
+        1024
+      ],
+      "piece_id": 311
+    },
+    {
+      "image": "test_13.png",
+      "unit_id": 1,
+      "label": "positive",
+      "mean_probability": 0.2476813644170761,
+      "stratum": "positive",
+      "id": "36a0e58484e6c26b0d3771ced752a915",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        872,
+        167,
+        887,
+        180
+      ],
+      "area": 33,
+      "gt_fraction": 0.9090909090909091,
+      "crop": [
+        847,
+        141,
+        911,
+        205
+      ],
+      "piece_id": 1
+    },
+    {
+      "image": "test_113.png",
+      "unit_id": 88,
+      "label": "negative",
+      "mean_probability": 9.898732059809845e-06,
+      "stratum": "negative",
+      "id": "63f78eedb9855d4c589a416542f9ecd2",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        687,
+        512,
+        696,
+        536
+      ],
+      "area": 82,
+      "gt_fraction": 0.0,
+      "crop": [
+        643,
+        476,
+        739,
+        572
+      ],
+      "piece_id": 88
+    },
+    {
+      "image": "test_14.png",
+      "unit_id": 4,
+      "label": "positive",
+      "mean_probability": 0.2613176703453064,
+      "stratum": "positive",
+      "id": "8ebb21da613448a3e78a2b83b60d2e20",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        50,
+        143,
+        87,
+        165
+      ],
+      "area": 191,
+      "gt_fraction": 0.6230366492146597,
+      "crop": [
+        0,
+        80,
+        148,
+        228
+      ],
+      "piece_id": 4
+    },
+    {
+      "image": "test_48.png",
+      "unit_id": 81,
+      "label": "negative",
+      "mean_probability": 1.4841556549072266e-05,
+      "stratum": "negative",
+      "id": "f0fba816348c4d6d17c374b2d14f12eb",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        0,
+        166,
+        12,
+        177
+      ],
+      "area": 38,
+      "gt_fraction": 0.0,
+      "crop": [
+        0,
+        139,
+        64,
+        203
+      ],
+      "piece_id": 81
+    },
+    {
+      "image": "test_89.png",
+      "unit_id": 39,
+      "label": "negative",
+      "mean_probability": 6.706488784402609e-05,
+      "stratum": "negative",
+      "id": "9f891989951d884f45acbc89bc628e95",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        1015,
+        866,
+        1024,
+        882
+      ],
+      "area": 37,
+      "gt_fraction": 0.0,
+      "crop": [
+        960,
+        842,
+        1024,
+        906
+      ],
+      "piece_id": 39
+    },
+    {
+      "image": "test_112.png",
+      "unit_id": 163,
+      "label": "negative",
+      "mean_probability": 0.00046745259896852076,
+      "stratum": "high_negative",
+      "id": "85767fbdd6177f968fb80ffed1815334",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        780,
+        998,
+        804,
+        1022
+      ],
+      "area": 273,
+      "gt_fraction": 0.0,
+      "crop": [
+        744,
+        928,
+        840,
+        1024
+      ],
+      "piece_id": 163
+    },
+    {
+      "image": "test_21.png",
+      "unit_id": 14,
+      "label": "middle",
+      "mean_probability": 0.015150785446166992,
+      "stratum": "middle",
+      "id": "0146f9c120f03b00aa463b93e4d71708",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        211,
+        386,
+        224,
+        397
+      ],
+      "area": 32,
+      "gt_fraction": 0.1875,
+      "crop": [
+        185,
+        359,
+        249,
+        423
+      ],
+      "piece_id": 14
+    },
+    {
+      "image": "test_114.png",
+      "unit_id": 196,
+      "label": "negative",
+      "mean_probability": 0.15408803522586823,
+      "stratum": "high_negative",
+      "id": "d075127d3d2cb45ed1c2f6c6faf3f3d4",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        946,
+        0,
+        957,
+        11
+      ],
+      "area": 83,
+      "gt_fraction": 0.0,
+      "crop": [
+        919,
+        0,
+        983,
+        64
+      ],
+      "piece_id": 196
+    },
+    {
+      "image": "test_72.png",
+      "unit_id": 22,
+      "label": "negative",
+      "mean_probability": 0.22606688737869263,
+      "stratum": "high_negative",
+      "id": "b2fdef07e45437cca8c6c8fc22029ced",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        768,
+        73,
+        772,
+        84
+      ],
+      "area": 25,
+      "gt_fraction": 0.0,
+      "crop": [
+        738,
+        46,
+        802,
+        110
+      ],
+      "piece_id": 22
+    },
+    {
+      "image": "test_27.png",
+      "unit_id": 250,
+      "label": "negative",
+      "mean_probability": 0.2777053713798523,
+      "stratum": "high_negative",
+      "id": "128232310e261f4db39c2d98cd529ca0",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        41,
+        232,
+        47,
+        238
+      ],
+      "area": 20,
+      "gt_fraction": 0.0,
+      "crop": [
+        12,
+        203,
+        76,
+        267
+      ],
+      "piece_id": 250
+    },
+    {
+      "image": "test_76.png",
+      "unit_id": 359,
+      "label": "negative",
+      "mean_probability": 0.11472112685441971,
+      "stratum": "high_negative",
+      "id": "12229d6645eb0a7625c54af770042674",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        1023,
+        219,
+        1024,
+        230
+      ],
+      "area": 11,
+      "gt_fraction": 0.0,
+      "crop": [
+        960,
+        192,
+        1024,
+        256
+      ],
+      "piece_id": 359
+    },
+    {
+      "image": "test_59.png",
+      "unit_id": 161,
+      "label": "negative",
+      "mean_probability": 2.912112677222467e-06,
+      "stratum": "negative",
+      "id": "df1b946cc6e8f1dc5c8aeb3dce2fe197",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        915,
+        361,
+        923,
+        366
+      ],
+      "area": 14,
+      "gt_fraction": 0.0,
+      "crop": [
+        887,
+        331,
+        951,
+        395
+      ],
+      "piece_id": 161
+    },
+    {
+      "image": "test_121.png",
+      "unit_id": 66,
+      "label": "positive",
+      "mean_probability": 0.9999927878379822,
+      "stratum": "positive",
+      "id": "cbc5799e0308c0e714344dabad67c3ff",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        156,
+        948,
+        173,
+        960
+      ],
+      "area": 135,
+      "gt_fraction": 1.0,
+      "crop": [
+        130,
+        920,
+        198,
+        988
+      ],
+      "piece_id": 66
+    },
+    {
+      "image": "test_79.png",
+      "unit_id": 264,
+      "label": "middle",
+      "mean_probability": 0.4803432524204254,
+      "stratum": "middle",
+      "id": "507492419f7d10e19134c1bf75fd8014",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        375,
+        649,
+        488,
+        718
+      ],
+      "area": 2316,
+      "gt_fraction": 0.4896373056994819,
+      "crop": [
+        205,
+        457,
+        657,
+        909
+      ],
+      "piece_id": 264
+    },
+    {
+      "image": "test_67.png",
+      "unit_id": 20,
+      "label": "positive",
+      "mean_probability": 0.08527813106775284,
+      "stratum": "positive",
+      "id": "29377ebf86e2d13fe9d2f5980a3046e3",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        15,
+        487,
+        40,
+        511
+      ],
+      "area": 184,
+      "gt_fraction": 0.7717391304347826,
+      "crop": [
+        0,
+        449,
+        100,
+        549
+      ],
+      "piece_id": 20
+    },
+    {
+      "image": "test_119.png",
+      "unit_id": 144,
+      "label": "negative",
+      "mean_probability": 0.0013643050333485007,
+      "stratum": "high_negative",
+      "id": "76659dfa76f89c28ecaec61174fefc1b",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        426,
+        799,
+        436,
+        838
+      ],
+      "area": 100,
+      "gt_fraction": 0.0,
+      "crop": [
+        353,
+        740,
+        509,
+        896
+      ],
+      "piece_id": 144
+    },
+    {
+      "image": "test_26.png",
+      "unit_id": 66,
+      "label": "negative",
+      "mean_probability": 0.004829431883990765,
+      "stratum": "high_negative",
+      "id": "5df1a35707db64a531ac63757f4cae60",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        158,
+        447,
+        170,
+        456
+      ],
+      "area": 86,
+      "gt_fraction": 0.0,
+      "crop": [
+        132,
+        419,
+        196,
+        483
+      ],
+      "piece_id": 66
+    },
+    {
+      "image": "test_46.png",
+      "unit_id": 44,
+      "label": "negative",
+      "mean_probability": 6.86970743117854e-05,
+      "stratum": "negative",
+      "id": "892473da861069ba20a034e01bd0c571",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        37,
+        704,
+        77,
+        738
+      ],
+      "area": 843,
+      "gt_fraction": 0.0,
+      "crop": [
+        0,
+        641,
+        160,
+        801
+      ],
+      "piece_id": 44
+    },
+    {
+      "image": "test_28.png",
+      "unit_id": 9,
+      "label": "middle",
+      "mean_probability": 0.41783496737480164,
+      "stratum": "middle",
+      "id": "292914530fb050443e24492d6e952973",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        135,
+        691,
+        179,
+        741
+      ],
+      "area": 1445,
+      "gt_fraction": 0.4096885813148789,
+      "crop": [
+        57,
+        616,
+        257,
+        816
+      ],
+      "piece_id": 9
+    },
+    {
+      "image": "test_89.png",
+      "unit_id": 60,
+      "label": "positive",
+      "mean_probability": 0.06006840243935585,
+      "stratum": "positive",
+      "id": "0750babb06d44a59eff92ccd116e83ab",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        483,
+        524,
+        492,
+        529
+      ],
+      "area": 28,
+      "gt_fraction": 1.0,
+      "crop": [
+        455,
+        494,
+        519,
+        558
+      ],
+      "piece_id": 60
+    },
+    {
+      "image": "test_91.png",
+      "unit_id": 58,
+      "label": "negative",
+      "mean_probability": 0.0013417581794783473,
+      "stratum": "high_negative",
+      "id": "682c157b98560e170820fb03c3789c54",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        273,
+        260,
+        280,
+        267
+      ],
+      "area": 31,
+      "gt_fraction": 0.0,
+      "crop": [
+        244,
+        231,
+        308,
+        295
+      ],
+      "piece_id": 58
+    },
+    {
+      "image": "test_107.png",
+      "unit_id": 32,
+      "label": "negative",
+      "mean_probability": 4.704296588897705e-05,
+      "stratum": "negative",
+      "id": "1040598ced2dd364e0721a032975f940",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        641,
+        63,
+        643,
+        73
+      ],
+      "area": 12,
+      "gt_fraction": 0.0,
+      "crop": [
+        610,
+        36,
+        674,
+        100
+      ],
+      "piece_id": 32
+    },
+    {
+      "image": "test_43.png",
+      "unit_id": 77,
+      "label": "positive",
+      "mean_probability": 0.7637730836868286,
+      "stratum": "positive",
+      "id": "40490c1ec394e43c5071534d61f0ca03",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        797,
+        743,
+        856,
+        801
+      ],
+      "area": 1908,
+      "gt_fraction": 0.6871069182389937,
+      "crop": [
+        708,
+        654,
+        944,
+        890
+      ],
+      "piece_id": 77
+    },
+    {
+      "image": "test_103.png",
+      "unit_id": 182,
+      "label": "negative",
+      "mean_probability": 1.8822518654815212e-08,
+      "stratum": "negative",
+      "id": "10a6d8fd07e8033196367f9e8738b716",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        236,
+        964,
+        247,
+        967
+      ],
+      "area": 19,
+      "gt_fraction": 0.0,
+      "crop": [
+        209,
+        933,
+        273,
+        997
+      ],
+      "piece_id": 182
+    },
+    {
+      "image": "test_108.png",
+      "unit_id": 73,
+      "label": "negative",
+      "mean_probability": 2.1219253540039062e-05,
+      "stratum": "negative",
+      "id": "9c08f28bb71a919ee29053e42ec577aa",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        31,
+        869,
+        34,
+        892
+      ],
+      "area": 35,
+      "gt_fraction": 0.0,
+      "crop": [
+        0,
+        834,
+        92,
+        926
+      ],
+      "piece_id": 73
+    },
+    {
+      "image": "test_119.png",
+      "unit_id": 2,
+      "label": "middle",
+      "mean_probability": 0.004286142531782389,
+      "stratum": "middle",
+      "id": "566bceafe8770acffcb654a1fc66f416",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        328,
+        9,
+        346,
+        31
+      ],
+      "area": 293,
+      "gt_fraction": 0.45733788395904434,
+      "crop": [
+        293,
+        0,
+        381,
+        88
+      ],
+      "piece_id": 2
+    },
+    {
+      "image": "test_74.png",
+      "unit_id": 109,
+      "label": "middle",
+      "mean_probability": 0.2503924071788788,
+      "stratum": "middle",
+      "id": "beb79d190791f110a9664716d2ed615a",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        708,
+        523,
+        717,
+        529
+      ],
+      "area": 44,
+      "gt_fraction": 0.25,
+      "crop": [
+        680,
+        494,
+        744,
+        558
+      ],
+      "piece_id": 109
+    },
+    {
+      "image": "test_24.png",
+      "unit_id": 96,
+      "label": "middle",
+      "mean_probability": 0.4034048616886139,
+      "stratum": "middle",
+      "id": "6fb41dc2283ba459d9ae4254a147d92a",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        551,
+        513,
+        590,
+        565
+      ],
+      "area": 1235,
+      "gt_fraction": 0.36356275303643726,
+      "crop": [
+        466,
+        435,
+        674,
+        643
+      ],
+      "piece_id": 96
+    },
+    {
+      "image": "test_43.png",
+      "unit_id": 84,
+      "label": "middle",
+      "mean_probability": 0.39376014471054077,
+      "stratum": "middle",
+      "id": "2dec66820139554067086e3d96b5baa3",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        862,
+        808,
+        936,
+        881
+      ],
+      "area": 1183,
+      "gt_fraction": 0.38377007607776836,
+      "crop": [
+        728,
+        696,
+        1024,
+        992
+      ],
+      "piece_id": 84
+    },
+    {
+      "image": "test_109.png",
+      "unit_id": 73,
+      "label": "negative",
+      "mean_probability": 0.0005219262093305588,
+      "stratum": "high_negative",
+      "id": "c190292340ba7026a214f7cf91ec4a71",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        264,
+        214,
+        285,
+        244
+      ],
+      "area": 471,
+      "gt_fraction": 0.0,
+      "crop": [
+        214,
+        169,
+        334,
+        289
+      ],
+      "piece_id": 73
+    },
+    {
+      "image": "test_43.png",
+      "unit_id": 32,
+      "label": "positive",
+      "mean_probability": 0.8750407695770264,
+      "stratum": "positive",
+      "id": "98d28678a08b827335f25799c84add6b",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        772,
+        60,
+        809,
+        92
+      ],
+      "area": 760,
+      "gt_fraction": 0.8986842105263158,
+      "crop": [
+        716,
+        2,
+        864,
+        150
+      ],
+      "piece_id": 32
+    },
+    {
+      "image": "test_89.png",
+      "unit_id": 21,
+      "label": "positive",
+      "mean_probability": 3.072619438171387e-05,
+      "stratum": "positive",
+      "id": "f3c3e65b9ad33248f36d356581665588",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        279,
+        746,
+        284,
+        752
+      ],
+      "area": 18,
+      "gt_fraction": 0.9444444444444444,
+      "crop": [
+        249,
+        717,
+        313,
+        781
+      ],
+      "piece_id": 21
+    },
+    {
+      "image": "test_41.png",
+      "unit_id": 63,
+      "label": "positive",
+      "mean_probability": 0.6552009582519531,
+      "stratum": "positive",
+      "id": "6661ac2a841940f5f605ca83dbcd18cc",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        761,
+        805,
+        805,
+        854
+      ],
+      "area": 1324,
+      "gt_fraction": 0.6616314199395771,
+      "crop": [
+        685,
+        731,
+        881,
+        927
+      ],
+      "piece_id": 63
+    },
+    {
+      "image": "test_31.png",
+      "unit_id": 28,
+      "label": "middle",
+      "mean_probability": 0.3820241689682007,
+      "stratum": "middle",
+      "id": "600347b3957c1cec20efc483e43514cc",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        111,
+        387,
+        133,
+        421
+      ],
+      "area": 506,
+      "gt_fraction": 0.43478260869565216,
+      "crop": [
+        54,
+        336,
+        190,
+        472
+      ],
+      "piece_id": 28
+    },
+    {
+      "image": "test_19.png",
+      "unit_id": 26,
+      "label": "negative",
+      "mean_probability": 0.24220149219036102,
+      "stratum": "high_negative",
+      "id": "9c11c03eec8f4346d5ce064f46ea9523",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        751,
+        102,
+        805,
+        182
+      ],
+      "area": 939,
+      "gt_fraction": 0.0,
+      "crop": [
+        618,
+        0,
+        938,
+        320
+      ],
+      "piece_id": 26
+    },
+    {
+      "image": "test_72.png",
+      "unit_id": 23,
+      "label": "positive",
+      "mean_probability": 0.46346336603164673,
+      "stratum": "positive",
+      "id": "8e337cdb134635eebc9d2ac09b625ea3",
+      "dataset": "levir",
+      "unit": "U5_x16",
+      "is_duplicate": false,
+      "original_id": null,
+      "bbox": [
+        861,
+        553,
+        878,
+        577
+      ],
+      "area": 215,
+      "gt_fraction": 1.0,
+      "crop": [
+        821,
+        517,
+        917,
+        613
+      ],
+      "piece_id": 23
+    }
+  ],
+  "purpose": "frozen test-pool description only; nonexpert human answers are references",
+  "ground_truth_in_page": false
+}

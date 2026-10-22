@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="zh-CN"><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>两期影像审核</title>
+<style>
+body{font:16px system-ui,sans-serif;max-width:1000px;margin:24px auto;padding:0 16px;
+background:#f4f5f6;color:#20252a}button{padding:12px 18px;margin:5px;font:inherit;
+cursor:pointer}button[aria-pressed=true]{background:#c5e5ff;border:2px solid #12589a}
+.pair{display:flex;gap:12px}.pair figure{margin:12px 0;flex:1;min-width:0}
+img{display:block;width:100%;max-width:384px;height:auto;background:#ddd}
+progress{width:100%}#warning{color:#9b3000}#status{min-height:1.5em}
+@media(max-width:500px){button{padding:10px}.pair{gap:6px}}
+</style>
+<h1>对象变化审核</h1><p>数据集：second；单元：U5_x4。200 个独立对象，另加 20 个重复项。独立对象分层：正例 50 个（25.0%）、普通负例 50 个（25.0%）、高分负例 50 个（25.0%）、中间标签 50 个（25.0%），各层互斥。目标为各 25%；不足时按剩余层容量比例补足。</p><p>正例真值占比 ≥50%，负例 &lt;10%，中间标签为 [10%,50%)。高分负例是负例中对象内检测器平均概率排名最高的前 10%（向上取整）；同分按图名、单元编号排序，其余为普通负例。当前对象的标签、分数和重复身份不在页面显示。</p><p>本页仅描述冻结方案后的测试池；审核者的答案只作参考。轮廓标出当前池单元；U5 的大对象可能已拆成多个单元。轮廓内仅一部分发生真实变化时请选择“部分变化”。</p>
+<p>请判断红色轮廓内的地物是否发生真实变化。仅成像或色调差异请选择“没变”；
+证据不足请选择“看不清”。可切换上下文查看周围地物。</p>
+<div id="progressText" aria-live="polite"></div><progress id="progress"></progress>
+<div class="pair"><figure><figcaption>t1</figcaption><img id="left" alt="t1 影像"></figure>
+<figure><figcaption>t2</figcaption><img id="right" alt="t2 影像"></figure></div>
+<div><button id="context" aria-pressed="false">显示上下文</button></div>
+<div id="choices">
+<button data-choice="changed">1 · 变了</button>
+<button data-choice="unchanged">2 · 没变</button>
+<button data-choice="partial">4 · 部分变化</button>
+<button data-choice="unclear">3 · 看不清</button>
+<button data-choice="skip">0 · 跳过</button></div>
+<p id="status" aria-live="polite"></p>
+<div><button id="previous">上一个</button><button id="next">下一个</button>
+<button id="export">导出结果</button><button id="import">导入结果继续</button>
+<input id="file" type="file" accept=".json,application/json" hidden></div>
+<p id="warning" role="alert"></p>
+<p>快捷键：1 / 2 / 3 / 4 / 0；左右方向键切换。建议结束时导出结果留存。</p>
+<script>
+"use strict";
+const ids = ["ba8d2de7767189f87346bd70057d5ad0", "b07280f7e4267de38eecbe3b9a3fb9bb", "3f20f9745d6e94365cd58956a9dd606e", "89d3207afd6bc5eaac58528244588e37", "2f4fbdc616dd08275f1d41ad93c4e200", "d8a5020cdd3618eb788830f19159c8e2", "4482dfd1c6ac66ebbe31b05d6d7fb9e3", "a49e99a149c2ea202e9e8eafc19d854d", "4ee2dd7cdb71f8670ad7192abb25551f", "16fba16a56a1a008dd6572603b66ac68", "a5a1d0d426f2e74f738f4dd84aba9aa9", "50cb194341f9e6c4dab59ba2a9fe10c8", "c213844cc49af3c666df15b226066d19", "bf0ac0412bdfb6e7221024e1229e416d", "280ac7985647b099f61855dc4831a555", "0e71ad22ce764c4b56383cad6784114a", "35dc4ae55bd26c9610f879dc95105f5a", "5f06cae6cf771f7f32fb84d2b48ca64c", "91c75c24d153fc868e1a7ba1cbf6cfbd", "3437af3c0f8b5a4237a46f533dd1e96a", "7e5d8e80c0f543c37e2e4d7ea1c7e571", "28f1d4157c9bda6bfc1519fd8658ef10", "e28d34a63ce7f48f094705f27af2df65", "cba6dee31f8d7c25b41ab442d59b8945", "46f79523c3a85b6bc4d88e1bde0b6d67", "1616eefd35f0a910e0bc84ad470ff517", "bf415ec11b7bf6785decbac6041bb3a1", "4650eb9ecf22c79db276c3a4457bddf9", "e8e3f83e0ced866797159c1494e372fb", "17900ac843be29c41b6a8acaec3bd1cc", "f55d7d438e6f7f4a3b16a67fc4280176", "165caef5d3026c540c65139b2afcfecd", "fe3b8cad12a179d1cebc895f164b42bb", "59678131f4fa011f948bf0f9a53be24a", "9fd31b553404078fc51abeca30ec52e4", "6358a39b516cb085b2e2271edffff2f3", "3dab024f852eea84e78cb62299e56154", "9a5c47c84ead2b3524d3984adb4ea54e", "5b888ba748e5f88420279ea44e477a50", "5dc63a13fd6778f0c54d598c991c86c1", "178c7ced7b50f33cdc5235d95d4adf95", "3dcc547a4517e54f8aeca2198d2d51b8", "ca6573b5e1f1508d4271a1333be74cd2", "db55fd2c4b83675c4a2109b6e3989b37", "160d2b28d5f43d7930876a53163c3ec9", "ccda8082bc15a06cb76312905af28283", "d6656353acc919b5db0099c091174714", "458d6182db1b8d90e79b37dd9493655e", "a04bcc7fd9d16e5216cdbd7b435c3645", "c7ae64ab76b3287f419a3912b2feb27a", "e9d59e166f39b1a70133cd4a47f1ed46", "4bfb4c3fca16b3f24a9efefa044b6010", "83e40a0c7740d07726d71a40804ca7fb", "903790fae221c2b5e5ed4a539f240f5b", "a44c6a12ca95a632211153382b185446", "2042a501bac0097e7520f0117febe608", "beaed8a5a5dd8bcd916acf8809ff4166", "1f20b7275fcbd192e3570d03f11e4df0", "e2eb23bb35bd0cb1ea4d51758648bc43", "eeb6b9c13f67eb16e13baa2cfefbd014", "6844bacabc32f0995d2eed0aec7157a3", "fb733ab491feaed817e238997b9c63c1", "448795c78a39e461d70edf7dc525abb8", "a10f371ea8dcab9458484e2151425d8b", "e104dcc74e9c1bce09e7732a6525cc89", "88db9d94a4bfc4befc9ba4494d0f5f93", "8e774c4c5543a29aea8634171ebfac58", "2c94dbb4b9f5461eb137fb48d0744c65", "0ee3ba1ac935c8f3378ec01fa1597b10", "7de45a15aa5fb2cfd7d127ebdab1444d", "85640c1f903b954b367f6781ea9f3526", "275c3fa4134f8576919df1d0e9c7d77c", "ec644acf09b12add31a89cf8dbee47d0", "425c4583b1ec1f6f25c0925259ac50e7", "2f1bd3d11d84abbf22e4e5e0bce990a4", "18011ec1250f841c22313d1699b69008", "0a9148095d9a51620f47bf65c24a82e9", "e76e8a40109a2e7ba83007205af16cc4", "631963bd29508b7335132dd4d4ee7dd0", "8209c86e52a668f5664e0454b27a2e0b", "ae0ac4a849a94e782fb3ffd0236b9803", "2147a85fd2e554f6b03e2d6f594253b8", "896ef00616764c01048bd0b52012cfec", "7b21e677a14eb068a13a881fe1ad2062", "cd3afb4c737f798b4edc7d3a2e23b201", "843c79e5b0483eb52596916c9fc468f6", "839db2394f51aeb4ce2aeb36c78b82f7", "2d22faf13fc07600590f7c3f318ba712", "963b21f29427fedf1599c4ea448a12d6", "5bd0eafeb80ed211451429bdbb844eb9", "cc028e35bcd3e9aab4a93c9d1432e26e", "907d19c46d87c7d3ef362e11e192925e", "75e51bd2f63137a0c79bc4d596b67b2c", "cefb0bae4f97539bd8eb634f93ac080f", "1ea6ae481667bfd80b04bbc30022564f", "8f5f729e9307fe75e778456fbf4b500a", "c161c67e7d9072f738312bde2735d2b0", "090a7fa9f08e0532a41bcd6d4954d48d", "4b8f764142622d2d1a50f0b947284fd8", "4aee206fe6f1f45707ffd5091eba6a7d", "46f4d5164b1d0b369607d7a5aabe7923", "af3ae5ee2c3cf420a6735060ee3a1a5e", "bab21ff975ca6c6c051edebd6e850286", "350f7c108ee0d9942ccebc9096f157e9", "64bc555cfe8c598c8292db6d1908a14b", "7aceecfd52df7542c20e9f95b4838d26", "d65a253865aaea69f2a8beec83bab235", "953e91d6b131a3c175befe6cdc03445b", "406528c0566fdd279035869c2986184d", "4297004e62a0b05587148eff170d1c87", "edd792361822b59f241f8513a5c1ca0f", "22ca6c22db7055e0f085a1a0680d650c", "809bec4a843caf62dba0149a4df5a270", "8b3c878b5fdf010b5aaa549c5269c31b", "fc10295367427493ebabd47633ae5b3d", "63239e296c186f2130cf47649b9b7f73", "39a850798cdac804901cabb4388ff3d8", "1a44e9500cd526077a72dfdae0f0d7b2", "930d55f1abdacb0ae9c30877137908cc", "caa81c4d9b76df003a9c9b6b097367a9", "609bbd09e2973b4ee94356667152d825", "cdcc7bb8589655540f9cdc7fc2945132", "87261f80b99ede8582f6acababa88dac", "b01b9c1d337a70a2aa8e3ffa56e0d0f2", "eef97aa8f4544668d3d98d00a3ce5f66", "8f9b98b60a6a8b255a905c91d99b40f4", "17578f72d6c3fc382f7855d6eff85876", "3c943926ba8b6b5ef8f46179ba42f534", "bbb766f6dde1ea7e9d64db491c109602", "e59ba4b4251228034d5a275b2325551d", "3ed7c2192bf6f64ed4cea63bfcf91518", "934a2b7b2a2f57fff10ff2f1379108af", "7b33c58526fc123a25d1fb158fbd53d4", "4feba478af7bd5138d80dfdfa9018575", "324e2a9c3ca5d4ed56959a49007e6cd7", "12791b2dd9cb83c63292e591a9ccddf9", "42fdecf5c867b27c44f0fc321ef74d13", "f147cf4928a2788bacbb11972ac7cee0", "1ca5cd893d0da6f697a0ac54e1a05114", "e7ed988a8b096aca0f0a8ad08311946c", "33454756080df6ab335aff67dffd7d86", "e219e8a0a404cdde50f6692afc66b627", "25b590d1de3a9b9d05a6be12672f7a29", "bb6a724991139c2bfdc566643ee6df4b", "db1fe4ea88721b42bd3ff89c130d7b78", "87d4e11df7a5de74cd5b1f3d336b074d", "eb44cdaaa3dc91f4917da866f45db456", "5ea5b553aa583770845d40ccbcfe1495", "ffdfc7d8ee7afef3b2263a993a063199", "ca58803009ca98f50220b7e6ff572044", "a4c1892002929cf71480749acac85dae", "f2ab198797d6dd60e3ff2f84c5719a05", "cb1e21859ee5b810ad1b1d5a1edb7f25", "fb8cd8b9c7149b39c02314d320bfe4a9", "d367ff74742611c0235d8a98da7deedd", "da23032999d1d5f6477c620059f9b313", "f9c303d463cd96ea46c1c4c367385fa4", "3f6d5799c27ff1b855e848492fda4f42", "0586a4f39b7e9df39ff412be100b0872", "940c695808f081352a5f9dc87c88a5f0", "4607f14a84f3d47d2dc1873ad241a858", "bf5a4e1c47b003f07c23a2bdecf723db", "fc448d56abf4c9a08b6b390e86694e1b", "cdbf147d17ae9a777cc0d6faf56c3823", "a43864ba946f54068748463d336b1505", "2bcb207f4ca6d52b744c0ef9b621a500", "13df2e7dbd424ef51abd9c80cf80003d", "74390190b70bedfc417acfabbb906dec", "f694ead8d82c925403bf31b177da99ee", "91b57a96384fdb2963c161ec133cbd90", "884c97380e7c98da40b035107e81d474", "631c4b51e7ad0ae415e6cb2393bd1449", "7b7655c60b163baf0efe0c41f35eb114", "7f41b71fd0906d2c18a02c181b18535c", "16b5c7d0b6deca1557ae3cf9a8b109cb", "10f6e862f86d332b7809b44896c0df63", "3ae5531f82dfea41da72e4d6c223ce93", "0a53df26f2cee2e2ba51f4097fb441af", "967aba4cdabc49fe0f31a3a39180d67a", "686aa570235c4245af4558ff22964d59", "26a59af82d99c01d5b8e67d6d646a068", "0b8d1b4e937737d0d14491f64ec418b2", "a0359e3a7ac1cdd57c8bbd51fe6fa589", "bbffe24e0a1553f2763cf2b1eaeb9936", "5ca25751cc52f4e7550a26e20dba6df3", "db20a9712e7b1bec318a013ade36e474", "ba7bbc46015d989260f19a02fdb431c9", "d66263148a11d8865f28be0beacb0e0c", "7cd4d509f2aa6bcfd8ea7513bfe0e4f2", "5136bffda0c340f73392d210f7b7becf", "44e2021f617f1001b716b6c6abccabd1", "27b600df9d8fe8b4b07c21a121f4c3c2", "1be911cee076bc83ddbdfb27502996b6", "403ea82432135d299c1bc97b5695071e", "649865529d560a879bd7d0d743ff2a10", "0e09d8770a31c02bc0f23a26f7b2bc6d", "d7867fd892f3e3b4f123355e163520eb", "96a1e71d1f4e9506d95dbbc8af017d10", "09d9449e73b97702419861fae5d0d352", "97849ec9ba428d3a05877e7fc28674a1", "dbd6cd30ed405569afcad9bf6e903a40", "02ff6ae4320af245afbd06389b78eeb4", "251881ca1d61d45d4c66ae3209140e38", "2daabaa973fac3dec6a75863249bff07", "295cceb3b58b5310c124f4c2074c8f72", "7afe979b5a6a121660bdb8ae587a51fe", "edf84f6b8e7709eb3c28382d302c96d6", "8094ba496e7eef799b96e04d048d31d4", "edc5567eb8b569a0518b62e4605f3c30", "6616700336ad03e1282fe80d0868fdce", "47e4b3248390cd7862e018e3039376ad", "e20703fbba14c0e50d60ffb802805f83", "bc67fac4becf25c2d78fb85b7e6028cc", "19cb3fc10179cac8310e5aac81332cbc", "c657286e813ff4e9bae8a21f0b7ae448", "75dddcdc880919699a861c5d6121668a", "bd05d4f5c944c4bb6399b9fbf8ded2c4", "75f2dee4a301c97fbc2139c9a615322d", "fc01d7494ffc98169bb0e7d2caa59274", "390bf0d114e5a8e34cbf9158744f8647"];
+const options = {partial:"部分变化",changed:"变了",unchanged:"没变",unclear:"看不清",skip:"跳过"};
+const storageKey = "exp8-batch20-audit-" + ids[0];
+const idSet = new Set(ids);
+const el = id => document.getElementById(id);
+let answers = {}, index = 0, context = false;
+function validAnswers(value) {
+  if (!value || typeof value !== "object" || Array.isArray(value))
+    throw new Error("结果应为 JSON 对象");
+  const result = {};
+  for (const [id, item] of Object.entries(value)) {
+    if (!idSet.has(id)) throw new Error("结果包含另一批审核的编号");
+    if (!item || !Object.hasOwn(options,item.choice) ||
+        typeof item.timestamp !== "string" || !Number.isFinite(Date.parse(item.timestamp)))
+      throw new Error("结果包含无效选项或时间戳");
+    result[id] = {choice:item.choice,timestamp:item.timestamp};
+  }
+  return result;
+}
+try {
+  const saved = localStorage.getItem(storageKey);
+  if (saved) answers = validAnswers(JSON.parse(saved));
+} catch (error) {
+  el("warning").textContent = "浏览器无法恢复本地记录："+error.message+
+    "。请导入上次导出的结果，并定期导出。";
+}
+function save() {
+  try {localStorage.setItem(storageKey,JSON.stringify(answers));}
+  catch (error) {
+    el("warning").textContent = "本地自动保存不可用："+error.message+
+      "。当前记录保存在本页内存中，关闭前务必导出；下次可导入继续。";
+  }
+}
+function firstMissing() {
+  const found = ids.findIndex(id => !Object.hasOwn(answers,id));
+  index = found < 0 ? ids.length - 1 : found;
+}
+function render() {
+  const id = ids[index], item = answers[id];
+  const prefix = "crops/" + id + (context ? "_context_" : "_");
+  el("left").src = prefix + "t1.jpg";
+  el("right").src = prefix + "t2.jpg";
+  el("context").textContent = context ? "显示近景" : "显示上下文";
+  el("context").setAttribute("aria-pressed",String(context));
+  const done = ids.filter(id => Object.hasOwn(answers,id)).length;
+  el("progress").max = ids.length; el("progress").value = done;
+  el("progressText").textContent =
+    `第 ${index+1} / ${ids.length} 个；已处理 ${done} 个（含跳过）`;
+  el("status").textContent = item ? "当前选择："+options[item.choice] : "当前尚未作答";
+  if (done === ids.length) el("status").textContent += "。已全部处理，请导出结果。";
+  document.querySelectorAll("[data-choice]").forEach(button =>
+    button.setAttribute("aria-pressed",String(item?.choice === button.dataset.choice)));
+  el("previous").disabled = index === 0;
+  el("next").disabled = index === ids.length-1;
+}
+function choose(choice) {
+  answers[ids[index]] = {choice,timestamp:new Date().toISOString()};
+  save();
+  if (index < ids.length-1) index++;
+  render();
+}
+function move(delta) { index = Math.max(0,Math.min(ids.length-1,index+delta)); render(); }
+document.querySelectorAll("[data-choice]").forEach(button =>
+  button.onclick = () => choose(button.dataset.choice));
+el("previous").onclick = () => move(-1); el("next").onclick = () => move(1);
+el("context").onclick = () => {context = !context; render();};
+document.addEventListener("keydown",event => {
+  if (event.repeat || event.ctrlKey || event.metaKey || event.altKey ||
+      ["INPUT","TEXTAREA"].includes(event.target.tagName)) return;
+  const mapping = {"4":"partial","1":"changed","2":"unchanged","3":"unclear","0":"skip"};
+  if (Object.hasOwn(mapping,event.key)) {event.preventDefault(); choose(mapping[event.key]);}
+  if (event.key === "ArrowLeft") {event.preventDefault(); move(-1);}
+  if (event.key === "ArrowRight") {event.preventDefault(); move(1);}
+});
+el("export").onclick = () => {
+  const blob = new Blob([JSON.stringify(answers,null,2)+"\n"],{type:"application/json"});
+  const url = URL.createObjectURL(blob), link = document.createElement("a");
+  link.href = url; link.download = "audit_answers.json"; link.click();
+  setTimeout(() => URL.revokeObjectURL(url),1000);
+};
+el("import").onclick = () => el("file").click();
+el("file").onchange = async () => {
+  const file = el("file").files[0]; if (!file) return;
+  try {
+    answers = {...answers,...validAnswers(JSON.parse(await file.text()))};
+    save(); firstMissing(); render();
+  } catch (error) {el("warning").textContent = "导入失败："+error.message;}
+  el("file").value = "";
+};
+for (const image of [el("left"),el("right")]) image.onerror = () => {
+  el("warning").textContent = "图片读取失败，请确认 HTML 与完整的 crops 文件夹放在同一目录。";
+};
+firstMissing(); render();
+</script></html>

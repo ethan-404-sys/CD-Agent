@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="zh-CN"><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>两期影像审核</title>
+<style>
+body{font:16px system-ui,sans-serif;max-width:1000px;margin:24px auto;padding:0 16px;
+background:#f4f5f6;color:#20252a}button{padding:12px 18px;margin:5px;font:inherit;
+cursor:pointer}button[aria-pressed=true]{background:#c5e5ff;border:2px solid #12589a}
+.pair{display:flex;gap:12px}.pair figure{margin:12px 0;flex:1;min-width:0}
+img{display:block;width:100%;max-width:384px;height:auto;background:#ddd}
+progress{width:100%}#warning{color:#9b3000}#status{min-height:1.5em}
+@media(max-width:500px){button{padding:10px}.pair{gap:6px}}
+</style>
+<h1>对象变化审核</h1><p>数据集：whu；单元：objects_direct_pairs。100 个独立对象，另加 0 个重复项。独立对象分层：正例 25 个（25.0%）、普通负例 25 个（25.0%）、高分负例 25 个（25.0%）、中间标签 25 个（25.0%），各层互斥。目标为各 25%；不足时按剩余层容量比例补足。</p><p>正例真值占比 ≥50%，负例 &lt;10%，中间标签为 [10%,50%)。高分负例是负例中对象内检测器平均概率排名最高的前 10%（向上取整）；同分按图名、单元编号排序，其余为普通负例。当前对象的标签、分数和重复身份不在页面显示。</p><p>本页仅描述冻结方案后的测试池；审核者的答案只作参考。轮廓标出当前池单元；U5 的大对象可能已拆成多个单元。轮廓内仅一部分发生真实变化时请选择“部分变化”。</p>
+<p>请判断红色轮廓内的地物是否发生真实变化。仅成像或色调差异请选择“没变”；
+证据不足请选择“看不清”。可切换上下文查看周围地物。</p>
+<div id="progressText" aria-live="polite"></div><progress id="progress"></progress>
+<div class="pair"><figure><figcaption>t1</figcaption><img id="left" alt="t1 影像"></figure>
+<figure><figcaption>t2</figcaption><img id="right" alt="t2 影像"></figure></div>
+<div><button id="context" aria-pressed="false">显示上下文</button></div>
+<div id="choices">
+<button data-choice="changed">1 · 变了</button>
+<button data-choice="unchanged">2 · 没变</button>
+<button data-choice="partial">4 · 部分变化</button>
+<button data-choice="unclear">3 · 看不清</button>
+<button data-choice="skip">0 · 跳过</button></div>
+<p id="status" aria-live="polite"></p>
+<div><button id="previous">上一个</button><button id="next">下一个</button>
+<button id="export">导出结果</button><button id="import">导入结果继续</button>
+<input id="file" type="file" accept=".json,application/json" hidden></div>
+<p id="warning" role="alert"></p>
+<p>快捷键：1 / 2 / 3 / 4 / 0；左右方向键切换。建议结束时导出结果留存。</p>
+<script>
+"use strict";
+const ids = ["dd85d30599940eefe50dda1a819dc930", "72b1dccf0f6106f0492743b005b689c0", "5d2c55628ffc6805eb14c305656b6ca2", "59903168b140fa681a251f19795f6431", "ec42afb838e5d7990ebaf9f865cda0b5", "acec3b6f1fa48e5342e30c1085723b24", "695af461625305cf8aa9b3454b1dfbe7", "1033d3f8973402dbcf9de1c20dbf2792", "6cedf9e13001c943f7f236f4e3a67998", "66cc73aae35226366811513ea26aebb7", "04ff6e2c16aa738c3be241ec994b5aa1", "2a7f27eda572a546cd9cf3c77df9590a", "0fc6c353bf5c5810b5781697c3923409", "5972cd0ee901589883e5dec66ea9a5e2", "909d3df7e9186e837351e52e7e860f44", "df67fe2a6f5bc91a701eb289a4c7c9f9", "2b46538c7612ea0f18b63a95f4e25a7a", "404ccf13fbdbb3d47ae14e6b08fe35d2", "4cc041929f2743f2919c0b054504ea62", "ba021db07b70c23c391a2d7d73a016ea", "7e683386a1735847fc1c95269dbd6b4e", "035e0fd8e0ef5f5f914291d45fadb5c8", "feee08c84e41889b85d84deccc65f43b", "4c2d4cef38d4956386d17e50a3491c68", "13f2228dca1750d8db004f7c761578fc", "4e2df63851f7317037c9de6cabb6e00e", "2c3be630e7682fcde1417316e36b8c31", "a998c9f0f1118ac5c19ba87443a4e39f", "ef0e64ed35367ad6b020d652f4e7ac9a", "7a5bc19d03b47756cbacdebb0b694dce", "604c6301c58fbf9628d383e395c04530", "4c1c45467f14eda4c2a349da50b1171c", "cf0a28120b4e6359f7bf9a112da4a53d", "7052be9a9acd15f7247b2600aef4dee7", "bd32e60625e2a6afa89996d902f534b8", "33fcf6bfc26be29fb1893a4c7304644a", "bb3f6bfdc889fb119633c667ef722477", "52a731ebefa54f8761fbe6b2d8e8118a", "4e5592d248c9f096941a183418e39375", "858b0736a513f8cdaeddac7d1808b647", "a44a01765d0e52f7c51d137e5e109897", "a9c3b8c2cf9dcd4a3620274c3a22c070", "6c4b43c900bf89c5eb3d49819921371c", "1c80ec096fec09202e226e32869a2461", "a70dd3d20f9877530261fa15df567d01", "f50b72a0534bb0e6b0d92cc032a6bbf9", "70c34519889ba94592233ef2137cb87a", "84e28f6d2fffcf6f49bccea19668f8f3", "a581447b65ccead49dde6215b3ea889a", "73ebf14ee0e3365d40b5ef59e7f85191", "4a1ac4d53198445a7695a9e1af114618", "48a11597c44dce104419d19872f6c190", "f5d701951d4a6c18b0070b673f43744c", "a5d5b8a8c9607e8980c5f0e6dee866a2", "d75c5b2ce576b97ede047d14cf6576d1", "b394bd192485f765e8668e1e4d8d036c", "d70ca65c3af20d85907b30f62cd15dbf", "ff1b5466fb6f2eb9267690c38a5014a7", "2a904c1b1cc33508ca6c27abd1a4dc71", "d371555a8ef8aa22824ddbb07a533f83", "b1b9de73902fff47bed5ad2b6e61a0aa", "148a31b98653a2d37fef899c4a460f1c", "95ff71ab817fd8641a99d1e08d9598cf", "1aff95faced3537d934aef5d492d61c4", "493049ec84783e1b22e1ecf9c7720c46", "4af26eda94a39df3dda648b7f6756791", "67afbaf1991bf47321b74bc9b75453b8", "1bc6e17e9e68a9c90cf189fe03ee4bd1", "42a74d4bbe3eb8b1fd8fd79822cda61c", "2802ffad1d36d290819d0c4ad3caa06f", "3df3f95cec40582584dafc7002cc35bd", "6c9785c850c2cac414eb5e89aad2ee2d", "c77d7e9a464306763a270ea5375f28b1", "f0c348f62f8e0e324fe48338b77db57c", "b23da0c5ee0f660fac06e45ad8cb343b", "434a6814a0ae14b96fda1736aa6bf5f2", "0b4cb6558cc4907bdf860a5a15ca790d", "0e4b3782c3a9936fdacfc747428dffe2", "2260cf877230aca6c8eb6503c50250cc", "4d5872aa433ca831c812aa2416898310", "e7d4627718df6371cb90fcda853f8f11", "dc3239d3278165f18d5b70058d5d0f79", "d2c3c3646a09b457e9ed1bc078365df6", "ebda60a3f0232461c10c84218a05e2a1", "b155ff4b24e146dc56170085fdb6e2e4", "635884a09a72ef14121a5d54eb706b16", "a48d931d30f2f2d9ea806b3e6b49d3a4", "be184f683624a813ea48271f9e4365de", "dd1b9c7d11111fc23b4388e69dc332e6", "1777c163dcffa422fcb4d13c84c04806", "91d480f185ff13a32dac7205c42a9ba9", "66459b4a209958062855e53c51a85a55", "3dbb3e00f73ee53702da5b1e6033bce9", "af4cac5bcd3a0d22fd8b2034ef385693", "5ce02677f4aabcffb5a910e1103191e1", "ebf73fec3fae23db60bb218494801564", "19219c9cdfa0c178e174505a7fb6e584", "85bcf6642186466bf20dafcd0f366b89", "24fc9c802bb600778cb412f5f79b51c4", "dc928e695fa6a546fab7ad536ac0cda5"];
+const options = {partial:"部分变化",changed:"变了",unchanged:"没变",unclear:"看不清",skip:"跳过"};
+const storageKey = "exp8-batch20-audit-" + ids[0];
+const idSet = new Set(ids);
+const el = id => document.getElementById(id);
+let answers = {}, index = 0, context = false;
+function validAnswers(value) {
+  if (!value || typeof value !== "object" || Array.isArray(value))
+    throw new Error("结果应为 JSON 对象");
+  const result = {};
+  for (const [id, item] of Object.entries(value)) {
+    if (!idSet.has(id)) throw new Error("结果包含另一批审核的编号");
+    if (!item || !Object.hasOwn(options,item.choice) ||
+        typeof item.timestamp !== "string" || !Number.isFinite(Date.parse(item.timestamp)))
+      throw new Error("结果包含无效选项或时间戳");
+    result[id] = {choice:item.choice,timestamp:item.timestamp};
+  }
+  return result;
+}
+try {
+  const saved = localStorage.getItem(storageKey);
+  if (saved) answers = validAnswers(JSON.parse(saved));
+} catch (error) {
+  el("warning").textContent = "浏览器无法恢复本地记录："+error.message+
+    "。请导入上次导出的结果，并定期导出。";
+}
+function save() {
+  try {localStorage.setItem(storageKey,JSON.stringify(answers));}
+  catch (error) {
+    el("warning").textContent = "本地自动保存不可用："+error.message+
+      "。当前记录保存在本页内存中，关闭前务必导出；下次可导入继续。";
+  }
+}
+function firstMissing() {
+  const found = ids.findIndex(id => !Object.hasOwn(answers,id));
+  index = found < 0 ? ids.length - 1 : found;
+}
+function render() {
+  const id = ids[index], item = answers[id];
+  const prefix = "crops/" + id + (context ? "_context_" : "_");
+  el("left").src = prefix + "t1.jpg";
+  el("right").src = prefix + "t2.jpg";
+  el("context").textContent = context ? "显示近景" : "显示上下文";
+  el("context").setAttribute("aria-pressed",String(context));
+  const done = ids.filter(id => Object.hasOwn(answers,id)).length;
+  el("progress").max = ids.length; el("progress").value = done;
+  el("progressText").textContent =
+    `第 ${index+1} / ${ids.length} 个；已处理 ${done} 个（含跳过）`;
+  el("status").textContent = item ? "当前选择："+options[item.choice] : "当前尚未作答";
+  if (done === ids.length) el("status").textContent += "。已全部处理，请导出结果。";
+  document.querySelectorAll("[data-choice]").forEach(button =>
+    button.setAttribute("aria-pressed",String(item?.choice === button.dataset.choice)));
+  el("previous").disabled = index === 0;
+  el("next").disabled = index === ids.length-1;
+}
+function choose(choice) {
+  answers[ids[index]] = {choice,timestamp:new Date().toISOString()};
+  save();
+  if (index < ids.length-1) index++;
+  render();
+}
+function move(delta) { index = Math.max(0,Math.min(ids.length-1,index+delta)); render(); }
+document.querySelectorAll("[data-choice]").forEach(button =>
+  button.onclick = () => choose(button.dataset.choice));
+el("previous").onclick = () => move(-1); el("next").onclick = () => move(1);
+el("context").onclick = () => {context = !context; render();};
+document.addEventListener("keydown",event => {
+  if (event.repeat || event.ctrlKey || event.metaKey || event.altKey ||
+      ["INPUT","TEXTAREA"].includes(event.target.tagName)) return;
+  const mapping = {"4":"partial","1":"changed","2":"unchanged","3":"unclear","0":"skip"};
+  if (Object.hasOwn(mapping,event.key)) {event.preventDefault(); choose(mapping[event.key]);}
+  if (event.key === "ArrowLeft") {event.preventDefault(); move(-1);}
+  if (event.key === "ArrowRight") {event.preventDefault(); move(1);}
+});
+el("export").onclick = () => {
+  const blob = new Blob([JSON.stringify(answers,null,2)+"\n"],{type:"application/json"});
+  const url = URL.createObjectURL(blob), link = document.createElement("a");
+  link.href = url; link.download = "audit_answers.json"; link.click();
+  setTimeout(() => URL.revokeObjectURL(url),1000);
+};
+el("import").onclick = () => el("file").click();
+el("file").onchange = async () => {
+  const file = el("file").files[0]; if (!file) return;
+  try {
+    answers = {...answers,...validAnswers(JSON.parse(await file.text()))};
+    save(); firstMissing(); render();
+  } catch (error) {el("warning").textContent = "导入失败："+error.message;}
+  el("file").value = "";
+};
+for (const image of [el("left"),el("right")]) image.onerror = () => {
+  el("warning").textContent = "图片读取失败，请确认 HTML 与完整的 crops 文件夹放在同一目录。";
+};
+firstMissing(); render();
+</script></html>
