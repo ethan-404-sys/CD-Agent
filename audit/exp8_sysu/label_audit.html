@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="zh-CN"><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>两期影像审核</title>
+<style>
+body{font:16px system-ui,sans-serif;max-width:1000px;margin:24px auto;padding:0 16px;
+background:#f4f5f6;color:#20252a}button{padding:12px 18px;margin:5px;font:inherit;
+cursor:pointer}button[aria-pressed=true]{background:#c5e5ff;border:2px solid #12589a}
+.pair{display:flex;gap:12px}.pair figure{margin:12px 0;flex:1;min-width:0}
+img{display:block;width:100%;max-width:384px;height:auto;background:#ddd}
+progress{width:100%}#warning{color:#9b3000}#status{min-height:1.5em}
+@media(max-width:500px){button{padding:10px}.pair{gap:6px}}
+</style>
+<h1>对象变化审核</h1><p>随机种子：20261022；审核者为非专家，答案只作参考。“独立对象”指不同的（图像、单元编号），同图或同一父对象可有多个单元。</p><p>数据集：sysu；单元：U5_x4。200 个独立对象，另加 20 个重复项。独立对象分层：正例 50 个（25.0%）、普通负例 50 个（25.0%）、高分负例 50 个（25.0%）、中间标签 50 个（25.0%），各层互斥。目标为各 25%；不足时按剩余层容量比例补足。</p><p>正例真值占比 ≥50%，负例 &lt;10%，中间标签为 [10%,50%)。高分负例是负例中对象内检测器平均概率排名最高的前 10%（向上取整）；同分按图名、单元编号排序，其余为普通负例。当前对象的标签、分数和重复身份不在页面显示。</p><p>本页仅描述冻结方案后的测试池；审核者的答案只作参考。轮廓标出当前池单元；U5 的大对象可能已拆成多个单元。轮廓内仅一部分发生真实变化时请选择“部分变化”。</p>
+<p>请判断红色轮廓内的地物是否发生真实变化。仅成像或色调差异请选择“没变”；
+证据不足请选择“看不清”。可切换上下文查看周围地物。</p>
+<div id="progressText" aria-live="polite"></div><progress id="progress"></progress>
+<div class="pair"><figure><figcaption>t1</figcaption><img id="left" alt="t1 影像"></figure>
+<figure><figcaption>t2</figcaption><img id="right" alt="t2 影像"></figure></div>
+<div><button id="context" aria-pressed="false">显示上下文</button></div>
+<div id="choices">
+<button data-choice="changed">1 · 变了</button>
+<button data-choice="unchanged">2 · 没变</button>
+<button data-choice="partial">4 · 部分变化</button>
+<button data-choice="unclear">3 · 看不清</button>
+<button data-choice="skip">0 · 跳过</button></div>
+<p id="status" aria-live="polite"></p>
+<div><button id="previous">上一个</button><button id="next">下一个</button>
+<button id="export">导出结果</button><button id="import">导入结果继续</button>
+<input id="file" type="file" accept=".json,application/json" hidden></div>
+<p id="warning" role="alert"></p>
+<p>快捷键：1 / 2 / 3 / 4 / 0；左右方向键切换。建议结束时导出结果留存。</p>
+<script>
+"use strict";
+const ids = ["6699c96d11e50c63c445cde875b63249", "384fdb2963c161ec133cbd9019cb3fc1", "0ced866797159c1494e372fb4aee206f", "af3ae5ee2c3cf420a6735060ee3a1a5e", "178c7ced7b50f33cdc5235d95d4adf95", "91139c2bfdc566643ee6df4b7b33c585", "4a9efefa044b60107e5d8e80c0f543c3", "cc773d2939648a30b3167fc6d3126521", "83bcacc19dc4398a9be7f14dfc78990b", "f147cf4928a2788bacbb11972ac7cee0", "c7ae64ab76b3287f419a3912b2feb27a", "2f1bd3d11d84abbf22e4e5e0bce990a4", "f2aa6bcfd8ea7513bfe0e4f2cba6dee3", "2c94dbb4b9f5461eb137fb48d0744c65", "a31aa3b30f809fc1a9e6063c801bfafe", "40b035107e81d474324e2a9c3ca5d4ed", "d7867fd892f3e3b4f123355e163520eb", "edf84f6b8e7709eb3c28382d302c96d6", "e59ba4b4251228034d5a275b2325551d", "649865529d560a879bd7d0d743ff2a10", "7b7655c60b163baf0efe0c41f35eb114", "75ca6c6c051edebd6e85028647e4b324", "97d6dd60e3ff2f84c5719a050a914809", "dc39bce91c1696bab82cd5073881334e", "5f06cae6cf771f7f32fb84d2b48ca64c", "cefb0bae4f97539bd8eb634f93ac080f", "5a905c91d99b40f4bf415ec11b7bf678", "2f7855d6eff858761665f743e3f79bb5", "c0f23a26f7b2bc6d59678131f4fa011f", "e4267de38eecbe3b9a3fb9bbe219e8a0", "5decbac6041bb3a1bd05d4f5c944c4bb", "a83007205af16cc45b888ba748e5f884", "cc028e35bcd3e9aab4a93c9d1432e26e", "947aed82e42633bc95195d0e87f05bae", "686aa570235c4245af4558ff22964d59", "9c6acabd7260ea53f9241c55ca07d939", "e7ed988a8b096aca0f0a8ad08311946c", "3437af3c0f8b5a4237a46f533dd1e96a", "d95dbbc8af017d1033454756080df6ab", "c750aa1f4a2f6c3e97253fc0d04b56e1", "1f8d7c25b41ab442d59b89453ae5531f", "fd6bc5eaac58528244588e37953e91d6", "22313d1699b69008fc448d56abf4c9a0", "275c3fa4134f8576919df1d0e9c7d77c", "a404cdde50f6692afc66b627b01b9c1d", "26f2e74f738f4dd84aba9aa983e40a0c", "335aff67dffd7d8687d4e11df7a5de74", "7e0b15470ad1e490ef565294e353c957", "d367ff74742611c0235d8a98da7deedd", "06fe8297b87cd4a38d6360933c72367b", "5fdbee6d13b9b698a490ca8bd6c5a5b4", "74390190b70bedfc417acfabbb906dec", "e9c30877137908cc17578f72d6c3fc38", "52d7d965ba308c96ea51bf54118ff12f", "c54d598c991c86c1fb733ab491feaed8", "744c0ef9b621a5008f9b98b60a6a8b25", "530062d865153b6e5da34ec26d87ac59", "85640c1f903b954b367f6781ea9f3526", "cd5b1f3d336b074d6358a39b516cb085", "c51abeca30ec52e4db20a9712e7b1bec", "8ab793d268d8970da925941cfce54e1e", "8bbfb31d3946e5c698b4b41d0fc4361e", "2ccebc9096f157e98f5f729e9307fe75", "8d80dfdfa9018575f55d7d438e6f7f4a", "2dc1873ad241a858406528c0566fdd27", "dcab6d92cef0be24948a8b11dd7d1c0c", "35dc4ae55bd26c9610f879dc95105f5a", "3ce7f48f094705f27af2df65ba7bbc46", "ec86224662cfae2dda883005204f0c88", "2868a72fd6e0acdcdc007bb5c702a03e", "db71f8670ad7192abb25551f5ea5b553", "631963bd29508b7335132dd4d4ee7dd0", "56959a49007e6cd764bc555cfe8c598c", "337a70a2aa8e3ffa56e0d0f2bab21ff9", "221024e1229e416d9fd31b553404078f", "46f79523c3a85b6bc4d88e1bde0b6d67", "948bf0f9a53be24a4607f14a84f3d47d", "d78fb85b7e6028ccbf0ac0412bdfb6e7", "bbb766f6dde1ea7e9d64db491c109602", "e076bc83ddbdfb27502996b60e71ad22", "7de45a15aa5fb2cfd7d127ebdab1444d", "6458205867efea07f8636f6c80cfd8a0", "c9e723164914897a0eecd8052045ca98", "5136bffda0c340f73392d210f7b7becf", "3ddf76b13d66afff79dc36b9e0d3ecb4", "d153fc868e1a7ba1cbf6cfbdd65a2538", "7976f3a73915049384493c0f7428f73b", "f085a1a0680d650c940c695808f08135", "763cf2b1eaeb9936930d55f1abdacb0a", "9035869c2986184d4feba478af7bd513", "dd092f560a98ab437b0b1e4e4188f885", "db55fd2c4b83675c4a2109b6e3989b37", "47b003f07c23a2bdecf723db87261f80", "c1ea57d860d57f0f2b387e8c4f4b584c", "8292db6d1908a14b22ca6c22db7055e0", "010f7ccbbf9cb0bdf5a03a20e0d4dcd7", "969334b76ed8752465169f96450d1850", "7e2e4d7ea1c7e571cb1e21859ee5b810", "0b8d1b4e937737d0d14491f64ec418b2", "b716b6c6abccabd1e9d59e166f39b1a7", "ef362e11e192925e27b600df9d8fe8b4", "a4c1892002929cf71480749acac85dae", "ad1b1d5a1edb7f255dc63a13fd6778f0", "41f9e6c4dab59ba2a9fe10c8bf5a4e1c", "b840d421fac7e8608c438a7723af5051", "edc5567eb8b569a0518b62e4605f3c30", "934a2b7b2a2f57fff10ff2f1379108af", "a39edfdd5a57e03469bdd5d15555da55", "edd792361822b59f241f8513a5c1ca0f", "4c66ae3209140e3844e2021f617f1001", "6616700336ad03e1282fe80d0868fdce", "d2a6fdbd6b1d390cd46a3749625d5bc4", "f8f46179ba42f5349fc13710f9929b0a", "280ac7985647b099f61855dc4831a555", "ea8634171ebfac584bfb4c3fca16b3f2", "e6f1f45707ffd5091eba6a7df694ead8", "7f41b71fd0906d2c18a02c181b18535c", "4482dfd1c6ac66ebbe31b05d6d7fb9e3", "1a50f0b947284fd8cdcc7bb858965554", "4297004e62a0b05587148eff170d1c87", "e778456fbf4b500a4b8f764142622d2d", "2d99c01d5b8e67d6d646a068ccda8082", "a49e99a149c2ea202e9e8eafc19d854d", "00083d6a1ef97d65abd22becbde8686a", "165caef5d3026c540c65139b2afcfecd", "60bdb8ae587a51fe96a1e71d1f4e9506", "813ff4e9bae8a21f0b7ae448e8e3f83e", "65aaea69f2a8beec83bab23550cb1943", "7b21e677a14eb068a13a881fe1ad2062", "188d03805ef13917127bb673de71adf9", "b2e2271edffff2f3cd3afb4c737f798b", "448795c78a39e461d70edf7dc525abb8", "75e51bd2f63137a0c79bc4d596b67b2c", "7aceecfd52df7542c20e9f95b4838d26", "16dd08275f1d41ad93c4e2008094ba49", "1f20b7275fcbd192e3570d03f11e4df0", "8e7ea3d182c9672f63bd298d38da28f1", "13df2e7dbd424ef51abd9c80cf80003d", "17e238997b9c63c1403ea82432135d29", "eeb6b9c13f67eb16e13baa2cfefbd014", "0ee3ba1ac935c8f3378ec01fa1597b10", "8b6b390e86694e1b251881ca1d61d45d", "015d989260f19a02fdb431c9f2ab1987", "74f5091f6d1eb44c16c260b2f4c50838", "843c79e5b0483eb52596916c9fc468f6", "c6da7c7d6cc30bf977ff6b6684f5c7dd", "09d9449e73b97702419861fae5d0d352", "6399b9fbf8ded2c4350f7c108ee0d994", "2a5f9dc87c88a5f0bc67fac4becf25c2", "7740d07726d71a40804ca7fb26a59af8", "d8a5020cdd3618eb788830f19159c8e2", "88db9d94a4bfc4befc9ba4494d0f5f93", "b99ede8582f6acababa88dacb07280f7", "dabf6c44333141bd0b4fcabf72111487", "0bba4e72c7cf7bb8c3eacbecb5fcc027", "7a56f7e67a7d5619be2511352dbaed3d", "0f9cdc7fc294513218011ec1250f841c", "fc01d7494ffc98169bb0e7d2caa59274", "0179cac8310e5aac81332cbc4c2aed97", "3937e917620580bdc3e6b1031ad74037", "09ca98f50220b7e6ff572044a5a1d0d4", "2daabaa973fac3dec6a75863249bff07", "b03e2d6f594253b87afe979b5a6a1216", "3b16a67fc4280176bbffe24e0a1553f2", "ed405569afcad9bf6e903a407cd4d509", "b07c21a121f4c3c2e76e8a40109a2e7b", "e4c8aa4d0dd753491eacd0d739dba3ae", "8430657492423fd5bc4f132281d601c9", "8aeca2198d2d51b80e09d8770a31c02b", "12791b2dd9cb83c63292e591a9ccddf9", "318ba712390bf0d114e5a8e34cbf9158", "f4544668d3d98d00a3ce5f66ca588030", "26fc123a25d1fb158fbd53d4dbd6cd30", "9c1bc97b5695071e2147a85fd2e554f6", "cf0811ebea5a12b1470766022b64d472", "7ac1cdd57c8bbd51fe6fa58991b57a96", "fb8cd8b9c7149b39c02314d320bfe4a9", "4f732f5f06213a1b7897c7250afd08df", "82dfea41da72e4d6c223ce9389d3207a", "49440a533a31c75cea4701bc96044bf2", "dbc538fcc4adede5dcc1a773e79b0296", "aa583770845d40ccbcfe1495809bec4a", "a04bcc7fd9d16e5216cdbd7b435c3645", "6a99a3eac2840ae49d82f96e6fce436a", "631c4b51e7ad0ae415e6cb2393bd1449", "6e7eef799b96e04d048d31d4bb6a7249", "0133cd4a47f1ed468e774c4c5543a29a", "da23032999d1d5f6477c620059f9b313", "d82c925403bf31b177da99ee4ee2dd7c", "1515afbb2d22faf13fc07600590f7c3f", "a43864ba946f54068748463d336b1505", "8a78d69833a709ba7ff20ea7121d3230", "f35934742b092ac2029e6fcd3fac4b0f", "843caf62dba0149a4df5a270295cceb3", "2042a501bac0097e7520f0117febe608", "17900ac843be29c41b6a8acaec3bd1cc", "ec644acf09b12add31a89cf8dbee47d0", "edc3971650e1b3240d7c4bf4a291e0d0", "b131a3c175befe6cdc03445beef97aa8", "20279ea44e477a503dcc547a4517e54f", "cdbf147d17ae9a777cc0d6faf56c3823", "f7fe19304aa00a8859cc1b9808b77960", "ce764c4b56383cad6784114a2f4fbdc6", "318a013ade36e4743c943926ba8b6b5e", "88721b42bd3ff89c130d7b78a0359e3a", "e2eb23bb35bd0cb1ea4d51758648bc43", "4edc7d3a2e23b201907d19c46d87c7d3", "5d9a51620f47bf65c24a82e9db1fe4ea", "3f6d5799c27ff1b855e848492fda4f42", "e104dcc74e9c1bce09e7732a6525cc89", "e20703fbba14c0e50d60ffb802805f83", "8390cd7862e018e3039376adc657286e", "0ecfef2fc12dff46353eecc88725bc24", "bc15a06cb76312905af2828391c75c24", "91fab0d6063afc7d49b342b7bb23c39d", "d66263148a11d8865f28be0beacb0e0c", "eb44cdaaa3dc91f4917da866f45db456", "d6656353acc919b5db0099c091174714", "ae0ac4a849a94e782fb3ffd0236b9803", "b58b5310c124f4c2074c8f72e28d34a6"];
+const options = {partial:"部分变化",changed:"变了",unchanged:"没变",unclear:"看不清",skip:"跳过"};
+const storageKey = "exp8-batch21-sysu-audit-" + ids[0];
+const idSet = new Set(ids);
+const el = id => document.getElementById(id);
+let answers = {}, index = 0, context = false;
+function validAnswers(value) {
+  if (!value || typeof value !== "object" || Array.isArray(value))
+    throw new Error("结果应为 JSON 对象");
+  const result = {};
+  for (const [id, item] of Object.entries(value)) {
+    if (!idSet.has(id)) throw new Error("结果包含另一批审核的编号");
+    if (!item || !Object.hasOwn(options,item.choice) ||
+        typeof item.timestamp !== "string" || !Number.isFinite(Date.parse(item.timestamp)))
+      throw new Error("结果包含无效选项或时间戳");
+    result[id] = {choice:item.choice,timestamp:item.timestamp};
+  }
+  return result;
+}
+try {
+  const saved = localStorage.getItem(storageKey);
+  if (saved) answers = validAnswers(JSON.parse(saved));
+} catch (error) {
+  el("warning").textContent = "浏览器无法恢复本地记录："+error.message+
+    "。请导入上次导出的结果，并定期导出。";
+}
+function save() {
+  try {localStorage.setItem(storageKey,JSON.stringify(answers));}
+  catch (error) {
+    el("warning").textContent = "本地自动保存不可用："+error.message+
+      "。当前记录保存在本页内存中，关闭前务必导出；下次可导入继续。";
+  }
+}
+function firstMissing() {
+  const found = ids.findIndex(id => !Object.hasOwn(answers,id));
+  index = found < 0 ? ids.length - 1 : found;
+}
+function render() {
+  const id = ids[index], item = answers[id];
+  const prefix = "crops/" + id + (context ? "_context_" : "_");
+  el("left").src = prefix + "t1.jpg";
+  el("right").src = prefix + "t2.jpg";
+  el("context").textContent = context ? "显示近景" : "显示上下文";
+  el("context").setAttribute("aria-pressed",String(context));
+  const done = ids.filter(id => Object.hasOwn(answers,id)).length;
+  el("progress").max = ids.length; el("progress").value = done;
+  el("progressText").textContent =
+    `第 ${index+1} / ${ids.length} 个；已处理 ${done} 个（含跳过）`;
+  el("status").textContent = item ? "当前选择："+options[item.choice] : "当前尚未作答";
+  if (done === ids.length) el("status").textContent += "。已全部处理，请导出结果。";
+  document.querySelectorAll("[data-choice]").forEach(button =>
+    button.setAttribute("aria-pressed",String(item?.choice === button.dataset.choice)));
+  el("previous").disabled = index === 0;
+  el("next").disabled = index === ids.length-1;
+}
+function choose(choice) {
+  answers[ids[index]] = {choice,timestamp:new Date().toISOString()};
+  save();
+  if (index < ids.length-1) index++;
+  render();
+}
+function move(delta) { index = Math.max(0,Math.min(ids.length-1,index+delta)); render(); }
+document.querySelectorAll("[data-choice]").forEach(button =>
+  button.onclick = () => choose(button.dataset.choice));
+el("previous").onclick = () => move(-1); el("next").onclick = () => move(1);
+el("context").onclick = () => {context = !context; render();};
+document.addEventListener("keydown",event => {
+  if (event.repeat || event.ctrlKey || event.metaKey || event.altKey ||
+      ["INPUT","TEXTAREA"].includes(event.target.tagName)) return;
+  const mapping = {"4":"partial","1":"changed","2":"unchanged","3":"unclear","0":"skip"};
+  if (Object.hasOwn(mapping,event.key)) {event.preventDefault(); choose(mapping[event.key]);}
+  if (event.key === "ArrowLeft") {event.preventDefault(); move(-1);}
+  if (event.key === "ArrowRight") {event.preventDefault(); move(1);}
+});
+el("export").onclick = () => {
+  const blob = new Blob([JSON.stringify(answers,null,2)+"\n"],{type:"application/json"});
+  const url = URL.createObjectURL(blob), link = document.createElement("a");
+  link.href = url; link.download = "audit_answers.json"; link.click();
+  setTimeout(() => URL.revokeObjectURL(url),1000);
+};
+el("import").onclick = () => el("file").click();
+el("file").onchange = async () => {
+  const file = el("file").files[0]; if (!file) return;
+  try {
+    answers = {...answers,...validAnswers(JSON.parse(await file.text()))};
+    save(); firstMissing(); render();
+  } catch (error) {el("warning").textContent = "导入失败："+error.message;}
+  el("file").value = "";
+};
+for (const image of [el("left"),el("right")]) image.onerror = () => {
+  el("warning").textContent = "图片读取失败，请确认 HTML 与完整的 crops 文件夹放在同一目录。";
+};
+firstMissing(); render();
+</script></html>
