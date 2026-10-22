@@ -666,21 +666,56 @@ V2 全池预计约 330–1,500 GPU 小时，包含 pred 和无标签块；因此
 
 BF2 使用掩码减 3×3 腐蚀提取边界，距离容差 2 像素；目标按二值 8 连通域，分别以覆盖/重叠 ≥50% 算召回/精度。新增误检目标按零真值重叠连通域数的正向净增量。全测试集像素、边界、目标指标均先累加计数再算 micro；下降占比按逐图 ΔF1<0。历史按语义转移拆分的目标召回，与此二值目标 F1 口径不同。
 
-## 当前进度（2026-10-21）
+## 掩码精修与判断单元（实验 7，2026-10-22）
+
+2026-10-22 起主指标改为像素 F1 / IoU：选方案、选阈值只看这两个，边界与目标指标照算、放附表。下表均为 SECOND 测试集，方案在交叉拟合验证集（297 张）上选定，测试只评一次。
+
+### 7b 判断单元（oracle：单元内真值 ≥50% 才并入，B+G0.05+H1）
+
+| 单元 | 做法 | 每图单元数 | 像素 F1 | IoU | BF2（附） |
+| --- | --- | --- | --- | --- | --- |
+| U0_pool | 现有 SLIC 切块（V1 所用） | 746 | 82.67% | 70.45% | 45.81% |
+| U1 | 更细 SLIC（面积中位数 69 px） | 1,267 | 83.58% | 71.79% | 51.80% |
+| U2 | 更粗 SLIC | 400 | 82.28% | 69.89% | 45.78% |
+| U3 | 不切细，原始候选 | 170 | 79.50% | 65.98% | 41.62% |
+| U4 | SAM ViT-H 自动掩码 ∩ 候选 | 353 | 81.70% | 69.06% | 47.73% |
+
+上限主要由单元粒度决定：细切最高，不切细低约 3 个点；SAM 对象级单元低约 1 个点（两期都无 SAM 掩码的像素被丢掉）。U1 只领先 0.9 个点而单元数多 70%，V1 在新单元上的重训暂不做。
+
+### 提示精修（降为低优先级）
+
+确认区域（通过确认、彼此相邻的切块合并成的连通域）上用 SAM3 / SAM ViT-H 按 7 种提示方式重画掩码，再与确认区域外扩 3 像素取交。验证集全网格 213 种配置；SYSU、LEVIR、WHU 未做（降级）。
+
+| 设定 | 方案（验证像素 F1 选） | 测试像素 F1 | 测试 ΔF1 | IoU | 每图新增误检目标（附） | 秒/图 |
+| --- | --- | --- | --- | --- | --- | --- |
+| O：oracle 确认 | P0 不精修 | 82.67% | 0 | 70.45% | 0.74 | 0.4 |
+| O：oracle 确认 | SAM3 掩码提示（P4） | 82.94% | +0.27 | 70.85% | 1.29 | 4.7 |
+| V：V1 确认 | P0 不精修 | 72.85% | 0 | 57.30% | 0.71 | 0.4 |
+| V：V1 确认 | 软边界（验证第一） | 73.00% | +0.15 | 57.48% | 0.75 | 0.4 |
+| V：V1 确认 | SAM3 框+多点（P3，SAM 方案验证第一） | 73.72% | +0.87 | 58.38% | 5.89 | 7.5 |
+
+精修对像素 F1 的影响在 ±1 个点以内；V 设定下验证集前几名相差不到 0.01 个点。SAM 把错补区域裁小（FP 像素约 −15%），但留下许多小碎片；大区域（>1,000 px）上 SAM 掩码与真值 IoU 中位数仅 9%。SAM 精修比 P0 慢 10–25 倍，暂不进入主流程。
+
+来源：[结果文件 exp7_prompt_refinement.md](exp7_prompt_refinement.md)。
+
+## 当前进度（2026-10-22）
 
 | 部分 | 最新记录与结论 | 来源文件 |
 | --- | --- | --- |
 | 检测器与候选 | SECOND 检测器 F1 74.17；无信号漏检占真值像素 14.9%；四来源覆盖率 52.2%。 | summary.md；exp5a_anychange.md |
 | 6a | 交叉拟合、候选池和自动标签均完成；训练池 298 万补漏块，有标签正例率 15.27%。 | exp6a_pool.md |
-| 6b V1 | none 测试 AUC 0.8745；B+G0.05+H1 测试 ΔF1 −1.3127 点；骨干版本出现过拟合。 | exp6b_verifier.md；exp6/verifier/none/eval_second.json |
-| 6b V2 | a/b/c 训练和抽样评估完成，均低于同样本 V1；全测试集端到端 ⏳ 未做。 | exp6b_verifier.md 第4节；exp6/v2/*/eval/sample/sample_report.json |
-| 6e | oracle 去误检 SECOND +5.74、SYSU +4.07 点；SECOND 概率基线与 V1 实际去误检已完成，ΔF1 约0；pred 重训与 LEVIR/WHU ⏳。 | exp6e_fp_removal.md（oracle）；exp6b_verifier.md 第3节（较新实际结果） |
-| 6f | A1/A2、D、B1/B2、C 已完成；A3 ⏳。实际并入最接近零是 A2 DINOv3 B+G0.05，−0.00954 点；不并入的0不算收益。 | exp6f_v1_variants.md；exp6/variants/a2_dinov3/eval_second.json |
-| 6g | 320 个样本盲审页面已就绪；人工答案 ⏳ 未返回，干净子集统计 ⏳。 | ../audit/label_audit.html；../audit/samples.json |
-| 6h | 6h-1、6h-2 均完成：6h-1 G1-0/cos/sm 测试 ΔF1 −0.29/−0.17/−0.35 点；6h-2 原分辨率孪生网络各 λ 验证 AP 0.589–0.590，测试 AUC 0.867–0.869，ΔF1 约 0；L_t 无稳定收益。 | exp6h_temporal_consistency.md |
-| 6i | 配准诊断完成；可估计负例约57%偏移>3px，V1 AUC差约−0.029；可估计范围仅约11–12%，暂不处理。 | exp6i_misregistration.md |
-| 6c / 6d / V3 | 泛化数据与预测已准备，验证器泛化评估 ⏳；RingMo-SAM ⏳，Zero-OVCD 停止；V3 待定。 | summary.md；exp6d_backlog.md |
+| 6b V1 | none 测试 AUC 0.8745；B+G0.05+H1 测试 ΔF1 −1.3127 点；骨干版本出现过拟合。 | exp6b_verifier.md |
+| 6b V2 | a/b/c 训练和抽样评估完成，均低于同样本 V1；全测试集端到端 ⏳ 未做。 | exp6b_verifier.md 第4节 |
+| 6e | oracle 去误检 SECOND +5.74、SYSU +4.07 点；SECOND 概率基线与 V1 实际去误检 ΔF1 约 0；pred 重训与 LEVIR/WHU ⏳。 | exp6e_fp_removal.md；exp6b_verifier.md 第3节 |
+| 6f | A1/A2、D、B1/B2、C 已完成；A3 ⏳。实际并入最接近零是 A2 DINOv3 B+G0.05，−0.00954 点。 | exp6f_v1_variants.md |
+| 6g | 人工答案已返回（300 个独立样本 + 20 个重复，自一致 16/20；审核者非专家，只作参考）；干净子集上的正式统计 ⏳。 | research_progress（doc/）；../audit/audit_answers.json |
+| 6h | 6h-1、6h-2 均完成，测试 ΔF1 约 0 或为负；L_t 无稳定收益。 | exp6h_temporal_consistency.md |
+| 6i | 配准诊断完成；可估计负例约 57% 偏移 >3px，与 V1 失败关系弱，暂不处理。 | exp6i_misregistration.md |
+| 统一指标 | 第二版完成，历史行全部复算一致；主指标改为像素 F1 / IoU。 | eval_metrics.md |
+| 实验 7 | 7b：细 SLIC 的 oracle 上限最高（83.58），SAM 对象级单元 81.70；提示精修对像素 F1 影响 ±1 点以内，降为低优先级。 | exp7_prompt_refinement.md |
+| 实验 8 | 第 6 步、第 0 步、去重例图完成；SYSU 官方 val 已找回（4,000/4,000 精确匹配）并按 160 张原图分组；对象级候选池（第 1 步）在 SECOND/LEVIR/WHU 上运行中，SYSU 训练池在准备。 | exp8_object_pool.md |
+| 6c / 6d / V3 | 泛化数据与预测已准备，验证器泛化评估 ⏳；RingMo-SAM ⏳；V3 待定。 | summary.md；exp6d_backlog.md |
 
-进度与历史数字依据 2026-10-21 的结果文档。统一指标（eval_metrics）与实验 7 正在进行，本页“六个数”取自统一指标第一版（含 A–E 五组，BF d=1/4、拆分/粘连与 SAM 精修行待第二版）；实验 7 结果出来后补“掩码精修”一节。6e 旧页标题仍写只完成上界，本页同时采用更新的 6b 实际去误检记录。6g 没有人工答案，不能给出审核后的准确率或标签噪声结论。
+进度与历史数字依据 2026-10-22 的结果文档。本页“六个数”取自统一指标第二版（eval_metrics.md）。6e 旧页标题仍写只完成上界，本页同时采用更新的 6b 实际去误检记录。6g 的干净子集统计尚未完成，不能给出审核后的准确率结论。
 
-来源：[summary.md](summary.md)；[exp6a_pool.md](exp6a_pool.md)；[exp6b_verifier.md](exp6b_verifier.md)；[exp6e_fp_removal.md](exp6e_fp_removal.md)；[exp6f_v1_variants.md](exp6f_v1_variants.md)；[exp6h_temporal_consistency.md](exp6h_temporal_consistency.md)；[exp6i_misregistration.md](exp6i_misregistration.md)；[6g 审核页](../audit/label_audit.html)。
+来源：[summary.md](summary.md)；[exp6a_pool.md](exp6a_pool.md)；[exp6b_verifier.md](exp6b_verifier.md)；[exp6e_fp_removal.md](exp6e_fp_removal.md)；[exp6f_v1_variants.md](exp6f_v1_variants.md)；[exp6h_temporal_consistency.md](exp6h_temporal_consistency.md)；[exp6i_misregistration.md](exp6i_misregistration.md)；[6g 审核页](../audit/label_audit.html)；[eval_metrics.md](eval_metrics.md)；[exp7_prompt_refinement.md](exp7_prompt_refinement.md)；[exp8_object_pool.md](exp8_object_pool.md)。
