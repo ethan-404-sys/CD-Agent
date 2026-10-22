@@ -1,0 +1,52 @@
+{
+ "validation_dataset": "levir_val",
+ "partial": false,
+ "multiplier": 16,
+ "threshold": 3176.0,
+ "geometry": {
+  "dataset": "levir_val",
+  "source": "levir_val",
+  "method": "validation_missed_gt",
+  "min_area": 20,
+  "detector": "schanger_base",
+  "probability_directory": "/guisongxia01/pangchao/wangyihan/Chang-Agent/outputs/CD_1016_probe/exp8_batch18/preds/levir_val/schanger_base/prob",
+  "test_gt_used": false,
+  "split": "validation",
+  "partial": false,
+  "area": {
+   "n": 84,
+   "mean": 333.35714285714283,
+   "p10": 71.3,
+   "p50": 198.5,
+   "p90": 884.0000000000001,
+   "min": 20.0,
+   "max": 1375.0
+  },
+  "median_area": 198.5,
+  "multipliers": [
+   4,
+   8,
+   16
+  ],
+  "limitation": null
+ },
+ "selection_metrics": [
+  "pixel_f1",
+  "pixel_iou"
+ ],
+ "tie_rule": "smaller multiplier only on exact F1 and IoU tie",
+ "validation_scores": {
+  "4": {
+   "pixel_f1": 0.930617662857994,
+   "pixel_iou": 0.8702384830341693
+  },
+  "8": {
+   "pixel_f1": 0.9307135068936282,
+   "pixel_iou": 0.8704061193084215
+  },
+  "16": {
+   "pixel_f1": 0.9308818671466905,
+   "pixel_iou": 0.8707006630430185
+  }
+ }
+}

@@ -1,0 +1,52 @@
+{
+ "validation_dataset": "second_cv",
+ "partial": false,
+ "multiplier": 4,
+ "threshold": 1088.0,
+ "geometry": {
+  "dataset": "second_cv",
+  "source": "second_cv",
+  "method": "validation_missed_gt",
+  "min_area": 20,
+  "detector": "mambascd_base",
+  "probability_directory": "/guisongxia01/pangchao/wangyihan/Chang-Agent/outputs/CD_1016_probe/preds/second_cv/mambascd_base/prob",
+  "test_gt_used": false,
+  "split": "validation",
+  "partial": false,
+  "area": {
+   "n": 2941,
+   "mean": 942.5246514790888,
+   "p10": 47.0,
+   "p50": 272.0,
+   "p90": 1854.0,
+   "min": 20.0,
+   "max": 64202.0
+  },
+  "median_area": 272.0,
+  "multipliers": [
+   4,
+   8,
+   16
+  ],
+  "limitation": null
+ },
+ "selection_metrics": [
+  "pixel_f1",
+  "pixel_iou"
+ ],
+ "tie_rule": "smaller multiplier only on exact F1 and IoU tie",
+ "validation_scores": {
+  "4": {
+   "pixel_f1": 0.7991002156996394,
+   "pixel_iou": 0.6654179025980856
+  },
+  "8": {
+   "pixel_f1": 0.7985070829050773,
+   "pixel_iou": 0.6645957471274815
+  },
+  "16": {
+   "pixel_f1": 0.7972414738762179,
+   "pixel_iou": 0.6628441674369554
+  }
+ }
+}
