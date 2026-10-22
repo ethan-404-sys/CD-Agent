@@ -1,0 +1,262 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>实验 2：SAM3 真值框上界的处理过程</title>
+<style>
+:root {
+  color-scheme: light;
+  --bg: #f3f5f8; --surface: #fff; --text: #202a38; --muted: #566478;
+  --border: #ccd4df; --accent: #175d98; --soft: #e9eff7;
+  --tp: #ddd; --fp: #ed4b50; --fn: #408bff; --tn: #20242c;
+  --hit: #44bb88; --partial: #ffc04d; --miss: #b97bea;
+  --radius: 12px; --gutter: 16px; --width: 1180px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme=light]) {
+    color-scheme: dark;
+    --bg: #10161e; --surface: #19222e; --text: #e8eef6; --muted: #b1bfd0;
+    --border: #3b4a5e; --accent: #91caff; --soft: #233246;
+  }
+}
+:root[data-theme=dark] {
+  color-scheme: dark;
+  --bg: #10161e; --surface: #19222e; --text: #e8eef6; --muted: #b1bfd0;
+  --border: #3b4a5e; --accent: #91caff; --soft: #233246;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+       font: 16px/1.75 system-ui, -apple-system, "Segoe UI", sans-serif; }
+main { max-width: var(--width); margin: 0 auto; padding: 28px var(--gutter) 64px; }
+h1, h2, h3, h4 { line-height: 1.35; overflow-wrap: anywhere; }
+h1 { font-size: clamp(1.6rem, 4vw, 2.3rem); }
+h2 { margin-top: 2.4rem; } h3 { margin-top: 0; }
+a { color: var(--accent); } a:focus-visible, summary:focus-visible { outline: 3px solid var(--accent); }
+nav { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+article, .block { background: var(--surface); border: 1px solid var(--border);
+                  border-radius: var(--radius); padding: 20px; margin: 20px 0; }
+figure { margin: 22px 0; } img { display: block; max-width: 100%; height: auto; margin: auto; }
+figcaption, .muted { color: var(--muted); font-size: .92rem; }
+figcaption { margin-top: 8px; }
+.scroll { overflow-x: auto; max-width: 100%; }
+table { width: 100%; border-collapse: collapse; font-size: .92rem; }
+th, td { padding: 8px 10px; border-bottom: 1px solid var(--border); text-align: left; }
+th { background: var(--soft); } td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.badge { display: inline-block; border-radius: 6px; background: var(--soft); padding: 2px 8px; margin: 2px; }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+.legend i { display: inline-block; width: 14px; height: 14px; margin-right: 6px;
+             border: 1px solid var(--border); vertical-align: middle; }
+details { border: 1px solid var(--border); border-radius: var(--radius); margin: 14px 0; padding: 12px; }
+summary { cursor: pointer; font-weight: 600; } details table { margin-top: 14px; }
+code { overflow-wrap: anywhere; } section, article { scroll-margin-top: 16px; }
+@media (max-width: 640px) {
+  article, .block { padding: 12px; } th, td { padding: 6px; }
+  main { padding-top: 16px; } details { padding: 8px; }
+}
+
+:root { --gt: #b5651d; --gt-soft: #fbeedd; --det: #1f5fa8; --det-soft: #e3edf9; --sam: #5b6b2e; --sam-soft: #eef2e0; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme=light]) {
+  --gt: #f0a560; --gt-soft: #3a2a18; --det: #8ec0ff; --det-soft: #1b2c44; --sam: #c3d58a; --sam-soft: #2a3218; } }
+:root[data-theme=dark] { --gt: #f0a560; --gt-soft: #3a2a18; --det: #8ec0ff; --det-soft: #1b2c44; --sam: #c3d58a; --sam-soft: #2a3218; }
+.flow text { fill: var(--text); font: 13px system-ui, sans-serif; }
+.flow .sm { font-size: 11.5px; fill: var(--muted); }
+.flow .gt { fill: var(--gt-soft); stroke: var(--gt); stroke-width: 2; }
+.flow .det { fill: var(--det-soft); stroke: var(--det); stroke-width: 2; }
+.flow .mix { fill: var(--surface); stroke: var(--muted); stroke-width: 1.5; stroke-dasharray: 5 3; }
+.flow .sam { fill: var(--sam-soft); stroke: var(--sam); stroke-width: 2; }
+.flow .arrow { stroke: var(--muted); stroke-width: 1.6; fill: none; marker-end: url(#ah); }
+.flow .ahead { fill: var(--muted); }
+.flow .gtt { fill: var(--gt); font-weight: 600; } .flow .dett { fill: var(--det); font-weight: 600; }
+td.pos { color: var(--sam); } td.neg { color: var(--fp); }
+blockquote { margin: 8px 0 16px; padding: 8px 14px; border-left: 3px solid var(--border); color: var(--muted); }
+</style></head><body><main>
+<header><h1>实验 2：SAM3 真值框上界的处理过程</h1>
+<p>使用已保存的纯框提示结果，展示修边界、补整目标漏检和整图合成。所有 ΔF1 均以百分点展示。</p>
+<nav aria-label="数据集导航"><a href="#levir">LEVIR-CD</a><a href="#whu">WHU-CD</a><a href="#sysu">SYSU-CD</a><a href="#second">SECOND</a></nav></header>
+<section class="block"><h2>四个数据集汇总</h2><p>F1（%），SAM3 真值框提示；括号内为相对原始的 ΔF1。数值由本页逐图复算求和得到，与 <code>metrics.json</code> 逐项一致。</p><div class="scroll"><table><thead><tr><th>数据集</th><th>检测器</th><th>原始</th><th>2a</th><th>2a_select</th><th>2b</th><th>both_select</th></tr></thead><tbody><tr><td>LEVIR-CD</td><td>SChanger-base</td><td class="num">92.88</td><td class="num neg">91.39（-1.49）</td><td class="num pos">93.38（+0.50）</td><td class="num pos">93.38（+0.50）</td><td class="num pos">93.88（+1.00）</td></tr><tr><td>WHU-CD</td><td>SChanger-small</td><td class="num">93.51</td><td class="num neg">93.23（-0.28）</td><td class="num pos">94.44（+0.93）</td><td class="num pos">94.83（+1.32）</td><td class="num pos">95.74（+2.23）</td></tr><tr><td>SYSU-CD</td><td>SChanger-small</td><td class="num">84.58</td><td class="num neg">81.09（-3.49）</td><td class="num pos">86.20（+1.62）</td><td class="num pos">86.47（+1.89）</td><td class="num pos">88.06（+3.48）</td></tr><tr><td>SECOND</td><td>MambaSCD-Base</td><td class="num">74.17</td><td class="num pos">75.25（+1.08）</td><td class="num pos">75.67（+1.50）</td><td class="num pos">81.98（+7.81）</td><td class="num pos">83.22（+9.05）</td></tr></tbody></table></div><p class="muted">局限：提示只跑一轮，不按误差迭代；修边界只处理命中目标；补漏只处理整目标漏检。目标位置、外接框、时相选择和 2a_select 的取舍都用了真值，所以这些都是提示完美时的上界。</p></section>
+<section class="block"><h2>处理流程</h2><div class="scroll"><svg class="flow" viewBox="0 0 940 620" width="940" role="img" aria-label="实验 2 处理流程：真值目标拆分、命中判定、裁块送 SAM3、时相选择、合成规则"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="ahead" d="M0,0 L10,5 L0,10 z"/></marker></defs><rect x="20" y="10" width="270" height="52" rx="8" class="gt"/><text x="32" y="32">真值变化图</text><text x="32" y="50" class="sm">SECOND 另有两期类别标签</text><rect x="335" y="10" width="270" height="52" rx="8" class="det"/><text x="347" y="32">检测器 0.5 掩码</text><text x="347" y="50" class="sm">预测连通域</text><rect x="650" y="10" width="270" height="52" rx="8" class="mix"/><text x="662" y="32">t1 / t2 影像</text><text x="662" y="50" class="sm">只作为 SAM3 输入</text><rect x="20" y="100" width="270" height="72" rx="8" class="gt"/><text x="32" y="122">① 拆成真值目标</text><text x="32" y="140" class="sm">8 连通域；SECOND 按（t1 类, t2 类）</text><text x="32" y="158" class="sm">转移拆分后再取连通域</text><path class="arrow" d="M155,62 L155,98"/><rect x="335" y="100" width="585" height="72" rx="8" class="mix"/><text x="347" y="122">② 每个目标与预测连通域求最佳 IoU，判定类别</text><text x="347" y="140" class="sm">IoU ≥ 0.5 命中 · 0.1 ≤ IoU < 0.5 部分命中 · IoU < 0.1 整目标漏检</text><text x="347" y="158" class="sm">目标来自真值，匹配对象来自检测器</text><path class="arrow" d="M290,136 L333,136"/><path class="arrow" d="M470,62 L470,98"/><rect x="20" y="210" width="430" height="90" rx="8" class="gt"/><text x="32" y="232">③ 真值外接框 → 裁块</text><text x="32" y="250" class="sm">正方形，边长 max(3 × 长边, 128 px)，截到影像内</text><text x="32" y="268" class="sm">提示 = 真值框（另一组加 1 个正点：目标内离边界最远的像素）</text><text x="32" y="286" class="sm">所有目标先跑，结果与检测器无关</text><rect x="490" y="210" width="430" height="90" rx="8" class="sam"/><text x="502" y="232">SAM3 交互头 predict_inst</text><text x="502" y="250" class="sm">单掩码输出；裁块内部缩放到 1008</text><text x="502" y="268" class="sm">每个目标、每个时相只跑一轮</text><text x="502" y="286" class="sm">SECOND 只跑 ≥ 20 px 的目标</text><path class="arrow" d="M155,172 L155,208"/><path class="arrow" d="M450,255 L488,255"/><path class="arrow" d="M785,62 L785,208"/><rect x="20" y="338" width="900" height="70" rx="8" class="gt"/><text x="32" y="360">④ 时相选择</text><text x="32" y="378" class="sm">WHU：两期建筑标签判新建（用 t2）/ 拆除（用 t1），无法判定时两期都跑</text><text x="32" y="396" class="sm">LEVIR、SYSU、SECOND：两期都跑，取与真值 IoU 高的一期</text><path class="arrow" d="M705,300 L705,336"/><rect x="20" y="446" width="900" height="150" rx="8" class="mix"/><text x="32" y="468">⑤ 合成规则（起点：检测器 0.5 掩码）</text><text x="32" y="486" class="sm">2a        命中目标：删去匹配的预测连通域，贴 SAM3 掩码；连通域落在其他真值目标上的像素保留</text><text x="32" y="504" class="sm">2a_strict 同 2a，但整块删除匹配连通域（会误删相邻目标）</text><text x="32" y="522" class="sm">2a_select 只在 SAM3 IoU 高于检测器 IoU 时替换（取舍用真值）</text><text x="32" y="540" class="sm">2b        整目标漏检：直接并入 SAM3 掩码</text><text x="32" y="558" class="sm">2c        部分命中：只并不删　·　both = 2a + 2b　·　both_select = 2a_select + 2b</text><text x="32" y="576" class="sm"></text><path class="arrow" d="M470,408 L470,444"/><text x="560" y="586" class="gtt">■ 来自真值</text><text x="680" y="586" class="dett">■ 来自检测器</text><text x="810" y="586" class="sm">虚线 = 两者都用</text></svg></div>
+<p>检测器从 0.5 掩码出发。真值目标按 8 连通域拆分，SECOND 先按两期类别转移拆分。目标与预测连通域的最佳 IoU ≥ 0.5 为命中，0.1 ≤ IoU &lt; 0.5 为部分命中，IoU &lt; 0.1 为整目标漏检。</p>
+<p>裁块边长为 max(3 × 目标外接框长边, 128 像素)，裁块限制在影像范围内。SAM3 使用 predict_inst 单掩码结果。WHU 按分期标签判定新建或拆除；无法判定时比较两期。LEVIR、SYSU、SECOND 比较两期与真值的 IoU，取较高者；同分沿用提示记录中先出现的时相。</p>
+<p>2a 对命中目标删除匹配预测连通域并贴入 SAM3 掩码，保留原连通域落在其他真值目标上的像素；2a_strict 删除整个匹配连通域；2a_select 仅在 SAM3 IoU 严格高于检测器 IoU 时替换。2b 对整目标漏检直接并入 SAM3 掩码。both_select 合并 2a_select 与 2b。原实验另有 both（2a + 2b）和 2c（部分命中只并不删），本页展示指定的四种合成图。</p>
+<p>目标位置、外接框、正点位置、目标分类、时相判断和选择性替换判断均使用真值信息。本页使用纯框结果；逐目标图中的正点只说明位置，未用于该次 SAM3 推理。</p>
+<p>这些上界只跑一轮提示，不按误差迭代；修边界仅处理命中目标，补漏仅处理整目标漏检。SECOND 未运行 SAM3 的小碎片不触发直接修改。</p></section>
+<div class="legend" aria-label="像素颜色图例"><span><i style="background:var(--tp)"></i>TP 真阳性</span><span><i style="background:var(--fp)"></i>FP 假阳性</span><span><i style="background:var(--fn)"></i>FN 假阴性</span><span><i style="background:var(--tn)"></i>TN 真阴性</span></div>
+<div class="legend" aria-label="目标分类图例"><span><i style="background:var(--hit)"></i>命中</span><span><i style="background:var(--partial)"></i>部分命中</span><span><i style="background:var(--miss)"></i>整目标漏检</span></div>
+<section id="levir"><h2>LEVIR-CD</h2>
+<blockquote>引自 <code>exp2_oracle.md</code>：LEVIR 上 SAM3 平均 IoU 0.867，低于 SChanger 的 0.878–0.883：SAM3 给出的单体建筑轮廓与 LEVIR 的标注口径存在系统差异，检测器则是在该口径上训练的。全部替换后 F1 下降 1.2–1.5；补齐全部整目标漏检后 F1 提升 +0.50–0.55。</blockquote>
+<p>前三个角色仅从真值变化像素 ≥ 1,000 的图像中选择；同分按文件名升序。同一图像允许承担多个角色，下方合并展示并保留全部角色标签。</p>
+<div class="scroll"><table><thead><tr><th>选图角色</th><th>图名</th><th>真值变化像素</th><th>选图指标</th></tr></thead><tbody><tr><td>2a_select 收益最大</td><td><a href="#levir-test_86">test_86.png</a></td><td class="num">2,194</td><td>2a_select：+9.59 个百分点</td></tr><tr><td>2a 增益最小（伤害示例）</td><td><a href="#levir-test_110">test_110.png</a></td><td class="num">8,787</td><td>2a：-7.44 个百分点</td></tr><tr><td>2b 收益最大</td><td><a href="#levir-test_6">test_6.png</a></td><td class="num">2,439</td><td>2b：+25.18 个百分点</td></tr></tbody></table></div>
+<article id="levir-test_86"><h3>test_86.png</h3>
+<p><span class="badge">2a_select 收益最大</span></p>
+<p>检测器：<code>schanger_base</code>；原始 F1：31.47%；真值变化像素：2,194。</p>
+<figure><a href="exp2_figs/levir/test_86/overview.jpg"><img src="exp2_figs/levir/test_86/overview.jpg" alt="输入与检测结果：t1、t2、真值变化、检测器 0.5 掩码、检测器 TP / FP / FN。" loading="lazy" decoding="async"></a><figcaption>输入与检测结果：t1、t2、真值变化、检测器 0.5 掩码、检测器 TP / FP / FN。</figcaption></figure>
+<figure><a href="exp2_figs/levir/test_86/objects.jpg"><img src="exp2_figs/levir/test_86/objects.jpg" alt="按最佳预测连通域 IoU 分类真值目标；每个目标均标出真值外接框与编号。" loading="lazy" decoding="async"></a><figcaption>按最佳预测连通域 IoU 分类真值目标；每个目标均标出真值外接框与编号。</figcaption></figure>
+<h4>代表目标</h4><p class="muted">依次选择命中目标中改善最大、退步最大者，以及漏检目标中 SAM3 IoU ≥ 0.5 和 &lt; 0.5 的最大目标；同分按目标编号升序。不足两例时补充其余已提示目标中面积最大者；全部已提示目标不足两例时展示实际数量。</p>
+<p class="muted">本图没有符合以下规则的目标：命中目标：SAM3 退步最大；漏检目标：SAM3 IoU &lt; 0.5，面积最大。</p>
+<details><summary>目标 1 · 漏检目标：SAM3 IoU ≥ 0.5，面积最大</summary><div class="scroll"><table><tbody><tr><th scope="row">目标类别 / 面积</th><td>整目标漏检 / 743 像素</td></tr><tr><th scope="row">采用时相</th><td>t2</td></tr><tr><th scope="row">SAM3 IoU</th><td>0.9090</td></tr><tr><th scope="row">检测器 IoU</th><td>0.0000</td></tr><tr><th scope="row">2a</th><td>保留</td></tr><tr><th scope="row">2a_select</th><td>保留</td></tr><tr><th scope="row">2b</th><td>并入</td></tr></tbody></table></div><figure><a href="exp2_figs/levir/test_86/obj_1.jpg"><img src="exp2_figs/levir/test_86/obj_1.jpg" alt="目标 1：依次为 SAM3 输入裁块、SAM3 掩码叠加、检测器原始裁块掩码、该目标真值。黄框为真值框；绿色正点仅用于说明其位置，纯框提示未使用此点。" loading="lazy" decoding="async"></a><figcaption>目标 1：依次为 SAM3 输入裁块、SAM3 掩码叠加、检测器原始裁块掩码、该目标真值。黄框为真值框；绿色正点仅用于说明其位置，纯框提示未使用此点。</figcaption></figure></details>
+<details><summary>目标 3 · 命中目标：SAM3 改善最大</summary><div class="scroll"><table><tbody><tr><th scope="row">目标类别 / 面积</th><td>命中 / 804 像素</td></tr><tr><th scope="row">采用时相</th><td>t2</td></tr><tr><th scope="row">SAM3 IoU</th><td>0.8676</td></tr><tr><th scope="row">检测器 IoU</th><td>0.5796</td></tr><tr><th scope="row">2a</th><td>替换</td></tr><tr><th scope="row">2a_select</th><td>替换</td></tr><tr><th scope="row">2b</th><td>无操作</td></tr></tbody></table></div><figure><a href="exp2_figs/levir/test_86/obj_3.jpg"><img src="exp2_figs/levir/test_86/obj_3.jpg" alt="目标 3：依次为 SAM3 输入裁块、SAM3 掩码叠加、检测器原始裁块掩码、该目标真值。黄框为真值框；绿色正点仅用于说明其位置，纯框提示未使用此点。" loading="lazy" decoding="async"></a><figcaption>目标 3：依次为 SAM3 输入裁块、SAM3 掩码叠加、检测器原始裁块掩码、该目标真值。黄框为真值框；绿色正点仅用于说明其位置，纯框提示未使用此点。</figcaption></figure></details>
+<p class="muted">检测器 IoU 来自完整预测连通域与该真值目标的匹配；裁块中的检测器图显示全部原始预测像素。表中的处理方式表示该目标触发的操作，其他目标的删除和并入仍可能影响同一区域。</p>
+<figure><a href="exp2_figs/levir/test_86/compose.jpg"><img src="exp2_figs/levir/test_86/compose.jpg" alt="整图合成结果。标题中的 F1 为百分比，dF1 为相对原始检测器的百分点变化。" loading="lazy" decoding="async"></a><figcaption>整图合成结果。标题中的 F1 为百分比，dF1 为相对原始检测器的百分点变化。</figcaption></figure>
+</article>
+<article id="levir-test_110"><h3>test_110.png</h3>
+<p><span class="badge">2a 增益最小（伤害示例）</span></p>
+<p>检测器：<code>schanger_base</code>；原始 F1：93.40%；真值变化像素：8,787。</p>
+<figure><a href="exp2_figs/levir/test_110/overview.jpg"><img src="exp2_figs/levir/test_110/overview.jpg" alt="输入与检测结果：t1、t2、真值变化、检测器 0.5 掩码、检测器 TP / FP / FN。" loading="lazy" decoding="async"></a><figcaption>输入与检测结果：t1、t2、真值变化、检测器 0.5 掩码、检测器 TP / FP / FN。</figcaption></figure>
+<figure><a href="exp2_figs/levir/test_110/objects.jpg"><img src="exp2_figs/levir/test_110/objects.jpg" alt="按最佳预测连通域 IoU 分类真值目标；每个目标均标出真值外接框与编号。" loading="lazy" decoding="async"></a><figcaption>按最佳预测连通域 IoU 分类真值目标；每个目标均标出真值外接框与编号。</figcaption></figure>
+<h4>代表目标</h4><p class="muted">依次选择命中目标中改善最大、退步最大者，以及漏检目标中 SAM3 IoU ≥ 0.5 和 &lt; 0.5 的最大目标；同分按目标编号升序。不足两例时补充其余已提示目标中面积最大者；全部已提示目标不足两例时展示实际数量。</p>
+<p class="muted">本图没有符合以下规则的目标：漏检目标：SAM3 IoU &lt; 0.5，面积最大。</p>
+<details><summary>目标 6 · 命中目标：SAM3 退步最大</summary><div class="scroll"><table><tbody><tr><th scope="row">目标类别 / 面积</th><td>命中 / 5,167 像素</td></tr><tr><th scope="row">采用时相</th><td>t2</td></tr><tr><th scope="row">SAM3 IoU</th><td>0.7344</td></tr><tr><th scope="row">检测器 IoU</th><td>0.9428</td></tr><tr><th scope="row">2a</th><td>替换</td></tr><tr><th scope="row">2a_select</th><td>保留</td></tr><tr><th scope="row">2b</th><td>无操作</td></tr></tbody></table></div><figure><a href="exp2_figs/levir/test_110/obj_6.jpg"><img src="exp2_figs/levir/test_110/obj_6.jpg" alt="目标 6：依次为 SAM3 输入裁块、SAM3 掩码叠加、检测器原始裁块掩码、该目标真值。黄框为真值框；绿色正点仅用于说明其位置，纯框提示未使用此点。" loading="lazy" decoding="async"></a><figcaption>目标 6：依次为 SAM3 输入裁块、SAM3 掩码叠加、检测器原始裁块掩码、该目标真值。黄框为真值框；绿色正点仅用于说明其位置，纯框提示未使用此点。</figcaption></figure></details>
+<details><summary>目标 7 · 命中目标：SAM3 改善最大</summary><div class="scroll"><table><tbody><tr><th scope="row">目标类别 / 面积</th><td>命中 / 666 像素</td></tr><tr><th scope="row">采用时相</th><td>t1</td></tr><tr><th scope="row">SAM3 IoU</th><td>0.8223</td></tr><tr><th scope="row">检测器 IoU</th><td>0.6487</td></tr><tr><th scope="row">2a</th><td>替换</td></tr><tr><th scope="row">2a_select</th><td>替换</td></tr><tr><th scope="row">2b</th><td>无操作</td></tr></tbody></table></div><figure><a href="exp2_figs/levir/test_110/obj_7.jpg"><img src="exp2_figs/levir/test_110/obj_7.jpg" alt="目标 7：依次为 SAM3 输入裁块、SAM3 掩码叠加、检测器原始裁块掩码、该目标真值。黄框为真值框；绿色正点仅用于说明其位置，纯框提示未使用此点。" loading="lazy" decoding="async"></a><figcaption>目标 7：依次为 SAM3 输入裁块、SAM3 掩码叠加、检测器原始裁块掩码、该目标真值。黄框为真值框；绿色正点仅用于说明其位置，纯框提示未使用此点。</figcaption></figure></details>
+<details><summary>目标 10 · 漏检目标：SAM3 IoU ≥ 0.5，面积最大</summary><div class="scroll"><table><tbody><tr><th scope="row">目标类别 / 面积</th><td>整目标漏检 / 6 像素</td></tr><tr><th scope="row">采用时相</th><td>t1</td></tr><tr><th scope="row">SAM3 IoU</th><td>1.0000</td></tr><tr><th scope="row">检测器 IoU</th><td>0.0000</td></tr><tr><th scope="row">2a</th><td>保留</td></tr><tr><th scope="row">2a_select</th><td>保留</td></tr><tr><th scope="row">2b</th><td>并入</td></tr></tbody></table></div><figure><a href="exp2_figs/levir/test_110/obj_10.jpg"><img src="exp2_figs/levir/test_110/obj_10.jpg" alt="目标 10：依次为 SAM3 输入裁块、SAM3 掩码叠加、检测器原始裁块掩码、该目标真值。黄框为真值框；绿色正点仅用于说明其位置，纯框提示未使用此点。" loading="lazy" decoding="async"></a><figcaption>目标 10：依次为 SAM3 输入裁块、SAM3 掩码叠加、检测器原始裁块掩码、该目标真值。黄框为真值框；绿色正点仅用于说明其位置，纯框提示未使用此点。</figcaption></figure></details>
+<p class="muted">检测器 IoU 来自完整预测连通域与该真值目标的匹配；裁块中的检测器图显示全部原始预测像素。表中的处理方式表示该目标触发的操作，其他目标的删除和并入仍可能影响同一区域。</p>
+<figure><a href="exp2_figs/levir/test_110/compose.jpg"><img src="exp2_figs/levir/test_110/compose.jpg" alt="整图合成结果。标题中的 F1 为百分比，dF1 为相对原始检测器的百分点变化。" loading="lazy" decoding="async"></a><figcaption>整图合成结果。标题中的 F1 为百分比，dF1 为相对原始检测器的百分点变化。</figcaption></figure>
+</article>
+<article id="levir-test_6"><h3>test_6.png</h3>
+<p><span class="badge">2b 收益最大</span></p>
+<p>检测器：<code>schanger_base</code>；原始 F1：65.92%；真值变化像素：2,439。</p>
+<figure><a href="exp2_figs/levir/test_6/overview.jpg"><img src="exp2_figs/levir/test_6/overview.jpg" alt="输入与检测结果：t1、t2、真值变化、检测器 0.5 掩码、检测器 TP / FP / FN。" loading="lazy" decoding="async"></a><figcaption>输入与检测结果：t1、t2、真值变化、检测器 0.5 掩码、检测器 TP / FP / FN。</figcaption></figure>
+<figure><a href="exp2_figs/levir/test_6/objects.jpg"><img src="exp2_figs/levir/test_6/objects.jpg" alt="按最佳预测连通域 IoU 分类真值目标；每个目标均标出真值外接框与编号。" loading="lazy" decoding="async"></a><figcaption>按最佳预测连通域 IoU 分类真值目标；每个目标均标出真值外接框与编号。</figcaption></figure>
+<h4>代表目标</h4><p class="muted">依次选择命中目标中改善最大、退步最大者，以及漏检目标中 SAM3 IoU ≥ 0.5 和 &lt; 0.5 的最大目标；同分按目标编号升序。不足两例时补充其余已提示目标中面积最大者；全部已提示目标不足两例时展示实际数量。</p>
+<p class="muted">本图没有符合以下规则的目标：命中目标：SAM3 改善最大；漏检目标：SAM3 IoU &lt; 0.5，面积最大。</p>
+<details><summary>目标 1 · 漏检目标：SAM3 IoU ≥ 0.5，面积最大</summary><div class="scroll"><table><tbody><tr><th scope="row">目标类别 / 面积</th><td>整目标漏检 / 468 像素</td></tr><tr><th scope="row">采用时相</th><td>t2</td></tr><tr><th scope="row">SAM3 IoU</th><td>0.8141</td></tr><tr><th scope="row">检测器 IoU</th><td>0.0534</td></tr><tr><th scope="row">2a</th><td>保留</td></tr><tr><th scope="row">2a_select</th><td>保留</td></tr><tr><th scope="row">2b</th><td>并入</td></tr></tbody></table></div><figure><a href="exp2_figs/levir/test_6/obj_1.jpg"><img src="exp2_figs/levir/test_6/obj_1.jpg" alt="目标 1：依次为 SAM3 输入裁块、SAM3 掩码叠加、检测器原始裁块掩码、该目标真值。黄框为真值框；绿色正点仅用于说明其位置，纯框提示未使用此点。" loading="lazy" decoding="async"></a><figcaption>目标 1：依次为 SAM3 输入裁块、SAM3 掩码叠加、检测器原始裁块掩码、该目标真值。黄框为真值框；绿色正点仅用于说明其位置，纯框提示未使用此点。</figcaption></figure></details>
+<details><summary>目标 6 · 命中目标：SAM3 退步最大</summary><div class="scroll"><table><tbody><tr><th scope="row">目标类别 / 面积</th><td>命中 / 532 像素</td></tr><tr><th scope="row">采用时相</th><td>t2</td></tr><tr><th scope="row">SAM3 IoU</th><td>0.6929</td></tr><tr><th scope="row">检测器 IoU</th><td>0.7635</td></tr><tr><th scope="row">2a</th><td>替换</td></tr><tr><th scope="row">2a_select</th><td>保留</td></tr><tr><th scope="row">2b</th><td>无操作</td></tr></tbody></table></div><figure><a href="exp2_figs/levir/test_6/obj_6.jpg"><img src="exp2_figs/levir/test_6/obj_6.jpg" alt="目标 6：依次为 SAM3 输入裁块、SAM3 掩码叠加、检测器原始裁块掩码、该目标真值。黄框为真值框；绿色正点仅用于说明其位置，纯框提示未使用此点。" loading="lazy" decoding="async"></a><figcaption>目标 6：依次为 SAM3 输入裁块、SAM3 掩码叠加、检测器原始裁块掩码、该目标真值。黄框为真值框；绿色正点仅用于说明其位置，纯框提示未使用此点。</figcaption></figure></details>
+<p class="muted">检测器 IoU 来自完整预测连通域与该真值目标的匹配；裁块中的检测器图显示全部原始预测像素。表中的处理方式表示该目标触发的操作，其他目标的删除和并入仍可能影响同一区域。</p>
+<figure><a href="exp2_figs/levir/test_6/compose.jpg"><img src="exp2_figs/levir/test_6/compose.jpg" alt="整图合成结果。标题中的 F1 为百分比，dF1 为相对原始检测器的百分点变化。" loading="lazy" decoding="async"></a><figcaption>整图合成结果。标题中的 F1 为百分比，dF1 为相对原始检测器的百分点变化。</figcaption></figure>
+</article>
+</section>
+<section id="whu"><h2>WHU-CD</h2>
+<blockquote>引自 <code>exp2_oracle.md</code>：对 SChanger 已命中的目标，SAM3 只在 30–41% 的目标上 IoU 更高，全部替换后 WHU 基本不变（−0.1 到 −0.3）。补齐全部整目标漏检后 F1 提升 +1.18–1.32；两侧都选对时的总上界为 +1.95 / +2.23。</blockquote>
+<p>前三个角色仅从真值变化像素 ≥ 1,000 的图像中选择；同分按文件名升序。同一图像允许承担多个角色，下方合并展示并保留全部角色标签。</p>
+<p>误删示例优先采用 test_255；缺少此图时，选择 2a 与 2a_strict 的 TP 差最大的图，同分按文件名升序，该角色不设面积门槛。</p>
+<div class="scroll"><table><thead><tr><th>选图角色</th><th>图名</th><th>真值变化像素</th><th>选图指标</th></tr></thead><tbody><tr><td>2a_select 收益最大</td><td><a href="#whu-test_98">test_98.png</a></td><td class="num">2,495</td><td>2a_select：+28.79 个百分点</td></tr><tr><td>2a 增益最小（伤害示例）</td><td><a href="#whu-test_9">test_9.png</a></td><td class="num">8,705</td><td>2a：-26.80 个百分点</td></tr><tr><td>2b 收益最大</td><td><a href="#whu-test_550">test_550.png</a></td><td class="num">1,052</td><td>2b：+98.17 个百分点</td></tr><tr><td>2a_strict 误删示例</td><td><a href="#whu-test_255">test_255.png</a></td><td class="num">179,390</td><td>损失 40,819 个 TP 像素</td></tr></tbody></table></div>
+<article id="whu-test_98"><h3>test_98.png</h3>
+<p><span class="badge">2a_select 收益最大</span></p>
+<p>检测器：<code>schanger_small</code>；原始 F1：67.31%；真值变化像素：2,495。</p>
+<figure><a href="exp2_figs/whu/test_98/overview.jpg"><img src="exp2_figs/whu/test_98/overview.jpg" alt="输入与检测结果：t1、t2、真值变化、检测器 0.5 掩码、检测器 TP / FP / FN。" loading="lazy" decoding="async"></a><figcaption>输入与检测结果：t1、t2、真值变化、检测器 0.5 掩码、检测器 TP / FP / FN。</figcaption></figure>
+<figure><a href="exp2_figs/whu/test_98/objects.jpg"><img src="exp2_figs/whu/test_98/objects.jpg" alt="按最佳预测连通域 IoU 分类真值目标；每个目标均标出真值外接框与编号。" loading="lazy" decoding="async"></a><figcaption>按最佳预测连通域 IoU 分类真值目标；每个目标均标出真值外接框与编号。</figcaption></figure>
+<h4>代表目标</h4><p class="muted">依次选择命中目标中改善最大、退步最大者，以及漏检目标中 SAM3 IoU ≥ 0.5 和 &lt; 0.5 的最大目标；同分按目标编号升序。不足两例时补充其余已提示目标中面积最大者；全部已提示目标不足两例时展示实际数量。</p>
+<p class="muted">本图没有符合以下规则的目标：命中目标：SAM3 退步最大；漏检目标：SAM3 IoU ≥ 0.5，面积最大；漏检目标：SAM3 IoU &lt; 0.5，面积最大。</p>
+<details><summary>目标 1 · 命中目标：SAM3 改善最大</summary><div class="scroll"><table><tbody><tr><th scope="row">目标类别 / 面积</th><td>命中 / 2,495 像素</td></tr><tr><th scope="row">采用时相</th><td>t2</td></tr><tr><th scope="row">SAM3 IoU</th><td>0.9250</td></tr><tr><th scope="row">检测器 IoU</th><td>0.5073</td></tr><tr><th scope="row">2a</th><td>替换</td></tr><tr><th scope="row">2a_select</th><td>替换</td></tr><tr><th scope="row">2b</th><td>无操作</td></tr></tbody></table></div><figure><a href="exp2_figs/whu/test_98/obj_1.jpg"><img src="exp2_figs/whu/test_98/obj_1.jpg" alt="目标 1：依次为 SAM3 输入裁块、SAM3 掩码叠加、检测器原始裁块掩码、该目标真值。黄框为真值框；绿色正点仅用于说明其位置，纯框提示未使用此点。" loading="lazy" decoding="async"></a><figcaption>目标 1：依次为 SAM3 输入裁块、SAM3 掩码叠加、检测器原始裁块掩码、该目标真值。黄框为真值框；绿色正点仅用于说明其位置，纯框提示未使用此点。</figcaption></figure></details>
+<p class="muted">检测器 IoU 来自完整预测连通域与该真值目标的匹配；裁块中的检测器图显示全部原始预测像素。表中的处理方式表示该目标触发的操作，其他目标的删除和并入仍可能影响同一区域。</p>
+<figure><a href="exp2_figs/whu/test_98/compose.jpg"><img src="exp2_figs/whu/test_98/compose.jpg" alt="整图合成结果。标题中的 F1 为百分比，dF1 为相对原始检测器的百分点变化。" loading="lazy" decoding="async"></a><figcaption>整图合成结果。标题中的 F1 为百分比，dF1 为相对原始检测器的百分点变化。</figcaption></figure>
+</article>
+<article id="whu-test_9"><h3>test_9.png</h3>
+<p><span class="badge">2a 增益最小（伤害示例）</span></p>
+<p>检测器：<code>schanger_small</code>；原始 F1：84.92%；真值变化像素：8,705。</p>
+<figure><a href="exp2_figs/whu/test_9/overview.jpg"><img src="exp2_figs/whu/test_9/overview.jpg" alt="输入与检测结果：t1、t2、真值变化、检测器 0.5 掩码、检测器 TP / FP / FN。" loading="lazy" decoding="async"></a><figcaption>输入与检测结果：t1、t2、真值变化、检测器 0.5 掩码、检测器 TP / FP / FN。</figcaption></figure>
+<figure><a href="exp2_figs/whu/test_9/objects.jpg"><img src="exp2_figs/whu/test_9/objects.jpg" alt="按最佳预测连通域 IoU 分类真值目标；每个目标均标出真值外接框与编号。" loading="lazy" decoding="async"></a><figcaption>按最佳预测连通域 IoU 分类真值目标；每个目标均标出真值外接框与编号。</figcaption></figure>
+<h4>代表目标</h4><p class="muted">依次选择命中目标中改善最大、退步最大者，以及漏检目标中 SAM3 IoU ≥ 0.5 和 &lt; 0.5 的最大目标；同分按目标编号升序。不足两例时补充其余已提示目标中面积最大者；全部已提示目标不足两例时展示实际数量。</p>
+<p class="muted">本图没有符合以下规则的目标：命中目标：SAM3 改善最大；漏检目标：SAM3 IoU &lt; 0.5，面积最大。</p>
+<details><summary>目标 1 · 漏检目标：SAM3 IoU ≥ 0.5，面积最大</summary><div class="scroll"><table><tbody><tr><th scope="row">目标类别 / 面积</th><td>整目标漏检 / 38 像素</td></tr><tr><th scope="row">采用时相</th><td>t2</td></tr><tr><th scope="row">SAM3 IoU</th><td>0.8333</td></tr><tr><th scope="row">检测器 IoU</th><td>0.0000</td></tr><tr><th scope="row">2a</th><td>保留</td></tr><tr><th scope="row">2a_select</th><td>保留</td></tr><tr><th scope="row">2b</th><td>并入</td></tr></tbody></table></div><figure><a href="exp2_figs/whu/test_9/obj_1.jpg"><img src="exp2_figs/whu/test_9/obj_1.jpg" alt="目标 1：依次为 SAM3 输入裁块、SAM3 掩码叠加、检测器原始裁块掩码、该目标真值。黄框为真值框；绿色正点仅用于说明其位置，纯框提示未使用此点。" loading="lazy" decoding="async"></a><figcaption>目标 1：依次为 SAM3 输入裁块、SAM3 掩码叠加、检测器原始裁块掩码、该目标真值。黄框为真值框；绿色正点仅用于说明其位置，纯框提示未使用此点。</figcaption></figure></details>
+<details><summary>目标 2 · 命中目标：SAM3 退步最大</summary><div class="scroll"><table><tbody><tr><th scope="row">目标类别 / 面积</th><td>命中 / 8,667 像素</td></tr><tr><th scope="row">采用时相</th><td>t2</td></tr><tr><th scope="row">SAM3 IoU</th><td>0.4134</td></tr><tr><th scope="row">检测器 IoU</th><td>0.7375</td></tr><tr><th scope="row">2a</th><td>替换</td></tr><tr><th scope="row">2a_select</th><td>保留</td></tr><tr><th scope="row">2b</th><td>无操作</td></tr></tbody></table></div><figure><a href="exp2_figs/whu/test_9/obj_2.jpg"><img src="exp2_figs/whu/test_9/obj_2.jpg" alt="目标 2：依次为 SAM3 输入裁块、SAM3 掩码叠加、检测器原始裁块掩码、该目标真值。黄框为真值框；绿色正点仅用于说明其位置，纯框提示未使用此点。" loading="lazy" decoding="async"></a><figcaption>目标 2：依次为 SAM3 输入裁块、SAM3 掩码叠加、检测器原始裁块掩码、该目标真值。黄框为真值框；绿色正点仅用于说明其位置，纯框提示未使用此点。</figcaption></figure></details>
+<p class="muted">检测器 IoU 来自完整预测连通域与该真值目标的匹配；裁块中的检测器图显示全部原始预测像素。表中的处理方式表示该目标触发的操作，其他目标的删除和并入仍可能影响同一区域。</p>
+<figure><a href="exp2_figs/whu/test_9/compose.jpg"><img src="exp2_figs/whu/test_9/compose.jpg" alt="整图合成结果。标题中的 F1 为百分比，dF1 为相对原始检测器的百分点变化。" loading="lazy" decoding="async"></a><figcaption>整图合成结果。标题中的 F1 为百分比，dF1 为相对原始检测器的百分点变化。</figcaption></figure>
+</article>
+<article id="whu-test_550"><h3>test_550.png</h3>
+<p><span class="badge">2b 收益最大</span></p>
+<p>检测器：<code>schanger_small</code>；原始 F1：0.00%；真值变化像素：1,052。</p>
+<figure><a href="exp2_figs/whu/test_550/overview.jpg"><img src="exp2_figs/whu/test_550/overview.jpg" alt="输入与检测结果：t1、t2、真值变化、检测器 0.5 掩码、检测器 TP / FP / FN。" loading="lazy" decoding="async"></a><figcaption>输入与检测结果：t1、t2、真值变化、检测器 0.5 掩码、检测器 TP / FP / FN。</figcaption></figure>
+<figure><a href="exp2_figs/whu/test_550/objects.jpg"><img src="exp2_figs/whu/test_550/objects.jpg" alt="按最佳预测连通域 IoU 分类真值目标；每个目标均标出真值外接框与编号。" loading="lazy" decoding="async"></a><figcaption>按最佳预测连通域 IoU 分类真值目标；每个目标均标出真值外接框与编号。</figcaption></figure>
+<h4>代表目标</h4><p class="muted">依次选择命中目标中改善最大、退步最大者，以及漏检目标中 SAM3 IoU ≥ 0.5 和 &lt; 0.5 的最大目标；同分按目标编号升序。不足两例时补充其余已提示目标中面积最大者；全部已提示目标不足两例时展示实际数量。</p>
+<p class="muted">本图没有符合以下规则的目标：命中目标：SAM3 改善最大；命中目标：SAM3 退步最大；漏检目标：SAM3 IoU &lt; 0.5，面积最大。</p>
+<details><summary>目标 1 · 漏检目标：SAM3 IoU ≥ 0.5，面积最大</summary><div class="scroll"><table><tbody><tr><th scope="row">目标类别 / 面积</th><td>整目标漏检 / 1,052 像素</td></tr><tr><th scope="row">采用时相</th><td>t1</td></tr><tr><th scope="row">SAM3 IoU</th><td>0.9641</td></tr><tr><th scope="row">检测器 IoU</th><td>0.0000</td></tr><tr><th scope="row">2a</th><td>保留</td></tr><tr><th scope="row">2a_select</th><td>保留</td></tr><tr><th scope="row">2b</th><td>并入</td></tr></tbody></table></div><figure><a href="exp2_figs/whu/test_550/obj_1.jpg"><img src="exp2_figs/whu/test_550/obj_1.jpg" alt="目标 1：依次为 SAM3 输入裁块、SAM3 掩码叠加、检测器原始裁块掩码、该目标真值。黄框为真值框；绿色正点仅用于说明其位置，纯框提示未使用此点。" loading="lazy" decoding="async"></a><figcaption>目标 1：依次为 SAM3 输入裁块、SAM3 掩码叠加、检测器原始裁块掩码、该目标真值。黄框为真值框；绿色正点仅用于说明其位置，纯框提示未使用此点。</figcaption></figure></details>
+<p class="muted">检测器 IoU 来自完整预测连通域与该真值目标的匹配；裁块中的检测器图显示全部原始预测像素。表中的处理方式表示该目标触发的操作，其他目标的删除和并入仍可能影响同一区域。</p>
+<figure><a href="exp2_figs/whu/test_550/compose.jpg"><img src="exp2_figs/whu/test_550/compose.jpg" alt="整图合成结果。标题中的 F1 为百分比，dF1 为相对原始检测器的百分点变化。" loading="lazy" decoding="async"></a><figcaption>整图合成结果。标题中的 F1 为百分比，dF1 为相对原始检测器的百分点变化。</figcaption></figure>
+</article>
+<article id="whu-test_255"><h3>test_255.png</h3>
+<p><span class="badge">2a_strict 误删示例</span></p>
+<p>检测器：<code>schanger_small</code>；原始 F1：98.77%；真值变化像素：179,390。</p>
+<figure><a href="exp2_figs/whu/test_255/overview.jpg"><img src="exp2_figs/whu/test_255/overview.jpg" alt="输入与检测结果：t1、t2、真值变化、检测器 0.5 掩码、检测器 TP / FP / FN。" loading="lazy" decoding="async"></a><figcaption>输入与检测结果：t1、t2、真值变化、检测器 0.5 掩码、检测器 TP / FP / FN。</figcaption></figure>
+<figure><a href="exp2_figs/whu/test_255/objects.jpg"><img src="exp2_figs/whu/test_255/objects.jpg" alt="按最佳预测连通域 IoU 分类真值目标；每个目标均标出真值外接框与编号。" loading="lazy" decoding="async"></a><figcaption>按最佳预测连通域 IoU 分类真值目标；每个目标均标出真值外接框与编号。</figcaption></figure>
+<h4>代表目标</h4><p class="muted">依次选择命中目标中改善最大、退步最大者，以及漏检目标中 SAM3 IoU ≥ 0.5 和 &lt; 0.5 的最大目标；同分按目标编号升序。不足两例时补充其余已提示目标中面积最大者；全部已提示目标不足两例时展示实际数量。</p>
+<p class="muted">本图没有符合以下规则的目标：命中目标：SAM3 退步最大；漏检目标：SAM3 IoU &lt; 0.5，面积最大。</p>
+<details><summary>目标 1 · 命中目标：SAM3 改善最大</summary><div class="scroll"><table><tbody><tr><th scope="row">目标类别 / 面积</th><td>命中 / 138,145 像素</td></tr><tr><th scope="row">采用时相</th><td>t2</td></tr><tr><th scope="row">SAM3 IoU</th><td>0.9314</td></tr><tr><th scope="row">检测器 IoU</th><td>0.7544</td></tr><tr><th scope="row">2a</th><td>替换</td></tr><tr><th scope="row">2a_select</th><td>替换</td></tr><tr><th scope="row">2b</th><td>无操作</td></tr></tbody></table></div><figure><a href="exp2_figs/whu/test_255/obj_1.jpg"><img src="exp2_figs/whu/test_255/obj_1.jpg" alt="目标 1：依次为 SAM3 输入裁块、SAM3 掩码叠加、检测器原始裁块掩码、该目标真值。黄框为真值框；绿色正点仅用于说明其位置，纯框提示未使用此点。" loading="lazy" decoding="async"></a><figcaption>目标 1：依次为 SAM3 输入裁块、SAM3 掩码叠加、检测器原始裁块掩码、该目标真值。黄框为真值框；绿色正点仅用于说明其位置，纯框提示未使用此点。</figcaption></figure></details>
+<details><summary>目标 2 · 漏检目标：SAM3 IoU ≥ 0.5，面积最大</summary><div class="scroll"><table><tbody><tr><th scope="row">目标类别 / 面积</th><td>整目标漏检 / 14,108 像素</td></tr><tr><th scope="row">采用时相</th><td>t2</td></tr><tr><th scope="row">SAM3 IoU</th><td>0.9711</td></tr><tr><th scope="row">检测器 IoU</th><td>0.0753</td></tr><tr><th scope="row">2a</th><td>保留</td></tr><tr><th scope="row">2a_select</th><td>保留</td></tr><tr><th scope="row">2b</th><td>并入</td></tr></tbody></table></div><figure><a href="exp2_figs/whu/test_255/obj_2.jpg"><img src="exp2_figs/whu/test_255/obj_2.jpg" alt="目标 2：依次为 SAM3 输入裁块、SAM3 掩码叠加、检测器原始裁块掩码、该目标真值。黄框为真值框；绿色正点仅用于说明其位置，纯框提示未使用此点。" loading="lazy" decoding="async"></a><figcaption>目标 2：依次为 SAM3 输入裁块、SAM3 掩码叠加、检测器原始裁块掩码、该目标真值。黄框为真值框；绿色正点仅用于说明其位置，纯框提示未使用此点。</figcaption></figure></details>
+<p class="muted">检测器 IoU 来自完整预测连通域与该真值目标的匹配；裁块中的检测器图显示全部原始预测像素。表中的处理方式表示该目标触发的操作，其他目标的删除和并入仍可能影响同一区域。</p>
+<figure><a href="exp2_figs/whu/test_255/compose.jpg"><img src="exp2_figs/whu/test_255/compose.jpg" alt="整图合成结果。标题中的 F1 为百分比，dF1 为相对原始检测器的百分点变化。" loading="lazy" decoding="async"></a><figcaption>整图合成结果。标题中的 F1 为百分比，dF1 为相对原始检测器的百分点变化。</figcaption></figure>
+<h4>整块删除造成的真阳性损失</h4>
+<p>预测连通域 1 同时覆盖真值目标 1, 2, 3；该连通域内损失 40,819 个 TP 像素。</p>
+<p>整图 2a 比 2a_strict 多 40,819 个 TP 像素。白色损失图表示 2a 保留、2a_strict 丢失的真值像素。</p>
+<figure><a href="exp2_figs/whu/test_255/strict.jpg"><img src="exp2_figs/whu/test_255/strict.jpg" alt="共享预测连通域及其覆盖的真值目标、2a_strict、2a，以及损失的 TP 像素。" loading="lazy" decoding="async"></a><figcaption>共享预测连通域及其覆盖的真值目标、2a_strict、2a，以及损失的 TP 像素。</figcaption></figure>
+</article>
+</section>
+<section id="sysu"><h2>SYSU-CD</h2>
+<blockquote>引自 <code>exp2_oracle.md</code>：通用变化上 SAM3 的分割质量明显下降（全部目标平均 IoU 0.78）。精度侧全部替换降 3.5，即使有完美判断器也只有 +1.6；补齐整目标漏检 +1.9 到 +2.5，两侧都做对的总上界 +3.5 到 +4.0。</blockquote>
+<p>前三个角色仅从真值变化像素 ≥ 1,000 的图像中选择；同分按文件名升序。同一图像允许承担多个角色，下方合并展示并保留全部角色标签。</p>
+<div class="scroll"><table><thead><tr><th>选图角色</th><th>图名</th><th>真值变化像素</th><th>选图指标</th></tr></thead><tbody><tr><td>2a_select 收益最大</td><td><a href="#sysu-test_3798">test_3798.png</a></td><td class="num">19,156</td><td>2a_select：+30.72 个百分点</td></tr><tr><td>2a 增益最小（伤害示例）</td><td><a href="#sysu-test_164">test_164.png</a></td><td class="num">12,296</td><td>2a：-83.07 个百分点</td></tr><tr><td>2b 收益最大</td><td><a href="#sysu-test_1283">test_1283.png</a></td><td class="num">2,956</td><td>2b：+98.52 个百分点</td></tr></tbody></table></div>
+<article id="sysu-test_3798"><h3>test_3798.png</h3>
+<p><span class="badge">2a_select 收益最大</span></p>
+<p>检测器：<code>schanger_small</code>；原始 F1：68.39%；真值变化像素：19,156。</p>
+<figure><a href="exp2_figs/sysu/test_3798/overview.jpg"><img src="exp2_figs/sysu/test_3798/overview.jpg" alt="输入与检测结果：t1、t2、真值变化、检测器 0.5 掩码、检测器 TP / FP / FN。" loading="lazy" decoding="async"></a><figcaption>输入与检测结果：t1、t2、真值变化、检测器 0.5 掩码、检测器 TP / FP / FN。</figcaption></figure>
+<figure><a href="exp2_figs/sysu/test_3798/objects.jpg"><img src="exp2_figs/sysu/test_3798/objects.jpg" alt="按最佳预测连通域 IoU 分类真值目标；每个目标均标出真值外接框与编号。" loading="lazy" decoding="async"></a><figcaption>按最佳预测连通域 IoU 分类真值目标；每个目标均标出真值外接框与编号。</figcaption></figure>
+<h4>代表目标</h4><p class="muted">依次选择命中目标中改善最大、退步最大者，以及漏检目标中 SAM3 IoU ≥ 0.5 和 &lt; 0.5 的最大目标；同分按目标编号升序。不足两例时补充其余已提示目标中面积最大者；全部已提示目标不足两例时展示实际数量。</p>
+<p class="muted">本图没有符合以下规则的目标：命中目标：SAM3 退步最大；漏检目标：SAM3 IoU ≥ 0.5，面积最大；漏检目标：SAM3 IoU &lt; 0.5，面积最大。</p>
+<details><summary>目标 1 · 命中目标：SAM3 改善最大</summary><div class="scroll"><table><tbody><tr><th scope="row">目标类别 / 面积</th><td>命中 / 19,156 像素</td></tr><tr><th scope="row">采用时相</th><td>t1</td></tr><tr><th scope="row">SAM3 IoU</th><td>0.9823</td></tr><tr><th scope="row">检测器 IoU</th><td>0.5196</td></tr><tr><th scope="row">2a</th><td>替换</td></tr><tr><th scope="row">2a_select</th><td>替换</td></tr><tr><th scope="row">2b</th><td>无操作</td></tr></tbody></table></div><figure><a href="exp2_figs/sysu/test_3798/obj_1.jpg"><img src="exp2_figs/sysu/test_3798/obj_1.jpg" alt="目标 1：依次为 SAM3 输入裁块、SAM3 掩码叠加、检测器原始裁块掩码、该目标真值。黄框为真值框；绿色正点仅用于说明其位置，纯框提示未使用此点。" loading="lazy" decoding="async"></a><figcaption>目标 1：依次为 SAM3 输入裁块、SAM3 掩码叠加、检测器原始裁块掩码、该目标真值。黄框为真值框；绿色正点仅用于说明其位置，纯框提示未使用此点。</figcaption></figure></details>
+<p class="muted">检测器 IoU 来自完整预测连通域与该真值目标的匹配；裁块中的检测器图显示全部原始预测像素。表中的处理方式表示该目标触发的操作，其他目标的删除和并入仍可能影响同一区域。</p>
+<figure><a href="exp2_figs/sysu/test_3798/compose.jpg"><img src="exp2_figs/sysu/test_3798/compose.jpg" alt="整图合成结果。标题中的 F1 为百分比，dF1 为相对原始检测器的百分点变化。" loading="lazy" decoding="async"></a><figcaption>整图合成结果。标题中的 F1 为百分比，dF1 为相对原始检测器的百分点变化。</figcaption></figure>
+</article>
+<article id="sysu-test_164"><h3>test_164.png</h3>
+<p><span class="badge">2a 增益最小（伤害示例）</span></p>
+<p>检测器：<code>schanger_small</code>；原始 F1：93.34%；真值变化像素：12,296。</p>
+<figure><a href="exp2_figs/sysu/test_164/overview.jpg"><img src="exp2_figs/sysu/test_164/overview.jpg" alt="输入与检测结果：t1、t2、真值变化、检测器 0.5 掩码、检测器 TP / FP / FN。" loading="lazy" decoding="async"></a><figcaption>输入与检测结果：t1、t2、真值变化、检测器 0.5 掩码、检测器 TP / FP / FN。</figcaption></figure>
+<figure><a href="exp2_figs/sysu/test_164/objects.jpg"><img src="exp2_figs/sysu/test_164/objects.jpg" alt="按最佳预测连通域 IoU 分类真值目标；每个目标均标出真值外接框与编号。" loading="lazy" decoding="async"></a><figcaption>按最佳预测连通域 IoU 分类真值目标；每个目标均标出真值外接框与编号。</figcaption></figure>
+<h4>代表目标</h4><p class="muted">依次选择命中目标中改善最大、退步最大者，以及漏检目标中 SAM3 IoU ≥ 0.5 和 &lt; 0.5 的最大目标；同分按目标编号升序。不足两例时补充其余已提示目标中面积最大者；全部已提示目标不足两例时展示实际数量。</p>
+<p class="muted">本图没有符合以下规则的目标：命中目标：SAM3 改善最大；漏检目标：SAM3 IoU ≥ 0.5，面积最大；漏检目标：SAM3 IoU &lt; 0.5，面积最大。</p>
+<details><summary>目标 1 · 命中目标：SAM3 退步最大</summary><div class="scroll"><table><tbody><tr><th scope="row">目标类别 / 面积</th><td>命中 / 12,296 像素</td></tr><tr><th scope="row">采用时相</th><td>t2</td></tr><tr><th scope="row">SAM3 IoU</th><td>0.0541</td></tr><tr><th scope="row">检测器 IoU</th><td>0.8751</td></tr><tr><th scope="row">2a</th><td>替换</td></tr><tr><th scope="row">2a_select</th><td>保留</td></tr><tr><th scope="row">2b</th><td>无操作</td></tr></tbody></table></div><figure><a href="exp2_figs/sysu/test_164/obj_1.jpg"><img src="exp2_figs/sysu/test_164/obj_1.jpg" alt="目标 1：依次为 SAM3 输入裁块、SAM3 掩码叠加、检测器原始裁块掩码、该目标真值。黄框为真值框；绿色正点仅用于说明其位置，纯框提示未使用此点。" loading="lazy" decoding="async"></a><figcaption>目标 1：依次为 SAM3 输入裁块、SAM3 掩码叠加、检测器原始裁块掩码、该目标真值。黄框为真值框；绿色正点仅用于说明其位置，纯框提示未使用此点。</figcaption></figure></details>
+<p class="muted">检测器 IoU 来自完整预测连通域与该真值目标的匹配；裁块中的检测器图显示全部原始预测像素。表中的处理方式表示该目标触发的操作，其他目标的删除和并入仍可能影响同一区域。</p>
+<figure><a href="exp2_figs/sysu/test_164/compose.jpg"><img src="exp2_figs/sysu/test_164/compose.jpg" alt="整图合成结果。标题中的 F1 为百分比，dF1 为相对原始检测器的百分点变化。" loading="lazy" decoding="async"></a><figcaption>整图合成结果。标题中的 F1 为百分比，dF1 为相对原始检测器的百分点变化。</figcaption></figure>
+</article>
+<article id="sysu-test_1283"><h3>test_1283.png</h3>
+<p><span class="badge">2b 收益最大</span></p>
+<p>检测器：<code>schanger_small</code>；原始 F1：0.00%；真值变化像素：2,956。</p>
+<figure><a href="exp2_figs/sysu/test_1283/overview.jpg"><img src="exp2_figs/sysu/test_1283/overview.jpg" alt="输入与检测结果：t1、t2、真值变化、检测器 0.5 掩码、检测器 TP / FP / FN。" loading="lazy" decoding="async"></a><figcaption>输入与检测结果：t1、t2、真值变化、检测器 0.5 掩码、检测器 TP / FP / FN。</figcaption></figure>
+<figure><a href="exp2_figs/sysu/test_1283/objects.jpg"><img src="exp2_figs/sysu/test_1283/objects.jpg" alt="按最佳预测连通域 IoU 分类真值目标；每个目标均标出真值外接框与编号。" loading="lazy" decoding="async"></a><figcaption>按最佳预测连通域 IoU 分类真值目标；每个目标均标出真值外接框与编号。</figcaption></figure>
+<h4>代表目标</h4><p class="muted">依次选择命中目标中改善最大、退步最大者，以及漏检目标中 SAM3 IoU ≥ 0.5 和 &lt; 0.5 的最大目标；同分按目标编号升序。不足两例时补充其余已提示目标中面积最大者；全部已提示目标不足两例时展示实际数量。</p>
+<p class="muted">本图没有符合以下规则的目标：命中目标：SAM3 改善最大；命中目标：SAM3 退步最大；漏检目标：SAM3 IoU &lt; 0.5，面积最大。</p>
+<details><summary>目标 1 · 漏检目标：SAM3 IoU ≥ 0.5，面积最大</summary><div class="scroll"><table><tbody><tr><th scope="row">目标类别 / 面积</th><td>整目标漏检 / 2,956 像素</td></tr><tr><th scope="row">采用时相</th><td>t1</td></tr><tr><th scope="row">SAM3 IoU</th><td>0.9709</td></tr><tr><th scope="row">检测器 IoU</th><td>0.0000</td></tr><tr><th scope="row">2a</th><td>保留</td></tr><tr><th scope="row">2a_select</th><td>保留</td></tr><tr><th scope="row">2b</th><td>并入</td></tr></tbody></table></div><figure><a href="exp2_figs/sysu/test_1283/obj_1.jpg"><img src="exp2_figs/sysu/test_1283/obj_1.jpg" alt="目标 1：依次为 SAM3 输入裁块、SAM3 掩码叠加、检测器原始裁块掩码、该目标真值。黄框为真值框；绿色正点仅用于说明其位置，纯框提示未使用此点。" loading="lazy" decoding="async"></a><figcaption>目标 1：依次为 SAM3 输入裁块、SAM3 掩码叠加、检测器原始裁块掩码、该目标真值。黄框为真值框；绿色正点仅用于说明其位置，纯框提示未使用此点。</figcaption></figure></details>
+<p class="muted">检测器 IoU 来自完整预测连通域与该真值目标的匹配；裁块中的检测器图显示全部原始预测像素。表中的处理方式表示该目标触发的操作，其他目标的删除和并入仍可能影响同一区域。</p>
+<figure><a href="exp2_figs/sysu/test_1283/compose.jpg"><img src="exp2_figs/sysu/test_1283/compose.jpg" alt="整图合成结果。标题中的 F1 为百分比，dF1 为相对原始检测器的百分点变化。" loading="lazy" decoding="async"></a><figcaption>整图合成结果。标题中的 F1 为百分比，dF1 为相对原始检测器的百分点变化。</figcaption></figure>
+</article>
+</section>
+<section id="second"><h2>SECOND</h2>
+<blockquote>引自 <code>exp2_oracle.md</code>：MambaSCD 的边界较差，SAM3 在 84% 的命中目标上更好，所以直接替换也有 +1.1，有完美判断器也只有 +1.5；补齐整目标漏检 +7.8，两侧都做对的总上界 +9.1。大量漏检属于改建和植被等语义变化，检测器没有信号，agent 能否自己找到这些位置是实际收益的关键。</blockquote>
+<p>前三个角色仅从真值变化像素 ≥ 1,000 的图像中选择；同分按文件名升序。同一图像允许承担多个角色，下方合并展示并保留全部角色标签。</p>
+<div class="scroll"><table><thead><tr><th>选图角色</th><th>图名</th><th>真值变化像素</th><th>选图指标</th></tr></thead><tbody><tr><td>2a_select 收益最大</td><td><a href="#second-test_1134">test_1134.png</a></td><td class="num">9,153</td><td>2a_select：+21.50 个百分点</td></tr><tr><td>2a 增益最小（伤害示例）</td><td><a href="#second-test_1534">test_1534.png</a></td><td class="num">63,776</td><td>2a：-42.08 个百分点</td></tr><tr><td>2b 收益最大</td><td><a href="#second-test_1667">test_1667.png</a></td><td class="num">31,193</td><td>2b：+86.82 个百分点</td></tr></tbody></table></div>
+<article id="second-test_1134"><h3>test_1134.png</h3>
+<p><span class="badge">2a_select 收益最大</span></p>
+<p>检测器：<code>mambascd_base</code>；原始 F1：69.22%；真值变化像素：9,153。</p>
+<figure><a href="exp2_figs/second/test_1134/overview.jpg"><img src="exp2_figs/second/test_1134/overview.jpg" alt="输入与检测结果：t1、t2、真值变化、检测器 0.5 掩码、检测器 TP / FP / FN。" loading="lazy" decoding="async"></a><figcaption>输入与检测结果：t1、t2、真值变化、检测器 0.5 掩码、检测器 TP / FP / FN。</figcaption></figure>
+<figure><a href="exp2_figs/second/test_1134/objects.jpg"><img src="exp2_figs/second/test_1134/objects.jpg" alt="按最佳预测连通域 IoU 分类真值目标；每个目标均标出真值外接框与编号。" loading="lazy" decoding="async"></a><figcaption>按最佳预测连通域 IoU 分类真值目标；每个目标均标出真值外接框与编号。</figcaption></figure>
+<h4>代表目标</h4><p class="muted">依次选择命中目标中改善最大、退步最大者，以及漏检目标中 SAM3 IoU ≥ 0.5 和 &lt; 0.5 的最大目标；同分按目标编号升序。不足两例时补充其余已提示目标中面积最大者；全部已提示目标不足两例时展示实际数量。</p>
+<p class="muted">本图没有符合以下规则的目标：命中目标：SAM3 退步最大。</p>
+<details><summary>目标 1 · 命中目标：SAM3 改善最大</summary><div class="scroll"><table><tbody><tr><th scope="row">目标类别 / 面积</th><td>命中 / 7,889 像素</td></tr><tr><th scope="row">采用时相</th><td>t1</td></tr><tr><th scope="row">SAM3 IoU</th><td>0.9591</td></tr><tr><th scope="row">检测器 IoU</th><td>0.5980</td></tr><tr><th scope="row">2a</th><td>替换</td></tr><tr><th scope="row">2a_select</th><td>替换</td></tr><tr><th scope="row">2b</th><td>无操作</td></tr></tbody></table></div><figure><a href="exp2_figs/second/test_1134/obj_1.jpg"><img src="exp2_figs/second/test_1134/obj_1.jpg" alt="目标 1：依次为 SAM3 输入裁块、SAM3 掩码叠加、检测器原始裁块掩码、该目标真值。黄框为真值框；绿色正点仅用于说明其位置，纯框提示未使用此点。" loading="lazy" decoding="async"></a><figcaption>目标 1：依次为 SAM3 输入裁块、SAM3 掩码叠加、检测器原始裁块掩码、该目标真值。黄框为真值框；绿色正点仅用于说明其位置，纯框提示未使用此点。</figcaption></figure></details>
+<details><summary>目标 3 · 漏检目标：SAM3 IoU &lt; 0.5，面积最大</summary><div class="scroll"><table><tbody><tr><th scope="row">目标类别 / 面积</th><td>整目标漏检 / 94 像素</td></tr><tr><th scope="row">采用时相</th><td>t2</td></tr><tr><th scope="row">SAM3 IoU</th><td>0.4751</td></tr><tr><th scope="row">检测器 IoU</th><td>0.0000</td></tr><tr><th scope="row">2a</th><td>保留</td></tr><tr><th scope="row">2a_select</th><td>保留</td></tr><tr><th scope="row">2b</th><td>并入</td></tr></tbody></table></div><figure><a href="exp2_figs/second/test_1134/obj_3.jpg"><img src="exp2_figs/second/test_1134/obj_3.jpg" alt="目标 3：依次为 SAM3 输入裁块、SAM3 掩码叠加、检测器原始裁块掩码、该目标真值。黄框为真值框；绿色正点仅用于说明其位置，纯框提示未使用此点。" loading="lazy" decoding="async"></a><figcaption>目标 3：依次为 SAM3 输入裁块、SAM3 掩码叠加、检测器原始裁块掩码、该目标真值。黄框为真值框；绿色正点仅用于说明其位置，纯框提示未使用此点。</figcaption></figure></details>
+<details><summary>目标 5 · 漏检目标：SAM3 IoU ≥ 0.5，面积最大</summary><div class="scroll"><table><tbody><tr><th scope="row">目标类别 / 面积</th><td>整目标漏检 / 49 像素</td></tr><tr><th scope="row">采用时相</th><td>t2</td></tr><tr><th scope="row">SAM3 IoU</th><td>0.7818</td></tr><tr><th scope="row">检测器 IoU</th><td>0.0000</td></tr><tr><th scope="row">2a</th><td>保留</td></tr><tr><th scope="row">2a_select</th><td>保留</td></tr><tr><th scope="row">2b</th><td>并入</td></tr></tbody></table></div><figure><a href="exp2_figs/second/test_1134/obj_5.jpg"><img src="exp2_figs/second/test_1134/obj_5.jpg" alt="目标 5：依次为 SAM3 输入裁块、SAM3 掩码叠加、检测器原始裁块掩码、该目标真值。黄框为真值框；绿色正点仅用于说明其位置，纯框提示未使用此点。" loading="lazy" decoding="async"></a><figcaption>目标 5：依次为 SAM3 输入裁块、SAM3 掩码叠加、检测器原始裁块掩码、该目标真值。黄框为真值框；绿色正点仅用于说明其位置，纯框提示未使用此点。</figcaption></figure></details>
+<p class="muted">检测器 IoU 来自完整预测连通域与该真值目标的匹配；裁块中的检测器图显示全部原始预测像素。表中的处理方式表示该目标触发的操作，其他目标的删除和并入仍可能影响同一区域。</p>
+<figure><a href="exp2_figs/second/test_1134/compose.jpg"><img src="exp2_figs/second/test_1134/compose.jpg" alt="整图合成结果。标题中的 F1 为百分比，dF1 为相对原始检测器的百分点变化。" loading="lazy" decoding="async"></a><figcaption>整图合成结果。标题中的 F1 为百分比，dF1 为相对原始检测器的百分点变化。</figcaption></figure>
+</article>
+<article id="second-test_1534"><h3>test_1534.png</h3>
+<p><span class="badge">2a 增益最小（伤害示例）</span></p>
+<p>检测器：<code>mambascd_base</code>；原始 F1：88.10%；真值变化像素：63,776。</p>
+<figure><a href="exp2_figs/second/test_1534/overview.jpg"><img src="exp2_figs/second/test_1534/overview.jpg" alt="输入与检测结果：t1、t2、真值变化、检测器 0.5 掩码、检测器 TP / FP / FN。" loading="lazy" decoding="async"></a><figcaption>输入与检测结果：t1、t2、真值变化、检测器 0.5 掩码、检测器 TP / FP / FN。</figcaption></figure>
+<figure><a href="exp2_figs/second/test_1534/objects.jpg"><img src="exp2_figs/second/test_1534/objects.jpg" alt="按最佳预测连通域 IoU 分类真值目标；每个目标均标出真值外接框与编号。" loading="lazy" decoding="async"></a><figcaption>按最佳预测连通域 IoU 分类真值目标；每个目标均标出真值外接框与编号。</figcaption></figure>
+<h4>代表目标</h4><p class="muted">依次选择命中目标中改善最大、退步最大者，以及漏检目标中 SAM3 IoU ≥ 0.5 和 &lt; 0.5 的最大目标；同分按目标编号升序。不足两例时补充其余已提示目标中面积最大者；全部已提示目标不足两例时展示实际数量。</p>
+<details><summary>目标 3 · 命中目标：SAM3 退步最大</summary><div class="scroll"><table><tbody><tr><th scope="row">目标类别 / 面积</th><td>命中 / 27,984 像素</td></tr><tr><th scope="row">采用时相</th><td>t2</td></tr><tr><th scope="row">SAM3 IoU</th><td>0.1307</td></tr><tr><th scope="row">检测器 IoU</th><td>0.5551</td></tr><tr><th scope="row">2a</th><td>替换</td></tr><tr><th scope="row">2a_select</th><td>保留</td></tr><tr><th scope="row">2b</th><td>无操作</td></tr></tbody></table></div><figure><a href="exp2_figs/second/test_1534/obj_3.jpg"><img src="exp2_figs/second/test_1534/obj_3.jpg" alt="目标 3：依次为 SAM3 输入裁块、SAM3 掩码叠加、检测器原始裁块掩码、该目标真值。黄框为真值框；绿色正点仅用于说明其位置，纯框提示未使用此点。" loading="lazy" decoding="async"></a><figcaption>目标 3：依次为 SAM3 输入裁块、SAM3 掩码叠加、检测器原始裁块掩码、该目标真值。黄框为真值框；绿色正点仅用于说明其位置，纯框提示未使用此点。</figcaption></figure></details>
+<details><summary>目标 4 · 漏检目标：SAM3 IoU &lt; 0.5，面积最大</summary><div class="scroll"><table><tbody><tr><th scope="row">目标类别 / 面积</th><td>整目标漏检 / 822 像素</td></tr><tr><th scope="row">采用时相</th><td>t1</td></tr><tr><th scope="row">SAM3 IoU</th><td>0.3181</td></tr><tr><th scope="row">检测器 IoU</th><td>0.0931</td></tr><tr><th scope="row">2a</th><td>保留</td></tr><tr><th scope="row">2a_select</th><td>保留</td></tr><tr><th scope="row">2b</th><td>并入</td></tr></tbody></table></div><figure><a href="exp2_figs/second/test_1534/obj_4.jpg"><img src="exp2_figs/second/test_1534/obj_4.jpg" alt="目标 4：依次为 SAM3 输入裁块、SAM3 掩码叠加、检测器原始裁块掩码、该目标真值。黄框为真值框；绿色正点仅用于说明其位置，纯框提示未使用此点。" loading="lazy" decoding="async"></a><figcaption>目标 4：依次为 SAM3 输入裁块、SAM3 掩码叠加、检测器原始裁块掩码、该目标真值。黄框为真值框；绿色正点仅用于说明其位置，纯框提示未使用此点。</figcaption></figure></details>
+<details><summary>目标 5 · 命中目标：SAM3 改善最大</summary><div class="scroll"><table><tbody><tr><th scope="row">目标类别 / 面积</th><td>命中 / 2,402 像素</td></tr><tr><th scope="row">采用时相</th><td>t2</td></tr><tr><th scope="row">SAM3 IoU</th><td>0.8563</td></tr><tr><th scope="row">检测器 IoU</th><td>0.7977</td></tr><tr><th scope="row">2a</th><td>替换</td></tr><tr><th scope="row">2a_select</th><td>替换</td></tr><tr><th scope="row">2b</th><td>无操作</td></tr></tbody></table></div><figure><a href="exp2_figs/second/test_1534/obj_5.jpg"><img src="exp2_figs/second/test_1534/obj_5.jpg" alt="目标 5：依次为 SAM3 输入裁块、SAM3 掩码叠加、检测器原始裁块掩码、该目标真值。黄框为真值框；绿色正点仅用于说明其位置，纯框提示未使用此点。" loading="lazy" decoding="async"></a><figcaption>目标 5：依次为 SAM3 输入裁块、SAM3 掩码叠加、检测器原始裁块掩码、该目标真值。黄框为真值框；绿色正点仅用于说明其位置，纯框提示未使用此点。</figcaption></figure></details>
+<details><summary>目标 6 · 漏检目标：SAM3 IoU ≥ 0.5，面积最大</summary><div class="scroll"><table><tbody><tr><th scope="row">目标类别 / 面积</th><td>整目标漏检 / 5,748 像素</td></tr><tr><th scope="row">采用时相</th><td>t1</td></tr><tr><th scope="row">SAM3 IoU</th><td>0.9315</td></tr><tr><th scope="row">检测器 IoU</th><td>0.0000</td></tr><tr><th scope="row">2a</th><td>保留</td></tr><tr><th scope="row">2a_select</th><td>保留</td></tr><tr><th scope="row">2b</th><td>并入</td></tr></tbody></table></div><figure><a href="exp2_figs/second/test_1534/obj_6.jpg"><img src="exp2_figs/second/test_1534/obj_6.jpg" alt="目标 6：依次为 SAM3 输入裁块、SAM3 掩码叠加、检测器原始裁块掩码、该目标真值。黄框为真值框；绿色正点仅用于说明其位置，纯框提示未使用此点。" loading="lazy" decoding="async"></a><figcaption>目标 6：依次为 SAM3 输入裁块、SAM3 掩码叠加、检测器原始裁块掩码、该目标真值。黄框为真值框；绿色正点仅用于说明其位置，纯框提示未使用此点。</figcaption></figure></details>
+<p class="muted">检测器 IoU 来自完整预测连通域与该真值目标的匹配；裁块中的检测器图显示全部原始预测像素。表中的处理方式表示该目标触发的操作，其他目标的删除和并入仍可能影响同一区域。</p>
+<figure><a href="exp2_figs/second/test_1534/compose.jpg"><img src="exp2_figs/second/test_1534/compose.jpg" alt="整图合成结果。标题中的 F1 为百分比，dF1 为相对原始检测器的百分点变化。" loading="lazy" decoding="async"></a><figcaption>整图合成结果。标题中的 F1 为百分比，dF1 为相对原始检测器的百分点变化。</figcaption></figure>
+</article>
+<article id="second-test_1667"><h3>test_1667.png</h3>
+<p><span class="badge">2b 收益最大</span></p>
+<p>检测器：<code>mambascd_base</code>；原始 F1：0.71%；真值变化像素：31,193。</p>
+<figure><a href="exp2_figs/second/test_1667/overview.jpg"><img src="exp2_figs/second/test_1667/overview.jpg" alt="输入与检测结果：t1、t2、真值变化、检测器 0.5 掩码、检测器 TP / FP / FN。" loading="lazy" decoding="async"></a><figcaption>输入与检测结果：t1、t2、真值变化、检测器 0.5 掩码、检测器 TP / FP / FN。</figcaption></figure>
+<figure><a href="exp2_figs/second/test_1667/objects.jpg"><img src="exp2_figs/second/test_1667/objects.jpg" alt="按最佳预测连通域 IoU 分类真值目标；每个目标均标出真值外接框与编号。" loading="lazy" decoding="async"></a><figcaption>按最佳预测连通域 IoU 分类真值目标；每个目标均标出真值外接框与编号。</figcaption></figure>
+<h4>代表目标</h4><p class="muted">依次选择命中目标中改善最大、退步最大者，以及漏检目标中 SAM3 IoU ≥ 0.5 和 &lt; 0.5 的最大目标；同分按目标编号升序。不足两例时补充其余已提示目标中面积最大者；全部已提示目标不足两例时展示实际数量。</p>
+<p class="muted">本图没有符合以下规则的目标：命中目标：SAM3 改善最大；命中目标：SAM3 退步最大；漏检目标：SAM3 IoU &lt; 0.5，面积最大。</p>
+<details><summary>目标 5 · 漏检目标：SAM3 IoU ≥ 0.5，面积最大</summary><div class="scroll"><table><tbody><tr><th scope="row">目标类别 / 面积</th><td>整目标漏检 / 6,907 像素</td></tr><tr><th scope="row">采用时相</th><td>t1</td></tr><tr><th scope="row">SAM3 IoU</th><td>0.6956</td></tr><tr><th scope="row">检测器 IoU</th><td>0.0000</td></tr><tr><th scope="row">2a</th><td>保留</td></tr><tr><th scope="row">2a_select</th><td>保留</td></tr><tr><th scope="row">2b</th><td>并入</td></tr></tbody></table></div><figure><a href="exp2_figs/second/test_1667/obj_5.jpg"><img src="exp2_figs/second/test_1667/obj_5.jpg" alt="目标 5：依次为 SAM3 输入裁块、SAM3 掩码叠加、检测器原始裁块掩码、该目标真值。黄框为真值框；绿色正点仅用于说明其位置，纯框提示未使用此点。" loading="lazy" decoding="async"></a><figcaption>目标 5：依次为 SAM3 输入裁块、SAM3 掩码叠加、检测器原始裁块掩码、该目标真值。黄框为真值框；绿色正点仅用于说明其位置，纯框提示未使用此点。</figcaption></figure></details>
+<details><summary>目标 16 · 补充展示：其余已提示目标中面积最大</summary><div class="scroll"><table><tbody><tr><th scope="row">目标类别 / 面积</th><td>整目标漏检 / 5,682 像素</td></tr><tr><th scope="row">采用时相</th><td>t1</td></tr><tr><th scope="row">SAM3 IoU</th><td>0.9244</td></tr><tr><th scope="row">检测器 IoU</th><td>0.0000</td></tr><tr><th scope="row">2a</th><td>保留</td></tr><tr><th scope="row">2a_select</th><td>保留</td></tr><tr><th scope="row">2b</th><td>并入</td></tr></tbody></table></div><figure><a href="exp2_figs/second/test_1667/obj_16.jpg"><img src="exp2_figs/second/test_1667/obj_16.jpg" alt="目标 16：依次为 SAM3 输入裁块、SAM3 掩码叠加、检测器原始裁块掩码、该目标真值。黄框为真值框；绿色正点仅用于说明其位置，纯框提示未使用此点。" loading="lazy" decoding="async"></a><figcaption>目标 16：依次为 SAM3 输入裁块、SAM3 掩码叠加、检测器原始裁块掩码、该目标真值。黄框为真值框；绿色正点仅用于说明其位置，纯框提示未使用此点。</figcaption></figure></details>
+<p class="muted">检测器 IoU 来自完整预测连通域与该真值目标的匹配；裁块中的检测器图显示全部原始预测像素。表中的处理方式表示该目标触发的操作，其他目标的删除和并入仍可能影响同一区域。</p>
+<figure><a href="exp2_figs/second/test_1667/compose.jpg"><img src="exp2_figs/second/test_1667/compose.jpg" alt="整图合成结果。标题中的 F1 为百分比，dF1 为相对原始检测器的百分点变化。" loading="lazy" decoding="async"></a><figcaption>整图合成结果。标题中的 F1 为百分比，dF1 为相对原始检测器的百分点变化。</figcaption></figure>
+</article>
+</section>
+</main></body></html>

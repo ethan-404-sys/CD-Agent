@@ -1,0 +1,230 @@
+{
+  "dataset": "whu",
+  "image": "test_255.png",
+  "detector": "schanger_small",
+  "variant": "box",
+  "roles": [
+    "strict"
+  ],
+  "gt_pixels": 179390,
+  "settings": {
+    "original": {
+      "tp": 178553,
+      "fp": 3594,
+      "fn": 837,
+      "precision": 0.9802686840848326,
+      "recall": 0.9953341880818328,
+      "f1": 0.9877439930076313,
+      "iou": 0.9757847680671534,
+      "delta_f1": 0.0
+    },
+    "2a": {
+      "tp": 170652,
+      "fp": 1242,
+      "fn": 8738,
+      "precision": 0.9927746169150756,
+      "recall": 0.9512904844194213,
+      "f1": 0.971589938625158,
+      "iou": 0.9447495460383543,
+      "delta_f1": -0.016154054382473304
+    },
+    "2a_strict": {
+      "tp": 129833,
+      "fp": 1242,
+      "fn": 49557,
+      "precision": 0.9905245088689681,
+      "recall": 0.7237471430960477,
+      "f1": 0.8363776915272253,
+      "iou": 0.7187707604411179,
+      "delta_f1": -0.15136630148040597
+    },
+    "2a_select": {
+      "tp": 170652,
+      "fp": 1242,
+      "fn": 8738,
+      "precision": 0.9927746169150756,
+      "recall": 0.9512904844194213,
+      "f1": 0.971589938625158,
+      "iou": 0.9447495460383543,
+      "delta_f1": -0.016154054382473304
+    },
+    "2b": {
+      "tp": 178877,
+      "fp": 3760,
+      "fn": 513,
+      "precision": 0.9794127148387238,
+      "recall": 0.9971403088243492,
+      "f1": 0.9881970129299749,
+      "iou": 0.9766693966693967,
+      "delta_f1": 0.00045301992234358934
+    },
+    "both_select": {
+      "tp": 170976,
+      "fp": 1423,
+      "fn": 8414,
+      "precision": 0.9917458917975163,
+      "recall": 0.9530966051619377,
+      "f1": 0.972037215489967,
+      "iou": 0.9455957259710308,
+      "delta_f1": -0.01570677751766425
+    }
+  },
+  "objects": [
+    {
+      "id": 1,
+      "area": 138145,
+      "bbox": [
+        80,
+        37,
+        512,
+        512
+      ],
+      "best_iou": 0.7544190224744335,
+      "best_pred": 1,
+      "class": "hit",
+      "coverage": 0.9969886713236092,
+      "any_overlap": true,
+      "det_iou": 0.7544190224744335,
+      "prompted": true,
+      "chosen_view": "t2",
+      "sam_iou": 0.931387741046832,
+      "view_iou": {
+        "t2": 0.931387741046832
+      },
+      "crop": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "point": [
+        272,
+        267
+      ],
+      "kind": "new",
+      "treatment": {
+        "2a": "replace",
+        "2a_select": "replace",
+        "2b": "none"
+      },
+      "panel_role": "hit_gain",
+      "panel": "obj_1.jpg"
+    },
+    {
+      "id": 2,
+      "area": 14108,
+      "bbox": [
+        0,
+        236,
+        123,
+        441
+      ],
+      "best_iou": 0.07527559227684148,
+      "best_pred": 1,
+      "class": "miss",
+      "coverage": 0.9738446271618939,
+      "any_overlap": true,
+      "det_iou": 0.07527559227684148,
+      "prompted": true,
+      "chosen_view": "t2",
+      "sam_iou": 0.9710966477710127,
+      "view_iou": {
+        "t2": 0.9710966477710127
+      },
+      "crop": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "point": [
+        51,
+        333
+      ],
+      "kind": "new",
+      "treatment": {
+        "2a": "keep",
+        "2a_select": "keep",
+        "2b": "add"
+      },
+      "panel_role": "miss_filled",
+      "panel": "obj_2.jpg"
+    },
+    {
+      "id": 3,
+      "area": 27137,
+      "bbox": [
+        0,
+        357,
+        288,
+        512
+      ],
+      "best_iou": 0.14865613971536618,
+      "best_pred": 1,
+      "class": "partial",
+      "coverage": 0.9980837970298854,
+      "any_overlap": true,
+      "det_iou": 0.14865613971536618,
+      "prompted": true,
+      "chosen_view": "t2",
+      "sam_iou": 0.9848184818481848,
+      "view_iou": {
+        "t2": 0.9848184818481848
+      },
+      "crop": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "point": [
+        103,
+        447
+      ],
+      "kind": "new",
+      "treatment": {
+        "2a": "keep",
+        "2a_select": "keep",
+        "2b": "none"
+      }
+    }
+  ],
+  "representative_rules": {
+    "hit_gain": "hit, SAM IoU > detector IoU; largest gain",
+    "hit_loss": "hit, SAM IoU < detector IoU; largest loss",
+    "miss_filled": "miss, SAM IoU >= 0.5; largest GT area",
+    "miss_failed": "miss, SAM IoU < 0.5; largest GT area",
+    "ties": "object id ascending",
+    "largest_remaining": "if fewer than 2 representatives, add largest remaining prompted objects, up to 2"
+  },
+  "missing_panel_roles": [
+    "hit_loss",
+    "miss_failed"
+  ],
+  "strict": {
+    "tp_lost": 40819,
+    "tp_difference": 40819,
+    "shared_component": {
+      "component": 1,
+      "gt_ids": [
+        1,
+        2,
+        3
+      ],
+      "tp_lost": 40819
+    }
+  },
+  "figures": {
+    "overview": "overview.jpg",
+    "objects": "objects.jpg",
+    "compose": "compose.jpg",
+    "strict": "strict.jpg"
+  },
+  "notes": [
+    "F1 and delta_f1 are fractions; figures use percent and percentage points.",
+    "Point is shown for reference only; SAM3 masks use box prompts only.",
+    "Detector IoU is best full-component IoU from objects.match, not crop IoU.",
+    "Treatments describe each object's rule, not interactions from other objects' unions/deletions.",
+    "Unprompted objects have no SAM IoU or view and no direct SAM edit."
+  ]
+}

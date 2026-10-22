@@ -41,6 +41,8 @@
 - **SAM3 在通用变化上的分割质量明显下降**（成片地物的边界含糊），但对漏检目标仍可用：IoU ≥ 0.5 的比例，SECOND 85%，其他数据集 95–98%。
 - 以上都是提示完美时的上界，实际 agent 需要自己找到漏检位置。
 
+流程可视化（每步怎么处理、四个数据集各 3 张示例图和逐目标面板）：https://claude.ai/artifact/92faSU8u6R6aXqCqdh5dZQ ，源文件 `exp2_visual.html`，说明见 `exp2_oracle.md` 末尾。
+
 ## 3. MLLM 能否胜任验证（零样本，AUC）
 
 | | LEVIR | WHU | SYSU | SECOND |

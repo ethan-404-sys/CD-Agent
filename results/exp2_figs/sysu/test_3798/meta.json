@@ -1,0 +1,141 @@
+{
+  "dataset": "sysu",
+  "image": "test_3798.png",
+  "detector": "schanger_small",
+  "variant": "box",
+  "roles": [
+    "help"
+  ],
+  "gt_pixels": 19156,
+  "settings": {
+    "original": {
+      "tp": 19156,
+      "fp": 17708,
+      "fn": 0,
+      "precision": 0.5196397569444444,
+      "recall": 1.0,
+      "f1": 0.6838986076401286,
+      "iou": 0.5196397569444444,
+      "delta_f1": 0.0
+    },
+    "2a": {
+      "tp": 18963,
+      "fp": 148,
+      "fn": 193,
+      "precision": 0.9922557689288891,
+      "recall": 0.9899248277302151,
+      "f1": 0.9910889277967962,
+      "iou": 0.9823352673021135,
+      "delta_f1": 0.3071903201566677
+    },
+    "2a_strict": {
+      "tp": 18963,
+      "fp": 148,
+      "fn": 193,
+      "precision": 0.9922557689288891,
+      "recall": 0.9899248277302151,
+      "f1": 0.9910889277967962,
+      "iou": 0.9823352673021135,
+      "delta_f1": 0.3071903201566677
+    },
+    "2a_select": {
+      "tp": 18963,
+      "fp": 148,
+      "fn": 193,
+      "precision": 0.9922557689288891,
+      "recall": 0.9899248277302151,
+      "f1": 0.9910889277967962,
+      "iou": 0.9823352673021135,
+      "delta_f1": 0.3071903201566677
+    },
+    "2b": {
+      "tp": 19156,
+      "fp": 17708,
+      "fn": 0,
+      "precision": 0.5196397569444444,
+      "recall": 1.0,
+      "f1": 0.6838986076401286,
+      "iou": 0.5196397569444444,
+      "delta_f1": 0.0
+    },
+    "both_select": {
+      "tp": 18963,
+      "fp": 148,
+      "fn": 193,
+      "precision": 0.9922557689288891,
+      "recall": 0.9899248277302151,
+      "f1": 0.9910889277967962,
+      "iou": 0.9823352673021135,
+      "delta_f1": 0.3071903201566677
+    }
+  },
+  "objects": [
+    {
+      "id": 1,
+      "area": 19156,
+      "bbox": [
+        0,
+        174,
+        256,
+        256
+      ],
+      "best_iou": 0.5196397569444444,
+      "best_pred": 1,
+      "class": "hit",
+      "coverage": 1.0,
+      "any_overlap": true,
+      "det_iou": 0.5196397569444444,
+      "prompted": true,
+      "chosen_view": "t1",
+      "sam_iou": 0.9823352673021135,
+      "view_iou": {
+        "t1": 0.9823352673021135,
+        "t2": 0.265617673109988
+      },
+      "crop": [
+        0,
+        0,
+        256,
+        256
+      ],
+      "point": [
+        208,
+        214
+      ],
+      "kind": "unknown",
+      "treatment": {
+        "2a": "replace",
+        "2a_select": "replace",
+        "2b": "none"
+      },
+      "panel_role": "hit_gain",
+      "panel": "obj_1.jpg"
+    }
+  ],
+  "representative_rules": {
+    "hit_gain": "hit, SAM IoU > detector IoU; largest gain",
+    "hit_loss": "hit, SAM IoU < detector IoU; largest loss",
+    "miss_filled": "miss, SAM IoU >= 0.5; largest GT area",
+    "miss_failed": "miss, SAM IoU < 0.5; largest GT area",
+    "ties": "object id ascending",
+    "largest_remaining": "if fewer than 2 representatives, add largest remaining prompted objects, up to 2"
+  },
+  "missing_panel_roles": [
+    "hit_loss",
+    "miss_filled",
+    "miss_failed"
+  ],
+  "strict": null,
+  "figures": {
+    "overview": "overview.jpg",
+    "objects": "objects.jpg",
+    "compose": "compose.jpg"
+  },
+  "notes": [
+    "F1 and delta_f1 are fractions; figures use percent and percentage points.",
+    "Point is shown for reference only; SAM3 masks use box prompts only.",
+    "Detector IoU is best full-component IoU from objects.match, not crop IoU.",
+    "Treatments describe each object's rule, not interactions from other objects' unions/deletions.",
+    "Unprompted objects have no SAM IoU or view and no direct SAM edit."
+  ]
+}

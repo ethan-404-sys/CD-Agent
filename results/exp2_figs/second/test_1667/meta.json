@@ -1,0 +1,792 @@
+{
+  "dataset": "second",
+  "image": "test_1667.png",
+  "detector": "mambascd_base",
+  "variant": "box",
+  "roles": [
+    "fill"
+  ],
+  "gt_pixels": 31193,
+  "settings": {
+    "original": {
+      "tp": 112,
+      "fp": 357,
+      "fn": 31081,
+      "precision": 0.23880597014925373,
+      "recall": 0.003590549161670888,
+      "f1": 0.007074726801844482,
+      "iou": 0.0035499207606973057,
+      "delta_f1": 0.0
+    },
+    "2a": {
+      "tp": 112,
+      "fp": 357,
+      "fn": 31081,
+      "precision": 0.23880597014925373,
+      "recall": 0.003590549161670888,
+      "f1": 0.007074726801844482,
+      "iou": 0.0035499207606973057,
+      "delta_f1": 0.0
+    },
+    "2a_strict": {
+      "tp": 112,
+      "fp": 357,
+      "fn": 31081,
+      "precision": 0.23880597014925373,
+      "recall": 0.003590549161670888,
+      "f1": 0.007074726801844482,
+      "iou": 0.0035499207606973057,
+      "delta_f1": 0.0
+    },
+    "2a_select": {
+      "tp": 112,
+      "fp": 357,
+      "fn": 31081,
+      "precision": 0.23880597014925373,
+      "recall": 0.003590549161670888,
+      "f1": 0.007074726801844482,
+      "iou": 0.0035499207606973057,
+      "delta_f1": 0.0
+    },
+    "2b": {
+      "tp": 28907,
+      "fp": 5950,
+      "fn": 2286,
+      "precision": 0.8293025791089308,
+      "recall": 0.9267143269323246,
+      "f1": 0.8753065859197577,
+      "iou": 0.7782623912984951,
+      "delta_f1": 0.8682318591179132
+    },
+    "both_select": {
+      "tp": 28907,
+      "fp": 5950,
+      "fn": 2286,
+      "precision": 0.8293025791089308,
+      "recall": 0.9267143269323246,
+      "f1": 0.8753065859197577,
+      "iou": 0.7782623912984951,
+      "delta_f1": 0.8682318591179132
+    }
+  },
+  "objects": [
+    {
+      "id": 1,
+      "area": 5432,
+      "bbox": [
+        196,
+        0,
+        375,
+        50
+      ],
+      "best_iou": 0.020618556701030927,
+      "best_pred": 1,
+      "class": "miss",
+      "coverage": 0.020618556701030927,
+      "any_overlap": true,
+      "transition": [
+        1,
+        2
+      ],
+      "det_iou": 0.020618556701030927,
+      "prompted": true,
+      "chosen_view": "t1",
+      "sam_iou": 0.9163360980887126,
+      "view_iou": {
+        "t1": 0.9163360980887126,
+        "t2": 0.6612672701286327
+      },
+      "crop": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "point": [
+        280,
+        24
+      ],
+      "kind": "unknown",
+      "treatment": {
+        "2a": "keep",
+        "2a_select": "keep",
+        "2b": "add"
+      }
+    },
+    {
+      "id": 2,
+      "area": 1393,
+      "bbox": [
+        82,
+        47,
+        138,
+        99
+      ],
+      "best_iou": 0.0,
+      "best_pred": 0,
+      "class": "miss",
+      "coverage": 0.0,
+      "any_overlap": false,
+      "transition": [
+        1,
+        2
+      ],
+      "det_iou": 0.0,
+      "prompted": true,
+      "chosen_view": "t1",
+      "sam_iou": 0.707871720116618,
+      "view_iou": {
+        "t1": 0.707871720116618,
+        "t2": 0.5134194831013916
+      },
+      "crop": [
+        26,
+        0,
+        194,
+        168
+      ],
+      "point": [
+        114,
+        73
+      ],
+      "kind": "unknown",
+      "treatment": {
+        "2a": "keep",
+        "2a_select": "keep",
+        "2b": "add"
+      }
+    },
+    {
+      "id": 3,
+      "area": 3179,
+      "bbox": [
+        127,
+        281,
+        250,
+        402
+      ],
+      "best_iou": 0.0,
+      "best_pred": 0,
+      "class": "miss",
+      "coverage": 0.0,
+      "any_overlap": false,
+      "transition": [
+        1,
+        2
+      ],
+      "det_iou": 0.0,
+      "prompted": true,
+      "chosen_view": "t2",
+      "sam_iou": 0.5787112561174551,
+      "view_iou": {
+        "t1": 0.5505174035747883,
+        "t2": 0.5787112561174551
+      },
+      "crop": [
+        4,
+        143,
+        373,
+        512
+      ],
+      "point": [
+        149,
+        364
+      ],
+      "kind": "unknown",
+      "treatment": {
+        "2a": "keep",
+        "2a_select": "keep",
+        "2b": "add"
+      }
+    },
+    {
+      "id": 4,
+      "area": 262,
+      "bbox": [
+        387,
+        434,
+        407,
+        467
+      ],
+      "best_iou": 0.0,
+      "best_pred": 0,
+      "class": "miss",
+      "coverage": 0.0,
+      "any_overlap": false,
+      "transition": [
+        1,
+        2
+      ],
+      "det_iou": 0.0,
+      "prompted": true,
+      "chosen_view": "t1",
+      "sam_iou": 0.8149466192170819,
+      "view_iou": {
+        "t1": 0.8149466192170819,
+        "t2": 0.28094302554027506
+      },
+      "crop": [
+        333,
+        384,
+        461,
+        512
+      ],
+      "point": [
+        393,
+        439
+      ],
+      "kind": "unknown",
+      "treatment": {
+        "2a": "keep",
+        "2a_select": "keep",
+        "2b": "add"
+      }
+    },
+    {
+      "id": 5,
+      "area": 6907,
+      "bbox": [
+        275,
+        435,
+        487,
+        512
+      ],
+      "best_iou": 0.0,
+      "best_pred": 0,
+      "class": "miss",
+      "coverage": 0.0,
+      "any_overlap": false,
+      "transition": [
+        1,
+        2
+      ],
+      "det_iou": 0.0,
+      "prompted": true,
+      "chosen_view": "t1",
+      "sam_iou": 0.6955927211528348,
+      "view_iou": {
+        "t1": 0.6955927211528348,
+        "t2": 0.5558339597427545
+      },
+      "crop": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "point": [
+        336,
+        490
+      ],
+      "kind": "unknown",
+      "treatment": {
+        "2a": "keep",
+        "2a_select": "keep",
+        "2b": "add"
+      },
+      "panel_role": "miss_filled",
+      "panel": "obj_5.jpg"
+    },
+    {
+      "id": 6,
+      "area": 91,
+      "bbox": [
+        248,
+        281,
+        260,
+        295
+      ],
+      "best_iou": 0.0,
+      "best_pred": 0,
+      "class": "miss",
+      "coverage": 0.0,
+      "any_overlap": false,
+      "transition": [
+        1,
+        5
+      ],
+      "det_iou": 0.0,
+      "prompted": true,
+      "chosen_view": "t1",
+      "sam_iou": 0.75,
+      "view_iou": {
+        "t1": 0.75,
+        "t2": 0.75
+      },
+      "crop": [
+        190,
+        224,
+        318,
+        352
+      ],
+      "point": [
+        253,
+        285
+      ],
+      "kind": "unknown",
+      "treatment": {
+        "2a": "keep",
+        "2a_select": "keep",
+        "2b": "add"
+      }
+    },
+    {
+      "id": 7,
+      "area": 119,
+      "bbox": [
+        145,
+        389,
+        158,
+        404
+      ],
+      "best_iou": 0.0,
+      "best_pred": 0,
+      "class": "miss",
+      "coverage": 0.0,
+      "any_overlap": false,
+      "transition": [
+        1,
+        5
+      ],
+      "det_iou": 0.0,
+      "prompted": true,
+      "chosen_view": "t2",
+      "sam_iou": 0.7482014388489209,
+      "view_iou": {
+        "t1": 0.7417218543046358,
+        "t2": 0.7482014388489209
+      },
+      "crop": [
+        88,
+        332,
+        216,
+        460
+      ],
+      "point": [
+        150,
+        395
+      ],
+      "kind": "unknown",
+      "treatment": {
+        "2a": "keep",
+        "2a_select": "keep",
+        "2b": "add"
+      }
+    },
+    {
+      "id": 8,
+      "area": 2299,
+      "bbox": [
+        466,
+        0,
+        512,
+        106
+      ],
+      "best_iou": 0.0,
+      "best_pred": 0,
+      "class": "miss",
+      "coverage": 0.0,
+      "any_overlap": false,
+      "transition": [
+        2,
+        1
+      ],
+      "det_iou": 0.0,
+      "prompted": true,
+      "chosen_view": "t2",
+      "sam_iou": 0.6296520423600606,
+      "view_iou": {
+        "t1": 0.4979029358897543,
+        "t2": 0.6296520423600606
+      },
+      "crop": [
+        194,
+        0,
+        512,
+        318
+      ],
+      "point": [
+        501,
+        25
+      ],
+      "kind": "unknown",
+      "treatment": {
+        "2a": "keep",
+        "2a_select": "keep",
+        "2b": "add"
+      }
+    },
+    {
+      "id": 9,
+      "area": 4100,
+      "bbox": [
+        349,
+        87,
+        464,
+        166
+      ],
+      "best_iou": 0.0,
+      "best_pred": 0,
+      "class": "miss",
+      "coverage": 0.0,
+      "any_overlap": false,
+      "transition": [
+        2,
+        1
+      ],
+      "det_iou": 0.0,
+      "prompted": true,
+      "chosen_view": "t2",
+      "sam_iou": 0.8103220114689016,
+      "view_iou": {
+        "t1": 0.6618460229689493,
+        "t2": 0.8103220114689016
+      },
+      "crop": [
+        167,
+        0,
+        512,
+        345
+      ],
+      "point": [
+        413,
+        120
+      ],
+      "kind": "unknown",
+      "treatment": {
+        "2a": "keep",
+        "2a_select": "keep",
+        "2b": "add"
+      }
+    },
+    {
+      "id": 10,
+      "area": 72,
+      "bbox": [
+        468,
+        111,
+        480,
+        121
+      ],
+      "best_iou": 0.0,
+      "best_pred": 0,
+      "class": "miss",
+      "coverage": 0.0,
+      "any_overlap": false,
+      "transition": [
+        2,
+        5
+      ],
+      "det_iou": 0.0,
+      "prompted": true,
+      "chosen_view": "t2",
+      "sam_iou": 0.6923076923076923,
+      "view_iou": {
+        "t1": 0.5789473684210527,
+        "t2": 0.6923076923076923
+      },
+      "crop": [
+        384,
+        52,
+        512,
+        180
+      ],
+      "point": [
+        476,
+        114
+      ],
+      "kind": "unknown",
+      "treatment": {
+        "2a": "keep",
+        "2a_select": "keep",
+        "2b": "add"
+      }
+    },
+    {
+      "id": 11,
+      "area": 864,
+      "bbox": [
+        321,
+        235,
+        360,
+        285
+      ],
+      "best_iou": 0.0,
+      "best_pred": 0,
+      "class": "miss",
+      "coverage": 0.0,
+      "any_overlap": false,
+      "transition": [
+        2,
+        5
+      ],
+      "det_iou": 0.0,
+      "prompted": true,
+      "chosen_view": "t2",
+      "sam_iou": 0.7341772151898734,
+      "view_iou": {
+        "t1": 0.5965391621129326,
+        "t2": 0.7341772151898734
+      },
+      "crop": [
+        266,
+        185,
+        416,
+        335
+      ],
+      "point": [
+        333,
+        248
+      ],
+      "kind": "unknown",
+      "treatment": {
+        "2a": "keep",
+        "2a_select": "keep",
+        "2b": "add"
+      }
+    },
+    {
+      "id": 12,
+      "area": 82,
+      "bbox": [
+        80,
+        270,
+        91,
+        281
+      ],
+      "best_iou": 0.0,
+      "best_pred": 0,
+      "class": "miss",
+      "coverage": 0.0,
+      "any_overlap": false,
+      "transition": [
+        2,
+        5
+      ],
+      "det_iou": 0.0,
+      "prompted": true,
+      "chosen_view": "t1",
+      "sam_iou": 0.6842105263157895,
+      "view_iou": {
+        "t1": 0.6842105263157895,
+        "t2": 0.625
+      },
+      "crop": [
+        22,
+        212,
+        150,
+        340
+      ],
+      "point": [
+        85,
+        275
+      ],
+      "kind": "unknown",
+      "treatment": {
+        "2a": "keep",
+        "2a_select": "keep",
+        "2b": "add"
+      }
+    },
+    {
+      "id": 13,
+      "area": 505,
+      "bbox": [
+        150,
+        387,
+        188,
+        415
+      ],
+      "best_iou": 0.0,
+      "best_pred": 0,
+      "class": "miss",
+      "coverage": 0.0,
+      "any_overlap": false,
+      "transition": [
+        2,
+        5
+      ],
+      "det_iou": 0.0,
+      "prompted": true,
+      "chosen_view": "t2",
+      "sam_iou": 0.7563352826510721,
+      "view_iou": {
+        "t1": 0.6167192429022083,
+        "t2": 0.7563352826510721
+      },
+      "crop": [
+        105,
+        337,
+        233,
+        465
+      ],
+      "point": [
+        177,
+        396
+      ],
+      "kind": "unknown",
+      "treatment": {
+        "2a": "keep",
+        "2a_select": "keep",
+        "2b": "add"
+      }
+    },
+    {
+      "id": 14,
+      "area": 142,
+      "bbox": [
+        216,
+        480,
+        232,
+        496
+      ],
+      "best_iou": 0.0,
+      "best_pred": 0,
+      "class": "miss",
+      "coverage": 0.0,
+      "any_overlap": false,
+      "transition": [
+        2,
+        5
+      ],
+      "det_iou": 0.0,
+      "prompted": true,
+      "chosen_view": "t2",
+      "sam_iou": 0.7986577181208053,
+      "view_iou": {
+        "t1": 0.7298850574712644,
+        "t2": 0.7986577181208053
+      },
+      "crop": [
+        160,
+        384,
+        288,
+        512
+      ],
+      "point": [
+        222,
+        486
+      ],
+      "kind": "unknown",
+      "treatment": {
+        "2a": "keep",
+        "2a_select": "keep",
+        "2b": "add"
+      }
+    },
+    {
+      "id": 15,
+      "area": 64,
+      "bbox": [
+        244,
+        275,
+        255,
+        284
+      ],
+      "best_iou": 0.0,
+      "best_pred": 0,
+      "class": "miss",
+      "coverage": 0.0,
+      "any_overlap": false,
+      "transition": [
+        5,
+        5
+      ],
+      "det_iou": 0.0,
+      "prompted": true,
+      "chosen_view": "t2",
+      "sam_iou": 0.8591549295774648,
+      "view_iou": {
+        "t1": 0.7564102564102564,
+        "t2": 0.8591549295774648
+      },
+      "crop": [
+        186,
+        216,
+        314,
+        344
+      ],
+      "point": [
+        249,
+        278
+      ],
+      "kind": "unknown",
+      "treatment": {
+        "2a": "keep",
+        "2a_select": "keep",
+        "2b": "add"
+      }
+    },
+    {
+      "id": 16,
+      "area": 5682,
+      "bbox": [
+        156,
+        288,
+        273,
+        381
+      ],
+      "best_iou": 0.0,
+      "best_pred": 0,
+      "class": "miss",
+      "coverage": 0.0,
+      "any_overlap": false,
+      "transition": [
+        5,
+        5
+      ],
+      "det_iou": 0.0,
+      "prompted": true,
+      "chosen_view": "t1",
+      "sam_iou": 0.9244436777643609,
+      "view_iou": {
+        "t1": 0.9244436777643609,
+        "t2": 0.7008250108554059
+      },
+      "crop": [
+        39,
+        159,
+        390,
+        510
+      ],
+      "point": [
+        211,
+        335
+      ],
+      "kind": "unknown",
+      "treatment": {
+        "2a": "keep",
+        "2a_select": "keep",
+        "2b": "add"
+      },
+      "panel_role": "largest_remaining",
+      "panel": "obj_16.jpg"
+    }
+  ],
+  "representative_rules": {
+    "hit_gain": "hit, SAM IoU > detector IoU; largest gain",
+    "hit_loss": "hit, SAM IoU < detector IoU; largest loss",
+    "miss_filled": "miss, SAM IoU >= 0.5; largest GT area",
+    "miss_failed": "miss, SAM IoU < 0.5; largest GT area",
+    "ties": "object id ascending",
+    "largest_remaining": "if fewer than 2 representatives, add largest remaining prompted objects, up to 2"
+  },
+  "missing_panel_roles": [
+    "hit_gain",
+    "hit_loss",
+    "miss_failed"
+  ],
+  "strict": null,
+  "figures": {
+    "overview": "overview.jpg",
+    "objects": "objects.jpg",
+    "compose": "compose.jpg"
+  },
+  "notes": [
+    "F1 and delta_f1 are fractions; figures use percent and percentage points.",
+    "Point is shown for reference only; SAM3 masks use box prompts only.",
+    "Detector IoU is best full-component IoU from objects.match, not crop IoU.",
+    "Treatments describe each object's rule, not interactions from other objects' unions/deletions.",
+    "Unprompted objects have no SAM IoU or view and no direct SAM edit."
+  ]
+}

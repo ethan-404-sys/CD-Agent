@@ -120,3 +120,20 @@
    - 漏检目标在真值框提示下的 SAM3 IoU：SYSU 0.78（97–98% 的 IoU ≥ 0.5），SECOND 0.68（85% ≥ 0.5）。工具质量下降了，但仍可用。
 4. **两侧都做对的总上界**：SYSU +3.5 到 +4.0，SECOND +9.1，远大于 LEVIR（+1.0）和 WHU（+2.0）。改进空间集中在**通用变化**和**召回侧**。
 5. 和上文一样，这些都是提示完美时的上界。SECOND 上召回侧的难点在于：大量漏检属于改建和植被等语义变化，检测器没有信号（见实验 1）。agent 能否自己找到这些位置，是实际收益的关键。
+
+## 流程可视化（2026-10-22）
+
+页面：https://claude.ai/artifact/92faSU8u6R6aXqCqdh5dZQ（Claude artifact，私有，需分享后他人才能打开）；源文件 `results/exp2_visual.html`，图在 `results/exp2_figs/<数据集>/<图名>/`，代码 `code/probe/exp2_viz_*.py`，逐图复算结果 `interim/exp2_viz/per_image_<数据集>.jsonl.gz`。
+
+- 只用已有产物（`prompts.jsonl`、`sam3/*.npz`、`objects.jsonl`），按 `exp2_compose.py` 的同一逻辑在 CPU 上逐图复算框提示结果；四个数据集六种设置的 TP / FP / FN 求和与 `metrics.json` 逐项一致（24 / 24）。不重跑 SAM3，不训练。
+- 检测器：LEVIR SChanger-base、WHU SChanger-small、SYSU SChanger-small、SECOND MambaSCD-Base。
+- 选图规则（只选真值变化像素 ≥ 1,000 的图，同分按文件名升序；各数据集 `selection.json` 随图保存）：2a_select ΔF1 最大、2a ΔF1 最小、2b ΔF1 最大；WHU 另加 `test_255` 作为 2a_strict 误删例子。
+
+| 数据集 | 2a_select 帮忙最多 | 2a 伤害最大 | 2b 补漏最多 |
+|---|---|---|---|
+| LEVIR-CD | test_86（+9.59） | test_110（−7.44） | test_6（+25.18） |
+| WHU-CD | test_98（+28.79） | test_9（−26.80） | test_550（+98.17） |
+| SYSU-CD | test_3798（+30.72） | test_164（−83.07） | test_1283（+98.52） |
+| SECOND | test_1134（+21.50） | test_1534（−42.08） | test_1667（+86.82） |
+
+WHU `test_255`：整块删除比 2a 少 40,819 个 TP 像素（整图 F1 83.64% 对 97.16%）。单图 ΔF1 很大是因为多数入选图只有一两个目标；它们说明机制，不代表整体幅度。

@@ -1,0 +1,298 @@
+{
+  "dataset": "levir",
+  "image": "test_86.png",
+  "detector": "schanger_base",
+  "variant": "box",
+  "roles": [
+    "help"
+  ],
+  "gt_pixels": 2194,
+  "settings": {
+    "original": {
+      "tp": 797,
+      "fp": 2074,
+      "fn": 1397,
+      "precision": 0.2776036224312086,
+      "recall": 0.3632634457611668,
+      "f1": 0.3147087857847976,
+      "iou": 0.186738519212746,
+      "delta_f1": 0.0
+    },
+    "2a": {
+      "tp": 1110,
+      "fp": 2103,
+      "fn": 1084,
+      "precision": 0.34547152194211017,
+      "recall": 0.5059252506836828,
+      "f1": 0.41057887923062697,
+      "iou": 0.25831975797067724,
+      "delta_f1": 0.09587009344582936
+    },
+    "2a_strict": {
+      "tp": 1110,
+      "fp": 2103,
+      "fn": 1084,
+      "precision": 0.34547152194211017,
+      "recall": 0.5059252506836828,
+      "f1": 0.41057887923062697,
+      "iou": 0.25831975797067724,
+      "delta_f1": 0.09587009344582936
+    },
+    "2a_select": {
+      "tp": 1110,
+      "fp": 2103,
+      "fn": 1084,
+      "precision": 0.34547152194211017,
+      "recall": 0.5059252506836828,
+      "f1": 0.41057887923062697,
+      "iou": 0.25831975797067724,
+      "delta_f1": 0.09587009344582936
+    },
+    "2b": {
+      "tp": 1690,
+      "fp": 2120,
+      "fn": 504,
+      "precision": 0.4435695538057743,
+      "recall": 0.7702825888787602,
+      "f1": 0.5629580279813458,
+      "iou": 0.39174779786740843,
+      "delta_f1": 0.24824924219654815
+    },
+    "both_select": {
+      "tp": 2003,
+      "fp": 2149,
+      "fn": 191,
+      "precision": 0.48241811175337185,
+      "recall": 0.9129443938012762,
+      "f1": 0.6312637882130476,
+      "iou": 0.4612019341469031,
+      "delta_f1": 0.31655500242825
+    }
+  },
+  "objects": [
+    {
+      "id": 1,
+      "area": 743,
+      "bbox": [
+        378,
+        5,
+        416,
+        41
+      ],
+      "best_iou": 0.0,
+      "best_pred": 0,
+      "class": "miss",
+      "coverage": 0.0,
+      "any_overlap": false,
+      "det_iou": 0.0,
+      "prompted": true,
+      "chosen_view": "t2",
+      "sam_iou": 0.9089692101740294,
+      "view_iou": {
+        "t1": 0.175704989154013,
+        "t2": 0.9089692101740294
+      },
+      "crop": [
+        333,
+        0,
+        461,
+        128
+      ],
+      "point": [
+        397,
+        22
+      ],
+      "kind": "unknown",
+      "treatment": {
+        "2a": "keep",
+        "2a_select": "keep",
+        "2b": "add"
+      },
+      "panel_role": "miss_filled",
+      "panel": "obj_1.jpg"
+    },
+    {
+      "id": 2,
+      "area": 420,
+      "bbox": [
+        215,
+        474,
+        243,
+        501
+      ],
+      "best_iou": 0.7574370709382151,
+      "best_pred": 4,
+      "class": "hit",
+      "coverage": 0.7880952380952381,
+      "any_overlap": true,
+      "det_iou": 0.7574370709382151,
+      "prompted": true,
+      "chosen_view": "t2",
+      "sam_iou": 0.8861047835990888,
+      "view_iou": {
+        "t1": 0.45617977528089887,
+        "t2": 0.8861047835990888
+      },
+      "crop": [
+        165,
+        424,
+        293,
+        552
+      ],
+      "point": [
+        229,
+        486
+      ],
+      "kind": "unknown",
+      "treatment": {
+        "2a": "replace",
+        "2a_select": "replace",
+        "2b": "none"
+      }
+    },
+    {
+      "id": 3,
+      "area": 804,
+      "bbox": [
+        249,
+        671,
+        288,
+        710
+      ],
+      "best_iou": 0.5796019900497512,
+      "best_pred": 9,
+      "class": "hit",
+      "coverage": 0.5796019900497512,
+      "any_overlap": true,
+      "det_iou": 0.5796019900497512,
+      "prompted": true,
+      "chosen_view": "t2",
+      "sam_iou": 0.8676293622141997,
+      "view_iou": {
+        "t1": 0.5856854838709677,
+        "t2": 0.8676293622141997
+      },
+      "crop": [
+        204,
+        626,
+        332,
+        754
+      ],
+      "point": [
+        271,
+        686
+      ],
+      "kind": "unknown",
+      "treatment": {
+        "2a": "replace",
+        "2a_select": "replace",
+        "2b": "none"
+      },
+      "panel_role": "hit_gain",
+      "panel": "obj_3.jpg"
+    },
+    {
+      "id": 4,
+      "area": 126,
+      "bbox": [
+        99,
+        874,
+        116,
+        887
+      ],
+      "best_iou": 0.0,
+      "best_pred": 0,
+      "class": "miss",
+      "coverage": 0.0,
+      "any_overlap": false,
+      "det_iou": 0.0,
+      "prompted": true,
+      "chosen_view": "t2",
+      "sam_iou": 0.7697368421052632,
+      "view_iou": {
+        "t1": 0.7549668874172185,
+        "t2": 0.7697368421052632
+      },
+      "crop": [
+        44,
+        816,
+        172,
+        944
+      ],
+      "point": [
+        105,
+        879
+      ],
+      "kind": "unknown",
+      "treatment": {
+        "2a": "keep",
+        "2a_select": "keep",
+        "2b": "add"
+      }
+    },
+    {
+      "id": 5,
+      "area": 101,
+      "bbox": [
+        144,
+        885,
+        159,
+        898
+      ],
+      "best_iou": 0.0,
+      "best_pred": 0,
+      "class": "miss",
+      "coverage": 0.0,
+      "any_overlap": false,
+      "det_iou": 0.0,
+      "prompted": true,
+      "chosen_view": "t1",
+      "sam_iou": 0.8290598290598291,
+      "view_iou": {
+        "t1": 0.8290598290598291,
+        "t2": 0.6575342465753424
+      },
+      "crop": [
+        88,
+        828,
+        216,
+        956
+      ],
+      "point": [
+        151,
+        891
+      ],
+      "kind": "unknown",
+      "treatment": {
+        "2a": "keep",
+        "2a_select": "keep",
+        "2b": "add"
+      }
+    }
+  ],
+  "representative_rules": {
+    "hit_gain": "hit, SAM IoU > detector IoU; largest gain",
+    "hit_loss": "hit, SAM IoU < detector IoU; largest loss",
+    "miss_filled": "miss, SAM IoU >= 0.5; largest GT area",
+    "miss_failed": "miss, SAM IoU < 0.5; largest GT area",
+    "ties": "object id ascending",
+    "largest_remaining": "if fewer than 2 representatives, add largest remaining prompted objects, up to 2"
+  },
+  "missing_panel_roles": [
+    "hit_loss",
+    "miss_failed"
+  ],
+  "strict": null,
+  "figures": {
+    "overview": "overview.jpg",
+    "objects": "objects.jpg",
+    "compose": "compose.jpg"
+  },
+  "notes": [
+    "F1 and delta_f1 are fractions; figures use percent and percentage points.",
+    "Point is shown for reference only; SAM3 masks use box prompts only.",
+    "Detector IoU is best full-component IoU from objects.match, not crop IoU.",
+    "Treatments describe each object's rule, not interactions from other objects' unions/deletions.",
+    "Unprompted objects have no SAM IoU or view and no direct SAM edit."
+  ]
+}
