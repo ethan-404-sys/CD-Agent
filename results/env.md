@@ -130,3 +130,12 @@
 
 SChanger 官方权重是否用 val 选过：未知，按“用过”处理。
 
+
+## 实验 8 第 0 步补登记的数据划分（2026-10-22）
+
+| 数据集 | 服务器上的划分 | 说明 |
+|---|---|---|
+| SECOND | train 2,968、test 1,694（512²） | 交叉拟合检测器 `second_cv` 用 train；V1 训练 / 验证按 `exp6b_common.verifier_split()` 分为 2,671 / 297 张 |
+| SYSU-CD | 本地 “train” 16,000、test 4,000（256²） | 本地 train = 官方 train（`train_0`–`train_11999`）+ 官方 val（`train_12000`–`train_15999`），已逐图核实。官方 val 原包解压到 `data_external/sysu_official/val/`。exp8 训练池按 160 张原图 80/20 分组：3,200 / 800，名单在 `interim/exp8/sysu_val/split.json` |
+| LEVIR-CD | train 445、val 64、test 128 原图（1024²），另有 test_256 切块 2,048 张 | exp8 用 `val_original` 64 张选阈值，`test_original` 128 张评估 |
+| WHU-CD | train 1,260、test 690（512²），无 val | exp8 不在 WHU 上选参数；第 4 步的阈值从 LEVIR val 迁移 |
