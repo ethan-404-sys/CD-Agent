@@ -1,7 +1,7 @@
 # 实验 8 补充：候选预算曲线
 
 任务：`doc/exp8_supp_candidate_budget.md`。
-代码：`code/probe/exp8s_batch30/`（数据底座、第 1、2 步、r1），`code/probe/exp8s_batch31/`（SYSU 验证部分补跑 AnyChange H1），`code/probe/exp8s_batch32/`（第 3、4 步，按图分片），`code/probe/exp8s_batch34/`（第 6 步第 5 项的漏检四格），`code/probe/exp8s_batch36/`（第 5 步），`code/probe/exp8s_batch37/`（第 6 步）。
+代码：`code/probe/exp8s_batch30/`（数据底座、第 1、2 步、r1），`code/probe/exp8s_batch31/`（SYSU 验证部分补跑 AnyChange H1），`code/probe/exp8s_batch32/`（第 3、4 步，按图分片），`code/probe/exp8s_batch34/`（第 6 步第 5 项的漏检四格），`code/probe/exp8s_batch36/`（第 5 步），`code/probe/exp8s_batch37/`（第 6 步），`code/probe/exp8s_batch38/`（四格抽样审查页）。
 服务器上的完整输出：`Chang-Agent/outputs/CD_1016_probe/exp8s_batch30/`（SECOND、LEVIR、WHU）、`exp8s_batch30_sysu/`（SYSU，含补跑的 H1）、`exp8s_batch32/`（第 3、4 步）、`exp8s_batch34/`（四格）、`exp8s_batch36/`（第 5 步）、`exp8s_batch37/`（第 6 步）。逐图中间数据约 6 GB，不进仓库。
 
 进度：第 1–6 步全部完成（2026-10-23）。不训练、不调用 MLLM。
@@ -600,6 +600,8 @@ AP：以“新增像素精度 > F/2”为正例，按规则检索的平均精度
   - SECOND 的 ①+② 对象召回只有 SYSU 的一半左右，像素召回接近（76–81% 对 66–79%）。SECOND 的候选能盖住这些目标，但大多和目标形状对不上（IoU < 0.5）。
 - **③ 中有相当多漏检来自检测器只画了一小块的目标。** 覆盖率 10–30% 的目标占 ③ 漏检像素：SECOND 27.5–35.3%，SYSU 16.7–22.9%。这部分属于“从很小的种子补全”，交给后续智能体时难度接近无信号漏检。覆盖率 ≥ 50% 的目标占 ③ 漏检像素 44–66%，是真正的边缘修补。
 - SYSU 验证 ① 只有 29 个连通域，R_pix 58.1% 与测试的 86.2% 差距大，属于小样本波动。
+
+抽样审查页：`results/exp8s_cell_examples/index.html`（可离线打开）。SECOND 测试、SYSU 测试各抽 ①②③ 各 8 个、③ 覆盖率 10–30% 的目标 4 个、① 目标内覆盖为 0 只从外沿碰到掩码的 4 个、⑤ 4 个；种子 20261024（SECOND）/ 20261025（SYSU）。每例并排 T1、T2、真值、检测器预测、格标签叠加图和整图小图。代码 `code/probe/exp8s_batch38/`。
 
 ## 第 6 步：真实评分器下的召回视角
 
