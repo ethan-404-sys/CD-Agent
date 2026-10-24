@@ -1,0 +1,994 @@
+{
+  "seed": 20261024,
+  "partial": false,
+  "rule": {
+    "method": "a",
+    "tau": 0.1,
+    "A_max": null,
+    "prefilter_novel_lt": null
+  },
+  "comparison": "同τ的第1b步、无预过滤；同时展示第1步",
+  "groups": {
+    "changed": {
+      "available": 532,
+      "requested": 8,
+      "selected": 8,
+      "shortage": 0,
+      "samples": [
+        {
+          "image": "test_103.png",
+          "component": {
+            "target": 32,
+            "group": "2",
+            "px": 23,
+            "target_area": 23,
+            "coverage": 0.0,
+            "inside": 0,
+            "transition": [
+              2,
+              1
+            ],
+            "seed": [
+              103,
+              0
+            ]
+          },
+          "ci": 50,
+          "step1": {
+            "cand": 25,
+            "route": "refine",
+            "best_px": 23,
+            "r": 0.4182071312553175,
+            "k": 4,
+            "origins": [
+              25
+            ],
+            "split": false
+          },
+          "step1b": {
+            "cand": 25,
+            "route": "refine",
+            "best_px": 23,
+            "r": 0.4182071312553175,
+            "k": 4,
+            "origins": [
+              25
+            ],
+            "split": false
+          },
+          "after": {
+            "cand": 18,
+            "route": "fill",
+            "best_px": 23,
+            "r": 0.028222013170272814,
+            "k": 1,
+            "origins": [
+              25,
+              116
+            ],
+            "split": false
+          },
+          "file": "changed_0.png",
+          "crop": [
+            76,
+            0,
+            64,
+            3
+          ]
+        },
+        {
+          "image": "test_1167.png",
+          "component": {
+            "target": 36,
+            "group": "2",
+            "px": 544,
+            "target_area": 544,
+            "coverage": 0.0,
+            "inside": 0,
+            "transition": [
+              2,
+              5
+            ],
+            "seed": [
+              290,
+              495
+            ]
+          },
+          "ci": 55,
+          "step1": {
+            "cand": 34,
+            "route": "refine",
+            "best_px": 544,
+            "r": 0.6075396825396825,
+            "k": 1,
+            "origins": [
+              34
+            ],
+            "split": false
+          },
+          "step1b": {
+            "cand": 34,
+            "route": "refine",
+            "best_px": 544,
+            "r": 0.6075396825396825,
+            "k": 1,
+            "origins": [
+              34
+            ],
+            "split": false
+          },
+          "after": {
+            "cand": 187,
+            "route": "fill",
+            "best_px": 544,
+            "r": 0.0,
+            "k": 0,
+            "origins": [
+              34
+            ],
+            "split": false
+          },
+          "file": "changed_1.png",
+          "crop": [
+            274,
+            448,
+            64,
+            3
+          ]
+        },
+        {
+          "image": "test_1503.png",
+          "component": {
+            "target": 89,
+            "group": "2",
+            "px": 84,
+            "target_area": 84,
+            "coverage": 0.0,
+            "inside": 0,
+            "transition": [
+              5,
+              5
+            ],
+            "seed": [
+              148,
+              85
+            ]
+          },
+          "ci": 92,
+          "step1": {
+            "cand": 75,
+            "route": "refine",
+            "best_px": 83,
+            "r": 0.28364511219128985,
+            "k": 6,
+            "origins": [
+              75
+            ],
+            "split": false
+          },
+          "step1b": {
+            "cand": 75,
+            "route": "refine",
+            "best_px": 83,
+            "r": 0.28364511219128985,
+            "k": 6,
+            "origins": [
+              75
+            ],
+            "split": false
+          },
+          "after": {
+            "cand": 126,
+            "route": "fill",
+            "best_px": 83,
+            "r": 0.0,
+            "k": 0,
+            "origins": [
+              145
+            ],
+            "split": false
+          },
+          "file": "changed_2.png",
+          "crop": [
+            122,
+            54,
+            64,
+            3
+          ]
+        },
+        {
+          "image": "test_1666.png",
+          "component": {
+            "target": 89,
+            "group": "2",
+            "px": 283,
+            "target_area": 283,
+            "coverage": 0.0,
+            "inside": 0,
+            "transition": [
+              5,
+              5
+            ],
+            "seed": [
+              18,
+              48
+            ]
+          },
+          "ci": 124,
+          "step1": {
+            "cand": 33,
+            "route": "refine",
+            "best_px": 283,
+            "r": 0.3396835715109513,
+            "k": 42,
+            "origins": [
+              33
+            ],
+            "split": false
+          },
+          "step1b": {
+            "cand": 33,
+            "route": "refine",
+            "best_px": 283,
+            "r": 0.3396835715109513,
+            "k": 42,
+            "origins": [
+              33
+            ],
+            "split": false
+          },
+          "after": {
+            "cand": 28,
+            "route": "fill",
+            "best_px": 283,
+            "r": 0.01639344262295082,
+            "k": 1,
+            "origins": [
+              52
+            ],
+            "split": false
+          },
+          "file": "changed_3.png",
+          "crop": [
+            0,
+            13,
+            64,
+            3
+          ]
+        },
+        {
+          "image": "test_191.png",
+          "component": {
+            "target": 50,
+            "group": "2",
+            "px": 111,
+            "target_area": 111,
+            "coverage": 0.0,
+            "inside": 0,
+            "transition": [
+              2,
+              3
+            ],
+            "seed": [
+              21,
+              478
+            ]
+          },
+          "ci": 70,
+          "step1": {
+            "cand": 1,
+            "route": "refine",
+            "best_px": 111,
+            "r": 0.6608627113786185,
+            "k": 5,
+            "origins": [
+              1
+            ],
+            "split": false
+          },
+          "step1b": {
+            "cand": 1,
+            "route": "refine",
+            "best_px": 111,
+            "r": 0.6608627113786185,
+            "k": 5,
+            "origins": [
+              1
+            ],
+            "split": false
+          },
+          "after": {
+            "cand": 40,
+            "route": "fill",
+            "best_px": 111,
+            "r": 0.0,
+            "k": 0,
+            "origins": [
+              1
+            ],
+            "split": false
+          },
+          "file": "changed_4.png",
+          "crop": [
+            0,
+            446,
+            64,
+            3
+          ]
+        },
+        {
+          "image": "test_448.png",
+          "component": {
+            "target": 7,
+            "group": "2",
+            "px": 156,
+            "target_area": 156,
+            "coverage": 0.0,
+            "inside": 0,
+            "transition": [
+              1,
+              2
+            ],
+            "seed": [
+              435,
+              150
+            ]
+          },
+          "ci": 12,
+          "step1": {
+            "cand": 88,
+            "route": "refine",
+            "best_px": 156,
+            "r": 0.39944903581267216,
+            "k": 7,
+            "origins": [
+              88
+            ],
+            "split": false
+          },
+          "step1b": {
+            "cand": 88,
+            "route": "refine",
+            "best_px": 156,
+            "r": 0.39944903581267216,
+            "k": 7,
+            "origins": [
+              88
+            ],
+            "split": false
+          },
+          "after": {
+            "cand": 80,
+            "route": "fill",
+            "best_px": 156,
+            "r": 0.02111740437731627,
+            "k": 6,
+            "origins": [
+              91
+            ],
+            "split": false
+          },
+          "file": "changed_5.png",
+          "crop": [
+            412,
+            115,
+            64,
+            3
+          ]
+        },
+        {
+          "image": "test_604.png",
+          "component": {
+            "target": 82,
+            "group": "2",
+            "px": 23,
+            "target_area": 23,
+            "coverage": 0.0,
+            "inside": 0,
+            "transition": [
+              1,
+              3
+            ],
+            "seed": [
+              361,
+              213
+            ]
+          },
+          "ci": 89,
+          "step1": {
+            "cand": 0,
+            "route": "refine",
+            "best_px": 23,
+            "r": 0.6986854371755288,
+            "k": 11,
+            "origins": [
+              0
+            ],
+            "split": false
+          },
+          "step1b": {
+            "cand": 0,
+            "route": "refine",
+            "best_px": 23,
+            "r": 0.6986854371755288,
+            "k": 11,
+            "origins": [
+              0
+            ],
+            "split": false
+          },
+          "after": {
+            "cand": 4,
+            "route": "fill",
+            "best_px": 23,
+            "r": 0.05367008681925809,
+            "k": 4,
+            "origins": [
+              20
+            ],
+            "split": false
+          },
+          "file": "changed_6.png",
+          "crop": [
+            332,
+            182,
+            64,
+            3
+          ]
+        },
+        {
+          "image": "test_65.png",
+          "component": {
+            "target": 61,
+            "group": "2",
+            "px": 190,
+            "target_area": 190,
+            "coverage": 0.0,
+            "inside": 0,
+            "transition": [
+              2,
+              1
+            ],
+            "seed": [
+              405,
+              213
+            ]
+          },
+          "ci": 74,
+          "step1": {
+            "cand": 52,
+            "route": "refine",
+            "best_px": 190,
+            "r": 0.14302727021207493,
+            "k": 15,
+            "origins": [
+              52
+            ],
+            "split": false
+          },
+          "step1b": {
+            "cand": 52,
+            "route": "refine",
+            "best_px": 190,
+            "r": 0.14302727021207493,
+            "k": 15,
+            "origins": [
+              52
+            ],
+            "split": false
+          },
+          "after": {
+            "cand": 95,
+            "route": "fill",
+            "best_px": 190,
+            "r": 0.0,
+            "k": 0,
+            "origins": [
+              107
+            ],
+            "split": false
+          },
+          "file": "changed_7.png",
+          "crop": [
+            384,
+            189,
+            64,
+            3
+          ]
+        }
+      ]
+    },
+    "still_refine": {
+      "available": 3870,
+      "requested": 8,
+      "selected": 8,
+      "shortage": 0,
+      "samples": [
+        {
+          "image": "test_1147.png",
+          "component": {
+            "target": 2,
+            "group": "2",
+            "px": 944,
+            "target_area": 944,
+            "coverage": 0.0,
+            "inside": 0,
+            "transition": [
+              1,
+              2
+            ],
+            "seed": [
+              178,
+              239
+            ]
+          },
+          "ci": 1,
+          "step1": {
+            "cand": 18,
+            "route": "refine",
+            "best_px": 904,
+            "r": 0.43484588596080875,
+            "k": 6,
+            "origins": [
+              18
+            ],
+            "split": false
+          },
+          "step1b": {
+            "cand": 18,
+            "route": "refine",
+            "best_px": 904,
+            "r": 0.43484588596080875,
+            "k": 6,
+            "origins": [
+              18
+            ],
+            "split": false
+          },
+          "after": {
+            "cand": 159,
+            "route": "refine",
+            "best_px": 904,
+            "r": 0.43484588596080875,
+            "k": 6,
+            "origins": [
+              18
+            ],
+            "split": false
+          },
+          "file": "still_refine_0.png",
+          "crop": [
+            138,
+            176,
+            97,
+            2
+          ]
+        },
+        {
+          "image": "test_1552.png",
+          "component": {
+            "target": 13,
+            "group": "2",
+            "px": 169,
+            "target_area": 169,
+            "coverage": 0.0,
+            "inside": 0,
+            "transition": [
+              4,
+              5
+            ],
+            "seed": [
+              196,
+              0
+            ]
+          },
+          "ci": 21,
+          "step1": {
+            "cand": 27,
+            "route": "refine",
+            "best_px": 169,
+            "r": 0.23409493037925994,
+            "k": 5,
+            "origins": [
+              27
+            ],
+            "split": false
+          },
+          "step1b": {
+            "cand": 27,
+            "route": "refine",
+            "best_px": 169,
+            "r": 0.23409493037925994,
+            "k": 5,
+            "origins": [
+              27
+            ],
+            "split": false
+          },
+          "after": {
+            "cand": 127,
+            "route": "refine",
+            "best_px": 169,
+            "r": 0.23409493037925994,
+            "k": 5,
+            "origins": [
+              27
+            ],
+            "split": false
+          },
+          "file": "still_refine_1.png",
+          "crop": [
+            179,
+            0,
+            64,
+            3
+          ]
+        },
+        {
+          "image": "test_1666.png",
+          "component": {
+            "target": 60,
+            "group": "2",
+            "px": 34,
+            "target_area": 34,
+            "coverage": 0.0,
+            "inside": 0,
+            "transition": [
+              5,
+              1
+            ],
+            "seed": [
+              332,
+              422
+            ]
+          },
+          "ci": 95,
+          "step1": {
+            "cand": 33,
+            "route": "refine",
+            "best_px": 15,
+            "r": 0.3396835715109513,
+            "k": 42,
+            "origins": [
+              33
+            ],
+            "split": false
+          },
+          "step1b": {
+            "cand": 33,
+            "route": "refine",
+            "best_px": 15,
+            "r": 0.3396835715109513,
+            "k": 42,
+            "origins": [
+              33
+            ],
+            "split": false
+          },
+          "after": {
+            "cand": 170,
+            "route": "refine",
+            "best_px": 15,
+            "r": 0.33997586442100847,
+            "k": 42,
+            "origins": [
+              15,
+              33
+            ],
+            "split": false
+          },
+          "file": "still_refine_2.png",
+          "crop": [
+            304,
+            395,
+            64,
+            3
+          ]
+        },
+        {
+          "image": "test_273.png",
+          "component": {
+            "target": 6,
+            "group": "2",
+            "px": 53,
+            "target_area": 53,
+            "coverage": 0.0,
+            "inside": 0,
+            "transition": [
+              1,
+              2
+            ],
+            "seed": [
+              293,
+              435
+            ]
+          },
+          "ci": 12,
+          "step1": {
+            "cand": 35,
+            "route": "refine",
+            "best_px": 48,
+            "r": 0.6253325053525252,
+            "k": 13,
+            "origins": [
+              35
+            ],
+            "split": false
+          },
+          "step1b": {
+            "cand": 35,
+            "route": "refine",
+            "best_px": 48,
+            "r": 0.6253325053525252,
+            "k": 13,
+            "origins": [
+              35
+            ],
+            "split": false
+          },
+          "after": {
+            "cand": 68,
+            "route": "refine",
+            "best_px": 48,
+            "r": 0.6253325053525252,
+            "k": 13,
+            "origins": [
+              35
+            ],
+            "split": false
+          },
+          "file": "still_refine_3.png",
+          "crop": [
+            264,
+            406,
+            64,
+            3
+          ]
+        },
+        {
+          "image": "test_608.png",
+          "component": {
+            "target": 23,
+            "group": "2",
+            "px": 1940,
+            "target_area": 1940,
+            "coverage": 0.0,
+            "inside": 0,
+            "transition": [
+              2,
+              3
+            ],
+            "seed": [
+              101,
+              31
+            ]
+          },
+          "ci": 41,
+          "step1": {
+            "cand": 46,
+            "route": "refine",
+            "best_px": 1865,
+            "r": 0.41159579583705436,
+            "k": 5,
+            "origins": [
+              46
+            ],
+            "split": false
+          },
+          "step1b": {
+            "cand": 46,
+            "route": "refine",
+            "best_px": 1865,
+            "r": 0.41159579583705436,
+            "k": 5,
+            "origins": [
+              46
+            ],
+            "split": false
+          },
+          "after": {
+            "cand": 88,
+            "route": "refine",
+            "best_px": 1865,
+            "r": 0.41159579583705436,
+            "k": 5,
+            "origins": [
+              38,
+              46
+            ],
+            "split": false
+          },
+          "file": "still_refine_4.png",
+          "crop": [
+            26,
+            0,
+            444,
+            1
+          ]
+        },
+        {
+          "image": "test_791.png",
+          "component": {
+            "target": 99,
+            "group": "2",
+            "px": 285,
+            "target_area": 285,
+            "coverage": 0.0,
+            "inside": 0,
+            "transition": [
+              5,
+              2
+            ],
+            "seed": [
+              235,
+              352
+            ]
+          },
+          "ci": 157,
+          "step1": {
+            "cand": 48,
+            "route": "refine",
+            "best_px": 169,
+            "r": 0.5571265040319503,
+            "k": 17,
+            "origins": [
+              48
+            ],
+            "split": false
+          },
+          "step1b": {
+            "cand": 48,
+            "route": "refine",
+            "best_px": 169,
+            "r": 0.5571265040319503,
+            "k": 17,
+            "origins": [
+              48
+            ],
+            "split": false
+          },
+          "after": {
+            "cand": 110,
+            "route": "refine",
+            "best_px": 169,
+            "r": 0.5575747083713092,
+            "k": 17,
+            "origins": [
+              18,
+              48
+            ],
+            "split": false
+          },
+          "file": "still_refine_5.png",
+          "crop": [
+            216,
+            321,
+            64,
+            3
+          ]
+        },
+        {
+          "image": "test_791.png",
+          "component": {
+            "target": 102,
+            "group": "2",
+            "px": 20,
+            "target_area": 20,
+            "coverage": 0.0,
+            "inside": 0,
+            "transition": [
+              5,
+              2
+            ],
+            "seed": [
+              265,
+              412
+            ]
+          },
+          "ci": 161,
+          "step1": {
+            "cand": 48,
+            "route": "refine",
+            "best_px": 20,
+            "r": 0.5571265040319503,
+            "k": 17,
+            "origins": [
+              48
+            ],
+            "split": false
+          },
+          "step1b": {
+            "cand": 48,
+            "route": "refine",
+            "best_px": 20,
+            "r": 0.5571265040319503,
+            "k": 17,
+            "origins": [
+              48
+            ],
+            "split": false
+          },
+          "after": {
+            "cand": 110,
+            "route": "refine",
+            "best_px": 20,
+            "r": 0.5575747083713092,
+            "k": 17,
+            "origins": [
+              18,
+              48
+            ],
+            "split": false
+          },
+          "file": "still_refine_6.png",
+          "crop": [
+            236,
+            380,
+            64,
+            3
+          ]
+        },
+        {
+          "image": "test_978.png",
+          "component": {
+            "target": 31,
+            "group": "2",
+            "px": 316,
+            "target_area": 316,
+            "coverage": 0.0,
+            "inside": 0,
+            "transition": [
+              5,
+              2
+            ],
+            "seed": [
+              0,
+              203
+            ]
+          },
+          "ci": 70,
+          "step1": {
+            "cand": 30,
+            "route": "refine",
+            "best_px": 298,
+            "r": 0.6077157227131382,
+            "k": 6,
+            "origins": [
+              30
+            ],
+            "split": false
+          },
+          "step1b": {
+            "cand": 30,
+            "route": "refine",
+            "best_px": 298,
+            "r": 0.6077157227131382,
+            "k": 6,
+            "origins": [
+              30
+            ],
+            "split": false
+          },
+          "after": {
+            "cand": 88,
+            "route": "refine",
+            "best_px": 298,
+            "r": 0.6077157227131382,
+            "k": 6,
+            "origins": [
+              30
+            ],
+            "split": false
+          },
+          "file": "still_refine_7.png",
+          "crop": [
+            0,
+            163,
+            64,
+            3
+          ]
+        }
+      ]
+    }
+  }
+}
