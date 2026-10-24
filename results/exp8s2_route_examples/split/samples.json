@@ -1,0 +1,962 @@
+{
+  "seed": 20261024,
+  "partial": false,
+  "rule": "R(0.1)",
+  "groups": {
+    "changed": {
+      "available": 3,
+      "requested": 8,
+      "selected": 3,
+      "shortage": 5,
+      "samples": [
+        {
+          "image": "test_1049.png",
+          "component": {
+            "target": 1,
+            "group": "2",
+            "px": 822,
+            "target_area": 822,
+            "coverage": 0.0,
+            "inside": 0,
+            "transition": [
+              2,
+              5
+            ],
+            "seed": [
+              155,
+              160
+            ]
+          },
+          "before": {
+            "cand": 93,
+            "r": 0.162629,
+            "k": 1,
+            "best_px": 822,
+            "route": "refine"
+          },
+          "after": {
+            "r": 0.0,
+            "k": 0,
+            "bbox": [
+              123,
+              133,
+              184,
+              182
+            ],
+            "origin": 93,
+            "detached": true,
+            "step1c": {
+              "sources": [
+                "C",
+                "G"
+              ],
+              "members": [
+                [
+                  "G",
+                  0.05,
+                  17
+                ],
+                [
+                  "C",
+                  0,
+                  30
+                ]
+              ],
+              "b_original_area": null,
+              "h1_score": null,
+              "h1_rank": null,
+              "novel_px": 2233,
+              "true_px": 822,
+              "precision": 0.36811464397671295,
+              "bin": "10_to_half_f",
+              "true_pixels_by_cell": {
+                "1": 0,
+                "2": 822,
+                "3": 0,
+                "5": 0
+              },
+              "majority_cell": "2",
+              "missed_union_px": 822,
+              "intersection_px": 822,
+              "area_ratio": 2.71654501216545,
+              "iou": 0.36811464397671295
+            },
+            "cand": 94,
+            "best_px": 822,
+            "route": "fill"
+          },
+          "file": "changed_0.png",
+          "crop": [
+            134,
+            120,
+            64,
+            3
+          ]
+        },
+        {
+          "image": "test_218.png",
+          "component": {
+            "target": 7,
+            "group": "2",
+            "px": 1067,
+            "target_area": 1067,
+            "coverage": 0.0,
+            "inside": 0,
+            "transition": [
+              2,
+              3
+            ],
+            "seed": [
+              484,
+              242
+            ]
+          },
+          "before": {
+            "cand": 20,
+            "r": 0.579095,
+            "k": 4,
+            "best_px": 1067,
+            "route": "refine"
+          },
+          "after": {
+            "r": 0.0,
+            "k": 0,
+            "bbox": [
+              122,
+              452,
+              344,
+              512
+            ],
+            "origin": 20,
+            "detached": true,
+            "step1c": {
+              "sources": [
+                "G",
+                "H1"
+              ],
+              "members": [
+                [
+                  "G",
+                  0.05,
+                  7
+                ],
+                [
+                  "H1",
+                  null,
+                  0
+                ],
+                [
+                  "H1",
+                  null,
+                  80
+                ]
+              ],
+              "b_original_area": null,
+              "h1_score": -0.7896331548690796,
+              "h1_rank": null,
+              "novel_px": 6943,
+              "true_px": 1067,
+              "precision": 0.15367996543281,
+              "bin": "10_to_half_f",
+              "true_pixels_by_cell": {
+                "1": 0,
+                "2": 1067,
+                "3": 0,
+                "5": 0
+              },
+              "majority_cell": "2",
+              "missed_union_px": 1067,
+              "intersection_px": 1067,
+              "area_ratio": 6.507029053420806,
+              "iou": 0.15367996543281
+            },
+            "cand": 22,
+            "best_px": 1067,
+            "route": "fill"
+          },
+          "file": "changed_1.png",
+          "crop": [
+            329,
+            101,
+            183,
+            1
+          ]
+        },
+        {
+          "image": "test_59.png",
+          "component": {
+            "target": 27,
+            "group": "2",
+            "px": 293,
+            "target_area": 293,
+            "coverage": 0.0,
+            "inside": 0,
+            "transition": [
+              3,
+              2
+            ],
+            "seed": [
+              256,
+              415
+            ]
+          },
+          "before": {
+            "cand": 85,
+            "r": 0.103672,
+            "k": 1,
+            "best_px": 281,
+            "route": "refine"
+          },
+          "after": {
+            "r": 0.0,
+            "k": 0,
+            "bbox": [
+              403,
+              256,
+              430,
+              308
+            ],
+            "origin": 85,
+            "detached": true,
+            "step1c": {
+              "sources": [
+                "B",
+                "H1"
+              ],
+              "members": [
+                [
+                  "B",
+                  0,
+                  286
+                ],
+                [
+                  "H1",
+                  null,
+                  6
+                ],
+                [
+                  "H1",
+                  null,
+                  39
+                ]
+              ],
+              "b_original_area": 277,
+              "h1_score": -0.7638638019561768,
+              "h1_rank": null,
+              "novel_px": 708,
+              "true_px": 283,
+              "precision": 0.3997175141242938,
+              "bin": "half_f_to50",
+              "true_pixels_by_cell": {
+                "1": 2,
+                "2": 281,
+                "3": 0,
+                "5": 0
+              },
+              "majority_cell": "2",
+              "missed_union_px": 443,
+              "intersection_px": 283,
+              "area_ratio": 2.501766784452297,
+              "iou": 0.326036866359447
+            },
+            "cand": 87,
+            "best_px": 281,
+            "route": "fill"
+          },
+          "file": "changed_2.png",
+          "crop": [
+            244,
+            389,
+            67,
+            3
+          ]
+        }
+      ]
+    },
+    "still_refine": {
+      "available": 4402,
+      "requested": 8,
+      "selected": 8,
+      "shortage": 0,
+      "samples": [
+        {
+          "image": "test_1056.png",
+          "component": {
+            "target": 35,
+            "group": "2",
+            "px": 166,
+            "target_area": 166,
+            "coverage": 0.0,
+            "inside": 0,
+            "transition": [
+              6,
+              3
+            ],
+            "seed": [
+              468,
+              236
+            ]
+          },
+          "before": {
+            "cand": 0,
+            "r": 0.150176,
+            "k": 11,
+            "best_px": 166,
+            "route": "refine"
+          },
+          "after": {
+            "r": 0.15017568954258528,
+            "k": 11,
+            "bbox": [
+              45,
+              0,
+              512,
+              512
+            ],
+            "origin": 0,
+            "detached": false,
+            "step1c": {
+              "sources": [
+                "B",
+                "H1"
+              ],
+              "members": [
+                [
+                  "B",
+                  0,
+                  9
+                ],
+                [
+                  "H1",
+                  null,
+                  35
+                ]
+              ],
+              "b_original_area": 64167,
+              "h1_score": -0.673384428024292,
+              "h1_rank": null,
+              "novel_px": 54659,
+              "true_px": 10237,
+              "precision": 0.18728846118662984,
+              "bin": "10_to_half_f",
+              "true_pixels_by_cell": {
+                "1": 765,
+                "2": 5881,
+                "3": 3509,
+                "5": 82
+              },
+              "majority_cell": "2",
+              "missed_union_px": 16878,
+              "intersection_px": 10237,
+              "area_ratio": 5.339357233564521,
+              "iou": 0.1669983686786297
+            },
+            "cand": 0,
+            "best_px": 166,
+            "route": "refine"
+          },
+          "file": "still_refine_0.png",
+          "crop": [
+            446,
+            204,
+            64,
+            3
+          ]
+        },
+        {
+          "image": "test_1275.png",
+          "component": {
+            "target": 12,
+            "group": "2",
+            "px": 1090,
+            "target_area": 1090,
+            "coverage": 0.0,
+            "inside": 0,
+            "transition": [
+              2,
+              1
+            ],
+            "seed": [
+              158,
+              433
+            ]
+          },
+          "before": {
+            "cand": 13,
+            "r": 0.682373,
+            "k": 1,
+            "best_px": 1032,
+            "route": "refine"
+          },
+          "after": {
+            "r": 0.6823727387463189,
+            "k": 1,
+            "bbox": [
+              332,
+              153,
+              496,
+              268
+            ],
+            "origin": 13,
+            "detached": false,
+            "step1c": {
+              "sources": [
+                "B",
+                "G"
+              ],
+              "members": [
+                [
+                  "B",
+                  0,
+                  25
+                ],
+                [
+                  "G",
+                  0.05,
+                  15
+                ]
+              ],
+              "b_original_area": 1892,
+              "h1_score": null,
+              "h1_rank": null,
+              "novel_px": 5285,
+              "true_px": 2616,
+              "precision": 0.4949858088930937,
+              "bin": "half_f_to50",
+              "true_pixels_by_cell": {
+                "1": 0,
+                "2": 1728,
+                "3": 882,
+                "5": 6
+              },
+              "majority_cell": "2",
+              "missed_union_px": 2675,
+              "intersection_px": 2616,
+              "area_ratio": 2.0202599388379205,
+              "iou": 0.48952095808383234
+            },
+            "cand": 13,
+            "best_px": 1032,
+            "route": "refine"
+          },
+          "file": "still_refine_1.png",
+          "crop": [
+            128,
+            415,
+            94,
+            2
+          ]
+        },
+        {
+          "image": "test_1606.png",
+          "component": {
+            "target": 22,
+            "group": "2",
+            "px": 244,
+            "target_area": 244,
+            "coverage": 0.0,
+            "inside": 0,
+            "transition": [
+              5,
+              1
+            ],
+            "seed": [
+              458,
+              77
+            ]
+          },
+          "before": {
+            "cand": 49,
+            "r": 0.33471,
+            "k": 2,
+            "best_px": 244,
+            "route": "refine"
+          },
+          "after": {
+            "r": 0.3347097687588485,
+            "k": 2,
+            "bbox": [
+              0,
+              393,
+              115,
+              512
+            ],
+            "origin": 49,
+            "detached": false,
+            "step1c": {
+              "sources": [
+                "B",
+                "G"
+              ],
+              "members": [
+                [
+                  "B",
+                  0,
+                  112
+                ],
+                [
+                  "G",
+                  0.05,
+                  42
+                ]
+              ],
+              "b_original_area": 393,
+              "h1_score": null,
+              "h1_rank": null,
+              "novel_px": 5639,
+              "true_px": 1917,
+              "precision": 0.33995389253413727,
+              "bin": "10_to_half_f",
+              "true_pixels_by_cell": {
+                "1": 0,
+                "2": 244,
+                "3": 1633,
+                "5": 40
+              },
+              "majority_cell": "3",
+              "missed_union_px": 3226,
+              "intersection_px": 1917,
+              "area_ratio": 2.9415753781950964,
+              "iou": 0.2759067357512953
+            },
+            "cand": 49,
+            "best_px": 244,
+            "route": "refine"
+          },
+          "file": "still_refine_2.png",
+          "crop": [
+            436,
+            45,
+            64,
+            3
+          ]
+        },
+        {
+          "image": "test_343.png",
+          "component": {
+            "target": 45,
+            "group": "2",
+            "px": 378,
+            "target_area": 378,
+            "coverage": 0.0,
+            "inside": 0,
+            "transition": [
+              3,
+              2
+            ],
+            "seed": [
+              186,
+              249
+            ]
+          },
+          "before": {
+            "cand": 3,
+            "r": 0.492784,
+            "k": 11,
+            "best_px": 378,
+            "route": "refine"
+          },
+          "after": {
+            "r": 0.49278420968001285,
+            "k": 11,
+            "bbox": [
+              0,
+              0,
+              404,
+              418
+            ],
+            "origin": 3,
+            "detached": false,
+            "step1c": {
+              "sources": [
+                "B",
+                "G"
+              ],
+              "members": [
+                [
+                  "B",
+                  0,
+                  5
+                ],
+                [
+                  "G",
+                  0.05,
+                  0
+                ]
+              ],
+              "b_original_area": 62477,
+              "h1_score": null,
+              "h1_rank": null,
+              "novel_px": 50470,
+              "true_px": 24291,
+              "precision": 0.4812958192985932,
+              "bin": "half_f_to50",
+              "true_pixels_by_cell": {
+                "1": 2706,
+                "2": 691,
+                "3": 20540,
+                "5": 354
+              },
+              "majority_cell": "3",
+              "missed_union_px": 25177,
+              "intersection_px": 24291,
+              "area_ratio": 2.077724260013997,
+              "iou": 0.4729924448944622
+            },
+            "cand": 3,
+            "best_px": 378,
+            "route": "refine"
+          },
+          "file": "still_refine_3.png",
+          "crop": [
+            164,
+            202,
+            64,
+            3
+          ]
+        },
+        {
+          "image": "test_387.png",
+          "component": {
+            "target": 41,
+            "group": "2",
+            "px": 330,
+            "target_area": 330,
+            "coverage": 0.0,
+            "inside": 0,
+            "transition": [
+              5,
+              2
+            ],
+            "seed": [
+              89,
+              0
+            ]
+          },
+          "before": {
+            "cand": 31,
+            "r": 0.321802,
+            "k": 5,
+            "best_px": 330,
+            "route": "refine"
+          },
+          "after": {
+            "r": 0.3218015665796345,
+            "k": 5,
+            "bbox": [
+              0,
+              12,
+              46,
+              319
+            ],
+            "origin": 31,
+            "detached": false,
+            "step1c": {
+              "sources": [
+                "C",
+                "G"
+              ],
+              "members": [
+                [
+                  "G",
+                  0.05,
+                  2
+                ],
+                [
+                  "C",
+                  0,
+                  7
+                ]
+              ],
+              "b_original_area": null,
+              "h1_score": null,
+              "h1_rank": null,
+              "novel_px": 7273,
+              "true_px": 5600,
+              "precision": 0.7699711260827719,
+              "bin": "ge50",
+              "true_pixels_by_cell": {
+                "1": 1852,
+                "2": 1610,
+                "3": 2106,
+                "5": 32
+              },
+              "majority_cell": "3",
+              "missed_union_px": 6082,
+              "intersection_px": 5600,
+              "area_ratio": 1.29875,
+              "iou": 0.7221147646679562
+            },
+            "cand": 31,
+            "best_px": 330,
+            "route": "refine"
+          },
+          "file": "still_refine_4.png",
+          "crop": [
+            71,
+            0,
+            64,
+            3
+          ]
+        },
+        {
+          "image": "test_483.png",
+          "component": {
+            "target": 16,
+            "group": "2",
+            "px": 29,
+            "target_area": 29,
+            "coverage": 0.0,
+            "inside": 0,
+            "transition": [
+              4,
+              2
+            ],
+            "seed": [
+              465,
+              448
+            ]
+          },
+          "before": {
+            "cand": 43,
+            "r": 0.139482,
+            "k": 10,
+            "best_px": 29,
+            "route": "refine"
+          },
+          "after": {
+            "r": 0.1394816717254261,
+            "k": 10,
+            "bbox": [
+              162,
+              172,
+              512,
+              512
+            ],
+            "origin": 43,
+            "detached": false,
+            "step1c": {
+              "sources": [
+                "B",
+                "G"
+              ],
+              "members": [
+                [
+                  "B",
+                  0,
+                  184
+                ],
+                [
+                  "G",
+                  0.05,
+                  12
+                ]
+              ],
+              "b_original_area": 1478,
+              "h1_score": null,
+              "h1_rank": null,
+              "novel_px": 36856,
+              "true_px": 1955,
+              "precision": 0.05304428044280443,
+              "bin": "lt10",
+              "true_pixels_by_cell": {
+                "1": 1234,
+                "2": 29,
+                "3": 687,
+                "5": 5
+              },
+              "majority_cell": "1",
+              "missed_union_px": 1955,
+              "intersection_px": 1955,
+              "area_ratio": 18.85217391304348,
+              "iou": 0.05304428044280443
+            },
+            "cand": 43,
+            "best_px": 29,
+            "route": "refine"
+          },
+          "file": "still_refine_5.png",
+          "crop": [
+            438,
+            418,
+            64,
+            3
+          ]
+        },
+        {
+          "image": "test_541.png",
+          "component": {
+            "target": 54,
+            "group": "2",
+            "px": 288,
+            "target_area": 288,
+            "coverage": 0.0,
+            "inside": 0,
+            "transition": [
+              2,
+              5
+            ],
+            "seed": [
+              170,
+              505
+            ]
+          },
+          "before": {
+            "cand": 30,
+            "r": 0.329591,
+            "k": 36,
+            "best_px": 193,
+            "route": "refine"
+          },
+          "after": {
+            "r": 0.32959061050862204,
+            "k": 36,
+            "bbox": [
+              13,
+              0,
+              512,
+              441
+            ],
+            "origin": 30,
+            "detached": false,
+            "step1c": {
+              "sources": [
+                "B",
+                "G"
+              ],
+              "members": [
+                [
+                  "B",
+                  0,
+                  88
+                ],
+                [
+                  "G",
+                  0.05,
+                  0
+                ]
+              ],
+              "b_original_area": 5855,
+              "h1_score": null,
+              "h1_rank": null,
+              "novel_px": 90935,
+              "true_px": 34369,
+              "precision": 0.37795128388409305,
+              "bin": "half_f_to50",
+              "true_pixels_by_cell": {
+                "1": 6454,
+                "2": 2017,
+                "3": 25868,
+                "5": 30
+              },
+              "majority_cell": "3",
+              "missed_union_px": 44402,
+              "intersection_px": 34369,
+              "area_ratio": 2.6458436381622974,
+              "iou": 0.34039497662625784
+            },
+            "cand": 30,
+            "best_px": 193,
+            "route": "refine"
+          },
+          "file": "still_refine_6.png",
+          "crop": [
+            147,
+            448,
+            64,
+            3
+          ]
+        },
+        {
+          "image": "test_612.png",
+          "component": {
+            "target": 14,
+            "group": "2",
+            "px": 229,
+            "target_area": 229,
+            "coverage": 0.0,
+            "inside": 0,
+            "transition": [
+              2,
+              1
+            ],
+            "seed": [
+              419,
+              6
+            ]
+          },
+          "before": {
+            "cand": 16,
+            "r": 0.505973,
+            "k": 23,
+            "best_px": 229,
+            "route": "refine"
+          },
+          "after": {
+            "r": 0.5059726782857624,
+            "k": 23,
+            "bbox": [
+              0,
+              0,
+              512,
+              512
+            ],
+            "origin": 16,
+            "detached": false,
+            "step1c": {
+              "sources": [
+                "G",
+                "H1"
+              ],
+              "members": [
+                [
+                  "G",
+                  0.05,
+                  0
+                ],
+                [
+                  "H1",
+                  null,
+                  1
+                ],
+                [
+                  "H1",
+                  null,
+                  10
+                ]
+              ],
+              "b_original_area": null,
+              "h1_score": -0.7406325936317444,
+              "h1_rank": null,
+              "novel_px": 93881,
+              "true_px": 25266,
+              "precision": 0.2691279385605181,
+              "bin": "10_to_half_f",
+              "true_pixels_by_cell": {
+                "1": 7001,
+                "2": 1796,
+                "3": 16273,
+                "5": 196
+              },
+              "majority_cell": "3",
+              "missed_union_px": 25572,
+              "intersection_px": 25266,
+              "area_ratio": 3.7157048998654316,
+              "iou": 0.2682535806427639
+            },
+            "cand": 16,
+            "best_px": 229,
+            "route": "refine"
+          },
+          "file": "still_refine_7.png",
+          "crop": [
+            394,
+            0,
+            64,
+            3
+          ]
+        }
+      ]
+    }
+  }
+}
