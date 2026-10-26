@@ -210,7 +210,7 @@ C 按全验证 AP 选择孪生（0.5850，早融合 0.5825）；训练耗时分�
 
 ## 实验 6j（重写版）：遥感 MLLM 的零样本变化判断（2026-10-26）
 
-详见 `exp6j_rs_mllm_zero_shot.md`。只做零样本推理，约 4 GPU 小时。
+详见 `exp6j_rs_mllm_zero_shot.md`。只做零样本推理，约 5.7 GPU 小时。
 - **exp3 原样本**：
   - DA-RS 随规模变好（平均 AUC 1B 0.59、2B 0.63、4B 0.70），但几乎全答“有变化”。
   - EarthDial 只在 LEVIR 上最好（0.894），在 SYSU、SECOND 上接近随机。

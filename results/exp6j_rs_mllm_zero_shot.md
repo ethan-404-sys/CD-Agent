@@ -1,6 +1,6 @@
 # 实验 6j（重写版）：遥感 MLLM 的零样本变化判断
 
-任务：`doc/exp6j_rs_mllm_zero_shot.md`。只做零样本推理，不训练、不微调，不调用外部 API。代码：`code/probe/exp6j_*.py`；完整表格（全部子集、全部输入方式、CI）：`exp6j_tables.md`；判错样例：`exp6j_error_examples/`；服务器输出：`wyh/exp6_staging/batch45/run/`。实际用时约 4 GPU 小时。
+任务：`doc/exp6j_rs_mllm_zero_shot.md`。只做零样本推理，不训练、不微调，不调用外部 API。代码：`code/probe/exp6j_*.py`；完整表格（全部子集、全部输入方式、CI）：`exp6j_tables.md`；判错样例：`exp6j_error_examples/`；服务器输出：`wyh/exp6_staging/batch45/run/`。实际用时约 5.7 GPU 小时（26 个作业，其中大半是加载权重）。
 
 **结论：在补漏组上，遥感 MLLM 零样本几乎不能区分真漏检和无变化。** ② 正例对补漏负例的 AUC 只有 0.51–0.62，明显低于检测器均值 D（SECOND 0.69、SYSU 0.80）和 M1-ign3（0.70、0.82）；和 M1-ign3 融合后 AP 最多只增加 0.007。错误主要是把色调 / 季节差异和屋顶换色当成变化。
 
