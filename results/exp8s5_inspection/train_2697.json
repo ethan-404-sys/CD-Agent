@@ -1,0 +1,102 @@
+{
+  "dataset": "second",
+  "split": "train",
+  "image": "train_2697.png",
+  "roi": [
+    256,
+    0,
+    512,
+    256
+  ],
+  "targets": [
+    {
+      "id": 12,
+      "target": 6,
+      "cell": 2,
+      "relaxed_cell": 2,
+      "area": 1396,
+      "target_area": 1396,
+      "detector_pixels": 0,
+      "detector_coverage": 0.0,
+      "distance": 4,
+      "transition": [
+        2,
+        1
+      ],
+      "bbox": [
+        475,
+        0,
+        508,
+        86
+      ],
+      "old_cells": {
+        "2": 1396
+      },
+      "distance_euclidean": 5.0,
+      "target_distance": 4,
+      "target_distance_euclidean": 5.0,
+      "overlap_pixels": 0,
+      "empty_grid_layers": 3,
+      "reason": "漏检域与D的棋盘距离为4，一像素膨胀不相接"
+    }
+  ],
+  "counts": {
+    "images": 1,
+    "gt_pixels": 109720,
+    "fn_pixels": 47824,
+    "changed_pixels": 0,
+    "cached_cell2_overlap_pixels": 0,
+    "cached_cell2_overlapping_objects": 0,
+    "corrected_cell2_overlapping_objects": 0,
+    "cached_cell2_outside_gt": 0,
+    "before_cell1_pixels": 42935,
+    "before_cell2_pixels": 1396,
+    "before_cell3_pixels": 3329,
+    "before_cell5_pixels": 164,
+    "before_cell1_objects": 5,
+    "before_cell2_objects": 1,
+    "after_cell1_pixels": 42935,
+    "after_cell2_pixels": 1396,
+    "after_cell3_pixels": 3329,
+    "after_cell5_pixels": 164,
+    "after_cell1_objects": 5,
+    "after_cell2_objects": 1,
+    "radius3_cell1_pixels": 42935,
+    "radius3_cell2_pixels": 1396,
+    "radius3_cell3_pixels": 3329,
+    "radius3_cell5_pixels": 164,
+    "radius3_cell1_objects": 5,
+    "radius3_cell2_objects": 1,
+    "after_cell1_components": 7,
+    "after_cell2_components": 1,
+    "radius3_cell1_components": 7,
+    "radius3_cell2_components": 1,
+    "distance_2_components": 0,
+    "distance_2_pixels": 0,
+    "distance_2_objects": 0,
+    "distance_3_components": 0,
+    "distance_3_pixels": 0,
+    "distance_3_objects": 0,
+    "distance_4_5_components": 1,
+    "distance_4_5_pixels": 1396,
+    "distance_4_5_objects": 1,
+    "distance_gt5_components": 0,
+    "distance_gt5_pixels": 0,
+    "distance_gt5_objects": 0,
+    "distance_infinite_components": 0,
+    "distance_infinite_pixels": 0,
+    "distance_infinite_objects": 0,
+    "cell2_components": 1,
+    "cell2_objects": 1
+  },
+  "class_names": {
+    "1": "low vegetation",
+    "2": "non-vegetated surface",
+    "3": "tree",
+    "4": "water",
+    "5": "building",
+    "6": "playground"
+  },
+  "legend": "白色=所属GT目标轮廓；粉色=②漏检连通域；青色=D轮廓；黄色=漏检域编号",
+  "diagnosis": "本图格标签与冻结定义一致。右上角GT目标6共1396像素，D覆盖0.00%，棋盘距离4、欧氏距离5.0像素"
+}
