@@ -60,6 +60,11 @@
 - Ethan 在前端审示例（通过 / 剔除 / 备注），评测前按审核结果导出最终示例池。
 若 PR #1 尚未合并，先完成第 1–3 部分，等合并后再写库。
 
+写库接口（PR #1 提交 908b89d，详见 `audit/verifier_ui/README.md`）：
+- 样本集：`store.add_sample_set(db, name, purpose, dataset, samples)`，`purpose` 取 `demo_pool` / `dev` / `test`（分别对应训练 / 验证 / 测试部分）。样本字典键：`dataset`、`split`、`cid`、`image`、`label`、`rationale`、`pseudo_type`、`change_kind`、`semantic_text`、`area`、`source`、`det_mean`、`m1_score`、`bbox`、`inputs`（A：`t1`/`t2`；B：`full_t1`/`full_t2`/`mask`；可选 `thumb`）、`stratum`（`pos2` / `pos_other` / `hard_neg` / `rand_neg`）、`weight`。
+- 提示词：`store.add_prompt(db, name, text, note=出处)`。
+- 审核结果用 `export_demos.py` 导出。评测阶段的 `RunRecorder` 用法见 README，本文件不做评测。
+
 ## 交付
 - 代码 `code/probe/exp6k_*.py`；说明 `results/exp6k_icl_prep.md`（含口径、构成统计、与 Codex 的讨论）；
 - 清单：`results/exp6k_demos_<数据集>.json`、`results/exp6k_dev_<数据集>.json`、`results/exp6k_test_<数据集>.json`；渲染文件存服务器，路径写进说明；
