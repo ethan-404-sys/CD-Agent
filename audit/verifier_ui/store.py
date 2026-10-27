@@ -78,7 +78,7 @@ def add_sample(db, s):
     s = {ALIASES.get(k, k): v for k, v in s.items()}
     if s.get('semantic_t1') and s.get('semantic_t2'):
         s['semantic_text_long'] = s.get('semantic_text')
-        s['semantic_text'] = semantic_line(s['semantic_t1'], s['semantic_t2'])
+        s['semantic_text'] = semantic_line(s['semantic_t1'], s['semantic_t2'], s.get('semantic_full'))
     fixed = ('dataset', 'split', 'cid', 'inputs') + COLUMNS + SET_KEYS
     meta = {k: v for k, v in s.items() if k not in fixed}
     values = {k: s.get(k) for k in COLUMNS}
@@ -261,14 +261,22 @@ def set_review(db, sample_id, status, note):
                (sample_id, status or None, note or None, now()))
 
 
-def semantic_line(t1, t2):
-    """One line for form B, e.g. "T1 非植被地表 → T2 树木（占候选 74%）", from the candidate's
-    per-date class histograms ([{name, fraction}, ...], largest first)."""
-    name = lambda h: '无标注地类' if h[0]['name'].startswith('无变化') else h[0]['name']
+def semantic_line(t1, t2, full=None):
+    """Form B text: one line for the candidate, e.g. "T1 非植被地表 → T2 树木（占候选 74%）",
+    from its per-date class histograms ([{name, fraction}, ...], largest first); plus, when
+    `full` (the whole image's two histograms) is given, a second line with the whole-image
+    main classes. SECOND labels classes only inside changed areas; that caveat is shown
+    as a tooltip in the UI, not in the text."""
+    name = lambda r: '无标注地类' if r['name'].startswith('无变化') else r['name']
     f1, f2 = round(t1[0]['fraction'] * 100), round(t2[0]['fraction'] * 100)
     if f1 == f2:
-        return f'T1 {name(t1)} → T2 {name(t2)}（占候选 {f1}%）'
-    return f'T1 {name(t1)}（占候选 {f1}%）→ T2 {name(t2)}（占候选 {f2}%）'
+        line = f'T1 {name(t1[0])} → T2 {name(t2[0])}（占候选 {f1}%）'
+    else:
+        line = f'T1 {name(t1[0])}（占候选 {f1}%）→ T2 {name(t2[0])}（占候选 {f2}%）'
+    if full:
+        top = lambda h: '、'.join(f"{name(r)} {r['fraction']:.0%}" for r in h[:3])
+        line += f'\n整图两期主要类别 T1：{top(full[0])}；T2：{top(full[1])}'
+    return line
 
 
 def with_semantic(row):
@@ -277,7 +285,7 @@ def with_semantic(row):
     meta = json.loads(row['meta']) if isinstance(row.get('meta'), str) else (row.get('meta') or {})
     if meta.get('semantic_t1') and meta.get('semantic_t2'):
         row['semantic_text_long'] = meta.get('semantic_text_long', row.get('semantic_text'))
-        row['semantic_text'] = semantic_line(meta['semantic_t1'], meta['semantic_t2'])
+        row['semantic_text'] = semantic_line(meta['semantic_t1'], meta['semantic_t2'], meta.get('semantic_full'))
     return row
 
 

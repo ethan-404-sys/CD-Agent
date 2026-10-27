@@ -141,6 +141,7 @@ const MODE = {zero: '零样本', few: '少示例', many: '多示例', batched_ma
 const FORM = {A: 'A 近景', B: 'B 整图+掩码', AB: 'A+B'};
 const PURPOSE = {demo_pool: '示例池', dev: '开发集', test: '测试集'};
 const SPLIT_FOR = {demo_pool: 'train', dev: 'val', test: 'test'};
+const SEM_TIP = 'SECOND 只在变化区标注地类；“无标注地类”表示该处没有标注，不代表已知地类。';
 const STRATA = {pos2: '② 正例', pos_other: '其他正例（①③）', hard_neg: '难负例', rand_neg: '随机负例'};
 const READOUT = {token_prob: '词元概率', verbal_confidence: '口头置信度', answer_only: '只有回答'};
 const DOMAIN = {same: '同域', cross: '跨域', mixed: '混合', none: '—'};
@@ -232,7 +233,7 @@ function exampleCard(s, {review = null, wantSplit = 'train', position = null} = 
     <div class="imgs">${A.map(k => fig(s.id, k, capA[k])).join('')}
       ${canThumb ? `<figure><img loading="lazy" src="/thumb/${s.id}" alt="位置"><figcaption>整图位置（黄框）</figcaption></figure>` : ''}</div>
     ${B.length ? `<details><summary>B 形式：整图与掩码</summary><div class="imgs">${B.map(k => fig(s.id, k, capB[k])).join('')}</div>
-      ${s.semantic_text ? `<div class="meta">${esc(s.semantic_text)}</div>` : ''}</details>` : ''}
+      ${s.semantic_text ? `<div class="meta" style="white-space:pre-line" title="${SEM_TIP}">${esc(s.semantic_text)}</div>` : ''}</details>` : ''}
     <dl>${s.label === 0 ? `<dt>伪变化类型</dt><dd>${esc(s.pseudo_type ?? '—')}</dd>` : ''}
       ${s.label === 1 && s.change_kind ? `<dt>变化种类</dt><dd>${esc(s.change_kind)}</dd>` : ''}
       <dt>面积</dt><dd>${s.area ?? '—'} 像素</dd><dt>来源</dt><dd>${esc(s.source ?? '—')}</dd>
@@ -355,7 +356,7 @@ function renderTemplate(run, query, batch = []) {
       }).join('');
       const texts = seg.parts.filter(x => x.part.type === 'text' && x.part.ref).map(({part}) =>
         part.ref.endsWith('.answer') ? `<div class="t ans">Answer: ${esc(s?.shown_label ?? '?')}${s?.rationale ? ` · ${esc(s.rationale)}` : ''}</div>`
-        : part.ref.endsWith('.semantic') ? `<div class="t">${esc(s?.semantic_text ?? '')}</div>` : '').join('');
+        : part.ref.endsWith('.semantic') ? `<div class="t" title="${SEM_TIP}">${esc(s?.semantic_text ?? '')}</div>` : '').join('');
       const head = seg.owner.startsWith('demo') && s ? `<div class="meta">${esc(seg.owner)} · ${esc(s.dataset)}/${esc(s.split)} · ${esc(s.cid)}${s.split !== 'train' ? ` <span class="badge bad">来自 ${esc(s.split)}</span>` : ''}</div>`
         : `<div class="meta">${esc(seg.owner)}${s ? ' · ' + esc(s.cid) : ''}${s && s.id === query.id ? ' <span class="badge">选中</span>' : ''}</div>`;
       return `<div class="seg ${seg.owner.startsWith('demo') ? 'demo-seg' : 'query-seg'}">${head}<div class="imgs">${figs}</div>${texts}</div>`;

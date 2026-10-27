@@ -38,7 +38,7 @@ with db:
 | `rationale` | 一句理由。正例写变化内容，负例写伪变化类型，例如“屋顶换色，属于无变化” |
 | `pseudo_type` | 负例的伪变化类型（季节 / 物候、光照与阴影、色调 / 成像差异、屋顶换色或翻新、车辆等临时物体、配准错位……） |
 | `change_kind` | SECOND 正例的“t1 类别 → t2 类别” |
-| `semantic_text` | SECOND 两期语义的文字说明，随 B 形式给出。若同时给了 `semantic_t1` / `semantic_t2`（候选区域两期类别直方图 `[{name, fraction}, ...]`），登记和显示时都改写成一句 `store.semantic_line` 的格式，例如“T1 非植被地表 → T2 树木（占候选 74%）”，原文存进 `semantic_text_long`。评测脚本给模型的 B 形式文字也请用 `store.semantic_line`，和前端保持一致 |
+| `semantic_text` | SECOND 两期语义的文字说明，随 B 形式给出。若同时给了 `semantic_t1` / `semantic_t2`（候选区域两期类别直方图 `[{name, fraction}, ...]`），登记和显示时都改用 `store.semantic_line` 的格式：第一行是候选区域，例如“T1 非植被地表 → T2 树木（占候选 74%）”；给了 `semantic_full`（整图两期直方图）时第二行是整图两期主要类别。“只在变化区提供地类”这类说明放在悬停提示里，不进文字。原文存进 `semantic_text_long`。评测脚本给模型的 B 形式文字也请用 `store.semantic_line`，和前端保持一致 |
 | `area`、`source`、`det_mean`、`m1_score` | 新增像素面积、候选来源、检测器均值 D、M1-ign3 分数（D 和 M1-ign3 是参照线的分数） |
 | `bbox` | 候选在整图中的 `[x0, y0, x1, y1]`，用来画整图位置缩略图 |
 | `inputs` | 图像路径：A 形式 `t1`、`t2`（近景，红色轮廓）；B 形式 `full_t1`、`full_t2`、`mask`；可选 `thumb`（预渲染的位置缩略图，不给就用 `full_t2` + `bbox` 现画） |

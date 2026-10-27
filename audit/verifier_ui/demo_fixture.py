@@ -91,6 +91,8 @@ def make(root, dataset, purpose, n, rng, image_offset=0):
             f1, f2 = rng.choice([.74, .82, .9, 1.0]), rng.choice([.74, .82, .9, 1.0])
             s['semantic_t1'] = [{'name': t1 if label else '无变化（未提供地类）', 'fraction': f1}, {'name': 'tree', 'fraction': 1 - f1}]
             s['semantic_t2'] = [{'name': t2 if label else '无变化（未提供地类）', 'fraction': f2}, {'name': 'tree', 'fraction': 1 - f2}]
+            s['semantic_full'] = [[{'name': '无变化（未提供地类）', 'fraction': .81}, {'name': t1, 'fraction': .12}, {'name': 'tree', 'fraction': .07}],
+                                  [{'name': '无变化（未提供地类）', 'fraction': .81}, {'name': t2, 'fraction': .12}, {'name': 'tree', 'fraction': .07}]]
             s['semantic_text'] = f'候选区域 T1：{t1} …；T2：{t2} …；整图两期主要类别……（长版，前端会改写成一句）'
         s['inputs'], s['bbox'] = render(root, s, rng)
         out.append(s)
