@@ -50,7 +50,7 @@ def import_exp3(args):
         prompt = prompts[key]
         with RunRecorder(args.db, name=f'exp3_{args.tag}_{dataset}', model=args.model, prompt_text=prompt,
                          prompt_name=f'exp3_{key.lower()}', template=zero_shot_template(prompt),
-                         experiment='exp3', readout='forced_prefix_p_yes + greedy_json',
+                         experiment='exp3', readout='token_prob',
                          config={'source': str(path)}, replace=True) as rec:
             for m in read_jsonl(path):
                 rec.record(as_sample(cands[m['cid']], dataset), p_yes=m.get('p_yes'),
@@ -71,7 +71,7 @@ def import_exp6j(args):
         with RunRecorder(args.db, name=name, model=config['model'], prompt_text=config['prompt'],
                          prompt_name=f"{stage_prompt}_{config['dataset']}",
                          template=zero_shot_template(config['prompt'], config['view']),
-                         experiment=f"exp6j_{config['stage']}", readout=config.get('readout'),
+                         experiment=f"exp6j_{config['stage']}", readout='token_prob',
                          view=config['view'], packing=config['packing'],
                          config={k: v for k, v in config.items() if k not in ('samples', 'prompt')},
                          replace=True) as rec:

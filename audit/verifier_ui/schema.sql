@@ -1,5 +1,5 @@
 -- MLLM verifier audit store. One SQLite file is the single source of truth;
--- metrics are computed on read, never stored.
+-- metrics are computed on read, never stored. Only review fields are written by the UI.
 
 PRAGMA foreign_keys = ON;
 
@@ -13,27 +13,67 @@ CREATE TABLE IF NOT EXISTS prompt_version (
     created_at  TEXT NOT NULL
 );
 
--- Any candidate crop that was shown to a model, as a query or as a demo.
--- inputs: {"t1": path, "t2": path, "context_t1": path, ...} on the server disk.
+-- Any candidate shown to a model, as a query or as a demo.
+-- split: train | val | test (of the source dataset).
+-- inputs: server paths by key. Form A: t1, t2 (near view, red contour).
+--   Form B: full_t1, full_t2, mask (whole image + binary change mask). Optional: thumb.
+-- bbox: [x0, y0, x1, y1] of the candidate in the whole image (for the location thumbnail).
+-- pseudo_type: for negatives, which pseudo-change it is (answer is still "no change").
+-- change_kind: SECOND "t1 class -> t2 class" for positives.
+-- semantic_text: SECOND two-date semantic description shown with form B.
 CREATE TABLE IF NOT EXISTS sample (
-    id          INTEGER PRIMARY KEY,
-    dataset     TEXT NOT NULL,
-    split       TEXT NOT NULL,
-    cid         TEXT NOT NULL,
-    image       TEXT,
-    source      TEXT,
-    label       INTEGER,
-    inputs      TEXT NOT NULL,
-    meta        TEXT,
+    id            INTEGER PRIMARY KEY,
+    dataset       TEXT NOT NULL,
+    split         TEXT NOT NULL,
+    cid           TEXT NOT NULL,
+    image         TEXT,
+    source        TEXT,
+    label         INTEGER,
+    rationale     TEXT,
+    pseudo_type   TEXT,
+    change_kind   TEXT,
+    semantic_text TEXT,
+    area          INTEGER,
+    det_mean      REAL,
+    m1_score      REAL,
+    bbox          TEXT,
+    inputs        TEXT NOT NULL,
+    meta          TEXT,
     UNIQUE (dataset, split, cid)
 );
 
--- mode: zero | few | many | batched_many. id is a hash of the ordered items.
+-- Named sample collections: demo pools (purpose demo_pool, from train), dev sets (val)
+-- and test sets (test). stratum: pos2 | pos_other | hard_neg | rand_neg; weight is the
+-- inverse sampling probability. review_*: written from the UI for demo pools.
+CREATE TABLE IF NOT EXISTS sample_set (
+    id          INTEGER PRIMARY KEY,
+    name        TEXT NOT NULL UNIQUE,
+    purpose     TEXT NOT NULL CHECK (purpose IN ('demo_pool', 'dev', 'test')),
+    dataset     TEXT NOT NULL,
+    note        TEXT,
+    created_at  TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS sample_set_item (
+    set_id        INTEGER NOT NULL REFERENCES sample_set(id),
+    sample_id     INTEGER NOT NULL REFERENCES sample(id),
+    stratum       TEXT,
+    weight        REAL NOT NULL DEFAULT 1,
+    review_status TEXT CHECK (review_status IN ('pass', 'reject')),
+    review_note   TEXT,
+    reviewed_at   TEXT,
+    PRIMARY KEY (set_id, sample_id)
+);
+
+-- mode: zero | few | many | batched_many. form: A | B | AB (demo presentation).
+-- id is a hash of mode, form and the ordered items.
 CREATE TABLE IF NOT EXISTS demo_set (
     id          TEXT PRIMARY KEY,
     name        TEXT NOT NULL,
     mode        TEXT NOT NULL CHECK (mode IN ('zero', 'few', 'many', 'batched_many')),
+    form        TEXT NOT NULL DEFAULT 'A' CHECK (form IN ('A', 'B', 'AB')),
     k           INTEGER NOT NULL,
+    pool_id     INTEGER REFERENCES sample_set(id),
     strategy    TEXT,
     seed        INTEGER,
     note        TEXT,
@@ -50,32 +90,44 @@ CREATE TABLE IF NOT EXISTS demo_set_item (
 );
 
 -- template: the chat messages as sent, with images as refs such as
--- {"type": "image", "ref": "demo[3].t2"} or {"type": "image", "ref": "query[0].t1"}.
+-- {"type": "image", "ref": "demo[3].full_t2"} or {"type": "image", "ref": "query[0].t1"}.
+-- readout: token_prob | verbal_confidence | answer_only (how score is obtained).
+-- batch_by: e.g. "image" when one call asks about all candidates of one image.
 CREATE TABLE IF NOT EXISTS run (
-    id          INTEGER PRIMARY KEY,
-    name        TEXT NOT NULL UNIQUE,
-    experiment  TEXT,
-    model       TEXT NOT NULL,
-    prompt_id   TEXT NOT NULL REFERENCES prompt_version(id),
-    demo_set_id TEXT NOT NULL REFERENCES demo_set(id),
-    readout     TEXT,
-    view        TEXT,
-    packing     TEXT,
-    batch_size  INTEGER NOT NULL DEFAULT 1,
-    template    TEXT NOT NULL,
-    git_commit  TEXT,
-    config      TEXT,
-    created_at  TEXT NOT NULL
+    id            INTEGER PRIMARY KEY,
+    name          TEXT NOT NULL UNIQUE,
+    experiment    TEXT,
+    model         TEXT NOT NULL,
+    prompt_id     TEXT NOT NULL REFERENCES prompt_version(id),
+    demo_set_id   TEXT NOT NULL REFERENCES demo_set(id),
+    eval_set_id   INTEGER REFERENCES sample_set(id),
+    readout       TEXT,
+    view          TEXT,
+    packing       TEXT,
+    batch_size    INTEGER NOT NULL DEFAULT 1,
+    batch_by      TEXT,
+    api_calls     INTEGER,
+    input_tokens  INTEGER,
+    output_tokens INTEGER,
+    cost          REAL,
+    currency      TEXT,
+    template      TEXT NOT NULL,
+    git_commit    TEXT,
+    config        TEXT,
+    created_at    TEXT NOT NULL
 );
 
--- One model call. Only needed when one call answers several queries
--- (batched ICL); its raw text is stored once here.
+-- One model call that answered several queries (batched ICL); raw text stored once.
 CREATE TABLE IF NOT EXISTS call (
-    id          INTEGER PRIMARY KEY,
-    run_id      INTEGER NOT NULL REFERENCES run(id),
-    idx         INTEGER NOT NULL,
-    raw_text    TEXT,
-    meta        TEXT,
+    id            INTEGER PRIMARY KEY,
+    run_id        INTEGER NOT NULL REFERENCES run(id),
+    idx           INTEGER NOT NULL,
+    group_key     TEXT,
+    raw_text      TEXT,
+    input_tokens  INTEGER,
+    output_tokens INTEGER,
+    cost          REAL,
+    meta          TEXT,
     UNIQUE (run_id, idx)
 );
 
@@ -96,3 +148,4 @@ CREATE TABLE IF NOT EXISTS output (
 
 CREATE INDEX IF NOT EXISTS output_sample ON output(sample_id);
 CREATE INDEX IF NOT EXISTS item_sample ON demo_set_item(sample_id);
+CREATE INDEX IF NOT EXISTS set_item_sample ON sample_set_item(sample_id);
