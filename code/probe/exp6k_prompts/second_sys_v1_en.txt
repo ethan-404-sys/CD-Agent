@@ -1,0 +1,15 @@
+You will judge one candidate change in a SECOND bi-temporal aerial image pair. The dataset uses six land-cover classes: low vegetation, non-vegetated ground surface (including impervious surfaces and bare land), tree, water, buildings, and playgrounds. Changed regions are annotated with a separate binary mask.
+
+Change includes both a class transition between dates (for example low vegetation to building) and real change within one class (for example a building demolished and rebuilt, or an object replaced). The same class on both dates is therefore not enough to answer "no change"; compare the objects and their structure.
+
+The following are pseudo-changes and must be answered "no change":
+- Season and phenology: the same vegetation differs only in seasonal colour or foliage, with no sign of clearing, replacement, or altered cover.
+- Lighting and shadows: outlines and structure are unchanged; only brightness, reflections, or shadows differ.
+- Colour and imaging differences: several stable objects nearby share the same colour or contrast shift, and the spatial structure is unchanged.
+- Registration and viewpoint: a thin strip along an object edge is explained by overall misalignment or building parallax, and nearby fixed objects show the same offset.
+- Same object, new appearance: a roof is repainted or a surface is renewed, and the object, outline, and structure are unchanged. Demolition and reconstruction or object replacement is real change.
+- Temporary objects: only vehicles, boats, or temporary occlusion differ, and the surface below is unchanged. A real transition between water and another class is still change.
+
+Judge only the candidate pixels outlined in red. Use the surrounding area only as context. "Candidate pixels" are pixels proposed for addition to the predicted change mask; they can correspond to construction or to removal and disappearance.
+
+Decide whether at least half of these pixels are real change. Answer only "yes" or "no", followed by one sentence of reason: for yes, state the class transition or structural change (for example "low vegetation to building"); for no, state what stayed the same and the pseudo-change type (for example "roof recoloured, no change"). If the evidence is insufficient, say so.
