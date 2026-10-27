@@ -72,7 +72,7 @@ def make(root, dataset, purpose, n, rng, image_offset=0):
         else:
             stratum = rng.choices(['pos2', 'pos_other', 'hard_neg', 'rand_neg'], [3, 2, 3, 2])[0]
         label = int(stratum.startswith('pos'))
-        s = dict(dataset=dataset, split=SPLIT_OF[purpose], cid=f'{dataset}_{purpose}_{i}', label=label,
+        s = dict(dataset=dataset, split=SPLIT_OF[purpose], cid=f'{dataset}_{purpose}_{3 * image_offset + i}', label=label,
                  image=f'{dataset}_{SPLIT_OF[purpose]}_{image_offset + i // 3}', source=rng.choice(['U5_x4']),
                  area=int(rng.lognormvariate(7.2, 0.9)) + 200, stratum=stratum,
                  weight=round({'pos2': 4.0, 'pos_other': 6.0, 'hard_neg': 12.0, 'rand_neg': 60.0}[stratum], 1))
@@ -88,7 +88,10 @@ def make(root, dataset, purpose, n, rng, image_offset=0):
         if dataset == 'second':
             t1 = s['change_kind'].split(' → ')[0] if label else rng.choice(CLASSES)
             t2 = s['change_kind'].split(' → ')[1] if label else t1
-            s['semantic_text'] = f'候选区域 T1 类别：{t1}；T2 类别：{t2}'
+            f1, f2 = rng.choice([.74, .82, .9, 1.0]), rng.choice([.74, .82, .9, 1.0])
+            s['semantic_t1'] = [{'name': t1 if label else '无变化（未提供地类）', 'fraction': f1}, {'name': 'tree', 'fraction': 1 - f1}]
+            s['semantic_t2'] = [{'name': t2 if label else '无变化（未提供地类）', 'fraction': f2}, {'name': 'tree', 'fraction': 1 - f2}]
+            s['semantic_text'] = f'候选区域 T1：{t1} …；T2：{t2} …；整图两期主要类别……（长版，前端会改写成一句）'
         s['inputs'], s['bbox'] = render(root, s, rng)
         out.append(s)
     return out
@@ -115,14 +118,15 @@ def main():
             dev = make(root, ds, 'dev', 120, rng)
             test = make(root, ds, 'test', 150, rng)
             dev[0] = {**dev[0], 'image': pool[0]['image']}  # planted image overlap
-            for name, purpose, items in ((f'exp6k_demos_{ds}', 'demo_pool', pool), (f'exp6k_dev_{ds}', 'dev', dev),
+            pool256 = pool + make(root, ds, 'demo_pool', 24, rng, image_offset=100)  # superset, shares reviews
+            for name, purpose, items in ((f'exp6k_demos_{ds}', 'demo_pool', pool), (f'exp6k_demos256_{ds}', 'demo_pool', pool256),
+                                         (f'exp6k_dev_{ds}', 'dev', dev),
                                          (f'exp6k_test_{ds}', 'test', test)):
                 store.add_sample_set(conn, name, purpose, ds, items, note='synthetic fixture')
             data[ds] = pool, dev, test
-        pool_id = store.set_id_of(conn, 'exp6k_demos_second')
         for i, s in enumerate(data['second'][0][:8]):
             sid = conn.execute('SELECT id FROM sample WHERE cid=?', (s['cid'],)).fetchone()[0]
-            store.set_review(conn, pool_id, sid, 'reject' if i == 3 else 'pass', '理由写得不准' if i == 3 else None)
+            store.set_review(conn, sid, 'reject' if i == 3 else 'pass', '理由写得不准' if i == 3 else None)
     conn.close()
 
     def run(ds, purpose, model, mode, form, k, skill, readout, batch_by=None, prompt_v=1):

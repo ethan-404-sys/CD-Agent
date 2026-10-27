@@ -73,13 +73,16 @@ def composition(items):
 
 
 def set_items(set_id):
-    return rows('SELECT i.stratum, i.weight, i.review_status, i.review_note, i.reviewed_at, s.* '
-                'FROM sample_set_item i JOIN sample s ON s.id = i.sample_id WHERE i.set_id = ? ORDER BY s.id', set_id)
+    return [store.with_semantic(r) for r in rows(
+        'SELECT i.stratum, i.weight, v.status AS review_status, v.note AS review_note, v.reviewed_at, s.* '
+        'FROM sample_set_item i JOIN sample s ON s.id = i.sample_id LEFT JOIN sample_review v ON v.sample_id = s.id '
+        'WHERE i.set_id = ? ORDER BY s.id', set_id)]
 
 
 def demo_items(demo_set_id):
-    return rows('SELECT i.position, i.shown_label, s.* FROM demo_set_item i JOIN sample s ON s.id = i.sample_id '
-                'WHERE i.demo_set_id = ? ORDER BY i.position', demo_set_id)
+    return [store.with_semantic(r) for r in rows(
+        'SELECT i.position, i.shown_label, s.* FROM demo_set_item i JOIN sample s ON s.id = i.sample_id '
+        'WHERE i.demo_set_id = ? ORDER BY i.position', demo_set_id)]
 
 
 # ---- split checks ----
@@ -227,11 +230,12 @@ class Review(BaseModel):
 def review(set_id: int, body: Review):
     if body.status not in (None, '', 'pass', 'reject'):
         raise HTTPException(400, 'status must be pass, reject or empty')
+    if not rows('SELECT 1 FROM sample_set_item WHERE set_id = ? AND sample_id = ?', set_id, body.sample_id):
+        raise HTTPException(404)
     with closing(db()) as conn, conn:
-        if not store.set_review(conn, set_id, body.sample_id, body.status, body.note):
-            raise HTTPException(404)
-    return rows('SELECT review_status, review_note, reviewed_at FROM sample_set_item WHERE set_id=? AND sample_id=?',
-                set_id, body.sample_id)[0]
+        store.set_review(conn, body.sample_id, body.status, body.note)
+    return rows('SELECT status AS review_status, note AS review_note, reviewed_at FROM sample_review '
+                'WHERE sample_id = ?', body.sample_id)[0]
 
 
 @app.get('/api/demo_sets')

@@ -6,7 +6,8 @@
       keeps passed demos only
 
 Each entry carries the sample fields (label, rationale, pseudo_type, change_kind, area, source,
-det_mean, inputs, ...), its stratum and the review status and note. A summary goes to stderr.
+det_mean, inputs, ...), its stratum and the review status and note. Reviews are per sample,
+so a demo reviewed in the 64 pool counts as reviewed in the 256 pool too. A summary goes to stderr.
 """
 from __future__ import annotations
 
@@ -29,10 +30,12 @@ def main():
     db = store.connect(args.db)
     set_id = store.set_id_of(db, args.set)
     rows = [dict(r) for r in db.execute(
-        'SELECT s.*, i.stratum, i.weight, i.review_status, i.review_note, i.reviewed_at FROM sample_set_item i '
-        'JOIN sample s ON s.id = i.sample_id WHERE i.set_id = ? ORDER BY s.id', (set_id,))]
+        'SELECT s.*, i.stratum, i.weight, v.status AS review_status, v.note AS review_note, v.reviewed_at '
+        'FROM sample_set_item i JOIN sample s ON s.id = i.sample_id LEFT JOIN sample_review v ON v.sample_id = s.id '
+        'WHERE i.set_id = ? ORDER BY s.id', (set_id,))]
     keep = [r for r in rows if (r['review_status'] == 'pass' if args.only_passed else r['review_status'] != 'reject')]
     for r in keep:
+        store.with_semantic(r)
         r['inputs'] = json.loads(r['inputs'])
         r['bbox'] = json.loads(r['bbox']) if r['bbox'] else None
         r.update(json.loads(r.pop('meta') or '{}'))

@@ -50,6 +50,14 @@ def connect(path):
     db = sqlite3.connect(path)
     db.row_factory = sqlite3.Row
     db.executescript(SCHEMA.read_text())
+    if db.execute('PRAGMA user_version').fetchone()[0] < 1:
+        # Reviews used to live on sample_set_item (per pool); move them to sample_review once.
+        # A sample reviewed in several pools keeps its most recent review.
+        with db:
+            db.execute('INSERT OR IGNORE INTO sample_review (sample_id, status, note, reviewed_at) '
+                       'SELECT sample_id, review_status, review_note, reviewed_at FROM sample_set_item '
+                       'WHERE review_status IS NOT NULL OR review_note IS NOT NULL ORDER BY reviewed_at DESC')
+            db.execute('PRAGMA user_version = 1')
     return db
 
 
@@ -68,6 +76,9 @@ def add_prompt(db, name, text, parent_id=None, note=None):
 def add_sample(db, s):
     """Insert or update one sample (keyed by dataset, split, cid); returns its id."""
     s = {ALIASES.get(k, k): v for k, v in s.items()}
+    if s.get('semantic_t1') and s.get('semantic_t2'):
+        s['semantic_text_long'] = s.get('semantic_text')
+        s['semantic_text'] = semantic_line(s['semantic_t1'], s['semantic_t2'])
     fixed = ('dataset', 'split', 'cid', 'inputs') + COLUMNS + SET_KEYS
     meta = {k: v for k, v in s.items() if k not in fixed}
     values = {k: s.get(k) for k in COLUMNS}
@@ -85,7 +96,7 @@ def add_sample(db, s):
 
 def add_sample_set(db, name, purpose, dataset, samples, note=None):
     """Register a demo pool / dev set / test set. Each sample may carry stratum and weight.
-    Re-registering updates strata and weights but keeps review results."""
+    Re-registering updates strata and weights; reviews are per sample and are never touched."""
     db.execute('INSERT INTO sample_set (name, purpose, dataset, note, created_at) VALUES (?,?,?,?,?) '
                'ON CONFLICT (name) DO UPDATE SET purpose = excluded.purpose, dataset = excluded.dataset, '
                'note = COALESCE(excluded.note, note)', (name, purpose, dataset, note, now()))
@@ -243,10 +254,31 @@ def delete_run(db, name):
         db.execute('DELETE FROM run WHERE id=?', (row[0],))
 
 
-def set_review(db, set_id, sample_id, status, note):
-    cur = db.execute('UPDATE sample_set_item SET review_status=?, review_note=?, reviewed_at=? '
-                     'WHERE set_id=? AND sample_id=?', (status or None, note or None, now(), set_id, sample_id))
-    return cur.rowcount
+def set_review(db, sample_id, status, note):
+    """Review is per sample, so it shows in every pool that contains the sample."""
+    db.execute('INSERT INTO sample_review VALUES (?,?,?,?) ON CONFLICT (sample_id) DO UPDATE SET '
+               'status = excluded.status, note = excluded.note, reviewed_at = excluded.reviewed_at',
+               (sample_id, status or None, note or None, now()))
+
+
+def semantic_line(t1, t2):
+    """One line for form B, e.g. "T1 非植被地表 → T2 树木（占候选 74%）", from the candidate's
+    per-date class histograms ([{name, fraction}, ...], largest first)."""
+    name = lambda h: '无标注地类' if h[0]['name'].startswith('无变化') else h[0]['name']
+    f1, f2 = round(t1[0]['fraction'] * 100), round(t2[0]['fraction'] * 100)
+    if f1 == f2:
+        return f'T1 {name(t1)} → T2 {name(t2)}（占候选 {f1}%）'
+    return f'T1 {name(t1)}（占候选 {f1}%）→ T2 {name(t2)}（占候选 {f2}%）'
+
+
+def with_semantic(row):
+    """Replace semantic_text by semantic_line when the sample's meta has the histograms
+    (exp6k semantic_t1 / semantic_t2), keeping the long text as semantic_text_long."""
+    meta = json.loads(row['meta']) if isinstance(row.get('meta'), str) else (row.get('meta') or {})
+    if meta.get('semantic_t1') and meta.get('semantic_t2'):
+        row['semantic_text_long'] = meta.get('semantic_text_long', row.get('semantic_text'))
+        row['semantic_text'] = semantic_line(meta['semantic_t1'], meta['semantic_t2'])
+    return row
 
 
 # ---- metrics (computed on read) ----

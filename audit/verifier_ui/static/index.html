@@ -241,7 +241,7 @@ function exampleCard(s, {review = null, wantSplit = 'train', position = null} = 
       <dt>原图</dt><dd class="mono">${esc(s.dataset)}/${esc(s.split)} · ${esc(s.image ?? '')} · ${esc(s.cid)}</dd></dl>
     ${review ? `<div class="rev"><button data-st="pass" class="${st === 'pass' ? 'on-pass' : ''}">通过</button>
       <button data-st="reject" class="${st === 'reject' ? 'on-reject' : ''}">剔除</button>
-      <button data-st="">清除</button>
+      <button data-st="" title="撤销本样本的审核，回到未审">撤销</button>
       <input placeholder="备注（回车保存）" value="${esc(s.review_note ?? '')}"></div>` : ''}
   </div>`;
 }

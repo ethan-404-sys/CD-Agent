@@ -38,13 +38,13 @@ with db:
 | `rationale` | 一句理由。正例写变化内容，负例写伪变化类型，例如“屋顶换色，属于无变化” |
 | `pseudo_type` | 负例的伪变化类型（季节 / 物候、光照与阴影、色调 / 成像差异、屋顶换色或翻新、车辆等临时物体、配准错位……） |
 | `change_kind` | SECOND 正例的“t1 类别 → t2 类别” |
-| `semantic_text` | SECOND 两期语义的文字说明，随 B 形式给出 |
+| `semantic_text` | SECOND 两期语义的文字说明，随 B 形式给出。若同时给了 `semantic_t1` / `semantic_t2`（候选区域两期类别直方图 `[{name, fraction}, ...]`），登记和显示时都改写成一句 `store.semantic_line` 的格式，例如“T1 非植被地表 → T2 树木（占候选 74%）”，原文存进 `semantic_text_long`。评测脚本给模型的 B 形式文字也请用 `store.semantic_line`，和前端保持一致 |
 | `area`、`source`、`det_mean`、`m1_score` | 新增像素面积、候选来源、检测器均值 D、M1-ign3 分数（D 和 M1-ign3 是参照线的分数） |
 | `bbox` | 候选在整图中的 `[x0, y0, x1, y1]`，用来画整图位置缩略图 |
 | `inputs` | 图像路径：A 形式 `t1`、`t2`（近景，红色轮廓）；B 形式 `full_t1`、`full_t2`、`mask`；可选 `thumb`（预渲染的位置缩略图，不给就用 `full_t2` + `bbox` 现画） |
 | `stratum`、`weight` | 分层（`pos2` ② 正例、`pos_other` 其他正例、`hard_neg` 难负例、`rand_neg` 随机负例）和抽样权重（抽样概率的倒数） |
 
-其余键存进 `meta`。重复登记同一个样本集会更新分层和权重，不会清掉审核结果。
+其余键存进 `meta`。重复登记同一个样本集会更新分层和权重，不会碰审核结果。
 
 ## 写库：评测运行
 
@@ -71,7 +71,7 @@ with RunRecorder('verifier.db', name='second_dev_plus_AB_k8_s0', model='qwen3-vl
 
 ## 审核与导出
 
-在“样本集与审核”页逐个看示例：点“通过 / 剔除”，备注框按回车保存，结果直接写回库里。评测前导出：
+在“样本集与审核”页逐个看示例：点“通过 / 剔除”，“撤销”回到未审，备注框按回车保存，结果直接写回库里。审核结果按样本存（`sample_review` 表），同一个样本在 64 池和 256 池里共享：任一池里审过，另一池同步显示，导出也按共享结果。旧库里按池存的审核结果在第一次连接时自动迁移过来（同一样本在多个池里审过时取最近一次）。评测前导出：
 
 ```bash
 python export_demos.py --db verifier.db --set exp6k_demos_second --out demos_second.json             # 去掉剔除的
@@ -97,7 +97,8 @@ python export_demos.py --db verifier.db --set exp6k_demos_second --out demos_sec
 | --- | --- |
 | `prompt_version` | 最终提示词全文、哈希 id、父版本、备注（出处） |
 | `sample` | 所有出现过的候选（示例或查询）及上面那张表里的字段 |
-| `sample_set` / `sample_set_item` | 示例池、开发集、测试集；每个样本的分层、权重和审核结果（通过 / 剔除 / 备注） |
+| `sample_set` / `sample_set_item` | 示例池、开发集、测试集；每个样本在集合里的分层和权重 |
+| `sample_review` | 每个样本的审核结果（通过 / 剔除 / 备注），所有示例池共享 |
 | `demo_set` / `demo_set_item` | 某次运行实际用的示例：模式、形式、k、来自哪个示例池、选法、种子、顺序和提示中写的答案 |
 | `run` | 模型、提示词、示例集、评测样本集、读数方式、批量方式、调用次数、词元数、费用、消息模板、git 提交号、完整配置 |
 | `call` | 批量调用的原始输出和该次调用的用量 |

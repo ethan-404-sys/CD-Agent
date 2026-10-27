@@ -44,7 +44,8 @@ CREATE TABLE IF NOT EXISTS sample (
 
 -- Named sample collections: demo pools (purpose demo_pool, from train), dev sets (val)
 -- and test sets (test). stratum: pos2 | pos_other | hard_neg | rand_neg; weight is the
--- inverse sampling probability. review_*: written from the UI for demo pools.
+-- inverse sampling probability. review_* are legacy (before reviews were shared by sample);
+-- store.connect migrates them into sample_review once.
 CREATE TABLE IF NOT EXISTS sample_set (
     id          INTEGER PRIMARY KEY,
     name        TEXT NOT NULL UNIQUE,
@@ -63,6 +64,15 @@ CREATE TABLE IF NOT EXISTS sample_set_item (
     review_note   TEXT,
     reviewed_at   TEXT,
     PRIMARY KEY (set_id, sample_id)
+);
+
+-- Review result per sample (pass / reject / note), shared by every demo pool that contains
+-- the sample, e.g. the 64 and 256 pools of one dataset.
+CREATE TABLE IF NOT EXISTS sample_review (
+    sample_id   INTEGER PRIMARY KEY REFERENCES sample(id),
+    status      TEXT CHECK (status IN ('pass', 'reject')),
+    note        TEXT,
+    reviewed_at TEXT
 );
 
 -- mode: zero | few | many | batched_many. form: A | B | AB (demo presentation).
