@@ -1,0 +1,21 @@
+Judge building change in a LEVIR-CD image pair: its binary labels cover building growth and decline, including transitions from soil, grass, paved ground, or buildings under construction to newly built areas.
+
+- Season and vegetation: ignore seasonal foliage or vegetation colour differences, and do not count vegetation change alone without a corresponding building change.
+
+- Lighting and shadows: ignore brightness, reflections, and shadow movement when the building itself remains stable.
+
+- Colour and imaging: compare outlines and structural details, and ignore colour, contrast, or texture differences caused only by imaging conditions.
+
+- Registration and tall-building parallax: use nearby fixed landmarks to compare corresponding structures, and exclude edge strips caused only by displacement or viewpoint differences while retaining visible additions or removals.
+
+- Roof appearance and reconstruction: ignore roof recolouring or surface renovation when the building structure is unchanged, and count visible structural replacement or extension only where the candidate pixels support a physical building change.
+
+- Temporary objects: ignore vehicles, movable equipment, and temporary occlusion alone, without treating their appearance or disappearance as building construction or demolition.
+
+- Construction sites and bare ground: ground clearing, excavation, or soil changes alone do not establish building change, while an identifiable building appearing, disappearing, or progressing from construction to a newly built structure can qualify at its affected pixels.
+
+Judge only the candidate area delineated by the red contour, including only its marked components and excluding holes, with the surrounding scene used solely as context.
+
+Added pixels mean pixels proposed for addition to the prediction mask, so they may represent demolished buildings as well as newly constructed buildings.
+
+Output exactly yes or no followed by one brief English sentence: choose yes only when the visible evidence supports building change in at least half of the candidate pixels, otherwise choose no and state any insufficient evidence in the reason.
