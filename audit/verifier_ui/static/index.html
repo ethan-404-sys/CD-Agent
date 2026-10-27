@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MLLM 判断器审核</title>
+<style>
+:root {
+  color-scheme: light;
+  --bg: #f6f6f4; --surface: #fcfcfb; --surface-2: #efeeea; --border: #dcdbd5;
+  --text: #0b0b0b; --text-2: #52514e; --muted: #85847e;
+  --accent: #2a78d6; --good: #1f7a3a; --bad: #c4302b; --warn: #a86500;
+  --series-1: #2a78d6; --series-2: #eb6834; --series-3: #1baf7a; --ref: #85847e;
+  --diff-add: #d8f0dc; --diff-del: #f8d9d6;
+}
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme="light"])) {
+    color-scheme: dark;
+    --bg: #131312; --surface: #1a1a19; --surface-2: #242422; --border: #3a3936;
+    --text: #f0efec; --text-2: #c3c2b7; --muted: #8f8e86;
+    --accent: #3987e5; --good: #5cbf74; --bad: #f07470; --warn: #e0a440;
+    --series-1: #3987e5; --series-2: #d95926; --series-3: #199e70; --ref: #8f8e86;
+    --diff-add: #1f3d27; --diff-del: #4a2222;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #131312; --surface: #1a1a19; --surface-2: #242422; --border: #3a3936;
+  --text: #f0efec; --text-2: #c3c2b7; --muted: #8f8e86;
+  --accent: #3987e5; --good: #5cbf74; --bad: #f07470; --warn: #e0a440;
+  --series-1: #3987e5; --series-2: #d95926; --series-3: #199e70; --ref: #8f8e86;
+  --diff-add: #1f3d27; --diff-del: #4a2222;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 14px/1.5 system-ui, -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; }
+header { display: flex; gap: 4px; align-items: center; padding: 10px 16px; background: var(--surface); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 5; flex-wrap: wrap; }
+header h1 { font-size: 15px; margin: 0 16px 0 0; }
+nav button { background: none; border: 0; padding: 6px 12px; border-radius: 6px; color: var(--text-2); cursor: pointer; font: inherit; }
+nav button.on { background: var(--surface-2); color: var(--text); font-weight: 600; }
+main { padding: 16px; max-width: 1400px; margin: 0 auto; }
+.cols { display: grid; grid-template-columns: 320px 1fr; gap: 16px; align-items: start; }
+@media (max-width: 820px) { .cols { grid-template-columns: 1fr; } }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; margin-bottom: 12px; min-width: 0; }
+.list { max-height: 75vh; overflow: auto; padding: 4px; }
+.item { padding: 8px 10px; border-radius: 6px; cursor: pointer; }
+.item:hover { background: var(--surface-2); }
+.item.on { background: var(--surface-2); outline: 1px solid var(--accent); }
+.meta { color: var(--text-2); font-size: 12px; }
+.mono, pre { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12.5px; }
+pre { white-space: pre-wrap; word-break: break-word; margin: 0; }
+table { border-collapse: collapse; width: 100%; }
+th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--border); vertical-align: top; }
+th { color: var(--text-2); font-weight: 600; font-size: 12px; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+.scroll { overflow-x: auto; }
+tr.click { cursor: pointer; }
+tr.click:hover td { background: var(--surface-2); }
+.badge { display: inline-block; padding: 0 6px; border-radius: 4px; font-size: 12px; border: 1px solid var(--border); color: var(--text-2); margin-right: 4px; white-space: nowrap; }
+.badge.good { color: var(--good); border-color: var(--good); }
+.badge.bad { color: var(--bad); border-color: var(--bad); }
+.badge.warn { color: var(--warn); border-color: var(--warn); }
+.thumbs { display: flex; gap: 4px; }
+.thumbs img { width: 96px; height: 96px; object-fit: cover; border-radius: 4px; background: var(--surface-2); }
+.demos { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; }
+.demo { border: 1px solid var(--border); border-radius: 6px; padding: 8px; }
+.demo .thumbs img { width: 100%; height: auto; aspect-ratio: 1; flex: 1; min-width: 0; }
+.msg { border-left: 3px solid var(--border); padding-left: 10px; }
+.msg .t { white-space: pre-wrap; margin: 6px 0; }
+.msg .t.ans { color: var(--accent); font-weight: 600; }
+.seg { margin: 8px 0; }
+.query-seg { border: 1px solid var(--accent); border-radius: 6px; padding: 6px; }
+.ph { width: 120px; height: 120px; border: 1px dashed var(--border); border-radius: 4px; display: grid; place-items: center; color: var(--muted); font-size: 12px; }
+.msg img { width: 120px; height: 120px; object-fit: cover; border-radius: 4px; display: block; }
+.msg .imgs { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0; }
+.msg figure { margin: 0; }
+.msg figcaption { font-size: 11px; color: var(--muted); }
+.row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 10px; }
+select, button.b { font: inherit; padding: 4px 8px; border-radius: 6px; border: 1px solid var(--border); background: var(--surface); color: var(--text); }
+del { background: var(--diff-del); text-decoration: line-through; }
+ins { background: var(--diff-add); text-decoration: none; }
+.empty { color: var(--muted); padding: 24px; text-align: center; }
+details summary { cursor: pointer; color: var(--text-2); }
+.facets { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 12px; }
+@media (max-width: 520px) { .facets { grid-template-columns: 1fr; } }
+svg text { fill: var(--text-2); font-size: 11px; }
+svg .grid { stroke: var(--border); stroke-width: 1; }
+.legend { display: flex; gap: 14px; flex-wrap: wrap; font-size: 12px; color: var(--text-2); margin-bottom: 8px; }
+.legend i { display: inline-block; width: 18px; height: 0; border-top: 2px solid; vertical-align: middle; margin-right: 4px; }
+#tip { position: fixed; pointer-events: none; background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 6px 8px; font-size: 12px; box-shadow: 0 2px 8px rgb(0 0 0 / .15); display: none; z-index: 10; max-width: 320px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>MLLM 判断器审核</h1>
+  <nav id="tabs">
+    <button data-tab="prompts">提示词</button>
+    <button data-tab="demos">ICL 示例</button>
+    <button data-tab="runs">运行与输出</button>
+    <button data-tab="shots">示例数量曲线</button>
+  </nav>
+</header>
+<main id="main"></main>
+<div id="tip"></div>
+<script>
+const $ = (s, el = document) => el.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
+const pct = v => v == null ? '–' : (v * 100).toFixed(1);
+const ci = c => c ? `<span class="meta">[${pct(c[0])}, ${pct(c[1])}]</span>` : '';
+const api = p => fetch(p).then(r => { if (!r.ok) throw new Error(r.status + ' ' + p); return r.json(); });
+const MODE = {zero: '零样本', few: '少示例', many: '多示例', batched_many: '多示例批量'};
+const DOMAIN = {same: '同域', cross: '跨域', mixed: '混合', none: '—'};
+const state = {tab: null, prompt: [], demoSet: null, run: null, query: null, filters: {dataset: '', source: '', verdict: ''}};
+
+function setTab(tab) {
+  state.tab = tab;
+  try { localStorage.setItem('tab', tab); } catch (e) {}
+  document.querySelectorAll('#tabs button').forEach(b => b.classList.toggle('on', b.dataset.tab === tab));
+  ({prompts: viewPrompts, demos: viewDemos, runs: viewRuns, shots: viewShots})[tab]().catch(e => {
+    $('#main').innerHTML = `<div class="empty">加载失败：${esc(e.message)}</div>`;
+  });
+}
+document.querySelectorAll('#tabs button').forEach(b => b.onclick = () => setTab(b.dataset.tab));
+
+// ---------- 提示词 ----------
+function wordDiff(a, b) {
+  const A = a.split(/(\s+)/), B = b.split(/(\s+)/), n = A.length, m = B.length;
+  const L = Array.from({length: n + 1}, () => new Uint16Array(m + 1));
+  for (let i = n - 1; i >= 0; i--) for (let j = m - 1; j >= 0; j--)
+    L[i][j] = A[i] === B[j] ? L[i + 1][j + 1] + 1 : Math.max(L[i + 1][j], L[i][j + 1]);
+  let i = 0, j = 0, out = '';
+  while (i < n && j < m) {
+    if (A[i] === B[j]) { out += esc(A[i]); i++; j++; }
+    else if (L[i + 1][j] >= L[i][j + 1]) out += `<del>${esc(A[i++])}</del>`;
+    else out += `<ins>${esc(B[j++])}</ins>`;
+  }
+  while (i < n) out += `<del>${esc(A[i++])}</del>`;
+  while (j < m) out += `<ins>${esc(B[j++])}</ins>`;
+  return out;
+}
+async function viewPrompts() {
+  const list = await api('/api/prompts');
+  if (!list.length) { $('#main').innerHTML = '<div class="empty">库里还没有提示词。</div>'; return; }
+  const sel = state.prompt.filter(id => list.some(p => p.id === id));
+  if (!sel.length) sel.push(list[0].id);
+  state.prompt = sel;
+  const byId = Object.fromEntries(list.map(p => [p.id, p]));
+  let body;
+  if (sel.length === 2) {
+    const [a, b] = sel.map(id => byId[id]);
+    body = `<div class="card"><div class="row"><b>对比</b><span class="badge bad">${esc(a.name)}</span>→<span class="badge good">${esc(b.name)}</span></div>
+      <pre>${wordDiff(a.text, b.text)}</pre></div>`;
+  } else {
+    const p = byId[sel[0]];
+    body = `<div class="card"><div class="row"><b>${esc(p.name)}</b><span class="badge mono">${p.id}</span>
+      ${p.parent_id ? `<span class="meta">父版本 ${esc(byId[p.parent_id]?.name ?? p.parent_id)}</span>` : ''}
+      <span class="meta">${p.runs} 次运行 · ${esc(p.models ?? '')}</span></div>
+      ${p.note ? `<p class="meta">${esc(p.note)}</p>` : ''}<pre>${esc(p.text)}</pre></div>`;
+  }
+  $('#main').innerHTML = `<div class="cols"><div class="card list">
+      <div class="meta" style="padding:4px 10px">点击查看；按住 Shift 点第二个做对比</div>
+      ${list.map(p => `<div class="item ${sel.includes(p.id) ? 'on' : ''}" data-id="${p.id}">
+        <div>${esc(p.name)}</div><div class="meta mono">${p.id} · ${p.runs} 次运行</div></div>`).join('')}
+    </div><div>${body}</div></div>`;
+  document.querySelectorAll('.item').forEach(el => el.onclick = e => {
+    const id = el.dataset.id;
+    state.prompt = e.shiftKey && state.prompt[0] !== id ? [state.prompt[0], id] : [id];
+    viewPrompts();
+  });
+}
+
+// ---------- ICL 示例 ----------
+const thumbs = (s, keys = ['t1', 't2']) => `<div class="thumbs">${keys.filter(k => (s.keys ?? keys).includes(k))
+  .map(k => `<img loading="lazy" src="/img/${s.id}/${k}" alt="${k}" title="${k}">`).join('')}</div>`;
+const labelBadge = l => l == null ? '<span class="badge">无标签</span>' : l ? '<span class="badge good">变化</span>' : '<span class="badge">未变化</span>';
+function demoCard(d) {
+  return `<div class="demo"><div class="row" style="margin-bottom:4px"><b>#${d.position + 1}</b>
+    ${labelBadge(d.label)}<span class="badge">提示中写 ${esc(d.shown_label ?? '—')}</span>
+    ${d.shown_label && d.label != null && (d.shown_label === 'yes') !== !!d.label ? '<span class="badge bad">与标签不符</span>' : ''}
+    ${d.split === 'test' ? '<span class="badge bad">来自 test</span>' : ''}</div>
+    ${thumbs(d)}<div class="meta mono">${esc(d.dataset)}/${esc(d.split)} · ${esc(d.image ?? '')} · ${esc(d.cid)}${d.source ? ' · ' + esc(d.source) : ''}</div></div>`;
+}
+async function viewDemos() {
+  const sets = await api('/api/demo_sets');
+  if (!sets.length) { $('#main').innerHTML = '<div class="empty">库里还没有示例集。</div>'; return; }
+  if (!sets.some(s => s.id === state.demoSet)) state.demoSet = (sets.find(s => s.k > 0) ?? sets[0]).id;
+  const d = await api('/api/demo_sets/' + state.demoSet);
+  const s = sets.find(x => x.id === d.id);
+  $('#main').innerHTML = `<div class="cols"><div class="card list">
+      ${sets.map(x => `<div class="item ${x.id === d.id ? 'on' : ''}" data-id="${x.id}">
+        <div>${MODE[x.mode]} · k=${x.k}</div><div class="meta">${esc(x.name)} · ${x.runs} 次运行</div>
+        <div class="meta">${Object.entries(x.sources).map(([k, v]) => `${esc(k)}×${v}`).join(' ') || '无示例'}
+        ${x.n_test_split ? '<span class="badge bad">含 test</span>' : ''}</div></div>`).join('')}
+    </div><div><div class="card"><div class="row"><b>${esc(d.name)}</b><span class="badge">${MODE[d.mode]}</span>
+      <span class="badge">k=${d.k}</span><span class="badge">正例 ${s.n_pos}/${d.k}</span>
+      ${d.strategy ? `<span class="meta">选取：${esc(d.strategy)}</span>` : ''}${d.seed != null ? `<span class="meta">种子 ${d.seed}</span>` : ''}</div>
+      <div class="meta">来源：${Object.entries(s.sources).map(([k, v]) => `${esc(k)} ${v} 个`).join('，') || '无'}。
+      和查询数据集的关系（同域、跨域、同图泄漏）要结合具体运行看，见“运行与输出”。</div>
+      ${d.note ? `<p class="meta">${esc(d.note)}</p>` : ''}</div>
+      ${d.items.length ? `<div class="demos">${d.items.map(i => demoCard({...i, keys: Object.keys(JSON.parse(i.inputs))})).join('')}</div>`
+        : '<div class="empty">零样本：没有示例。</div>'}</div></div>`;
+  document.querySelectorAll('.item').forEach(el => el.onclick = () => { state.demoSet = el.dataset.id; viewDemos(); });
+}
+
+// ---------- 运行与输出 ----------
+function renderTemplate(run, query, batch = []) {
+  // Group parts by owner (demo[i] / query[j] / plain text); a short text right before an
+  // image becomes that image's caption. Demos fold into <details> when there are many.
+  const owner = ref => ref?.match(/^(demo|query)\[(\d+)\]/)?.[0] ?? null;
+  const sampleOf = o => { const [, kind, i] = o.match(/^(demo|query)\[(\d+)\]/); return kind === 'demo' ? run.demos[+i] : (batch[+i] ?? (+i === 0 ? query : null)); };
+  return run.template.map(msg => {
+    const segs = [];
+    msg.content.forEach((part, i) => {
+      const next = msg.content[i + 1];
+      if (part.type === 'text' && !part.ref && next?.type === 'image' && part.text.length < 80) return;
+      const o = owner(part.ref);
+      const last = segs[segs.length - 1];
+      if (o && last?.owner === o) last.parts.push({part, cap: msg.content[i - 1]});
+      else segs.push({owner: o, parts: [{part, cap: msg.content[i - 1]}]});
+    });
+    const html = segs.map(seg => {
+      if (!seg.owner) return seg.parts.map(({part}) => `<div class="t">${esc(part.text)}</div>`).join('');
+      const s = sampleOf(seg.owner), key = r => r.split('.').pop();
+      const figs = seg.parts.filter(x => x.part.type === 'image').map(({part, cap}) => {
+        const c = cap?.type === 'text' && !cap.ref && cap.text.length < 80 ? cap.text : part.ref;
+        return s ? `<figure><img loading="lazy" src="/img/${s.id}/${key(part.ref)}"><figcaption>${esc(c)}</figcaption></figure>`
+          : `<figure><div class="ph">同批其他查询</div><figcaption>${esc(c)}</figcaption></figure>`;
+      }).join('');
+      const ans = seg.parts.some(x => x.part.ref?.endsWith('.answer')) ? `<div class="t ans">Answer: ${esc(s?.shown_label ?? '?')}</div>` : '';
+      const head = seg.owner.startsWith('demo') && s ? `<div class="meta">${esc(seg.owner)} · ${esc(s.dataset)}/${esc(s.split)} · ${esc(s.cid)}${s.split === 'test' ? ' <span class="badge bad">来自 test</span>' : ''}</div>`
+        : `<div class="meta">${esc(seg.owner)}${s ? ' · ' + esc(s.cid) : ''}${s && s.id === query.id ? ' <span class="badge">选中</span>' : ''}</div>`;
+      return `<div class="seg ${seg.owner.startsWith('demo') ? 'demo-seg' : 'query-seg'}">${head}<div class="imgs">${figs}</div>${ans}</div>`;
+    });
+    // Fold consecutive demo segments.
+    let out = '', demoBuf = [];
+    const flushDemos = () => {
+      if (!demoBuf.length) return;
+      out += demoBuf.length > 4 ? `<details><summary>${demoBuf.length} 个示例（展开）</summary>${demoBuf.join('')}</details>` : demoBuf.join('');
+      demoBuf = [];
+    };
+    html.forEach((h, i) => { if (segs[i].owner?.startsWith('demo')) demoBuf.push(h); else { flushDemos(); out += h; } });
+    flushDemos();
+    return `<div class="msg"><div class="meta">${esc(msg.role)}</div>${out}</div>`;
+  }).join('');
+}
+function metricsCells(m) {
+  return `<td class="num">${pct(m.acc)} ${ci(m.acc_ci)}</td><td class="num">${m.auc == null ? '–' : m.auc.toFixed(3)} ${m.auc_ci ? `<span class="meta">[${m.auc_ci[0].toFixed(3)}, ${m.auc_ci[1].toFixed(3)}]</span>` : ''}</td>
+    <td class="num">${pct(m.yes_rate)}</td><td class="num">${m.n}</td>`;
+}
+async function viewRuns() {
+  const runs = await api('/api/runs');
+  if (!runs.length) { $('#main').innerHTML = '<div class="empty">库里还没有运行记录。</div>'; return; }
+  if (!runs.some(r => r.id === state.run)) state.run = runs[0].id;
+  const rowsHtml = runs.flatMap(r => Object.entries(r.datasets).map(([ds, m], i) => `<tr class="click ${r.id === state.run ? 'on' : ''}" data-id="${r.id}" data-ds="${esc(ds)}">
+      <td>${i ? '' : `<b>${esc(r.name)}</b><div class="meta">${esc(r.model)} · ${esc(r.prompt_name)}</div>`}</td>
+      <td>${i ? '' : `${MODE[r.mode]} k=${r.k}${r.batch_size > 1 ? ` · 批量 ${r.batch_size}` : ''}`}</td>
+      <td>${esc(ds)}</td><td>${DOMAIN[m.demo_domain]}</td>${metricsCells(m)}</tr>`)).join('');
+  $('#main').innerHTML = `<div class="card scroll"><table><thead><tr><th>运行</th><th>上下文</th><th>查询数据集</th><th>示例来源</th>
+    <th class="num">准确率 % [95% CI]</th><th class="num">AUC</th><th class="num">答“是”%</th><th class="num">样本数</th></tr></thead>
+    <tbody>${rowsHtml}</tbody></table>
+    <div class="meta" style="margin-top:6px">准确率优先用生成的答案，没有生成时用 P(yes) &gt; 0.5；CI 为 2000 次自助法。点击一行查看该运行。</div></div>
+    <div id="detail"></div>`;
+  document.querySelectorAll('tr.click').forEach(el => el.onclick = () => {
+    state.run = +el.dataset.id; state.filters.dataset = el.dataset.ds; state.query = null; viewRun();
+  });
+  await viewRun();
+}
+async function viewRun() {
+  const run = await api('/api/runs/' + state.run);
+  const f = state.filters;
+  if (f.dataset && !run.datasets[f.dataset]) f.dataset = '';
+  const qs = new URLSearchParams({...f, limit: 200});
+  const out = await api(`/api/runs/${run.id}/outputs?${qs}`);
+  if (state.query && !out.rows.some(o => o.sample_id === state.query.sample_id)) state.query = null;
+  const query = state.query ?? out.rows[0];
+  const q = query ? {id: query.sample_id, ...query} : null;
+  const batch = q?.call_id ? await api('/api/calls/' + q.call_id) : [];
+  const lk = run.leaks;
+  const leakHtml = [lk.demos_from_test_split && `${lk.demos_from_test_split} 个示例来自 test`,
+    lk.queries_sharing_demo_image && `${lk.queries_sharing_demo_image} 个查询与示例同图`,
+    lk.queries_that_are_demos && `${lk.queries_that_are_demos} 个查询本身就是示例`].filter(Boolean);
+  const opt = (v, label, cur) => `<option value="${esc(v)}" ${v === cur ? 'selected' : ''}>${esc(label)}</option>`;
+  $('#detail').innerHTML = `<div class="card"><div class="row"><b>${esc(run.name)}</b>
+      <span class="badge">${esc(run.model)}</span><span class="badge">${MODE[run.mode]} k=${run.k}</span>
+      <span class="badge mono">提示词 ${esc(run.prompt_name)} · ${run.prompt_id}</span>
+      ${run.view ? `<span class="badge">${esc(run.view)} / ${esc(run.packing)}</span>` : ''}
+      ${run.git_commit ? `<span class="badge mono">${esc(run.git_commit)}</span>` : ''}
+      ${leakHtml.length ? leakHtml.map(t => `<span class="badge bad">${t}</span>`).join('') : '<span class="badge good">未发现示例泄漏</span>'}</div>
+      <div class="meta">读数：${esc(run.readout ?? '—')}${run.calls ? ` · ${run.calls} 次批量调用` : ''} · ${esc(run.created_at)}</div>
+      ${run.config ? `<details><summary>完整配置</summary><pre>${esc(JSON.stringify(JSON.parse(run.config), null, 2))}</pre></details>` : ''}</div>
+    <div class="cols" style="grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr)">
+      <div class="card"><b>实际发给模型的输入</b>
+        <div class="meta" style="margin-bottom:8px">按记录的消息模板还原；查询图像为右侧选中的样本。</div>
+        ${q ? renderTemplate(run, q, batch) : '<div class="empty">没有样本</div>'}</div>
+      <div class="card"><div class="row">
+        <select id="f-ds">${opt('', '全部数据集', f.dataset)}${Object.keys(run.datasets).map(d => opt(d, d, f.dataset)).join('')}</select>
+        <select id="f-src">${opt('', '全部候选来源', f.source)}${out.sources.map(s => opt(s, s, f.source)).join('')}</select>
+        <select id="f-v">${[['', '全部'], ['wrong', '答错'], ['right', '答对'], ['fp', '误报（答是，实为否）'], ['fn', '漏报（答否，实为是）']].map(([v, l]) => opt(v, l, f.verdict)).join('')}</select>
+        <span class="meta">${out.total} 条，显示前 ${out.rows.length} 条；答错的、越自信的越靠前</span></div>
+        <div class="scroll"><table><thead><tr><th>裁块</th><th>样本</th><th class="num">P(yes)</th><th>回答</th><th>原始输出</th></tr></thead><tbody>
+        ${out.rows.map(o => `<tr class="click" data-sid="${o.sample_id}" ${o.sample_id === q?.id ? 'style="outline:1px solid var(--accent)"' : ''}>
+          <td>${thumbs({id: o.sample_id, keys: o.inputs})}</td>
+          <td><div>${labelBadge(o.label)}${o.correct === false ? '<span class="badge bad">错</span>' : o.correct ? '<span class="badge good">对</span>' : ''}</div>
+            <div class="meta mono">${esc(o.dataset)} · ${esc(o.cid)}</div><div class="meta">${esc(o.source ?? '')}</div></td>
+          <td class="num">${o.p_yes == null ? '–' : o.p_yes.toFixed(3)}${o.yes_no_mass != null && o.yes_no_mass < 0.9 ? '<div class="badge warn">质量 ' + o.yes_no_mass.toFixed(2) + '</div>' : ''}</td>
+          <td>${esc(o.answer ?? '—')}${o.confidence != null ? `<div class="meta">置信 ${o.confidence}</div>` : ''}</td>
+          <td><pre>${esc(o.raw_text ?? '')}</pre>${o.call_raw ? `<details><summary>批量调用原文（第 ${o.position + 1} 个）</summary><pre>${esc(o.call_raw)}</pre></details>` : ''}</td></tr>`).join('')}
+        </tbody></table></div></div></div>`;
+  $('#f-ds').onchange = e => { f.dataset = e.target.value; viewRun(); };
+  $('#f-src').onchange = e => { f.source = e.target.value; viewRun(); };
+  $('#f-v').onchange = e => { f.verdict = e.target.value; viewRun(); };
+  document.querySelectorAll('#detail tr.click').forEach(el => el.onclick = () => {
+    state.query = out.rows.find(o => o.sample_id === +el.dataset.sid); viewRun();
+  });
+}
+
+// ---------- 示例数量曲线 ----------
+const SERIES = {few: 'var(--series-1)', many: 'var(--series-2)', batched_many: 'var(--series-3)'};
+const tip = $('#tip');
+function showTip(e, html) { tip.innerHTML = html; tip.style.display = 'block';
+  tip.style.left = Math.min(e.clientX + 12, innerWidth - 330) + 'px'; tip.style.top = (e.clientY + 12) + 'px'; }
+async function viewShots() {
+  const pts = await api('/api/shots');
+  if (!pts.length) { $('#main').innerHTML = '<div class="empty">库里还没有运行记录。</div>'; return; }
+  const sf = state.shots ??= {};
+  const models = [...new Set(pts.map(p => p.model))];
+  const promptsL = [...new Map(pts.map(p => [p.prompt_id, p.prompt_name])).entries()];
+  if (!models.includes(sf.model)) sf.model = models[0];
+  if (!promptsL.some(([id]) => id === sf.prompt)) sf.prompt = '';
+  sf.metric ??= 'acc';
+  const use = pts.filter(p => p.model === sf.model && (!sf.prompt || p.prompt_id === sf.prompt) && p[sf.metric] != null);
+  const datasets = [...new Set(use.map(p => p.dataset))].sort();
+  const opt = (v, l, cur) => `<option value="${esc(v)}" ${v === cur ? 'selected' : ''}>${esc(l)}</option>`;
+  const fmt = v => sf.metric === 'acc' ? pct(v) + '%' : v.toFixed(3);
+  $('#main').innerHTML = `<div class="card"><div class="row">
+      <select id="s-model">${models.map(m => opt(m, m, sf.model)).join('')}</select>
+      <select id="s-prompt">${opt('', '全部提示词', sf.prompt)}${promptsL.map(([id, n]) => opt(id, `${n} · ${id}`, sf.prompt)).join('')}</select>
+      <select id="s-metric">${opt('acc', '准确率', sf.metric)}${opt('auc', 'AUC', sf.metric)}</select></div>
+      <div class="legend"><span><i style="border-color:var(--series-1)"></i>少示例</span><span><i style="border-color:var(--series-2)"></i>多示例</span>
+      <span><i style="border-color:var(--series-3)"></i>多示例批量</span><span><i style="border-color:var(--ref);border-top-style:dashed"></i>零样本参照</span>
+      <span>实线 = 同域示例，虚线 = 跨域或混合</span><span>竖线为 95% CI</span></div>
+      ${sf.prompt ? '' : '<div class="meta">提示：比较示例数量时最好固定一个提示词，否则同一个 k 上可能有多个点。</div>'}
+      <div class="facets" id="facets"></div></div>
+    <div class="card scroll"><b>数据表</b><table><thead><tr><th>查询数据集</th><th>上下文</th><th class="num">k</th><th>示例来源</th><th>提示词</th>
+      <th class="num">${sf.metric === 'acc' ? '准确率' : 'AUC'}</th><th class="num">95% CI</th><th class="num">n</th><th>运行</th></tr></thead><tbody>
+      ${use.sort((a, b) => a.dataset.localeCompare(b.dataset) || a.mode.localeCompare(b.mode) || a.k - b.k).map(p => `<tr><td>${esc(p.dataset)}</td><td>${MODE[p.mode]}</td>
+        <td class="num">${p.k}</td><td>${DOMAIN[p.demo_domain]}</td><td>${esc(p.prompt_name)}</td><td class="num">${fmt(p[sf.metric])}</td>
+        <td class="num">${p[sf.metric + '_ci'] ? p[sf.metric + '_ci'].map(fmt).join(' – ') : '–'}</td><td class="num">${p.n}</td><td class="meta">${esc(p.run)}</td></tr>`).join('')}
+    </tbody></table></div>`;
+  $('#s-model').onchange = e => { sf.model = e.target.value; viewShots(); };
+  $('#s-prompt').onchange = e => { sf.prompt = e.target.value; viewShots(); };
+  $('#s-metric').onchange = e => { sf.metric = e.target.value; viewShots(); };
+  $('#facets').innerHTML = datasets.map(ds => `<div><b>${esc(ds)}</b>${facet(use.filter(p => p.dataset === ds), sf.metric, fmt)}</div>`).join('')
+    || '<div class="empty">这个筛选下没有数据。</div>';
+  document.querySelectorAll('#facets [data-tip]').forEach(el => {
+    el.onmousemove = e => showTip(e, el.dataset.tip);
+    el.onmouseleave = () => tip.style.display = 'none';
+  });
+}
+function facet(points, metric, fmt) {
+  const W = 380, H = 240, m = {l: 44, r: 12, t: 12, b: 34};
+  const maxK = Math.max(8, ...points.map(p => p.k));
+  const X = k => m.l + Math.log2(k + 1) / Math.log2(maxK + 1) * (W - m.l - m.r);
+  const vals = points.flatMap(p => [p[metric], ...(p[metric + '_ci'] ?? [])]);
+  let lo = Math.min(...vals), hi = Math.max(...vals);
+  const pad = Math.max(.02, (hi - lo) * .1); lo = Math.max(0, lo - pad); hi = Math.min(1, hi + pad);
+  const Y = v => m.t + (1 - (v - lo) / (hi - lo)) * (H - m.t - m.b);
+  const ticksX = [0, 1, 2, 4, 8, 16, 32, 64, 128, 256, 512].filter(k => k <= maxK);
+  const ticksY = Array.from({length: 5}, (_, i) => lo + (hi - lo) * i / 4);
+  let svg = ticksY.map(v => `<line class="grid" x1="${m.l}" x2="${W - m.r}" y1="${Y(v)}" y2="${Y(v)}"/><text x="${m.l - 6}" y="${Y(v) + 4}" text-anchor="end">${fmt(v)}</text>`).join('')
+    + ticksX.map(k => `<text x="${X(k)}" y="${H - m.b + 16}" text-anchor="middle">${k}</text>`).join('')
+    + `<text x="${(W + m.l) / 2}" y="${H - 4}" text-anchor="middle">示例数 k（对数刻度）</text>`;
+  const tipOf = p => esc(`${p.run}\n${MODE[p.mode]} k=${p.k} · ${DOMAIN[p.demo_domain]} · ${p.prompt_name}\n${metric === 'acc' ? '准确率' : 'AUC'} ${fmt(p[metric])}${p[metric + '_ci'] ? ` [${p[metric + '_ci'].map(fmt).join(', ')}]` : ''} · n=${p.n}`).replace(/\n/g, '<br>');
+  for (const z of points.filter(p => p.mode === 'zero'))
+    svg += `<line x1="${m.l}" x2="${W - m.r}" y1="${Y(z[metric])}" y2="${Y(z[metric])}" stroke="var(--ref)" stroke-width="1.5" stroke-dasharray="4 3"/>`;
+  const groups = {};
+  for (const p of points.filter(p => p.mode !== 'zero')) (groups[`${p.mode}|${p.demo_domain === 'same' ? 'same' : 'other'}|${p.prompt_id}`] ??= []).push(p);
+  for (const [key, g] of Object.entries(groups)) {
+    const [mode, dom] = key.split('|'), color = SERIES[mode];
+    g.sort((a, b) => a.k - b.k);
+    svg += `<polyline fill="none" stroke="${color}" stroke-width="2" ${dom === 'same' ? '' : 'stroke-dasharray="6 4"'} points="${g.map(p => `${X(p.k)},${Y(p[metric])}`).join(' ')}"/>`;
+    for (const p of g) {
+      const c = p[metric + '_ci'];
+      if (c) svg += `<line x1="${X(p.k)}" x2="${X(p.k)}" y1="${Y(c[0])}" y2="${Y(c[1])}" stroke="${color}" stroke-width="1.5" opacity=".6"/>`;
+    }
+  }
+  for (const p of points) {
+    const color = p.mode === 'zero' ? 'var(--ref)' : SERIES[p.mode];
+    svg += `<circle cx="${X(p.k)}" cy="${Y(p[metric])}" r="4.5" fill="${color}" stroke="var(--surface)" stroke-width="2"/>
+      <circle cx="${X(p.k)}" cy="${Y(p[metric])}" r="12" fill="transparent" data-tip="${tipOf(p)}"/>`;
+  }
+  return `<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="示例数与${metric}">${svg}</svg>`;
+}
+
+let first = 'runs';
+try { first = localStorage.getItem('tab') || first; } catch (e) {}
+setTab(['prompts', 'demos', 'runs', 'shots'].includes(first) ? first : 'runs');
+</script>
+</body>
+</html>
