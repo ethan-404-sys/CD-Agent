@@ -1,0 +1,26 @@
+{
+  "judge": {
+    "threshold": 0.26101770997047424,
+    "weighted_f1": 0.7312386608456808,
+    "positive_weight": 7.552488194696695,
+    "rule": "validation labeled units; positive sample weight=Nneg/Npos, negative=1; maximum binary F1; highest threshold tie"
+  },
+  "D": {
+    "threshold": 0.006285340525209904,
+    "weighted_f1": 0.7188217553734491,
+    "positive_weight": 7.552488194696695,
+    "rule": "validation labeled units; positive sample weight=Nneg/Npos, negative=1; maximum binary F1; highest threshold tie"
+  },
+  "groups": {
+    "judge_right_D_wrong": {
+      "available": 3229,
+      "selected": 12
+    },
+    "judge_wrong_D_right": {
+      "available": 3806,
+      "selected": 12
+    }
+  },
+  "seed": 20261026,
+  "split": "val"
+}
