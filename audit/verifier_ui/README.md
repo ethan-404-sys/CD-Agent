@@ -138,9 +138,9 @@ python export_demos.py --db verifier.db --set exp6k_demos_second --out demos_sec
 在 `audit/verifier_ui/` 执行，前端环境使用已有的 exp6-v2-env：
 
 ```bash
-WALKTHROUGH_DIR=/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/batch54_assets \
+WALKTHROUGH_DIR=$STAGING/batch54_assets \
 VERIFIER_DB=/path/to/verifier.db \
-/guisongxia01/pangchao/wangyihan/conda_envs/exp6-v2-env/bin/uvicorn app:app --host 127.0.0.1 --port 8767
+$CONDA_ENVS/exp6-v2-env/bin/uvicorn app:app --host 127.0.0.1 --port 8767
 ```
 
 本机沿用 SSH 转发：`ssh -L 8767:127.0.0.1:8767 <服务器>`。打开：
@@ -155,7 +155,7 @@ URL 保存模式、数据集、划分、图名、步骤；刷新、浏览器前�
 
 ### 冻结范围与数据出处
 
-下面路径中的 `STAGING` 指 `/guisongxia01/pangchao/wangyihan/wyh/exp6_staging`，`OUT` 指 `/guisongxia01/pangchao/wangyihan/Chang-Agent/outputs/CD_1016_probe`。
+下面路径中的 `STAGING` 指实验暂存目录（`$STAGING`），`CONDA_ENVS` 指 conda 环境目录，`OUT` 指 `$WORKSPACE/Chang-Agent/outputs/CD_1016_probe`（检测器概率等缓存）。
 
 | 数据集 | 验证 / 测试图数 | 冻结单元 | 第 3 步 | 第 5 步 |
 | --- | --- | --- | --- | --- |
@@ -187,7 +187,7 @@ WHU 没有对应验证单元表，前端只提供测试。LEVIR、WHU 的适配�
 
 ### 两阶段构建、分片和续跑
 
-CPU解释器为 `/guisongxia01/pangchao/wangyihan/conda_envs/exp5-env/bin/python`，依赖沿用现有NumPy、SciPy、Pillow。全部阶段只用CPU，不调用模型、不安装包。输出只允许写入 `STAGING/batch54_assets` 或其子目录。
+CPU解释器为 `$CONDA_ENVS/exp5-env/bin/python`，依赖沿用现有NumPy、SciPy、Pillow。全部阶段只用CPU，不调用模型、不安装包。输出只允许写入 `STAGING/batch54_assets` 或其子目录。
 
 1. `stats`：对整个冻结划分计算七步数量、②覆盖、各来源数量/覆盖、典型图特征、各类典型区域的编号和裁剪坐标，并逐图核对第5步冻结掩码。不读取RGB，不调用绘图、PNG编码或保存。按冻结清单的全局序号 `i % shards` 分片；结果写为 `stats_parts/<i>-of-<n>/<image>.json`，每图一个小JSON，便于中断后续跑。
 2. `merge`：读取全部统计分片，校验输入和图片清单，写唯一的 `stats.json`。它包含完整划分均值、各步②覆盖汇总、逐图记录、典型图、固定种子随机图及最终图池。缺图片时正式merge失败。②覆盖汇总采用命中目标数之和除以目标数之和；平均数量采用候选总数除以完整图片数，包含零候选图。
@@ -202,7 +202,7 @@ PNG统一采用 `optimize=True, compress_level=9`。T1/T2只各存一张，叠�
 在本worktree根目录进行轻量自测，每个数据集限1–2张：
 
 ```bash
-WALK_PY=/guisongxia01/pangchao/wangyihan/conda_envs/exp5-env/bin/python
+WALK_PY=$CONDA_ENVS/exp5-env/bin/python
 WALK_SCRIPT=audit/verifier_ui/walkthrough_build.py
 "$WALK_PY" -B "$WALK_SCRIPT" stats --dataset second --split val --images train_1049.png
 "$WALK_PY" -B "$WALK_SCRIPT" merge --dataset second --split val --allow-partial
@@ -219,7 +219,7 @@ squeue -u guisongxia
 mkdir -p ../batch54_assets/logs
 PARTITION=your_cpu_partition
 WALK_UI="$PWD/audit/verifier_ui"
-WALK_PY=/guisongxia01/pangchao/wangyihan/conda_envs/exp5-env/bin/python
+WALK_PY=$CONDA_ENVS/exp5-env/bin/python
 STATS_JOB=$(sbatch --parsable -p "$PARTITION" --cpus-per-task=1 --mem=4G --time=01:00:00 \
   --array=0-7%4 --output="$PWD/../batch54_assets/logs/second-test-stats-%A_%a.out" \
   --error="$PWD/../batch54_assets/logs/second-test-stats-%A_%a.err" \
@@ -254,9 +254,9 @@ merge 在完整统计记录中确定性地选最多5张典型图。先按“尚�
 使用真实构建结果检查接口、所有PNG、图中候选点击编号与冻结掩码、内嵌JavaScript：
 
 ```bash
-/guisongxia01/pangchao/wangyihan/conda_envs/exp6-v2-env/bin/python -B \
+$CONDA_ENVS/exp6-v2-env/bin/python -B \
   audit/verifier_ui/walkthrough_check.py \
-  --assets /guisongxia01/pangchao/wangyihan/wyh/exp6_staging/batch54_assets
+  --assets $STAGING/batch54_assets
 ```
 
 该脚本直接调用路由，校验所有 JSON/PNG、未设置目录、缺失图片、路径越界和不创建审核数据库；从 `index.html` 用 HTMLParser 提取脚本并执行 `node --check`。有 socketpair 权限的环境可另加 `--http`，用现有 FastAPI TestClient 实际请求 JSON/PNG；无权限时在 socketpair 预检处明确失败。它没有浏览器布局或鼠标事件验收能力。实际验收图名、数值、CPU/空间估算和未执行项目见本 worktree 的 `check/REPORT.md`。
