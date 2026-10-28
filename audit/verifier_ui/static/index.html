@@ -117,11 +117,40 @@ svg .grid { stroke: var(--border); stroke-width: 1; }
 .seg-tog button.on { background: var(--surface-2); color: var(--text); font-weight: 600; }
 tr.ref td { color: var(--text-2); font-style: italic; background: var(--surface-2); }
 tr.dshead td { font-weight: 600; background: var(--bg); }
+.mode-switch { display:flex; gap:8px; margin-right:16px; }
+.mode-switch a { padding:4px 8px; border:1px solid var(--border); border-radius:6px; color:var(--text-2); text-decoration:none; }
+.mode-switch a.on { color:var(--accent); border-color:var(--accent); }
+#walk-content h2 { font-size:20px; margin:0 0 12px; }
+#walk-content h3 { font-size:15px; margin:0 0 8px; }
+#walk-search { font:inherit; border:1px solid var(--border); border-radius:5px; padding:5px; background:var(--surface); color:var(--text); }
+.walk-legend { position:sticky; top:58px; z-index:4; display:flex; gap:14px; flex-wrap:wrap; font-size:12px; }
+.walk-legend i { display:inline-block; width:12px; height:12px; border:1px solid #555; margin-right:5px; vertical-align:middle; }
+.walk-funnel { display:grid; grid-template-columns:repeat(7,minmax(110px,1fr)); gap:6px; overflow:auto; padding:2px; }
+.walk-funnel button { text-align:left; cursor:pointer; font-size:12px; }
+.walk-funnel button.on { border-color:var(--accent); background:var(--surface-2); }
+.walk-layout { display:grid; grid-template-columns:minmax(0,1fr) 280px; gap:16px; align-items:start; }
+.walk-aside { position:sticky; top:112px; overflow-wrap:anywhere; }
+.walk-aside dt { color:var(--muted); font-size:12px; margin-top:8px; }
+.walk-aside dd { margin:3px 0 8px; }
+.walk-frames { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:8px; margin-top:12px; }
+.walk-frames figure { margin:0; min-width:0; }
+.walk-frames img { width:100%; display:block; background:var(--surface-2); }
+.walk-frames figcaption { color:var(--text-2); text-align:center; font-size:12px; margin:4px; }
+.walk-comparison { position:relative; max-width:660px; margin:12px auto; line-height:0; }
+.walk-comparison img { width:100%; display:block; }
+.walk-comparison .walk-after { position:absolute; inset:0; clip-path:inset(0 0 0 50%); }
+.walk-divider { position:absolute; top:0; bottom:0; width:2px; background:white; box-shadow:0 0 2px black; pointer-events:none; }
+.walk-wipe { flex:1; }
+.walk-final { max-width:720px; margin:12px auto; }
+.walk-final img { display:block; width:100%; cursor:crosshair; }
+@media(max-width:900px) { .walk-layout { grid-template-columns:1fr; } .walk-aside { position:static; } .walk-legend { position:static; } }
+
 </style>
 </head>
 <body>
 <header>
   <h1>MLLM 判断器审核</h1>
+  <div class="mode-switch"><a id="mode-verifier" href="?mode=verifier">MLLM 判断器审核</a><a id="mode-candidates" href="?mode=candidates">漏检候选审核</a></div>
   <nav id="tabs">
     <button data-tab="prompts">提示词</button>
     <button data-tab="sets">样本集与审核</button>
@@ -611,9 +640,147 @@ function facet(points, refs, metric, fmt) {
   return `<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="示例数与${METRICS[metric]}">${svg}</svg>`;
 }
 
-let first = 'sets';
-try { first = localStorage.getItem('tab') || first; } catch (e) {}
-setTab(['prompts', 'sets', 'demos', 'runs', 'shots'].includes(first) ? first : 'sets');
+// ---------- 离线漏检候选流程 ----------
+const walk = {catalog: null, doc: null, index: null, timers: [], sequence: 0};
+const walkParams = () => new URLSearchParams(location.search);
+const walkStem = name => name.replace(/\.[^.]+$/, '');
+function walkUrl(patch) {
+  const p = walkParams(); p.set('mode', 'candidates');
+  Object.entries(patch).forEach(([k,v]) => v == null ? p.delete(k) : p.set(k, v));
+  return '?' + p.toString();
+}
+function walkGo(patch) { history.pushState(null, '', walkUrl(patch)); loadWalk(); }
+function walkStop() { walk.timers.forEach(clearInterval); walk.timers = []; }
+function walkAsset(file) {
+  return '/walkthrough-assets/' + [walk.doc.dataset, walk.doc.split, walkStem(walk.doc.image), file].map(encodeURIComponent).join('/');
+}
+function walkImg(file, label, extra='') {
+  const bg=walk.doc.backgrounds?.[file]; let style='';
+  if(bg){const [x,y,x1,y1]=bg.box,w=x1-x,h=y1-y,[H,W]=walk.doc.shape;
+    style=`background-image:url('${walkAsset(bg.file)}');background-repeat:no-repeat;background-size:${W/w*100}% ${H/h*100}%;background-position:${W===w?0:x/(W-w)*100}% ${H===h?0:y/(H-h)*100}%`;}
+  return `<img src="${walkAsset(file)}" alt="${esc(label)}" ${extra} style="${style}">`;
+}
+function walkFrames(frames) {
+  return `<div class="walk-frames">${frames.map(f => `<figure>${walkImg(f.file,f.label)}<figcaption>${esc(f.label)}</figcaption></figure>`).join('')}</div>`;
+}
+function walkCompare(frames) {
+  if (frames.length < 2) return walkFrames(frames);
+  return `<div class="walk-player" data-frames="${esc(JSON.stringify(frames))}">
+    <div class="walk-comparison">${walkImg(frames[0].file, frames[0].label, 'class="walk-before"')}
+      ${walkImg(frames[frames.length-1].file, frames[frames.length-1].label, 'class="walk-after"')}
+      <span class="walk-divider" style="left:50%"></span></div>
+    <div class="row"><span>前后对比</span><input aria-label="前后对比滑块" class="walk-wipe" type="range" min="0" max="100" value="50"></div>
+    <div class="row"><button class="b walk-play">逐步播放</button><button class="b walk-reset">恢复前后对比</button>
+      <input aria-label="逐步画面" class="walk-frame" type="range" min="0" max="${frames.length-1}" value="0">
+      <span class="meta walk-caption">${esc(frames[0].label)} → ${esc(frames[frames.length-1].label)}</span></div></div>`;
+}
+function bindWalkPlayers() {
+  $$('.walk-player').forEach(el => {
+    const frames = JSON.parse(el.dataset.frames), before = $('.walk-before',el), after = $('.walk-after',el), divider=$('.walk-divider',el);
+    let timer=null;
+    const stop=()=>{if(timer)clearInterval(timer);timer=null;$('.walk-play',el).textContent='逐步播放';};
+    const show=i=>{before.src=walkAsset(frames[i].file);before.alt=frames[i].label;after.style.display='none';divider.style.display='none';$('.walk-caption',el).textContent=frames[i].label;$('.walk-frame',el).value=i;};
+    $('.walk-wipe',el).oninput=e=>{stop();before.src=walkAsset(frames[0].file);after.style.display='';divider.style.display='';after.style.clipPath=`inset(0 0 0 ${e.target.value}%)`;divider.style.left=e.target.value+'%';$('.walk-caption',el).textContent=frames[0].label+' → '+frames.at(-1).label;};
+    $('.walk-frame',el).oninput=e=>{stop();show(Number(e.target.value));};
+    $('.walk-reset',el).onclick=()=>{$('.walk-wipe',el).dispatchEvent(new Event('input'));};
+    $('.walk-play',el).onclick=()=>{if(timer){stop();return;}let i=0;show(i);$('.walk-play',el).textContent='暂停';timer=setInterval(()=>{i=(i+1)%frames.length;show(i);},1100);walk.timers.push(timer);};
+  });
+}
+function walkLegend() {
+  const names = {detector:'检测器',candidate:'候选',novel:'新增像素',cell1:'① 无信号贴边',cell2:'② 无信号孤立',cell3:'③ 有信号',cell5:'⑤ 小目标/小块',ring:'D膨胀1像素'};
+  return `<div class="card walk-legend">${Object.entries(walk.doc.colors).map(([k,c])=>`<span><i style="background:${c}"></i>${names[k]}</span>`).join('')}${Object.entries(walk.doc.source_colors).map(([k,c])=>`<span><i style="background:${c}"></i>来源 ${esc(k)}（多来源视图）</span>`).join('')}</div>`;
+}
+async function loadWalk() {
+  walkStop(); const token=++walk.sequence;
+  $('#tabs').hidden=true; $('#banner').innerHTML=''; $('header h1').textContent='漏检候选审核';
+  $('#main').innerHTML='<div class="empty">正在读取离线流程图…</div>';
+  try {
+    walk.catalog ??= await api('/api/walkthrough');
+    if(token!==walk.sequence)return;
+    const p=walkParams(), ds=p.get('ds')||'second', split=p.get('split')||'val';
+    const scope=walk.catalog.scopes.find(s=>s.dataset===ds&&s.split===split);
+    walk.index=scope?.index;
+    const controls=`<div class="card row"><label>数据集 <select id="walk-ds">${['second','sysu','levir','whu'].map(d=>opt(d,d.toUpperCase(),ds)).join('')}</select></label>
+      <label>划分 <select id="walk-split">${(ds==='whu'?['test']:['val','test']).map(s=>opt(s,s==='val'?'验证':'测试',split)).join('')}</select></label>
+      <label>图名 <input id="walk-search" list="walk-names" placeholder="搜索图池内的完整图名" value="${esc(p.get('img')||'')}"></label><button class="b" id="walk-find">打开</button><button class="b" id="walk-random">随机一张</button>
+      <datalist id="walk-names">${(walk.index?.images||[]).map(n=>`<option value="${esc(n)}"></option>`).join('')}</datalist><span id="walk-message" role="status"></span></div>`;
+    $('#main').innerHTML=controls+'<div id="walk-content"></div>';
+    $('#walk-ds').onchange=e=>walkGo({ds:e.target.value,split:e.target.value==='whu'?'test':split,img:null});
+    $('#walk-split').onchange=e=>walkGo({split:e.target.value,img:null});
+    const find=()=>{const n=$('#walk-search').value.trim();if(walk.index?.images.includes(n))walkGo({img:n});else $('#walk-message').textContent='此图不在当前已生成图池内；搜索与随机选图仅限图池。';};
+    $('#walk-find').onclick=find;$('#walk-search').onkeydown=e=>{if(e.key==='Enter')find();};
+    $('#walk-random').disabled=!walk.index?.images.length;
+    $('#walk-random').onclick=()=>{const names=walk.index.images;walkGo({img:names[Math.floor(Math.random()*names.length)]});};
+    if(!scope?.ready){$('#walk-content').innerHTML=`<div class="empty">${esc(walk.catalog.message)}${ds==='whu'&&split==='val'?' WHU没有冻结验证缓存，请切换测试。':''}</div>`;return;}
+    const name=p.get('img')||walk.index.typical[0]||walk.index.images[0];
+    if(!walk.index.images.includes(name)){$('#walk-content').innerHTML='<div class="empty">此图不在当前已生成图池内。请从图池选择图片。</div>';return;}
+    const stepNumber=Math.max(0,Math.min(6,Number.parseInt(p.get('step')||'0',10)||0));
+    history.replaceState(null,'',walkUrl({ds,split,img:name,step:stepNumber}));
+    $('#walk-search').value=name;
+    const doc=await api(`/api/walkthrough/${encodeURIComponent(ds)}/${encodeURIComponent(split)}/${encodeURIComponent(walkStem(name))}`);
+    if(token!==walk.sequence)return;
+    walk.doc=doc;
+    renderWalk(stepNumber);
+  } catch(e) { if(token===walk.sequence)$('#main').innerHTML=`<div class="empty">加载失败：${esc(e.message)}</div>`; }
+}
+function renderWalk(n) {
+  const d=walk.doc, step=d.steps[n], index=walk.index, statistics=index.statistics;
+  const exampleNames={merge:'有合并',large:'大对象切块',small:'普通对象',cell1:'①',cell2:'②',cell3:'③',fill:'补漏组',refine:'精修组',thin:'去细条',tiny:'去小块',kept2:'保留②'};
+  const wanted={2:['merge'],3:['large','small'],4:['cell1','cell2','cell3','fill','refine'],5:['thin','tiny','kept2']}[n]||[];
+  const missing=wanted.filter(k=>!d.features[k]);
+  $('#walk-content').innerHTML=`${walkLegend()}
+    <div class="row"><b>${esc(d.image)}</b><span class="meta">图池共 ${index.pool_size} 张，已渲染 ${index.generated} 张 · ${statistics.complete?'统计覆盖整个划分 '+statistics.expected+' 张':'统计预览 '+statistics.analyzed+'/'+statistics.expected+' 张，完整划分均值待统计'}</span></div>
+    <div class="row">典型图 ${index.typical.map(name=>`<button class="b walk-name" data-name="${esc(name)}">${esc(name)}</button>`).join('')}</div>
+    <div class="walk-funnel">${d.steps.map(s=>`<button class="b ${s.number===n?'on':''}" data-step="${s.number}"><b>${s.number} ${esc(s.title)}</b><br>${s.stats.count} ${s.number===0?'检测器连通域':'个候选'}<br><small>② ${s.stats.hits2}/${s.stats.objects2} · ${pct(s.stats.coverage2)}%</small><br><small>整个划分平均 ${statistics.averages?statistics.averages[s.number].toFixed(2):'待统计'}</small><br><small>划分②覆盖 ${statistics.complete?pct(statistics.aggregates[s.number].coverage2)+'%':'待统计'}</small></button>`).join('')}</div>
+    <p class="meta">②覆盖按GT目标去重：检测器与候选新增并集覆盖目标≥50%算命中。切块会增加候选个数。</p>
+    <div class="walk-layout"><section><div class="card"><h2>${n} · ${esc(step.title)}</h2><div id="walk-step"></div></div>
+      ${missing.length?`<div class="card meta">本图缺少的示例：${missing.map(k=>index.examples[k]?`<button class="b walk-name" data-name="${esc(index.examples[k])}">${exampleNames[k]}：打开 ${esc(index.examples[k])}</button>`:`${exampleNames[k]}（当前图池中暂无）`).join(' ')}</div>`:''}
+      ${(step.examples||[]).map(ex=>`<div class="card"><h3>${esc(ex.title)}</h3><p>${esc(ex.note)}</p>${walkCompare(ex.frames)}</div>`).join('')}
+    </section><aside class="card walk-aside"><b>本步参数</b><dl>${Object.entries(step.parameters).filter(([k])=>k!=='冻结核对').map(([k,v])=>`<dt>${esc(k)}</dt><dd>${esc(Array.isArray(v)?v.join('、'):v??'未启用')}</dd>`).join('')}</dl>
+      <p>本图：<b>${step.stats.count}</b> ${n===0?'个检测器连通域':'个候选'}</p><p>整个划分平均：<b>${statistics.averages?statistics.averages[n].toFixed(2):'待全量统计'}</b></p>
+      <p>本图②覆盖：${step.stats.hits2} / ${step.stats.objects2}（${pct(step.stats.coverage2)}%）</p>
+      ${n===4?`<p>补漏组 ${step.fill_count} · 精修组 ${step.refine_count}</p>`:''}
+      ${n>=5?`<p class="badge good">冻结表逐单元、逐像素核对一致</p><p class="meta">${d.verification.units} 个单元；新增像素并集 ${d.verification.novel_pixels_union}</p>`:''}
+      <div id="walk-source-stats"></div><details><summary>数据出处</summary><pre>${esc(JSON.stringify(d.provenance,null,2))}</pre></details></aside></div>`;
+  $$('.walk-name').forEach(b=>b.onclick=()=>walkGo({img:b.dataset.name}));
+  $$('[data-step]').forEach(b=>b.onclick=()=>walkGo({step:b.dataset.step}));
+  const host=$('#walk-step');
+  if(n===0){
+    host.innerHTML=`<div class="row"><label><input id="walk-cells" type="checkbox"> GT按①②③⑤着色</label><label>检测器 <select id="walk-det"><option value="detector.png">二值掩码</option><option value="probability.png">概率热力图</option></select></label></div><div id="walk-original"></div><p class="meta" id="walk-heat-note"></p>`;
+    const render=()=>{$('#walk-original').innerHTML=walkFrames([{label:'T1',file:'t1.png'},{label:'T2',file:'t2.png'},{label:'GT',file:$('#walk-cells').checked?'gt_cells.png':'gt.png'},{label:$('#walk-det').value==='detector.png'?'检测器二值掩码':'检测器概率',file:$('#walk-det').value}]);$('#walk-heat-note').textContent=$('#walk-det').value==='probability.png'?'概率色标：蓝色 0 → 中间绿色 0.5 → 红色 1':'';};
+    $('#walk-cells').onchange=render;$('#walk-det').onchange=render;render();
+  } else if(n===1){
+    host.innerHTML=`<label>候选来源 <select id="walk-source">${step.sources.map(s=>opt(s.name,s.name,'B')).join('')}<option value="all">全部叠加</option></select></label><p id="walk-source-description"></p><div id="walk-source-image"></div>`;
+    const render=()=>{const value=$('#walk-source').value,s=step.sources.find(s=>s.name===value);$('#walk-source-description').textContent=s?s.description:'全部叠加：B 黄、G0.05 橙、H1 紫。';$('#walk-source-image').innerHTML=walkFrames([{label:s?s.name:'全部来源',file:s?s.file:'sources_all.png'}]);$('#walk-source-stats').innerHTML=s?`<p>来源 ${esc(s.name)}：${s.count} 个候选</p><p>单独②覆盖：${s.hits2}/${s.objects2}（${pct(s.coverage2)}%）</p>`:'';};
+    $('#walk-source').onchange=render;render();
+  } else if(n===6){
+    const ts=step.targets2,covered=ts.filter(t=>t.status==='covered').length,partial=ts.filter(t=>t.status==='partial').length,absent=ts.filter(t=>t.status==='absent').length;
+    host.innerHTML=`<p>最终 ${step.stats.count} 个补漏候选。②目标 ${ts.length} 个：覆盖 ${covered} 个，未达50% ${partial+absent} 个（部分覆盖 ${partial}、完全未覆盖 ${absent}）。紫色虚线框表示完全未覆盖。</p>
+      <label><input type="checkbox" id="walk-final-cells"> 按候选是否含②像素着色（GT视角）</label><div class="walk-final">${walkImg('final.png','点击候选放大','id="walk-final-image"')}</div>
+      <label>候选 <select id="walk-candidate">${step.candidates.map(c=>opt(String(c.id),`${c.id} · ${c.area}像素${c.cell2?' · 含②':''}`,String(step.candidates[0]?.id))).join('')}</select></label><span id="walk-pick-status" class="meta"></span><div id="walk-candidate-detail"></div>`;
+    $('#walk-final-cells').onchange=e=>{$('#walk-final-image').src=walkAsset(e.target.checked?'final_cells.png':'final.png');};
+    const choose=id=>{const c=step.candidates.find(c=>c.id===Number(id));$('#walk-candidate-detail').innerHTML=c?`<p>候选 ${c.id} · 新增 ${c.area} 像素</p>${walkFrames(c.frames)}`:'本图没有最终补漏候选。';};
+    $('#walk-candidate').onchange=e=>choose(e.target.value);choose(step.candidates[0]?.id);
+    const pickSequence=walk.sequence;const picker=new Image();picker.onload=()=>{if(pickSequence!==walk.sequence)return;const canvas=document.createElement('canvas');canvas.width=picker.width;canvas.height=picker.height;const context=canvas.getContext('2d',{willReadFrequently:true});context.drawImage(picker,0,0);
+      $('#walk-final-image').onclick=e=>{const rect=e.target.getBoundingClientRect(),x=Math.min(picker.width-1,Math.floor((e.clientX-rect.left)/rect.width*picker.width)),y=Math.min(picker.height-1,Math.floor((e.clientY-rect.top)/rect.height*picker.height));const pixel=context.getImageData(x,y,1,1).data,id=pixel[0]+256*pixel[1]+65536*pixel[2],c=step.candidates.find(c=>c.pick===id);if(c){$('#walk-candidate').value=c.id;choose(c.id);$('#walk-pick-status').textContent='';}else $('#walk-pick-status').textContent='此位置不在最终候选中。';};};
+    picker.onerror=()=>{if(pickSequence!==walk.sequence)return;$('#walk-pick-status').textContent='候选点击图加载失败，可使用候选下拉框。';};picker.src=walkAsset('pick.png');
+  } else host.innerHTML=walkCompare(step.frames);
+  bindWalkPlayers();
+}
+
+const candidateMode = new URLSearchParams(location.search).get('mode') === 'candidates';
+$('#mode-candidates').classList.toggle('on', candidateMode);
+$('#mode-verifier').classList.toggle('on', !candidateMode);
+if (candidateMode) {
+  loadWalk();
+  window.addEventListener('popstate', loadWalk);
+  window.addEventListener('pagehide', walkStop);
+} else {
+  let first = 'sets';
+  try { first = localStorage.getItem('tab') || first; } catch (e) {}
+  setTab(['prompts', 'sets', 'demos', 'runs', 'shots'].includes(first) ? first : 'sets');
+}
+
 </script>
 </body>
 </html>

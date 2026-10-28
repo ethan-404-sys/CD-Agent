@@ -22,6 +22,7 @@ import store
 
 DB = Path(os.environ.get('VERIFIER_DB', Path(__file__).with_name('verifier.db')))
 STATIC = Path(__file__).with_name('static')
+WALKTHROUGH_DIR = Path(os.environ['WALKTHROUGH_DIR']).resolve() if os.environ.get('WALKTHROUGH_DIR') else None
 AREA_BINS = ((0, 500, '<500'), (500, 2000, '500–2k'), (2000, 8000, '2k–8k'), (8000, None, '≥8k'))
 SPLIT_FOR = {'demo_pool': 'train', 'dev': 'val', 'test': 'test'}
 METRIC_VERSION = 2  # bump when store.metrics changes so cached values are recomputed
@@ -387,3 +388,45 @@ def thumb(sample_id: int):
 @app.get('/')
 def index():
     return FileResponse(STATIC / 'index.html')
+
+
+@app.get('/api/walkthrough')
+def walkthrough_catalog():
+    """Read offline indexes only; this mode never opens the audit database."""
+    scopes = []
+    for dataset, splits in [('second', ('val', 'test')), ('sysu', ('val', 'test')),
+                            ('levir', ('val', 'test')), ('whu', ('test',))]:
+        for split in splits:
+            path = WALKTHROUGH_DIR / dataset / split / 'index.json' if WALKTHROUGH_DIR else None
+            row = json.loads(path.read_text()) if path and path.is_file() else None
+            stats_path = path.with_name('stats.json') if path else None
+            statistics = json.loads(stats_path.read_text()) if stats_path and stats_path.is_file() else None
+            if row and statistics and row.get('version') == statistics.get('version') == 2 and row.get('pool') == statistics.get('pool'):
+                row['statistics'] = {k: statistics[k] for k in ('complete', 'analyzed', 'expected', 'averages', 'aggregates', 'seed')}
+            else:
+                row = None
+            scopes.append(dict(dataset=dataset, split=split, ready=bool(row and row['images']), index=row))
+    return dict(configured=WALKTHROUGH_DIR is not None, scopes=scopes,
+                message='未生成：请先构建离线图像并设置 WALKTHROUGH_DIR。')
+
+
+def walkthrough_path(relative):
+    if WALKTHROUGH_DIR is None:
+        raise HTTPException(404, '未生成：未设置 WALKTHROUGH_DIR')
+    path = (WALKTHROUGH_DIR / relative).resolve()
+    if not path.is_relative_to(WALKTHROUGH_DIR) or path.suffix not in ('.json', '.png') or not path.is_file():
+        raise HTTPException(404, '离线产物不存在')
+    return path
+
+
+@app.get('/api/walkthrough/{dataset}/{split}/{image}')
+def walkthrough_image(dataset: str, split: str, image: str):
+    inventory = json.loads(walkthrough_path(f'{dataset}/{split}/index.json').read_text())
+    if inventory.get('version') != 2 or image not in [Path(name).stem for name in inventory['images']]:
+        raise HTTPException(404, '此图不在已生成的小图池内')
+    return json.loads(walkthrough_path(f'{dataset}/{split}/{image}/walkthrough.json').read_text())
+
+
+@app.get('/walkthrough-assets/{relative:path}')
+def walkthrough_asset(relative: str):
+    return FileResponse(walkthrough_path(relative))
