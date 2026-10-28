@@ -10,7 +10,10 @@ CREATE TABLE IF NOT EXISTS prompt_version (
     text        TEXT NOT NULL,
     parent_id   TEXT REFERENCES prompt_version(id),
     note        TEXT,
-    created_at  TEXT NOT NULL
+    created_at  TEXT NOT NULL,
+    grp         TEXT,
+    title       TEXT,
+    kind        TEXT CHECK (kind IN ('template', 'rendered'))
 );
 
 -- Any candidate shown to a model, as a query or as a demo.

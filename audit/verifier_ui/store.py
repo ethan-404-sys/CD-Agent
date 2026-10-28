@@ -46,10 +46,20 @@ def now():
     return datetime.now(timezone.utc).isoformat(timespec='seconds')
 
 
+def ensure_prompt_columns(db):
+    columns = {r[1] for r in db.execute('PRAGMA table_info(prompt_version)')}
+    for name in ('grp', 'title', 'kind'):
+        if name not in columns:
+            constraint = " CHECK (kind IN ('template', 'rendered'))" if name == 'kind' else ''
+            db.execute(f'ALTER TABLE prompt_version ADD COLUMN {name} TEXT{constraint}')
+
+
 def connect(path):
     db = sqlite3.connect(path)
     db.row_factory = sqlite3.Row
     db.executescript(SCHEMA.read_text())
+    with db:
+        ensure_prompt_columns(db)
     if db.execute('PRAGMA user_version').fetchone()[0] < 1:
         # Reviews used to live on sample_set_item (per pool); move them to sample_review once.
         # A sample reviewed in several pools keeps its most recent review.
@@ -66,10 +76,13 @@ def digest(value):
     return hashlib.sha256(text.encode()).hexdigest()[:12]
 
 
-def add_prompt(db, name, text, parent_id=None, note=None):
+def add_prompt(db, name, text, parent_id=None, note=None, grp=None, title=None, kind=None):
+    if kind not in (None, 'template', 'rendered'):
+        raise ValueError('kind must be template, rendered or None')
     pid = digest(text)
-    db.execute('INSERT OR IGNORE INTO prompt_version VALUES (?,?,?,?,?,?)',
-               (pid, name, text, parent_id, note, now()))
+    db.execute('INSERT OR IGNORE INTO prompt_version '
+               '(id, name, text, parent_id, note, created_at, grp, title, kind) VALUES (?,?,?,?,?,?,?,?,?)',
+               (pid, name, text, parent_id, note, now(), grp, title, kind))
     return pid
 
 

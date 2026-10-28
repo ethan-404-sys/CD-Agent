@@ -45,6 +45,10 @@ main { padding: 16px; max-width: 1400px; margin: 0 auto; }
 .item { padding: 8px 10px; border-radius: 6px; cursor: pointer; }
 .item:hover { background: var(--surface-2); }
 .item.on { background: var(--surface-2); outline: 1px solid var(--accent); }
+.prompt-group > summary { padding: 8px 10px; font-weight: 600; }
+#prompt-list .item { overflow-wrap: anywhere; margin: 1px; }
+.rendered-prompt { margin: 10px 0; }
+.rendered-prompt > summary { margin-bottom: 8px; }
 .meta { color: var(--text-2); font-size: 12px; }
 .mono, pre { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12.5px; }
 pre { white-space: pre-wrap; word-break: break-word; margin: 0; }
@@ -146,6 +150,7 @@ const STRATA = {pos2: '② 正例', pos_other: '其他正例（①③）', hard_
 const READOUT = {token_prob: '词元概率', verbal_confidence: '口头置信度', answer_only: '只有回答'};
 const DOMAIN = {same: '同域', cross: '跨域', mixed: '混合', none: '—'};
 const state = {tab: null, prompt: [], set: null, setFilter: {label: '', review: '', stratum: ''}, setShown: 60,
+  promptScroll: 0, promptGroups: {},
   demoSet: null, purpose: 'dev', run: null, query: null, filters: {dataset: '', source: '', stratum: '', verdict: ''}, shots: {}};
 const opt = (v, l, cur) => `<option value="${esc(v)}" ${v === cur ? 'selected' : ''}>${esc(l)}</option>`;
 const segTog = (id, items, cur) => `<span class="seg-tog" id="${id}">${items.map(([v, l]) =>
@@ -153,6 +158,7 @@ const segTog = (id, items, cur) => `<span class="seg-tog" id="${id}">${items.map
 const onSeg = (id, fn) => $$(`#${id} button`).forEach(b => b.onclick = () => fn(b.dataset.v));
 
 function setTab(tab) {
+  if (state.tab === 'prompts') savePromptList();
   state.tab = tab;
   try { localStorage.setItem('tab', tab); } catch (e) {}
   $$('#tabs button').forEach(b => b.classList.toggle('on', b.dataset.tab === tab));
@@ -183,34 +189,78 @@ function wordDiff(a, b) {
   while (j < m) out += `<ins>${esc(B[j++])}</ins>`;
   return out;
 }
-async function viewPrompts() {
-  const list = await api('/api/prompts');
-  if (!list.length) { $('#main').innerHTML = '<div class="empty">库里还没有提示词。</div>'; return; }
-  const sel = state.prompt.filter(id => list.some(p => p.id === id));
-  if (!sel.length) sel.push(list[0].id);
-  state.prompt = sel;
-  const byId = Object.fromEntries(list.map(p => [p.id, p]));
+const PROMPT_GROUPS = [['sysu', 'SYSU'], ['second', 'SECOND'], ['sysu_second', 'SYSU + SECOND 共用'],
+  ['levir', 'LEVIR'], ['whu', 'WHU'], ['levir_whu', 'LEVIR + WHU 共用'], ['', '未分组']];
+const promptTitle = p => p.title || p.name;
+function savePromptList() {
+  const list = $('#prompt-list');
+  if (!list) return;
+  state.promptScroll = list.scrollTop;
+  $$('.prompt-group', list).forEach(g => { state.promptGroups[g.dataset.group] = g.open; });
+}
+function promptBody(p, byId) {
+  const parent = byId[p.parent_id];
+  return `<div class="row"><b>${esc(promptTitle(p))}</b><span class="badge mono">${esc(p.id)}</span></div>
+    <div class="meta mono">${esc(p.name)}</div>
+    <div class="meta">${p.parent_id ? `父版本 ${esc(parent ? promptTitle(parent) : p.parent_id)} · ` : ''}
+      ${p.runs} 次运行 · ${esc(p.models ?? '')}</div>
+    ${p.note ? `<p class="meta">${esc(p.note)}</p>` : ''}<pre>${esc(p.text)}</pre>`;
+}
+function promptComparison(a, b) {
+  return `<div class="row"><b>对比</b><span class="badge bad">${esc(promptTitle(a))}</span>→<span class="badge good">${esc(promptTitle(b))}</span></div>
+    <div class="meta mono">${esc(a.name)} → ${esc(b.name)}</div><pre>${wordDiff(a.text, b.text)}</pre>`;
+}
+function renderPromptDetail(byId) {
+  const sel = state.prompt;
   let body;
   if (sel.length === 2) {
     const [a, b] = sel.map(id => byId[id]);
-    body = `<div class="card"><div class="row"><b>对比</b><span class="badge bad">${esc(a.name)}</span>→<span class="badge good">${esc(b.name)}</span></div>
-      <pre>${wordDiff(a.text, b.text)}</pre></div>`;
+    body = `<div class="card">${promptComparison(a, b)}</div>`;
   } else {
     const p = byId[sel[0]];
-    body = `<div class="card"><div class="row"><b>${esc(p.name)}</b><span class="badge mono">${p.id}</span>
-      ${p.parent_id ? `<span class="meta">父版本 ${esc(byId[p.parent_id]?.name ?? p.parent_id)}</span>` : ''}
-      <span class="meta">${p.runs} 次运行 · ${esc(p.models ?? '')}</span></div>
-      ${p.note ? `<p class="meta">${esc(p.note)}</p>` : ''}<pre>${esc(p.text)}</pre></div>`;
+    const rendered = (p.rendered_ids ?? []).map(id => byId[id]);
+    body = `<div class="card">${promptBody(p, byId)}</div>
+      ${rendered.length ? `<details class="card"><summary>渲染实例（${rendered.length}）</summary>
+        ${rendered.map(r => `<details class="rendered-prompt"><summary>${esc(promptTitle(r))}</summary>
+          ${promptBody(r, byId)}<button class="b" data-compare="${esc(r.id)}">与模板对比</button>
+          <div class="rendered-diff"></div></details>`).join('')}</details>` : ''}`;
   }
-  $('#main').innerHTML = `<div class="cols"><div class="card list">
+  $('#prompt-detail').innerHTML = body;
+  $$('#prompt-list .item').forEach(el => el.classList.toggle('on', sel.includes(el.dataset.id)));
+  $$('#prompt-detail [data-compare]').forEach(button => button.onclick = () => {
+    const rendered = byId[button.dataset.compare];
+    $('.rendered-diff', button.parentElement).innerHTML = promptComparison(byId[rendered.parent_id], rendered);
+  });
+}
+async function viewPrompts() {
+  const list = await api('/api/prompts');
+  if (state.tab !== 'prompts') return;
+  const templates = list.filter(p => p.kind !== 'rendered')
+    .sort((a, b) => a.created_at.localeCompare(b.created_at) || a.name.localeCompare(b.name));
+  if (!templates.length) { $('#main').innerHTML = '<div class="empty">库里还没有提示词模板。</div>'; return; }
+  state.prompt = state.prompt.filter(id => templates.some(p => p.id === id));
+  if (!state.prompt.length) state.prompt = [templates[0].id];
+  const byId = Object.fromEntries(list.map(p => [p.id, p]));
+  const groups = PROMPT_GROUPS.map(([key, title]) => [key, title, templates.filter(p =>
+    (PROMPT_GROUPS.some(([k]) => k === p.grp) ? p.grp : '') === key)]);
+  $('#main').innerHTML = `<div class="cols"><div class="card list" id="prompt-list">
       <div class="meta" style="padding:4px 10px">点击查看；按住 Shift 点第二个做对比</div>
-      ${list.map(p => `<div class="item ${sel.includes(p.id) ? 'on' : ''}" data-id="${p.id}">
-        <div>${esc(p.name)}</div><div class="meta mono">${p.id} · ${p.runs} 次运行</div></div>`).join('')}
-    </div><div>${body}</div></div>`;
-  $$('.item').forEach(el => el.onclick = e => {
+      ${groups.filter(([, , items]) => items.length).map(([key, title, items]) =>
+        `<details class="prompt-group" data-group="${key}" ${state.promptGroups[key] !== false ? 'open' : ''}>
+          <summary>${title}（${items.length}）</summary>
+          ${items.map(p => `<div class="item" data-id="${esc(p.id)}"><div>${esc(promptTitle(p))}</div>
+            <div class="meta mono">${esc(p.name)} · ${esc(p.id)} · ${p.runs} 次运行</div></div>`).join('')}
+        </details>`).join('')}
+    </div><div id="prompt-detail"></div></div>`;
+  renderPromptDetail(byId);
+  const sidebar = $('#prompt-list');
+  sidebar.scrollTop = state.promptScroll;
+  sidebar.onscroll = () => { state.promptScroll = sidebar.scrollTop; };
+  $$('.prompt-group', sidebar).forEach(g => g.ontoggle = () => { state.promptGroups[g.dataset.group] = g.open; });
+  $$('.item', sidebar).forEach(el => el.onclick = e => {
     const id = el.dataset.id;
     state.prompt = e.shiftKey && state.prompt[0] !== id ? [state.prompt[0], id] : [id];
-    viewPrompts();
+    renderPromptDetail(byId);
   });
 }
 

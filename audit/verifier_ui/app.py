@@ -186,8 +186,15 @@ def references(runs):
 
 @app.get('/api/prompts')
 def prompts():
-    return rows('SELECT p.*, COUNT(r.id) AS runs, GROUP_CONCAT(DISTINCT r.model) AS models FROM prompt_version p '
-                'LEFT JOIN run r ON r.prompt_id = p.id GROUP BY p.id ORDER BY p.created_at, p.name')
+    items = rows('SELECT p.*, COUNT(r.id) AS runs, GROUP_CONCAT(DISTINCT r.model) AS models FROM prompt_version p '
+                 'LEFT JOIN run r ON r.prompt_id = p.id GROUP BY p.id ORDER BY p.created_at, p.name')
+    rendered = defaultdict(list)
+    for p in items:
+        if p['kind'] == 'rendered':
+            rendered[p['parent_id']].append(p['id'])
+    for p in items:
+        p['rendered_ids'] = rendered[p['id']] if p['kind'] != 'rendered' else []
+    return items
 
 
 @app.get('/api/checks')
