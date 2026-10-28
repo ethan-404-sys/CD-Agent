@@ -1,4 +1,4 @@
-# 任务：实验 6m，分数据集微调 Qwen3.5-4B 做补漏判断（草稿，待 Ethan 确认）
+# 任务：实验 6m，分数据集微调 Qwen3.5-4B 做补漏判断
 
 给服务器上的 Claude。前置：
 - `results/exp6l_icl_eval.md`：提示与 ICL 的结果。Qwen3.5-4B 是最好的 MLLM，但测试 ② AP 只有 SYSU 0.102、SECOND 0.071。
