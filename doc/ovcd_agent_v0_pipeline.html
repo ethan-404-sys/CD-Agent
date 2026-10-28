@@ -1,0 +1,287 @@
+<title>OVCD Agent v0 流程</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+/* Layout: one reading column; numbered pipeline spine on the left, each step a panel; loop and roadmap as their own bands */
+:root{
+  --bg:#f3f6f5; --panel:#ffffff; --ink:#15222a; --muted:#566670; --line:#cfd9d8;
+  --prog:#2f5d73;      /* 程序步骤 */
+  --prog-soft:#e3edf1;
+  --mllm:#b5651d;      /* MLLM 决策 */
+  --mllm-soft:#f7ebde;
+  --change:#c23b2a;    /* 掩码与变化 */
+  --change-soft:#f8e4e1;
+  --eval:#3d6b45;      /* 评测 */
+  --eval-soft:#e3efe4;
+  --gate:#7a3fa0;
+  --gate-soft:#efe5f5;
+  --sans:"Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0f171b; --panel:#162228; --ink:#e4ecee; --muted:#9db0b6; --line:#2b3b42;
+  --prog:#8cc0d6; --prog-soft:#1d3440; --mllm:#e9a865; --mllm-soft:#3a2a1a;
+  --change:#f0816f; --change-soft:#3e211d; --eval:#8fca97; --eval-soft:#1d3322;
+  --gate:#c9a0e6; --gate-soft:#2f2238; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#0f171b; --panel:#162228; --ink:#e4ecee; --muted:#9db0b6; --line:#2b3b42;
+  --prog:#8cc0d6; --prog-soft:#1d3440; --mllm:#e9a865; --mllm-soft:#3a2a1a;
+  --change:#f0816f; --change-soft:#3e211d; --eval:#8fca97; --eval-soft:#1d3322;
+  --gate:#c9a0e6; --gate-soft:#2f2238; color-scheme:dark }
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.65}
+.wrap{max-width:980px;margin:0 auto;padding-block:32px 64px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1{font-size:28px;line-height:1.25;margin:0 0 6px;text-wrap:balance}
+h2{font-size:19px;margin:0 0 14px;text-wrap:balance}
+h3{font-size:16px;margin:0 0 6px}
+p{margin:0 0 10px;max-width:68ch}
+.lead{color:var(--muted)}
+.mono{font-family:var(--mono);font-size:12.5px;letter-spacing:.02em}
+section{margin-top:40px}
+
+/* legend */
+.legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:16px;font-size:13px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.sw{width:12px;height:12px;border-radius:3px;display:inline-block}
+
+/* tags */
+.tag{display:inline-block;font-family:var(--mono);font-size:11.5px;font-weight:600;padding:1px 7px;border-radius:4px;letter-spacing:.03em;white-space:nowrap}
+.t-prog{background:var(--prog-soft);color:var(--prog)}
+.t-mllm{background:var(--mllm-soft);color:var(--mllm)}
+.t-change{background:var(--change-soft);color:var(--change)}
+.t-eval{background:var(--eval-soft);color:var(--eval)}
+.t-gate{background:var(--gate-soft);color:var(--gate)}
+
+/* pipeline spine */
+.spine{list-style:none;margin:0;padding:0;position:relative}
+.spine>li{display:grid;grid-template-columns:44px minmax(0,1fr);gap:14px;position:relative;padding-bottom:18px}
+.spine>li::before{content:"";position:absolute;left:21px;top:40px;bottom:0;width:2px;background:var(--line)}
+.spine>li:last-child::before{display:none}
+.num{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-family:var(--mono);font-weight:600;font-size:15px;
+  background:var(--panel);border:2px solid var(--prog);color:var(--prog);position:relative;z-index:1}
+.num.m{border-color:var(--mllm);color:var(--mllm)}
+.num.o{border-color:var(--change);color:var(--change)}
+.step{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px;min-width:0}
+.step .hd{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 10px;margin-bottom:6px}
+.step ul{margin:6px 0 0;padding-left:1.2em}
+.step li{margin:2px 0}
+.io{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:var(--muted);margin-top:8px}
+.io b{color:var(--ink);font-weight:500}
+
+/* loop */
+.loop{margin-top:10px;border:2px dashed var(--mllm);border-radius:12px;padding:14px;background:color-mix(in srgb,var(--mllm-soft) 40%,var(--panel))}
+.loop-title{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-weight:700;margin-bottom:10px}
+.cycle{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;align-items:stretch}
+.cyc{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:13px;position:relative;min-width:0}
+.cyc .k{font-family:var(--mono);font-size:11.5px;color:var(--muted);display:block}
+.cyc.m{border-color:var(--mllm)}
+.cyc:not(:last-child)::after{content:"→";position:absolute;right:-10px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:13px;z-index:1}
+.back{margin-top:6px;font-size:12.5px;color:var(--muted);text-align:right}
+.phases{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:12px}
+.ph{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-size:13.5px;min-width:0}
+.ph h4{margin:0 0 4px;font-size:14px}
+.ph .q{color:var(--muted);font-size:12.5px;margin-top:6px}
+
+/* tables */
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:620px}
+th,td{text-align:left;padding:8px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:500;color:var(--muted);font-size:12.5px;letter-spacing:.03em}
+tr:last-child td{border-bottom:none}
+td.c{white-space:nowrap}
+
+/* roadmap */
+.road{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px}
+.ms{background:var(--panel);border:1px solid var(--line);border-top:4px solid var(--eval);border-radius:8px;padding:10px;font-size:13px;min-width:0}
+.ms.gate{border-top-color:var(--gate);background:color-mix(in srgb,var(--gate-soft) 50%,var(--panel))}
+.ms .id{font-family:var(--mono);font-weight:600;font-size:13px}
+.ms .ok{color:var(--muted);font-size:12px;margin-top:6px}
+
+/* compare */
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px;min-width:0}
+
+@media (max-width:760px){
+  .cycle{grid-template-columns:minmax(0,1fr)}
+  .cyc:not(:last-child)::after{content:"↓";right:auto;left:50%;top:auto;bottom:-14px;transform:translateX(-50%)}
+  .cycle{gap:14px}
+  .phases,.two{grid-template-columns:minmax(0,1fr)}
+  .road{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .back{text-align:left}
+}
+@media (prefers-reduced-motion:no-preference){
+  .loop{transition:border-color .2s}
+}
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="mono" style="color:var(--muted)">CD-Agent · doc/ovcd_agent_v0.md · 2026-10-28</div>
+    <h1>OVCD Agent v0 流程</h1>
+    <p class="lead">给定两期影像和一个类别文本，MLLM 驱动的 Agent 通过“提出、核实、修正”的多轮循环，得到这个类别的变化掩码。v0 全部模块免训练，循环由程序编排。</p>
+    <div class="legend">
+      <span><i class="sw" style="background:var(--prog)"></i>程序执行</span>
+      <span><i class="sw" style="background:var(--mllm)"></i>MLLM 判断</span>
+      <span><i class="sw" style="background:var(--change)"></i>掩码输入输出</span>
+      <span><i class="sw" style="background:var(--eval)"></i>评测</span>
+      <span><i class="sw" style="background:var(--gate)"></i>去留判断</span>
+    </div>
+  </header>
+
+  <section aria-labelledby="s-main">
+    <h2 id="s-main">主流程</h2>
+    <ol class="spine">
+      <li>
+        <div class="num o">0</div>
+        <div class="step">
+          <div class="hd"><h3>输入</h3><span class="tag t-change">数据</span></div>
+          <p>两期影像 I1、I2，以及一个类别文本 c，例如 <span class="mono">building</span>、<span class="mono">low vegetation</span>。</p>
+          <div class="io"><span>真值：<b>OR 规则</b>，变化像素中 t1 或 t2 属于 c 即为正</span><span>数据：<b>LEVIR、WHU、SECOND 六类</b></span></div>
+        </div>
+      </li>
+      <li>
+        <div class="num">1</div>
+        <div class="step">
+          <div class="hd"><h3>口径卡</h3><span class="tag t-prog">程序</span><span class="mono" style="color:var(--muted)">每类一张，固定不调</span></div>
+          <p>把类别 c 展开成“什么算变化、什么不算”，写进系统提示，核实时逐条引用。</p>
+          <ul>
+            <li>building 算：新建、拆除、拆除后重建</li>
+            <li>building 不算：阴影、季节色调、配准错位的边缘响应、车辆和临时堆放</li>
+            <li>附一份固定的同义词表，背景提示为 background 加其余类别名</li>
+          </ul>
+        </div>
+      </li>
+      <li>
+        <div class="num">2</div>
+        <div class="step">
+          <div class="hd"><h3>初始化</h3><span class="tag t-prog">程序</span><span class="tag t-change">输出 M0</span></div>
+          <p>用免训练的 OVCD 方法给出初始掩码 M0；有分数图就一并保存，供第 4 步找可疑区域。</p>
+          <div class="io"><span>默认：<b>DynamicEarth M-C-I</b></span><span>第二种：<b>ReA-OVCD</b>，检验与强前端是否互补</span></div>
+        </div>
+      </li>
+      <li>
+        <div class="num">3</div>
+        <div class="step">
+          <div class="hd"><h3>建立状态</h3><span class="tag t-prog">程序</span></div>
+          <ul>
+            <li>当前掩码 M<sub>t</sub></li>
+            <li>连通域清单：编号、面积、外接框、初始化分数</li>
+            <li>待查队列：阶段 A 按可疑程度排连通域；阶段 B 按来源分数排可疑区域</li>
+            <li>已用预算</li>
+          </ul>
+        </div>
+      </li>
+      <li>
+        <div class="num m">4</div>
+        <div class="step">
+          <div class="hd"><h3>Agent 循环</h3><span class="tag t-mllm">MLLM 判断</span><span class="tag t-prog">程序执行</span></div>
+          <p>按阶段 A → B → C 依次处理待查队列。每个待查项走一遍下面的五步。</p>
+
+          <div class="loop" role="group" aria-label="单步循环">
+            <div class="loop-title">单步循环 <span class="mono" style="color:var(--muted);font-weight:500">重复直到预算用完或队列为空</span></div>
+            <div class="cycle">
+              <div class="cyc"><span class="k">4.1 程序</span>取下一个待查项</div>
+              <div class="cyc"><span class="k">4.2 程序 · T2</span>放大，渲染 T1、T2 近景和掩码叠加</div>
+              <div class="cyc m"><span class="k" style="color:var(--mllm)">4.3 MLLM · T3/T5</span>按口径卡核实，或在局部画框</div>
+              <div class="cyc"><span class="k">4.4 程序 · T4/T5/T6</span>删除、新增或精修，更新 M<sub>t</sub></div>
+              <div class="cyc"><span class="k">4.5 程序</span>记录轨迹：动作、回答、掩码变化</div>
+            </div>
+            <div class="back">↺ 回到 4.1</div>
+
+            <div class="phases">
+              <div class="ph">
+                <h4><span class="tag t-mllm">阶段 A</span> 去误检</h4>
+                对 M0 的每个连通域：MLLM 核实是否为 c 的变化，判否则删除。
+                <div class="q">待查项：初始连通域　工具：T3 → T4</div>
+              </div>
+              <div class="ph">
+                <h4><span class="tag t-mllm">阶段 B</span> 补漏检</h4>
+                对可疑区域：MLLM 核实并在放大图里画框，SAM 在两期各分一次取并集后加入。
+                <div class="q">待查项：T7 的可疑区域　工具：T7 → T3 → T5</div>
+              </div>
+              <div class="ph">
+                <h4><span class="tag t-mllm">阶段 C</span> 修边界</h4>
+                对保留下来的连通域：用框或点提示 SAM 重新分割，替换原掩码。
+                <div class="q">待查项：保留的连通域　工具：T6</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="num o">5</div>
+        <div class="step">
+          <div class="hd"><h3>停止与输出</h3><span class="tag t-change">输出 M_final</span><span class="tag t-eval">评测</span></div>
+          <p>每张图设调用上限 k（10、20、50），用完或队列为空即停止。输出最终掩码和完整轨迹，轨迹供审核前端回放。</p>
+          <div class="io"><span>主指标：<b>F1<sup>c</sup></b>，累计 TP、FP、FN</span><span>另报：IoU<sup>c</sup>、P、R、整目标漏检率与误检率、逐图 F1、SECOND 方向分项、调用次数</span></div>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <section aria-labelledby="s-tools">
+    <h2 id="s-tools">工具</h2>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>编号</th><th>动作</th><th>谁决定</th><th>做什么</th><th>用在</th></tr></thead>
+        <tbody>
+          <tr><td class="c mono">T1</td><td class="c">看全局</td><td class="c"><span class="tag t-prog">程序</span></td><td>渲染全图缩略图，标出连通域编号</td><td class="c">v1 自主式</td></tr>
+          <tr><td class="c mono">T2</td><td class="c">放大</td><td class="c"><span class="tag t-prog">程序</span></td><td>裁剪区域，输出 T1、T2 近景和当前掩码叠加图</td><td class="c">A、B、C</td></tr>
+          <tr><td class="c mono">T3</td><td class="c">核实</td><td class="c"><span class="tag t-mllm">MLLM</span></td><td>回答这里是否有 c 的变化，给出是否、伪变化类型和理由</td><td class="c">A、B</td></tr>
+          <tr><td class="c mono">T4</td><td class="c">删除</td><td class="c"><span class="tag t-prog">程序</span></td><td>从掩码中去掉一个连通域</td><td class="c">A</td></tr>
+          <tr><td class="c mono">T5</td><td class="c">新增</td><td class="c"><span class="tag t-mllm">MLLM 画框</span></td><td>MLLM 在放大区域里画框，SAM 把框变成掩码，两期各分一次取并集</td><td class="c">B</td></tr>
+          <tr><td class="c mono">T6</td><td class="c">精修</td><td class="c"><span class="tag t-prog">程序</span></td><td>用框或点提示 SAM 重新分割一个连通域</td><td class="c">C</td></tr>
+          <tr><td class="c mono">T7</td><td class="c">找可疑区域</td><td class="c"><span class="tag t-prog">程序</span></td><td>按类别生成待查清单：初始化分数接近阈值的区域、SAM3 按类别文本两期分割的差异、AnyChange 提议中属于 c 的部分</td><td class="c">B</td></tr>
+          <tr><td class="c mono">T8</td><td class="c">结束</td><td class="c"><span class="tag t-prog">程序</span></td><td>预算用完或队列为空</td><td class="c">全部</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section aria-labelledby="s-v">
+    <h2 id="s-v">v0 与 v1</h2>
+    <div class="two">
+      <div class="card">
+        <h3>v0 编排式</h3>
+        <p>程序按 A → B → C 的顺序把待查项交给 MLLM。MLLM 只做 T3 核实和 T5 画框，其余动作由程序执行。目的是先把整个流程跑通。</p>
+      </div>
+      <div class="card">
+        <h3>v1 自主式</h3>
+        <p>MLLM 看完全局后自己决定下一步放大哪里、做什么、何时结束。v1 与 v0 的差，就是“自主决策”的价值。要专门处理停止时机和首步定位。</p>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="s-road">
+    <h2 id="s-road">实验路线</h2>
+    <div class="road">
+      <div class="ms"><div class="id">M0</div>复现 DynamicEarth、ReA-OVCD<div class="ok">与原文差 ≤ 2 个点</div></div>
+      <div class="ms"><div class="id">M1</div>初始化输出的错误分析<div class="ok">定阶段 A、B 的预算比例</div></div>
+      <div class="ms gate"><div class="id" style="color:var(--gate)">M2 去留</div>只做阶段 A：核实并删除<div class="ok">免训练 MLLM 能否稳定提升 F1<sup>c</sup>；不能就停下讨论</div></div>
+      <div class="ms"><div class="id">M3</div>加阶段 B：补漏<div class="ok">整目标漏检率下降，F1<sup>c</sup> 不降</div></div>
+      <div class="ms"><div class="id">M4</div>加阶段 C：精修<div class="ok">边界与 F1<sup>c</sup></div></div>
+      <div class="ms"><div class="id">M5</div>v1 自主式<div class="ok">相对编排式的提升与调用次数</div></div>
+      <div class="ms"><div class="id">M6</div>消融<div class="ok">去动作、换初始化、换 MLLM、去口径卡</div></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="s-base">
+    <h2 id="s-base">对比对象</h2>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>类别</th><th>方法</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td class="c"><span class="tag t-eval">必比</span></td><td class="c">DynamicEarth M-C-I、I-M-C</td><td>任务和协议的来源，也是默认初始化</td></tr>
+          <tr><td class="c"><span class="tag t-eval">必比</span></td><td class="c">ReA-OVCD</td><td>有代码的免训练方法中数字最高：LEVIR 84.52、WHU 90.31、SECOND 平均 47.19</td></tr>
+          <tr><td class="c"><span class="tag t-eval">必比</span></td><td class="c">Seg2Change</td><td>有公开权重的训练类方法；训练集含 SECOND 训练划分，须注明</td></tr>
+          <tr><td class="c">参照</td><td class="c">SChanger、MambaSCD</td><td>全监督上界</td></tr>
+          <tr><td class="c">引用</td><td class="c">Zero-OVCD、CoRegOVCD、MemOVCD</td><td>代码不全，只引用论文数字；Zero-OVCD 第一阶段有补漏模块，单独列出</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
