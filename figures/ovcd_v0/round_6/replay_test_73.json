@@ -1,0 +1,655 @@
+{
+  "name": "test_73.png",
+  "cfg": "r6_k50",
+  "split": "test",
+  "replay": "replay_test_73.png",
+  "f1": {
+    "M0": 0.4334164699594709,
+    "A": 0.43408829859600995,
+    "B": 0.6469784233694986,
+    "C": 0.6469784233694986
+  },
+  "zoom_bbox": [
+    0,
+    0,
+    441,
+    571
+  ],
+  "calls": [
+    {
+      "step": 1,
+      "stage": "A",
+      "uid": 5,
+      "bbox": [
+        193,
+        316,
+        194,
+        318
+      ],
+      "action": "T2+T3+T4",
+      "op": "T4_delete",
+      "raw": "{\"change\": \"no\", \"type\": \"vehicle_or_temporary\", \"reason\": \"The red contour in T2 contains a vehicle, which does not count as a building change according to the scope card.\"}\n",
+      "p_yes": 0.10669060051441193,
+      "f1_before": 0.4334164699594709,
+      "f1_after": 0.4334261218127157,
+      "calls_used": 1,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_73/001_T3_t1.jpg",
+        "calls_test_73/001_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 2,
+      "stage": "A",
+      "uid": 6,
+      "bbox": [
+        77,
+        504,
+        82,
+        507
+      ],
+      "action": "T2+T3+T4",
+      "op": "T4_delete",
+      "raw": "{\"change\": \"no\", \"type\": \"shadow\", \"reason\": \"The red contour in T2 highlights a shadow cast by a nearby structure, not a building change.\"}\n",
+      "p_yes": 0.18242551386356354,
+      "f1_before": 0.4334261218127157,
+      "f1_after": 0.43347921469058676,
+      "calls_used": 2,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_73/002_T3_t1.jpg",
+        "calls_test_73/002_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 3,
+      "stage": "A",
+      "uid": 1,
+      "bbox": [
+        33,
+        256,
+        38,
+        260
+      ],
+      "action": "T2+T3+T4",
+      "op": "T4_delete",
+      "raw": "{\"change\": \"no\", \"type\": \"no_change\", \"reason\": \"The red contour in both images highlights the same area with no visible building changes, only slight variations due to lighting or seasonal differences.\"}\n",
+      "p_yes": 0.10669060051441193,
+      "f1_before": 0.43347921469058676,
+      "f1_after": 0.43357095121407885,
+      "calls_used": 3,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_73/003_T3_t1.jpg",
+        "calls_test_73/003_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 4,
+      "stage": "A",
+      "uid": 4,
+      "bbox": [
+        44,
+        272,
+        60,
+        284
+      ],
+      "action": "T2+T3+T4",
+      "op": "T4_delete",
+      "raw": "{\"change\": \"no\", \"type\": \"shadow\", \"reason\": \"The red contour highlights a shadow cast by a nearby object, not a building change.\"}\n",
+      "p_yes": 0.18242551386356354,
+      "f1_before": 0.43357095121407885,
+      "f1_after": 0.43408829859600995,
+      "calls_used": 4,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_73/004_T3_t1.jpg",
+        "calls_test_73/004_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 5,
+      "stage": "A",
+      "uid": 2,
+      "bbox": [
+        101,
+        256,
+        256,
+        296
+      ],
+      "action": "T2+T3",
+      "op": "keep",
+      "raw": "{\"change\": \"yes\", \"type\": \"new_building\", \"reason\": \"A building is present in T2 but absent in T1 within the red contour.\"}\n",
+      "p_yes": 0.957912266254425,
+      "f1_before": 0.43408829859600995,
+      "f1_after": 0.43408829859600995,
+      "calls_used": 5,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_73/005_T3_t1.jpg",
+        "calls_test_73/005_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 6,
+      "stage": "A",
+      "uid": 3,
+      "bbox": [
+        0,
+        266,
+        230,
+        598
+      ],
+      "action": "T2+T3",
+      "op": "keep",
+      "raw": "{\"change\": \"yes\", \"type\": \"new_building\", \"reason\": \"A new residential building complex has been constructed within the red contour in T2, which was absent in T1.\"}\n",
+      "p_yes": 0.9626730680465698,
+      "f1_before": 0.43408829859600995,
+      "f1_after": 0.43408829859600995,
+      "calls_used": 6,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_73/006_T3_t1.jpg",
+        "calls_test_73/006_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 7,
+      "stage": "B",
+      "uid": 200041,
+      "bbox": [
+        196,
+        249,
+        223,
+        257
+      ],
+      "action": "T2+T3+add",
+      "op": "candidate_mask",
+      "raw": "{\"change\": \"yes\", \"type\": \"new_building\", \"reason\": \"A building is present in T2 but absent in T1 within the red contour.\"}\n",
+      "p_yes": 0.622459352016449,
+      "f1_before": 0.43408829859600995,
+      "f1_after": 0.4361401242678663,
+      "calls_used": 7,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_73/007_T3_t1.jpg",
+        "calls_test_73/007_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 8,
+      "stage": "B",
+      "uid": 200037,
+      "bbox": [
+        0,
+        190,
+        84,
+        248
+      ],
+      "action": "T2+T3+add",
+      "op": "candidate_mask",
+      "raw": "{\"change\": \"yes\", \"type\": \"new_building\", \"reason\": \"The red contour in T1 shows an empty field, while in T2 it contains three newly constructed houses.\"}\n",
+      "p_yes": 0.9914224743843079,
+      "f1_before": 0.4361401242678663,
+      "f1_after": 0.4766203753698624,
+      "calls_used": 8,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_73/008_T3_t1.jpg",
+        "calls_test_73/008_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 9,
+      "stage": "B",
+      "uid": 200038,
+      "bbox": [
+        76,
+        219,
+        138,
+        256
+      ],
+      "action": "T2+T3+add",
+      "op": "candidate_mask",
+      "raw": "{\"change\": \"yes\", \"type\": \"new_building\", \"reason\": \"A building is present in T2 but absent in T1 within the red contour.\"}\n",
+      "p_yes": 0.562176525592804,
+      "f1_before": 0.4766203753698624,
+      "f1_after": 0.5009486459271821,
+      "calls_used": 9,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_73/009_T3_t1.jpg",
+        "calls_test_73/009_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 10,
+      "stage": "B",
+      "uid": 200039,
+      "bbox": [
+        168,
+        239,
+        193,
+        256
+      ],
+      "action": "T2+T3+add",
+      "op": "candidate_mask",
+      "raw": "{\"change\": \"yes\", \"type\": \"new_building\", \"reason\": \"A building is present in T2 but absent in T1 within the red contour.\"}\n",
+      "p_yes": 0.8670357465744019,
+      "f1_before": 0.5009486459271821,
+      "f1_after": 0.5055346655963496,
+      "calls_used": 10,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_73/010_T3_t1.jpg",
+        "calls_test_73/010_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 11,
+      "stage": "B",
+      "uid": 200042,
+      "bbox": [
+        170,
+        268,
+        187,
+        281
+      ],
+      "action": "T2+T3",
+      "op": "skip",
+      "raw": "{\"change\": \"no\", \"type\": \"shadow\", \"reason\": \"The red contour highlights a shadow cast by nearby structures, not a building itself.\"}\n",
+      "p_yes": 0.2689414322376251,
+      "f1_before": 0.5055346655963496,
+      "f1_after": 0.5055346655963496,
+      "calls_used": 11,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_73/011_T3_t1.jpg",
+        "calls_test_73/011_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 12,
+      "stage": "B",
+      "uid": 200029,
+      "bbox": [
+        225,
+        124,
+        261,
+        151
+      ],
+      "action": "T2+T3+add",
+      "op": "candidate_mask",
+      "raw": "{\"change\": \"yes\", \"type\": \"new_building\", \"reason\": \"A building is present in T2 but absent in T1 within the red contour.\"}\n",
+      "p_yes": 0.7772998809814453,
+      "f1_before": 0.5055346655963496,
+      "f1_after": 0.5156354795439303,
+      "calls_used": 12,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_73/012_T3_t1.jpg",
+        "calls_test_73/012_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 13,
+      "stage": "B",
+      "uid": 200017,
+      "bbox": [
+        217,
+        33,
+        250,
+        64
+      ],
+      "action": "T2+T3+add",
+      "op": "candidate_mask",
+      "raw": "{\"change\": \"yes\", \"type\": \"new_building\", \"reason\": \"A building is present in T2 but absent in T1 within the red contour.\"}\n",
+      "p_yes": 0.9740425944328308,
+      "f1_before": 0.5156354795439303,
+      "f1_after": 0.526643030183304,
+      "calls_used": 13,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_73/013_T3_t1.jpg",
+        "calls_test_73/013_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 14,
+      "stage": "B",
+      "uid": 200015,
+      "bbox": [
+        340,
+        21,
+        377,
+        50
+      ],
+      "action": "T2+T3+add",
+      "op": "candidate_mask",
+      "raw": "{\"change\": \"yes\", \"type\": \"new_building\", \"reason\": \"A building is present in T2 but absent in T1 within the red contour.\"}\n",
+      "p_yes": 0.8354835510253906,
+      "f1_before": 0.526643030183304,
+      "f1_after": 0.537436214628112,
+      "calls_used": 14,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_73/014_T3_t1.jpg",
+        "calls_test_73/014_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 15,
+      "stage": "B",
+      "uid": 200023,
+      "bbox": [
+        108,
+        72,
+        140,
+        108
+      ],
+      "action": "T2+T3+add",
+      "op": "candidate_mask",
+      "raw": "{\"change\": \"yes\", \"type\": \"new_building\", \"reason\": \"A building is present in T2 but absent in T1 within the red contour.\"}\n",
+      "p_yes": 0.7057850360870361,
+      "f1_before": 0.537436214628112,
+      "f1_after": 0.5486731093726032,
+      "calls_used": 15,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_73/015_T3_t1.jpg",
+        "calls_test_73/015_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 16,
+      "stage": "B",
+      "uid": 200035,
+      "bbox": [
+        206,
+        172,
+        244,
+        205
+      ],
+      "action": "T2+T3+add",
+      "op": "candidate_mask",
+      "raw": "{\"change\": \"yes\", \"type\": \"new_building\", \"reason\": \"A building is present in T2 but absent in T1 within the red contour.\"}\n",
+      "p_yes": 0.9669140577316284,
+      "f1_before": 0.5486731093726032,
+      "f1_after": 0.5576025646228138,
+      "calls_used": 16,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_73/016_T3_t1.jpg",
+        "calls_test_73/016_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 17,
+      "stage": "B",
+      "uid": 200020,
+      "bbox": [
+        24,
+        56,
+        85,
+        90
+      ],
+      "action": "T2+T3+add",
+      "op": "candidate_mask",
+      "raw": "{\"change\": \"yes\", \"type\": \"new_building\", \"reason\": \"A building is present in T2 but absent in T1 within the red contour.\"}\n",
+      "p_yes": 0.7310585379600525,
+      "f1_before": 0.5576025646228138,
+      "f1_after": 0.5745867416922815,
+      "calls_used": 17,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_73/017_T3_t1.jpg",
+        "calls_test_73/017_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 18,
+      "stage": "B",
+      "uid": 200027,
+      "bbox": [
+        207,
+        86,
+        247,
+        123
+      ],
+      "action": "T2+T3+add",
+      "op": "candidate_mask",
+      "raw": "{\"change\": \"yes\", \"type\": \"new_building\", \"reason\": \"A building is present in T2 but absent in T1 within the red contour.\"}\n",
+      "p_yes": 0.7549149990081787,
+      "f1_before": 0.5745867416922815,
+      "f1_after": 0.5835408996635937,
+      "calls_used": 18,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_73/018_T3_t1.jpg",
+        "calls_test_73/018_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 19,
+      "stage": "B",
+      "uid": 200033,
+      "bbox": [
+        104,
+        158,
+        139,
+        188
+      ],
+      "action": "T2+T3+add",
+      "op": "candidate_mask",
+      "raw": "{\"change\": \"yes\", \"type\": \"new_building\", \"reason\": \"A building is present in T2 but absent in T1 within the red contour.\"}\n",
+      "p_yes": 0.9626730680465698,
+      "f1_before": 0.5835408996635937,
+      "f1_after": 0.5926940009652034,
+      "calls_used": 19,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_73/019_T3_t1.jpg",
+        "calls_test_73/019_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 20,
+      "stage": "B",
+      "uid": 200018,
+      "bbox": [
+        0,
+        38,
+        28,
+        74
+      ],
+      "action": "T2+T3+add",
+      "op": "candidate_mask",
+      "raw": "{\"change\": \"yes\", \"type\": \"new_building\", \"reason\": \"A building is present in T2 but absent in T1 within the red contour.\"}\n",
+      "p_yes": 0.9525741338729858,
+      "f1_before": 0.5926940009652034,
+      "f1_after": 0.6026807973954617,
+      "calls_used": 20,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_73/020_T3_t1.jpg",
+        "calls_test_73/020_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 21,
+      "stage": "B",
+      "uid": 200016,
+      "bbox": [
+        192,
+        24,
+        222,
+        51
+      ],
+      "action": "T2+T3+add",
+      "op": "candidate_mask",
+      "raw": "{\"change\": \"yes\", \"type\": \"new_building\", \"reason\": \"A building is present in T2 but absent in T1 within the red contour.\"}\n",
+      "p_yes": 0.9241418242454529,
+      "f1_before": 0.6026807973954617,
+      "f1_after": 0.6089881959434494,
+      "calls_used": 21,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_73/021_T3_t1.jpg",
+        "calls_test_73/021_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 22,
+      "stage": "B",
+      "uid": 200022,
+      "bbox": [
+        283,
+        64,
+        310,
+        96
+      ],
+      "action": "T2+T3+add",
+      "op": "candidate_mask",
+      "raw": "{\"change\": \"yes\", \"type\": \"new_building\", \"reason\": \"A building is present in T2 but absent in T1 within the red contour.\"}\n",
+      "p_yes": 0.8175744414329529,
+      "f1_before": 0.6089881959434494,
+      "f1_after": 0.6180098446095936,
+      "calls_used": 22,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_73/022_T3_t1.jpg",
+        "calls_test_73/022_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 23,
+      "stage": "B",
+      "uid": 200030,
+      "bbox": [
+        23,
+        129,
+        56,
+        161
+      ],
+      "action": "T2+T3+add",
+      "op": "candidate_mask",
+      "raw": "{\"change\": \"yes\", \"type\": \"new_building\", \"reason\": \"A building is present in T2 but absent in T1 within the red contour.\"}\n",
+      "p_yes": 0.9324532747268677,
+      "f1_before": 0.6180098446095936,
+      "f1_after": 0.6269131614003814,
+      "calls_used": 23,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_73/023_T3_t1.jpg",
+        "calls_test_73/023_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 24,
+      "stage": "B",
+      "uid": 200040,
+      "bbox": [
+        134,
+        240,
+        163,
+        256
+      ],
+      "action": "T2+T3+add",
+      "op": "candidate_mask",
+      "raw": "{\"change\": \"no\", \"type\": \"no_change\", \"reason\": \"The red contour in both images highlights the same roof structure with no visible changes in building presence or form.\"}\n",
+      "p_yes": 0.43782350420951843,
+      "f1_before": 0.6269131614003814,
+      "f1_after": 0.6305284168505095,
+      "calls_used": 24,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_73/024_T3_t1.jpg",
+        "calls_test_73/024_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 25,
+      "stage": "B",
+      "uid": 200031,
+      "bbox": [
+        51,
+        139,
+        82,
+        170
+      ],
+      "action": "T2+T3+add",
+      "op": "candidate_mask",
+      "raw": "{\"change\": \"yes\", \"type\": \"new_building\", \"reason\": \"A building is present in T2 but absent in T1 within the red contour.\"}\n",
+      "p_yes": 0.9859364032745361,
+      "f1_before": 0.6305284168505095,
+      "f1_after": 0.6386084117825691,
+      "calls_used": 25,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_73/025_T3_t1.jpg",
+        "calls_test_73/025_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 26,
+      "stage": "B",
+      "uid": 200028,
+      "bbox": [
+        0,
+        123,
+        27,
+        158
+      ],
+      "action": "T2+T3+add",
+      "op": "candidate_mask",
+      "raw": "{\"change\": \"yes\", \"type\": \"new_building\", \"reason\": \"A building is present in T2 but absent in T1 within the red contour.\"}\n",
+      "p_yes": 0.7310585379600525,
+      "f1_before": 0.6386084117825691,
+      "f1_after": 0.6469784233694986,
+      "calls_used": 26,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_73/026_T3_t1.jpg",
+        "calls_test_73/026_T3_t2.jpg"
+      ]
+    }
+  ],
+  "operations": [],
+  "stats": {
+    "calls": 26,
+    "box_try": 0,
+    "box_fail": 0,
+    "seconds": {
+      "A": 0.01118016242980957,
+      "B": 0.06831574440002441,
+      "C": 8.082389831542969e-05
+    }
+  }
+}

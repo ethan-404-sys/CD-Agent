@@ -2,8 +2,8 @@
 8-connected components of (S1 XOR S2) & ~M0 (round 5, Codex batch62 spec).
 
   segment (GPU, omniovcd-env): per image and time, SAM3 with the text "building" at resolution 1008
-           and the default instance threshold 0.5; saves the instance masks (packed) and scores
-           -> RUN/sam3/<split>/<stem>.npz
+           and the default instance threshold 0.5, on the whole image or (--tile 512) on each tile
+           pasted back; saves the instance masks (packed) and scores -> RUN/sam3[_t<tile>]/<split>/
   queue   (CPU): A = the A items of an existing tag (same uids and masks, so their cached answers
            are reused); B = components of (S1 ^ S2) & ~M0 with area in [50, 20000], ranked by the
            highest SAM3 score of an instance overlapping the component (ties: component id), top
@@ -24,7 +24,10 @@ import numpy as np
 from common import RUN, components, load_m0, load_rgb, names, read_jsonl, write_json
 
 SAM3_TOOLS = '/guisongxia01/pangchao/wangyihan/Chang-Agent/probe'
-OUT = RUN / 'sam3'
+
+
+def out_dir(tile):
+    return RUN / ('sam3' if not tile else f'sam3_t{tile}')
 
 
 def segment(a):
@@ -34,26 +37,37 @@ def segment(a):
     import sam3_tools
     proc = sam3_tools.build_processor()
     for name in names(a.split)[a.shard::a.shards]:
-        out = OUT / a.split / (Path(name).stem + '.npz')
+        out = out_dir(a.tile) / a.split / (Path(name).stem + '.npz')
         if out.exists():
             continue
         t0 = time.time()
         arrays = {}
         for t, im in enumerate(load_rgb(a.split, name)):
-            with torch.inference_mode(), sam3_tools.autocast():
-                state = proc.set_image(Image.fromarray(im))
-                state = proc.set_text_prompt(prompt='building', state=state)
-            m = state['masks'][:, 0].cpu().numpy().astype(bool) if len(state['scores']) else np.zeros((0,) + im.shape[:2], bool)
-            arrays[f'masks{t}'] = np.packbits(m.reshape(len(m), im.shape[0] * im.shape[1]), axis=1)
-            arrays[f'scores{t}'] = state['scores'].float().cpu().numpy()
+            H, W = im.shape[:2]
+            step = a.tile or H
+            ms, ss = [], []
+            for y in range(0, H, step):  # tile=0: the whole image in one pass
+                for x in range(0, W, step):
+                    with torch.inference_mode(), sam3_tools.autocast():
+                        state = proc.set_image(Image.fromarray(im[y:y + step, x:x + step]))
+                        state = proc.set_text_prompt(prompt='building', state=state)
+                    if len(state['scores']):
+                        tm = state['masks'][:, 0].cpu().numpy().astype(bool)
+                        full = np.zeros((len(tm), H, W), bool)
+                        full[:, y:y + step, x:x + step] = tm
+                        ms.append(full)
+                        ss.append(state['scores'].float().cpu().numpy())
+            m = np.concatenate(ms) if ms else np.zeros((0, H, W), bool)
+            arrays[f'masks{t}'] = np.packbits(m.reshape(len(m), H * W), axis=1)
+            arrays[f'scores{t}'] = np.concatenate(ss) if ss else np.zeros(0, np.float32)
         arrays['shape'] = np.array(im.shape[:2])
         out.parent.mkdir(parents=True, exist_ok=True)
         np.savez_compressed(out, **arrays)
         print(name, len(arrays['scores0']), len(arrays['scores1']), f'{time.time() - t0:.1f}s', flush=True)
 
 
-def read(split, name):
-    z = np.load(OUT / split / (Path(name).stem + '.npz'))
+def read(split, name, tile=0):
+    z = np.load(out_dir(tile) / split / (Path(name).stem + '.npz'))
     h, w = z['shape']
     inst = []
     for t in (0, 1):
@@ -69,7 +83,7 @@ def queue(a):
     for name in names(a.split):
         old = I.Store(a.from_tag, a.split, name)
         m0 = load_m0(a.m0, a.split, name)
-        inst = read(a.split, name)
+        inst = read(a.split, name, a.tile)
         s1, s2 = (m.any(0) if len(m) else np.zeros(m0.shape, bool) for m, _ in inst)
         lab, comps = components((s1 ^ s2) & ~m0)
         B, store = [], {}
@@ -113,5 +127,6 @@ if __name__ == '__main__':
     p.add_argument('--min-area', type=int, default=50)
     p.add_argument('--max-area', type=int, default=20000)
     p.add_argument('--keep-b', type=int, default=50)
+    p.add_argument('--tile', type=int, default=0, help='SAM3 on tile x tile pieces (0 = whole image)')
     a = p.parse_args()
     segment(a) if a.stage == 'segment' else queue(a)
