@@ -120,7 +120,7 @@ def gate_bars(out, sel):
     ks = list(sel['budgets'])
     rows0 = sel['budgets'][ks[0]]['C']
     labels = ['不修' if r['config']['c_mode'] == 'none' else f"框 {r['config']['c_gate']:.1f}" if r['config']['c_mode'] == 'box'
-              else f"裁 r{r['config'].get('c_radius', 0)} c{r['config'].get('c_cover', 0):.1f}" for r in rows0]
+              else f"裁 q{r['config'].get('c_conf', 0.5):g} r{r['config'].get('c_radius', 0)} c{r['config'].get('c_cover', 0):.1f}" for r in rows0]
     x = np.arange(len(labels))
     w = .8 / len(ks)
     for i, k in enumerate(ks):

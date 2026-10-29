@@ -6,7 +6,7 @@ from common import REPO, RUN
 
 rounds = [int(r) for r in sys.argv[1].split(',')]
 cols = ['轮次', '改动', 'k=10', 'k=20', 'k=50', '验证集 k=20']
-change = {1: '首轮（T5 画框）', 2: '去掉 T5，B 直接用候选掩码', 3: 'A 改为按变化分数升序', 4: '初始化换成 I-M-C', 5: 'T7 换成 SAM3 两期差异', 6: 'SAM3 改 512² 分块推理', 7: 'C 换成 SAM3 建筑掩码裁剪', 8: '—'}
+change = {1: '首轮（T5 画框）', 2: '去掉 T5，B 直接用候选掩码', 3: 'A 改为按变化分数升序', 4: '初始化换成 I-M-C', 5: 'T7 换成 SAM3 两期差异', 6: 'SAM3 改 512² 分块推理', 7: 'C 换成 SAM3 建筑掩码裁剪', 8: '裁剪的 SAM3 门限 0.4', 9: 'A、B 阈值在 C 之后选', 10: '—'}
 rows = []
 for r in rounds:
     t = [json.loads((RUN / 'eval' / f'r{r}_k{k}_test.json').read_text())['states']['C']['f1'] for k in (10, 20, 50)]

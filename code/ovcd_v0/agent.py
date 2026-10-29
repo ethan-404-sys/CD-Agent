@@ -47,6 +47,7 @@ class Config:
     c_radius: int = 0            # sam3clip: support S = dilate(S1 | S2, c_radius) from SAM3 'building' masks
     c_cover: float = 0.0         # sam3clip: clip a component only if >= c_cover of it lies in S
     c_tile: int = 512            # sam3clip: which SAM3 run (0 = whole image, 512 = tiled)
+    c_conf: float = 0.5          # sam3clip: SAM3 instance score threshold (< 0.5 read from the conf=0.1 run)
     stages: str = 'ABC'
     m0: str = 'mci'              # initializer: mci (DynamicEarth M-C-I) | imc (DynamicEarth I-M-C)
 
@@ -74,13 +75,14 @@ class Image:
             raise KeyError(f'{self.split}/{self.name}: no cached MLLM answer for item {uid}')
         return self.calls[uid]
 
-    def sam3_support(self, tile, radius):
-        key = ('sam3', tile, radius)
+    def sam3_support(self, tile, radius, conf=0.5):
+        key = ('sam3', tile, radius, conf)
         if key not in self._sam:
             from scipy import ndimage as ndi
             from sam3_t7 import read
             S = np.zeros(self.m0.shape, bool)
-            for m, _ in read(self.split, self.name, tile):
+            src = dict(conf=0.5) if conf >= 0.5 else dict(conf=0.1, min_score=conf)
+            for m, _ in read(self.split, self.name, tile, **src):
                 if len(m):
                     S |= m.any(0)
             if radius:
@@ -198,7 +200,7 @@ def run(img: Image, cfg: Config, log=True):
                  iou_old_new=float(iou), sam_score=s)
     if 'C' in cfg.stages and cfg.c_mode == 'sam3clip':
         from scipy import ndimage as ndi
-        S = img.sam3_support(cfg.c_tile, cfg.c_radius)
+        S = img.sam3_support(cfg.c_tile, cfg.c_radius, cfg.c_conf)
         entry = M.copy()
         lab, comps = components(entry)
         for comp in comps:

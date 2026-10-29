@@ -77,6 +77,22 @@ def main(a):
             base = Config(tag=a.tag, k=k, a_share=a.a_share, a_order=a.a_order, b_order='queue',
                           use_t5=bool(a.use_t5), b_max=a.b_max, m0=a.m0)
             orders = a.a_orders or [a.a_order]
+            if a.c_fixed:  # C-aware selection: A and B are scored after the fixed C (round 9)
+                cf = json.loads(a.c_fixed)
+                base = replace(base, **cf)
+                ra = grid(pool, 'val', [replace(base, a_order=o, tau_a=t, stages='AC') for o in orders for t in TAU], 'C')
+                ba = best(ra)['config']
+                base = replace(base, a_order=ba['a_order'])
+                rb = grid(pool, 'val', [replace(base, tau_a=ba['tau_a'], tau_b=t, stages='ABC') for t in TAU[1:] + [1.01]], 'C')
+                bb = best(rb)['config']
+                cc = [replace(base, tau_a=bb['tau_a'], tau_b=bb['tau_b'], stages='ABC', c_mode='none')]
+                cc += [replace(base, tau_a=bb['tau_a'], tau_b=bb['tau_b'], stages='ABC', c_mode='sam3clip', c_radius=r, c_cover=c, c_tile=a.c_tile, c_conf=q)
+                       for q in a.c_confs for r in CLIP_R for c in CLIP_COVER]
+                rc = grid(pool, 'val', cc, 'C')
+                out['budgets'][str(k)] = dict(A=ra, B=rb, C=rc, chosen=best(rc)['config'])
+                print(k, 'A', best(ra)['f1'], 'B', best(rb)['f1'], 'C', best(rc)['f1'], best(rc)['config'], flush=True)
+                write_json(RUN / 'select' / a.round / 'val.json', out)
+                continue
             ra = grid(pool, 'val', [replace(base, a_order=o, tau_a=t, stages='A') for o in orders for t in TAU], 'A')
             ba = best(ra)['config']
             base = replace(base, a_order=ba['a_order'])
@@ -84,8 +100,8 @@ def main(a):
             bb = best(rb)['config']
             cc = [replace(base, tau_a=bb['tau_a'], tau_b=bb['tau_b'], stages='ABC', c_mode='none')]
             cc += [replace(base, tau_a=bb['tau_a'], tau_b=bb['tau_b'], stages='ABC', c_mode='box', c_gate=g) for g in GATES]
-            cc += [replace(base, tau_a=bb['tau_a'], tau_b=bb['tau_b'], stages='ABC', c_mode='sam3clip', c_radius=r, c_cover=c, c_tile=a.c_tile)
-                   for r in CLIP_R for c in CLIP_COVER] if a.c_tile >= 0 else []
+            cc += [replace(base, tau_a=bb['tau_a'], tau_b=bb['tau_b'], stages='ABC', c_mode='sam3clip', c_radius=r, c_cover=c, c_tile=a.c_tile, c_conf=q)
+                   for q in a.c_confs for r in CLIP_R for c in CLIP_COVER] if a.c_tile >= 0 else []
             rc = grid(pool, 'val', cc, 'C')
             out['budgets'][str(k)] = dict(A=ra, B=rb, C=rc, chosen=best(rc)['config'])
             print(k, 'A', best(ra)['f1'], 'B', best(rb)['f1'], 'C', best(rc)['f1'], best(rc)['config'], flush=True)
@@ -104,5 +120,7 @@ if __name__ == '__main__':
     p.add_argument('--b-max', type=int, default=20)
     p.add_argument('--m0', default='mci', choices=['mci', 'imc'])
     p.add_argument('--c-tile', type=int, default=-1, help='also try C = clip to SAM3 support from this SAM3 run (-1: off)')
+    p.add_argument('--c-confs', type=float, nargs='+', default=[0.5], help='SAM3 score thresholds for the clip support')
+    p.add_argument('--c-fixed', help='JSON of C fields; if given, A and B are selected on the state after this C')
     p.add_argument('--a-orders', nargs='+', help='also select the stage-A order on val among these')
     main(p.parse_args())
