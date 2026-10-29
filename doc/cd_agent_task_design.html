@@ -1,0 +1,233 @@
+<title>变化检测智能体任务设置</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: one reading column. Pipeline strip → capabilities → capability × task matrix → task cards (module, then end-to-end) → open questions */
+:root{
+  --bg:#f4f6f8; --surface:#ffffff; --fg:#16202a; --muted:#5b6875; --line:#d8dfe5;
+  --acc:#1f5f8b; --acc-soft:#dde9f3;
+  --fp:#b3412f; --fp-bg:#f8e1dc; --fn:#a87400; --fn-bg:#f8edcc; --tp:#2c7a4f; --tp-bg:#dcefe3;
+  --e2e:#5b3f99; --e2e-soft:#e8e1f5; --sug:#7a6a55; --sug-bg:#f1ede6;
+  --display:"Noto Serif SC","Songti SC",serif; --body:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif; --mono:"JetBrains Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#10161c; --surface:#17202a; --fg:#e3e9ee; --muted:#98a6b3; --line:#2b3743;
+  --acc:#7cb6e0; --acc-soft:#1a2e3e;
+  --fp:#f0907e; --fp-bg:#3d211c; --fn:#e8c25e; --fn-bg:#3a3016; --tp:#7fd1a2; --tp-bg:#1b3527;
+  --e2e:#b9a2ee; --e2e-soft:#2a2240; --sug:#cdbb9f; --sug-bg:#2c271f; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#10161c; --surface:#17202a; --fg:#e3e9ee; --muted:#98a6b3; --line:#2b3743;
+  --acc:#7cb6e0; --acc-soft:#1a2e3e;
+  --fp:#f0907e; --fp-bg:#3d211c; --fn:#e8c25e; --fn-bg:#3a3016; --tp:#7fd1a2; --tp-bg:#1b3527;
+  --e2e:#b9a2ee; --e2e-soft:#2a2240; --sug:#cdbb9f; --sug-bg:#2c271f; color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.75}
+.wrap{max-width:1080px;margin:0 auto;padding-block:40px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:46px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;line-height:1.35;margin:0}
+h1{font-size:30px} h2{font-size:21px;display:flex;gap:12px;align-items:baseline} h3{font-size:16.5px}
+h2 .k{font-family:var(--mono);font-size:13px;color:var(--muted);letter-spacing:.06em}
+p{margin:0;max-width:70ch}
+section{display:flex;flex-direction:column;gap:16px}
+.meta{color:var(--muted);font-size:13px}
+.lead{font-size:16.5px}
+code{font-family:var(--mono);font-size:.88em}
+ul{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:3px}
+.note{font-size:13px;color:var(--muted)}
+.sug{background:var(--sug-bg);color:var(--sug);border-radius:4px;padding:8px 12px;font-size:13.5px;display:flex;gap:8px;max-width:none}
+.sug b{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;white-space:nowrap;padding-top:2px}
+
+/* pipeline */
+.pipe{display:grid;grid-template-columns:1fr auto 1fr auto 1.25fr;gap:10px;align-items:stretch}
+.stage{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:14px 16px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.stage .n{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.arrow{align-self:center;color:var(--muted);font-size:20px}
+.probs{display:flex;flex-direction:column;gap:6px}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;padding:3px 10px;border-radius:999px;align-self:flex-start}
+.chip.fp{background:var(--fp-bg);color:var(--fp)} .chip.fn{background:var(--fn-bg);color:var(--fn)} .chip.bd{background:var(--acc-soft);color:var(--acc)} .chip.tp{background:var(--tp-bg);color:var(--tp)}
+.agentband{border:1px dashed var(--acc);border-radius:6px;padding:12px 16px;display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;background:var(--surface)}
+.agentband strong{color:var(--acc)}
+
+/* capabilities */
+.caps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.cap{background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--acc);border-radius:6px;padding:16px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.cap .n{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.cap .sc{display:flex;flex-direction:column;gap:4px;font-size:13.5px}
+.cap .sc span{display:flex;gap:6px;align-items:baseline}
+
+/* matrix */
+.scroll{overflow-x:auto;border:1px solid var(--line);border-radius:6px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
+thead th{font-size:12.5px;color:var(--muted);font-weight:500;background:var(--bg);white-space:nowrap}
+tbody tr:last-child td,tbody tr:last-child th{border-bottom:0}
+tbody th{font-weight:500;white-space:nowrap}
+td.c{text-align:center;font-size:16px}
+.dot{display:inline-block;width:12px;height:12px;border-radius:50%;background:var(--acc)}
+.ring{display:inline-block;width:12px;height:12px;border-radius:50%;border:2px solid var(--acc)}
+.grp{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;color:var(--muted)}
+
+/* task cards */
+.tasks{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.task{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:18px 18px 16px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.task header{display:flex;flex-direction:column;gap:4px}
+.task .id{font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.06em;color:var(--acc)}
+.task.e2e .id{color:var(--e2e)}
+.task.e2e{border-top:3px solid var(--e2e)} .task.mod{border-top:3px solid var(--acc)}
+.task .state{font-size:12px;color:var(--muted)}
+.task dl{margin:0;display:grid;grid-template-columns:4.6em 1fr;gap:6px 12px;font-size:14px}
+.task dt{color:var(--muted);font-size:12.5px;padding-top:2px}
+.task dd{margin:0;min-width:0}
+.legend3{display:flex;gap:8px;flex-wrap:wrap}
+.wide{grid-column:1/-1}
+
+ol.q{margin:0;padding-left:1.4em;display:flex;flex-direction:column;gap:10px}
+ol.q li::marker{font-family:var(--mono);color:var(--muted)}
+.qtag{font-size:12px;color:var(--muted);margin-left:6px}
+@media (max-width:860px){.caps{grid-template-columns:1fr 1fr}.pipe{grid-template-columns:1fr}.arrow{transform:rotate(90deg);justify-self:center}}
+@media (max-width:640px){.caps,.tasks{grid-template-columns:1fr}.task dl{grid-template-columns:1fr}.task dt{padding-top:6px}h1{font-size:25px}}
+</style>
+
+<div class="wrap">
+
+<header style="display:flex;flex-direction:column;gap:10px">
+  <p class="meta">CV Learning · Ethan 的任务设置方案 · 2026-10-29</p>
+  <h1>变化检测智能体：能力与任务设置</h1>
+  <p class="lead">研究方向是“变化检测 + 变化检测智能体”，开放词汇变化检测是其中一个任务。任务围绕两件事来设：变化检测流程中存在哪些问题，以及 Agent 解决这些问题时需要具备哪些能力。参照师兄的做法：灾害智能体按灾害的四个特点建任务，另一位师兄按增、删、改、查建任务。</p>
+  <p class="note">灰底的“评审建议”是 Claude 的补充，不属于原方案。</p>
+</header>
+
+<section>
+  <h2><span class="k">01</span>全流程：变化检测在哪里出问题</h2>
+  <div class="pipe">
+    <div class="stage"><span class="n">步骤 1 · 输入</span><strong>T1 / T2 两期影像</strong><span class="note">可附带类别文本或需求文本</span></div>
+    <div class="arrow" aria-hidden="true">→</div>
+    <div class="stage"><span class="n">步骤 2 · 检测</span><strong>变化检测器</strong><span class="note">输出变化掩码 change mask</span></div>
+    <div class="arrow" aria-hidden="true">→</div>
+    <div class="stage"><span class="n">步骤 3 · 存在的问题</span>
+      <div class="probs">
+        <span class="chip fp">误检：报了变化，其实没变</span>
+        <span class="chip fn">漏检：真实变化没报出来</span>
+        <span class="chip bd">掩码边界质量差</span>
+      </div>
+    </div>
+  </div>
+  <div class="agentband"><strong>引入 Agent 之后</strong><span>读图理解 → 判断是否变化 → 定位区域 → 调度工具修改掩码</span><span class="note">误检场景看检测结果之内，漏检场景看检测结果之外</span></div>
+</section>
+
+<section>
+  <h2><span class="k">02</span>Agent 需要的四种能力</h2>
+  <div class="caps">
+    <article class="cap"><span class="n">能力 1</span><h3>读图</h3><p>同时理解遥感影像和文本，能在图像中找出文本指定的类别。</p></article>
+    <article class="cap"><span class="n">能力 2</span><h3>判断</h3><p>准确识别某区域从 T1 到 T2 是否发生了指定的变化，即“判断器”。</p>
+      <div class="sc"><span><i class="chip fp">误检</i>判断检测结果之内的区域</span><span><i class="chip fn">漏检</i>判断检测结果之外的区域</span></div></article>
+    <article class="cap"><span class="n">能力 3</span><h3>定位</h3><p>确认发生变化后，给出该区域的位置（点或框）。</p>
+      <div class="sc"><span><i class="chip fp">误检</i>检测结果之内</span><span><i class="chip fn">漏检</i>检测结果之外</span></div></article>
+    <article class="cap"><span class="n">能力 4</span><h3>工具调度</h3><p>和定位一起用：定位后选择合适的工具、给出合适的提示，交互式地完善掩码。</p></article>
+  </div>
+  <p class="sug"><b>评审建议</b><span>漏检场景在判断之前还需要一步“搜索”，即提出该去看哪里；exp8 的经验是难点主要在这里。误检本身已经是掩码，删除时通常不需要定位。工具调度应包含何时停止、何时回滚。</span></p>
+</section>
+
+<section>
+  <h2><span class="k">03</span>能力与任务的对应</h2>
+  <p>任务分两大类：第一大类对应单项能力，是端到端系统中某个模块的小任务；第二大类是端到端的完整任务，同时用到多种能力。</p>
+  <div class="scroll">
+  <table>
+    <thead><tr><th>任务</th><th>读图</th><th>判断</th><th>定位</th><th>工具调度</th><th>状态</th></tr></thead>
+    <tbody>
+      <tr><td colspan="6" class="grp">第一大类 · 模块任务</td></tr>
+      <tr><th>1.1 遥感图像理解</th><td class="c"><i class="dot" title="主要考察"></i></td><td></td><td></td><td></td><td class="note">待定</td></tr>
+      <tr><th>1.2 变化判断</th><td class="c"><i class="ring" title="用到"></i></td><td class="c"><i class="dot"></i></td><td></td><td></td><td class="note">先做，数据集 v0</td></tr>
+      <tr><th>1.3 定位</th><td class="c"><i class="ring"></i></td><td></td><td class="c"><i class="dot"></i></td><td class="c"><i class="ring"></i></td><td class="note">基于 v0</td></tr>
+      <tr><th>1.4 工具调度</th><td></td><td></td><td class="c"><i class="ring"></i></td><td class="c"><i class="dot"></i></td><td class="note">可能与 1.3 合并</td></tr>
+      <tr><td colspan="6" class="grp">第二大类 · 端到端任务</td></tr>
+      <tr><th>2.1 给定类别</th><td class="c"><i class="dot"></i></td><td class="c"><i class="dot"></i></td><td class="c"><i class="dot"></i></td><td class="c"><i class="dot"></i></td><td class="note">即 OVCD</td></tr>
+      <tr><th>2.2 给定示例</th><td class="c"><i class="dot"></i></td><td class="c"><i class="dot"></i></td><td class="c"><i class="dot"></i></td><td class="c"><i class="dot"></i></td><td class="note">—</td></tr>
+      <tr><th>2.3 给定自然语言要求</th><td class="c"><i class="dot"></i></td><td class="c"><i class="dot"></i></td><td class="c"><i class="dot"></i></td><td class="c"><i class="dot"></i></td><td class="note">—</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="note">实心点：主要考察的能力；空心圈：会用到但不是考察重点。</p>
+</section>
+
+<section>
+  <h2><span class="k">04</span>第一大类：模块任务</h2>
+  <div class="tasks">
+
+    <article class="task mod">
+      <header><span class="id">任务 1.1 · 读图</span><h3>遥感图像理解</h3><span class="state">待定</span></header>
+      <dl>
+        <dt>设想</dt><dd>给定类别集合，让 MLLM 输出两期对象的类别。</dd>
+        <dt>目的</dt><dd>检验 MLLM 能否认出影像里的地物，以及文本对应的类别。</dd>
+      </dl>
+      <p class="sug"><b>评审建议</b><span>做成区域级：给一个区域，分别问 T1、T2 的类别。SECOND 的两期语义图可直接当真值，零标注；也可以和 1.2 共用数据。</span></p>
+    </article>
+
+    <article class="task mod">
+      <header><span class="id">任务 1.2 · 判断</span><h3>变化判断：数据集 v0</h3><span class="state">先做</span></header>
+      <dl>
+        <dt>数据</dt><dd>SECOND 的 building 类，单独抽成一个集合：T1、T2、T1 语义、T2 语义、building 变化掩码。挑 250 张作为初始开发集 v0，之后需要再扩。</dd>
+        <dt>标注</dt><dd><span class="legend3"><i class="chip tp">检出的真实变化</i><i class="chip fn">漏检</i><i class="chip fp">误检</i></span>三种颜色，以 GT 为准。</dd>
+        <dt>审核页</dt><dd>抽几个典型例子，展示全景和近景。</dd>
+        <dt>要想清楚</dt><dd>候选怎样构造，才能把想让 MLLM 区分的变化区域分出来：给 MLLM 看的图应该是什么形状、什么大小。</dd>
+        <dt>划分</dt><dd>训练集、验证集、测试集。</dd>
+        <dt>目的</dt><dd>得到一个能识别变化的判断器。</dd>
+      </dl>
+      <p class="sug"><b>评审建议</b><span>先定用哪个检测器（若在 SECOND 上训练过，250 张不能在它的训练集里）。负样本要包括没变化的建筑。候选分两档：v0-oracle 用 GT 推出的区域，v0-real 用实际能得到的候选，两者的差距本身就是结论。按图像划分，例如 150/50/50。exp6l 中 Qwen3.5-4B 的同类判断 AP 只有 0.071，预期要放低。</span></p>
+    </article>
+
+    <article class="task mod">
+      <header><span class="id">任务 1.3 · 定位</span><h3>给出点或框，让 SAM 分出目标</h3><span class="state">基于 v0</span></header>
+      <dl>
+        <dt>设定</dt><dd>在 v0 中，已知某个 building 是漏检或误检。</dd>
+        <dt>输出</dt><dd>MLLM 输出点或框的坐标，输入给 SAM、SAM3 等工具，把这个 building 分出来。</dd>
+        <dt>效果</dt><dd>已知是漏检还是误检，就知道分出来的目标该加上还是删除；加上或删除之后，F1 会变化。</dd>
+        <dt>待定</dt><dd>要不要人工确定最佳点或框，作为 golden 数据？还是点只要落在 building 形状内就行？</dd>
+      </dl>
+      <p class="sug"><b>评审建议</b><span>不需要人工标。GT 外接框就是 golden 框，用它提示 SAM 的 IoU 是上界。点位影响有多大，可以自动比较中心点、随机内部点和边缘点来实测。评测看三项：命中率、SAM 结果与 GT 的 IoU、F1 变化。SAM 在哪一期上分（新建用 T2，拆除用 T1）也应由 MLLM 决定。</span></p>
+    </article>
+
+    <article class="task mod">
+      <header><span class="id">任务 1.4 · 工具调度</span><h3>有限预算内取得最大 F1 收益</h3><span class="state">可能与 1.3 合并</span></header>
+      <dl>
+        <dt>设定</dt><dd>同样已知漏检和误检。</dd>
+        <dt>目标</dt><dd>在有限的预算内执行动作，取得最大的 F1 收益。</dd>
+      </dl>
+      <p class="sug"><b>评审建议</b><span>每张图最多 k 步，记录每一步后的 F1，画 F1–步数曲线。要注明这是“已知错误类型”的设定；端到端任务里 Agent 并不知道哪里是漏检，两者的数字不能直接比。</span></p>
+    </article>
+
+  </div>
+</section>
+
+<section>
+  <h2><span class="k">05</span>第二大类：端到端任务</h2>
+  <div class="tasks">
+    <article class="task e2e">
+      <header><span class="id">任务 2.1</span><h3>给定类别的变化检测</h3></header>
+      <dl><dt>输入</dt><dd>T1、T2、类别文本</dd><dt>输出</dt><dd>该类别的变化掩码</dd></dl>
+      <p class="sug"><b>评审建议</b><span>就是 OVCD，沿用 DynamicEarth 的协议，可以和已有论文直接比。服务器上正在跑的 v0（LEVIR building）属于这一项。</span></p>
+    </article>
+    <article class="task e2e">
+      <header><span class="id">任务 2.2</span><h3>给定示例的变化检测</h3></header>
+      <dl><dt>输入</dt><dd>T1、T2，以及一组变化示例</dd><dt>输出</dt><dd>与示例同类的变化掩码</dd></dl>
+      <p class="sug"><b>评审建议</b><span>查到的 OVCD 论文都没做过这种设定，可能是新意所在（推断，需专门检索确认）。要先定示例怎么给：几对、给裁剪还是给掩码。</span></p>
+    </article>
+    <article class="task e2e wide">
+      <header><span class="id">任务 2.3</span><h3>给定特定文本的变化检测</h3></header>
+      <dl><dt>输入</dt><dd>T1、T2，以及一段自然语言要求</dd><dt>输出</dt><dd>符合要求的变化掩码</dd></dl>
+      <p class="sug"><b>评审建议</b><span>和指代变化检测（RCD）、QSCP、DVL-Bench 最接近。可以吸收昨天讨论的细粒度查询，例如“新建的建筑”“被拆除的建筑”。</span></p>
+    </article>
+  </div>
+</section>
+
+<section>
+  <h2><span class="k">06</span>待定的问题</h2>
+  <ol class="q">
+    <li>任务 1.1 的具体形式：输出对象类别，还是区域的两期类别？<span class="qtag">原方案待定</span></li>
+    <li>数据集 v0 的候选形状和大小：给 MLLM 看的图长什么样？<span class="qtag">原方案待定</span></li>
+    <li>定位任务是否需要人工 golden 点或框？<span class="qtag">原方案待定 · 建议不需要</span></li>
+    <li>任务 1.3 和 1.4 是否合并？<span class="qtag">原方案待定</span></li>
+    <li>数据集 v0 用哪个检测器，250 张从 SECOND 的哪一部分取？<span class="qtag">评审补充</span></li>
+  </ol>
+</section>
+
+</div>
