@@ -36,10 +36,14 @@ def main(a):
         axes[0].plot(ks, f1, 'o-', color=C[i], label=f'第 {r} 轮')
         axes[1].bar([x + (i - (len(rounds) - 1) / 2) * 0.8 / len(rounds) for x in range(3)], b,
                     0.8 / len(rounds), color=C[i], label=f'第 {r} 轮')
-    axes[0].axhline(m0, color='gray', ls=':', label=f'M0（M-C-I）{m0:.2f}')
-    if IMC.exists():
-        imc = 100 * read_json(IMC)['stitched']['metrics']['f1_score_change']
-        axes[0].text(50, m0 + 0.2, f'I-M-C 复现 {imc:.2f}（图外）', ha='right', fontsize=8, color='gray')
+    m0s = {}
+    for r in rounds:
+        e = read_json(RUN / 'eval' / f'r{r}_k20_test.json')
+        m0s[e['config'].get('m0', 'mci')] = 100 * e['states']['M0']['f1']
+    for kind, ls in (('mci', ':'), ('imc', '--')):
+        if kind in m0s:
+            axes[0].axhline(m0s[kind], color='gray', ls=ls, lw=1,
+                            label=f"M0 = {'M-C-I' if kind == 'mci' else 'I-M-C'}（{m0s[kind]:.2f}）")
     axes[0].set_xlabel('每图 MLLM 调用上限 k')
     axes[0].set_ylabel('测试集最终 $F_1^c$ (%)')
     axes[0].set_title('各轮测试集最终状态（M0+A+B+C）')

@@ -1,0 +1,103 @@
+{
+  "name": "test_96.png",
+  "cfg": "r5_k50",
+  "split": "test",
+  "replay": "replay_test_96.png",
+  "f1": {
+    "M0": 0.9379444085326438,
+    "A": 0.9379444085326438,
+    "B": 0.744127936031984,
+    "C": 0.744127936031984
+  },
+  "zoom_bbox": [
+    9,
+    68,
+    217,
+    253
+  ],
+  "calls": [
+    {
+      "step": 1,
+      "stage": "A",
+      "uid": 1,
+      "bbox": [
+        78,
+        145,
+        151,
+        190
+      ],
+      "action": "T2+T3",
+      "op": "keep",
+      "raw": "{\"change\": \"yes\", \"type\": \"new_building\", \"reason\": \"A building is present in T2 but absent in T1 within the red contour.\"}\n",
+      "p_yes": 0.9465966820716858,
+      "f1_before": 0.9379444085326438,
+      "f1_after": 0.9379444085326438,
+      "calls_used": 1,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_96/001_T3_t1.jpg",
+        "calls_test_96/001_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 2,
+      "stage": "B",
+      "uid": 200006,
+      "bbox": [
+        73,
+        132,
+        153,
+        188
+      ],
+      "action": "T2+T3+add",
+      "op": "candidate_mask",
+      "raw": "{\"change\": \"yes\", \"type\": \"new_building\", \"reason\": \"A building has been constructed in the region marked by the red contour, which was previously forested in T1.\"}\n",
+      "p_yes": 0.9525741338729858,
+      "f1_before": 0.9379444085326438,
+      "f1_after": 0.7465788139888495,
+      "calls_used": 2,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_96/002_T3_t1.jpg",
+        "calls_test_96/002_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 3,
+      "stage": "B",
+      "uid": 200010,
+      "bbox": [
+        99,
+        173,
+        131,
+        189
+      ],
+      "action": "T2+T3+add",
+      "op": "candidate_mask",
+      "raw": "{\"change\": \"yes\", \"type\": \"new_building\", \"reason\": \"A building is present in T2 but absent in T1 within the red contour.\"}\n",
+      "p_yes": 0.8807970285415649,
+      "f1_before": 0.7465788139888495,
+      "f1_after": 0.744127936031984,
+      "calls_used": 3,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_96/003_T3_t1.jpg",
+        "calls_test_96/003_T3_t2.jpg"
+      ]
+    }
+  ],
+  "operations": [],
+  "stats": {
+    "calls": 3,
+    "box_try": 0,
+    "box_fail": 0,
+    "seconds": {
+      "A": 0.0036687850952148438,
+      "B": 0.008297204971313477,
+      "C": 0.00012087821960449219
+    }
+  }
+}
