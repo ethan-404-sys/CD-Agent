@@ -33,9 +33,9 @@ def main(a):
             f1.append(100 * e['states']['C']['f1'])
             b.append(100 * (e['states']['B']['f1'] - e['states']['A']['f1']))
             m0 = 100 * e['states']['M0']['f1']
-        axes[0].plot(ks, f1, 'o-', color=C[i], label=f'第 {r} 轮')
+        axes[0].plot(ks, f1, 'o-', color=C[i % len(C)], label=f'第 {r} 轮')
         axes[1].bar([x + (i - (len(rounds) - 1) / 2) * 0.8 / len(rounds) for x in range(3)], b,
-                    0.8 / len(rounds), color=C[i], label=f'第 {r} 轮')
+                    0.8 / len(rounds), color=C[i % len(C)], label=f'第 {r} 轮')
     m0s = {}
     for r in rounds:
         e = read_json(RUN / 'eval' / f'r{r}_k20_test.json')
