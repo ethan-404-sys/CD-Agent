@@ -14,7 +14,7 @@ import argparse
 import numpy as np
 from scipy import ndimage as ndi
 
-from common import EIGHT, MCI, RUN, load_gt, load_mask_png, names, read_json, scores, write_json
+from common import load_m0, EIGHT, MCI, RUN, load_gt, load_mask_png, names, read_json, scores, write_json
 import items as I
 from m1_errors import best_deletion
 
@@ -44,7 +44,7 @@ def main(a):
     missed_total = 0
     missed_px = 0
     for name in names(a.split):
-        m0 = load_mask_png(MCI / a.split / 'm0' / name)
+        m0 = load_m0(a.m0, a.split, name)
         gt = load_gt(a.split, name)
         gl, _ = ndi.label(gt, EIGHT)
         pl, _ = ndi.label(m0, EIGHT)
@@ -86,5 +86,6 @@ def main(a):
 if __name__ == '__main__':
     p = argparse.ArgumentParser()
     p.add_argument('--tag', default='r1')
+    p.add_argument('--m0', default='mci', choices=['mci', 'imc'])
     p.add_argument('--split', default='val')
     main(p.parse_args())

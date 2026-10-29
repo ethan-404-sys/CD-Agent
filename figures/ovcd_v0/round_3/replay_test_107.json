@@ -1,0 +1,523 @@
+{
+  "name": "test_107.png",
+  "cfg": "r3_k20",
+  "split": "test",
+  "replay": "replay_test_107.png",
+  "f1": {
+    "M0": 0.10051781906792567,
+    "A": 0.22964509394572025,
+    "B": 0.5602440264361973,
+    "C": 0.5621015047181841
+  },
+  "zoom_bbox": null,
+  "calls": [
+    {
+      "step": 1,
+      "stage": "A",
+      "uid": 1,
+      "bbox": [
+        742,
+        82,
+        788,
+        131
+      ],
+      "action": "T2+T3+T4",
+      "op": "T4_delete",
+      "raw": "{\"change\": \"no\", \"type\": \"no_change\", \"reason\": \"The red contour encloses a tree and surrounding vegetation, with no building present in either image, so no building change occurred.\"}\n",
+      "p_yes": 0.13296423852443695,
+      "f1_before": 0.10051781906792567,
+      "f1_after": 0.13461146236997756,
+      "calls_used": 1,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_107/001_T3_t1.jpg",
+        "calls_test_107/001_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 2,
+      "stage": "A",
+      "uid": 12,
+      "bbox": [
+        229,
+        908,
+        250,
+        916
+      ],
+      "action": "T2+T3+T4",
+      "op": "T4_delete",
+      "raw": "{\"change\": \"no\", \"type\": \"shadow\", \"reason\": \"The red contour highlights a shadow cast by the building, which is consistent with lighting conditions and does not indicate a structural change.\"}\n",
+      "p_yes": 0.0534033328294754,
+      "f1_before": 0.13461146236997756,
+      "f1_after": 0.13868459760453877,
+      "calls_used": 2,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_107/002_T3_t1.jpg",
+        "calls_test_107/002_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 3,
+      "stage": "A",
+      "uid": 13,
+      "bbox": [
+        220,
+        911,
+        223,
+        915
+      ],
+      "action": "T2+T3+T4",
+      "op": "T4_delete",
+      "raw": "{\"change\": \"no\", \"type\": \"no_change\", \"reason\": \"The building structure within the red contour remains consistent between T1 and T2, with no evidence of construction, demolition, or rebuilding.\"}\n",
+      "p_yes": 0.042087726294994354,
+      "f1_before": 0.13868459760453877,
+      "f1_after": 0.13897662665824384,
+      "calls_used": 3,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_107/003_T3_t1.jpg",
+        "calls_test_107/003_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 4,
+      "stage": "A",
+      "uid": 14,
+      "bbox": [
+        589,
+        1001,
+        601,
+        1024
+      ],
+      "action": "T2+T3+T4",
+      "op": "T4_delete",
+      "raw": "{\"change\": \"no\", \"type\": \"no_change\", \"reason\": \"The red contour in both images highlights the same area with no visible building changes, only slight variations due to lighting or seasonal differences.\"}\n",
+      "p_yes": 0.04742587357759476,
+      "f1_before": 0.13897662665824384,
+      "f1_after": 0.14559894109861019,
+      "calls_used": 4,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_107/004_T3_t1.jpg",
+        "calls_test_107/004_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 5,
+      "stage": "A",
+      "uid": 9,
+      "bbox": [
+        396,
+        816,
+        406,
+        826
+      ],
+      "action": "T2+T3+T4",
+      "op": "T4_delete",
+      "raw": "{\"change\": \"no\", \"type\": \"seasonal_or_color\", \"reason\": \"The difference observed is due to seasonal or illumination changes, not a building change.\"}\n",
+      "p_yes": 0.037326883524656296,
+      "f1_before": 0.14559894109861019,
+      "f1_after": 0.14808166928427194,
+      "calls_used": 5,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_107/005_T3_t1.jpg",
+        "calls_test_107/005_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 6,
+      "stage": "A",
+      "uid": 7,
+      "bbox": [
+        485,
+        521,
+        497,
+        533
+      ],
+      "action": "T2+T3+T4",
+      "op": "T4_delete",
+      "raw": "{\"change\": \"no\", \"type\": \"no_change\", \"reason\": \"The red contour encloses the same building in both images, with no evidence of construction, demolition, or rebuilding.\"}\n",
+      "p_yes": 0.07585817575454712,
+      "f1_before": 0.14808166928427194,
+      "f1_after": 0.15106431677729457,
+      "calls_used": 6,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_107/006_T3_t1.jpg",
+        "calls_test_107/006_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 7,
+      "stage": "A",
+      "uid": 6,
+      "bbox": [
+        777,
+        461,
+        790,
+        473
+      ],
+      "action": "T2+T3+T4",
+      "op": "T4_delete",
+      "raw": "{\"change\": \"no\", \"type\": \"no_change\", \"reason\": \"The red contour in both images highlights the same building with no visible changes in structure or presence.\"}\n",
+      "p_yes": 0.2689414322376251,
+      "f1_before": 0.15106431677729457,
+      "f1_after": 0.15606526365571058,
+      "calls_used": 7,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_107/007_T3_t1.jpg",
+        "calls_test_107/007_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 8,
+      "stage": "A",
+      "uid": 3,
+      "bbox": [
+        572,
+        167,
+        598,
+        194
+      ],
+      "action": "T2+T3+T4",
+      "op": "T4_delete",
+      "raw": "{\"change\": \"no\", \"type\": \"seasonal_or_color\", \"reason\": \"The change appears to be due to seasonal or illumination differences rather than a building change.\"}\n",
+      "p_yes": 0.3775406777858734,
+      "f1_before": 0.15606526365571058,
+      "f1_after": 0.17973856209150327,
+      "calls_used": 8,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_107/008_T3_t1.jpg",
+        "calls_test_107/008_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 9,
+      "stage": "A",
+      "uid": 2,
+      "bbox": [
+        889,
+        90,
+        914,
+        117
+      ],
+      "action": "T2+T3",
+      "op": "keep",
+      "raw": "{\"change\": \"yes\", \"type\": \"new_building\", \"reason\": \"A building is present in T2 but absent in T1 within the red contour.\"}\n",
+      "p_yes": 0.9820137619972229,
+      "f1_before": 0.17973856209150327,
+      "f1_after": 0.17973856209150327,
+      "calls_used": 9,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_107/009_T3_t1.jpg",
+        "calls_test_107/009_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 10,
+      "stage": "A",
+      "uid": 11,
+      "bbox": [
+        348,
+        903,
+        366,
+        925
+      ],
+      "action": "T2+T3+T4",
+      "op": "T4_delete",
+      "raw": "{\"change\": \"no\", \"type\": \"seasonal_or_color\", \"reason\": \"The red contour highlights a tree whose appearance changes due to seasonal variation or illumination, not a building change.\"}\n",
+      "p_yes": 0.042087726294994354,
+      "f1_before": 0.17973856209150327,
+      "f1_after": 0.1947477131897315,
+      "calls_used": 10,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_107/010_T3_t1.jpg",
+        "calls_test_107/010_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 11,
+      "stage": "A",
+      "uid": 10,
+      "bbox": [
+        844,
+        883,
+        854,
+        893
+      ],
+      "action": "T2+T3+T4",
+      "op": "T4_delete",
+      "raw": "{\"change\": \"no\", \"type\": \"shadow\", \"reason\": \"The red contour in T2 shows a shadow cast by a nearby structure, not a building itself, which does not count as a building change according to the scope card.\"}\n",
+      "p_yes": 0.06754669547080994,
+      "f1_before": 0.1947477131897315,
+      "f1_after": 0.19987886129618412,
+      "calls_used": 11,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_107/011_T3_t1.jpg",
+        "calls_test_107/011_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 12,
+      "stage": "A",
+      "uid": 8,
+      "bbox": [
+        77,
+        775,
+        90,
+        792
+      ],
+      "action": "T2+T3+T4",
+      "op": "T4_delete",
+      "raw": "{\"change\": \"no\", \"type\": \"seasonal_or_color\", \"reason\": \"The red contour highlights a dark area that appears to be vegetation or shadow, which has changed in appearance but does not indicate a building change.\"}\n",
+      "p_yes": 0.0534033328294754,
+      "f1_before": 0.19987886129618412,
+      "f1_after": 0.21032504780114722,
+      "calls_used": 12,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_107/012_T3_t1.jpg",
+        "calls_test_107/012_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 13,
+      "stage": "A",
+      "uid": 4,
+      "bbox": [
+        295,
+        386,
+        307,
+        402
+      ],
+      "action": "T2+T3+T4",
+      "op": "T4_delete",
+      "raw": "{\"change\": \"no\", \"type\": \"shadow\", \"reason\": \"The change observed is a shadow cast by the nearby structure, not a building change.\"}\n",
+      "p_yes": 0.16451644897460938,
+      "f1_before": 0.21032504780114722,
+      "f1_after": 0.2215508559919436,
+      "calls_used": 13,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_107/013_T3_t1.jpg",
+        "calls_test_107/013_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 14,
+      "stage": "A",
+      "uid": 5,
+      "bbox": [
+        802,
+        394,
+        818,
+        402
+      ],
+      "action": "T2+T3+T4",
+      "op": "T4_delete",
+      "raw": "{\"change\": \"no\", \"type\": \"shadow\", \"reason\": \"The red contour highlights a shadow cast by a nearby structure, not a building itself.\"}\n",
+      "p_yes": 0.0534033328294754,
+      "f1_before": 0.2215508559919436,
+      "f1_after": 0.22964509394572025,
+      "calls_used": 14,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_107/014_T3_t1.jpg",
+        "calls_test_107/014_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 15,
+      "stage": "B",
+      "uid": 100294,
+      "bbox": [
+        523,
+        653,
+        535,
+        666
+      ],
+      "action": "T2+T3",
+      "op": "skip",
+      "raw": "{\"change\": \"no\", \"type\": \"shadow\", \"reason\": \"The dark area within the red contour in T2 appears to be a shadow cast by nearby structures, not a building change.\"}\n",
+      "p_yes": 0.06754669547080994,
+      "f1_before": 0.22964509394572025,
+      "f1_after": 0.22964509394572025,
+      "calls_used": 15,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_107/015_T3_t1.jpg",
+        "calls_test_107/015_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 16,
+      "stage": "B",
+      "uid": 100301,
+      "bbox": [
+        902,
+        845,
+        915,
+        859
+      ],
+      "action": "T2+T3",
+      "op": "skip",
+      "raw": "{\"change\": \"no\", \"type\": \"shadow\", \"reason\": \"The dark area within the red contour in T1 appears to be a shadow cast by a nearby structure, which is absent in T2, consistent with seasonal or illumination changes rather than a building change.\"}\n",
+      "p_yes": 0.07585817575454712,
+      "f1_before": 0.22964509394572025,
+      "f1_after": 0.22964509394572025,
+      "calls_used": 16,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_107/016_T3_t1.jpg",
+        "calls_test_107/016_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 17,
+      "stage": "B",
+      "uid": 100466,
+      "bbox": [
+        414,
+        993,
+        434,
+        1024
+      ],
+      "action": "T2+T3",
+      "op": "skip",
+      "raw": "{\"change\": \"no\", \"type\": \"no_change\", \"reason\": \"The red contour in both images highlights the same area of bare ground/soil with no building present, indicating no building change occurred.\"}\n",
+      "p_yes": 0.43782350420951843,
+      "f1_before": 0.22964509394572025,
+      "f1_after": 0.22964509394572025,
+      "calls_used": 17,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_107/017_T3_t1.jpg",
+        "calls_test_107/017_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 18,
+      "stage": "B",
+      "uid": 100282,
+      "bbox": [
+        964,
+        903,
+        976,
+        915
+      ],
+      "action": "T2+T3",
+      "op": "skip",
+      "raw": "{\"change\": \"no\", \"type\": \"shadow\", \"reason\": \"The red contour highlights a shadow area that appears consistent between T1 and T2, with no evidence of a building change.\"}\n",
+      "p_yes": 0.06754669547080994,
+      "f1_before": 0.22964509394572025,
+      "f1_after": 0.22964509394572025,
+      "calls_used": 18,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_107/018_T3_t1.jpg",
+        "calls_test_107/018_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 19,
+      "stage": "B",
+      "uid": 100459,
+      "bbox": [
+        329,
+        746,
+        343,
+        768
+      ],
+      "action": "T2+T3",
+      "op": "skip",
+      "raw": "{\"change\": \"no\", \"type\": \"seasonal_or_color\", \"reason\": \"The red contour highlights a tree that has changed color from dark to green, which is a seasonal or illumination difference, not a building change.\"}\n",
+      "p_yes": 0.06754669547080994,
+      "f1_before": 0.22964509394572025,
+      "f1_after": 0.22964509394572025,
+      "calls_used": 19,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_107/019_T3_t1.jpg",
+        "calls_test_107/019_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 20,
+      "stage": "B",
+      "uid": 100576,
+      "bbox": [
+        646,
+        537,
+        680,
+        573
+      ],
+      "action": "T2+T3+add",
+      "op": "candidate_mask",
+      "raw": "{\"change\": \"yes\", \"type\": \"new_building\", \"reason\": \"A building has been newly constructed in the region marked by the red contour, as it is absent in T1 and present in T2.\"}\n",
+      "p_yes": 0.9820137619972229,
+      "f1_before": 0.22964509394572025,
+      "f1_after": 0.5602440264361973,
+      "calls_used": 20,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_107/020_T3_t1.jpg",
+        "calls_test_107/020_T3_t2.jpg"
+      ]
+    }
+  ],
+  "operations": [
+    {
+      "step": 21,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_replace",
+      "f1_before": 0.5602440264361973,
+      "f1_after": 0.5583987838864961
+    },
+    {
+      "step": 22,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_replace",
+      "f1_before": 0.5583987838864961,
+      "f1_after": 0.5621015047181841
+    }
+  ],
+  "stats": {
+    "calls": 20,
+    "box_try": 0,
+    "box_fail": 0,
+    "seconds": {
+      "A": 0.029036760330200195,
+      "B": 0.018845081329345703,
+      "C": 0.6636724472045898
+    }
+  }
+}

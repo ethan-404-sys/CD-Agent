@@ -14,6 +14,8 @@ REPO = Path(__file__).resolve().parents[2]
 LEVIR = WORKSPACE / 'datasets/LEVIR-CD'
 RUN = Path(os.environ.get('OVCD_RUN', WORKSPACE / 'wyh/exp6_staging/ovcd_v0_run'))
 MCI = Path(os.environ.get('OVCD_MCI', WORKSPACE / 'wyh/exp6_staging/batch56_ovcd_de/run/mci'))
+IMC = WORKSPACE / 'wyh/exp6_staging/batch56_ovcd_de/run/imc'
+M0_DIRS = {'mci': MCI, 'imc': IMC}  # initializers; each has <split>/m0/<name>.png
 DYNAMIC_EARTH = WORKSPACE / 'wyh/exp6_staging/batch56_ovcd_de/DynamicEarth'
 SAM_CKPT = WORKSPACE / 'models/SAM/sam_vit_h_4b8939.pth'
 QWEN = WORKSPACE / 'models/Qwen3.5-4B'
@@ -150,6 +152,10 @@ def save_mask_png(path, mask):
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     Image.fromarray(mask.astype(np.uint8) * 255).save(path)
+
+
+def load_m0(kind, split, name):
+    return load_mask_png(M0_DIRS[kind] / split / 'm0' / name)
 
 
 def load_mask_png(path):

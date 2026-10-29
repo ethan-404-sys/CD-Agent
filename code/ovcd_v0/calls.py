@@ -49,7 +49,7 @@ def main(a):
                     rows.append(dict(uid=it['uid'], kind=kind, crop=crop, images=[str(p1), str(p2)]))
                 for row, v in zip(rows, q.verify(pairs)):
                     row['verify'] = v
-                bi = [j for j, r in enumerate(rows) if r['kind'] == 'B']
+                bi = [j for j, r in enumerate(rows) if r['kind'] == 'B' and not a.no_box]
                 if bi:
                     for j, b in zip(bi, q.box([pairs[j] for j in bi])):
                         rows[j]['box'] = b
@@ -67,4 +67,5 @@ if __name__ == '__main__':
     p.add_argument('--shards', type=int, default=1)
     p.add_argument('--max-b', type=int, default=50)
     p.add_argument('--batch', type=int, default=8)
+    p.add_argument('--no-box', action='store_true', help='skip T5 (rounds without box drawing)')
     main(p.parse_args())

@@ -101,6 +101,8 @@ def grid_curve(out, sel, stage, key, xlabel, title):
     fig, ax = plt.subplots(figsize=(6.4, 3.8))
     for i, (k, b) in enumerate(sel['budgets'].items()):
         rows = b[stage]
+        if stage == 'A':
+            rows = [r for r in rows if r['config']['a_order'] == b['chosen']['a_order']]
         xs = [r['config'][key] for r in rows]
         ax.plot(xs, [100 * r['f1'] for r in rows], 'o-', ms=3, color=C[i], label=f'k={k}')
     m0 = sel.get('m0_f1')

@@ -45,6 +45,7 @@ class Config:
     c_mode: str = 'none'         # none | box
     c_gate: float = 0.0          # replace only when IoU(new, old) >= c_gate
     stages: str = 'ABC'
+    m0: str = 'mci'              # initializer: mci (DynamicEarth M-C-I) | imc (DynamicEarth I-M-C)
 
 
 def sort_items(its, order):
@@ -186,13 +187,13 @@ def run(img: Image, cfg: Config, log=True):
 
 def main(a):
     """Write final masks + trajectories for one named config (used for the chosen configs)."""
-    from common import names, MCI, save_mask_png
+    from common import names, load_m0, save_mask_png
     from sam_tools import Prompter
     cfg = Config(**json.loads(a.config))
     prompter = Prompter('cpu')
     out = RUN / 'agent' / a.name / a.split
     for name in names(a.split)[a.shard::a.shards]:
-        m0 = load_mask_png(MCI / a.split / 'm0' / name)
+        m0 = load_m0(cfg.m0, a.split, name)
         img = Image(a.split, name, m0, cfg.tag, prompter=prompter)
         snap, traj, stats = run(img, cfg)
         for st, m in snap.items():

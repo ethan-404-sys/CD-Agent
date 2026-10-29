@@ -16,7 +16,7 @@ from multiprocessing import Pool
 
 import numpy as np
 
-from common import MCI, RUN, load_gt, load_mask_png, names, scores, write_json
+from common import RUN, load_gt, load_m0, names, scores, write_json
 from agent import Config, Image, run
 
 TAU = [0.0, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95]
@@ -32,7 +32,7 @@ def work(args):
     if _P is None:
         from sam_tools import Prompter
         _P = Prompter('cpu')
-    m0 = load_mask_png(MCI / split / 'm0' / name)
+    m0 = load_m0(cfgs[0].m0, split, name)
     gt = load_gt(split, name)
     img = Image(split, name, m0, cfgs[0].tag, gt=gt, prompter=_P)
     out = []
@@ -73,9 +73,11 @@ def main(a):
     with Pool(a.procs) as pool:
         for k in a.ks:
             base = Config(tag=a.tag, k=k, a_share=a.a_share, a_order=a.a_order, b_order='queue',
-                          use_t5=bool(a.use_t5), b_max=a.b_max)
-            ra = grid(pool, 'val', [replace(base, tau_a=t, stages='A') for t in TAU], 'A')
+                          use_t5=bool(a.use_t5), b_max=a.b_max, m0=a.m0)
+            orders = a.a_orders or [a.a_order]
+            ra = grid(pool, 'val', [replace(base, a_order=o, tau_a=t, stages='A') for o in orders for t in TAU], 'A')
             ba = best(ra)['config']
+            base = replace(base, a_order=ba['a_order'])
             rb = grid(pool, 'val', [replace(base, tau_a=ba['tau_a'], tau_b=t, stages='AB') for t in TAU[1:] + [1.01]], 'B')
             bb = best(rb)['config']
             cc = [replace(base, tau_a=bb['tau_a'], tau_b=bb['tau_b'], stages='ABC', c_mode='none')]
@@ -96,4 +98,6 @@ if __name__ == '__main__':
     p.add_argument('--procs', type=int, default=8)
     p.add_argument('--use-t5', type=int, default=1)
     p.add_argument('--b-max', type=int, default=20)
+    p.add_argument('--m0', default='mci', choices=['mci', 'imc'])
+    p.add_argument('--a-orders', nargs='+', help='also select the stage-A order on val among these')
     main(p.parse_args())

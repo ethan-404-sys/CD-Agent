@@ -16,7 +16,7 @@ from pathlib import Path
 
 import numpy as np
 
-from common import MCI, RUN, load_gt, load_mask_png, names, read_json, read_jsonl, write_json
+from common import load_m0, MCI, RUN, load_gt, load_mask_png, names, read_json, read_jsonl, write_json
 import items as I
 import render
 
@@ -53,7 +53,7 @@ def main(a):
         calls = {r['uid']: r for r in read_jsonl(RUN / 'calls' / a.tag / a.split / (Path(name).stem + '.jsonl'))}
         st = I.Store(a.tag, a.split, name)
         gt = load_gt(a.split, name)
-        m0 = load_mask_png(MCI / a.split / 'm0' / name)
+        m0 = load_m0(a.m0, a.split, name)
         for it in st.meta['A']:
             c, r = calls.get(it['uid']), comps[(name, it['uid'])]
             if c:
@@ -111,6 +111,7 @@ def main(a):
 if __name__ == '__main__':
     p = argparse.ArgumentParser()
     p.add_argument('--tag', default='r1')
+    p.add_argument('--m0', default='mci', choices=['mci', 'imc'])
     p.add_argument('--split', default='val')
     p.add_argument('--b-max', type=int, default=20)
     main(p.parse_args())
