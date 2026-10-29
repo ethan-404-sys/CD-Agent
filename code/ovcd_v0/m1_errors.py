@@ -137,6 +137,6 @@ def main(a):
 if __name__ == '__main__':
     p = argparse.ArgumentParser()
     p.add_argument('--tag', default='r1')
-    p.add_argument('--m0', default='mci', choices=['mci', 'imc'])
+    p.add_argument('--m0', default='mci', choices=['mci', 'imc', 'rea'])
     p.add_argument('--split', choices=['val', 'test'], required=True)
     main(p.parse_args())

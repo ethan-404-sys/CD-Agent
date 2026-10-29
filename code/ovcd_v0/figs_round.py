@@ -36,7 +36,11 @@ def m0_repro(out, mci_test, imc=None):
         rows += [('I-M-C 原文', 69.7, 53.5), ('I-M-C 本次', 100 * imc['f1'], 100 * imc['iou'])]
     else:
         rows += [('I-M-C 原文', 69.7, 53.5)]
-    fig, ax = plt.subplots(figsize=(7, 3.8))
+    rea = Path('/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/batch66_ovcd_reaovcd/run/rea/test/metrics.json')
+    if rea.exists():
+        f = read_json(rea)['dynamic_earth']['fraction']
+        rows += [('ReA-OVCD 原文', 84.52, 73.19), ('ReA-OVCD 本次', 100 * f['F1_c'], 100 * f['IoU_c'])]
+    fig, ax = plt.subplots(figsize=(9, 3.8))
     x = np.arange(len(rows))
     for j, (lab, col) in enumerate((('$F_1^c$', C[0]), ('$IoU^c$', C[1]))):
         v = [r[1 + j] for r in rows]
@@ -45,8 +49,8 @@ def m0_repro(out, mci_test, imc=None):
             ax.text(xi + (j - .5) * .38, vi + 1, f'{vi:.1f}', ha='center', fontsize=8)
     ax.set_xticks(x, [r[0] for r in rows])
     ax.set_ylabel('%')
-    ax.set_ylim(0, 85)
-    ax.set_title('LEVIR-CD 测试集：DynamicEarth 复现')
+    ax.set_ylim(0, 95)
+    ax.set_title('LEVIR-CD 测试集：初始化方法的复现')
     ax.legend(frameon=False)
     save(fig, out)
 

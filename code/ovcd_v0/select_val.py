@@ -118,7 +118,7 @@ if __name__ == '__main__':
     p.add_argument('--procs', type=int, default=8)
     p.add_argument('--use-t5', type=int, default=1)
     p.add_argument('--b-max', type=int, default=20)
-    p.add_argument('--m0', default='mci', choices=['mci', 'imc'])
+    p.add_argument('--m0', default='mci', choices=['mci', 'imc', 'rea'])
     p.add_argument('--c-tile', type=int, default=-1, help='also try C = clip to SAM3 support from this SAM3 run (-1: off)')
     p.add_argument('--c-confs', type=float, nargs='+', default=[0.5], help='SAM3 score thresholds for the clip support')
     p.add_argument('--c-fixed', help='JSON of C fields; if given, A and B are selected on the state after this C')

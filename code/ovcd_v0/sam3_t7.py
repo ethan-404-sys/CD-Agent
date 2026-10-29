@@ -115,7 +115,7 @@ def queue(a):
         dst.parent.mkdir(parents=True, exist_ok=True)
         with dst.open('a') as f:
             for it in A:
-                if it['uid'] not in have:
+                if it['uid'] not in have and it['uid'] in src:  # missing ones are computed by calls.py
                     f.write(json.dumps(src[it['uid']]) + '\n')
         rows.append(dict(name=name, A=len(A), B=len(B), B_pool=len(comps), s1=int(s1.sum()), s2=int(s2.sum())))
         print(rows[-1], flush=True)
