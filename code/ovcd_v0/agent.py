@@ -42,8 +42,11 @@ class Config:
     b_cover: float = 0.5         # skip a candidate already covered by M_t above this fraction
     b_max: int = 20              # stage-B queue = the first b_max T7 candidates (all have cached answers)
     use_t5: bool = True          # False: add the candidate mask directly (no box call)
-    c_mode: str = 'none'         # none | box
-    c_gate: float = 0.0          # replace only when IoU(new, old) >= c_gate
+    c_mode: str = 'none'         # none | box | sam3clip
+    c_gate: float = 0.0          # box: replace only when IoU(new, old) >= c_gate
+    c_radius: int = 0            # sam3clip: support S = dilate(S1 | S2, c_radius) from SAM3 'building' masks
+    c_cover: float = 0.0         # sam3clip: clip a component only if >= c_cover of it lies in S
+    c_tile: int = 512            # sam3clip: which SAM3 run (0 = whole image, 512 = tiled)
     stages: str = 'ABC'
     m0: str = 'mci'              # initializer: mci (DynamicEarth M-C-I) | imc (DynamicEarth I-M-C)
 
@@ -70,6 +73,20 @@ class Image:
         if uid not in self.calls:
             raise KeyError(f'{self.split}/{self.name}: no cached MLLM answer for item {uid}')
         return self.calls[uid]
+
+    def sam3_support(self, tile, radius):
+        key = ('sam3', tile, radius)
+        if key not in self._sam:
+            from scipy import ndimage as ndi
+            from sam3_t7 import read
+            S = np.zeros(self.m0.shape, bool)
+            for m, _ in read(self.split, self.name, tile):
+                if len(m):
+                    S |= m.any(0)
+            if radius:
+                S = ndi.binary_dilation(S, np.ones((3, 3), bool), iterations=radius)
+            self._sam[key] = S
+        return self._sam[key]
 
     def sam_box(self, t, box):
         key = (t, tuple(round(float(v), 1) for v in box))
@@ -179,6 +196,22 @@ def run(img: Image, cfg: Config, log=True):
                 M = (entry & ~drop) | keep_new
             step(stage='C', action='T6', uid=f"C:{comp['id']}", bbox=comp['bbox'], op=op, sam_time=t,
                  iou_old_new=float(iou), sam_score=s)
+    if 'C' in cfg.stages and cfg.c_mode == 'sam3clip':
+        from scipy import ndimage as ndi
+        S = img.sam3_support(cfg.c_tile, cfg.c_radius)
+        entry = M.copy()
+        lab, comps = components(entry)
+        for comp in comps:
+            cm = lab == comp['id']
+            area = comp['area']
+            inside = int((cm & S).sum())
+            if inside >= cfg.c_cover * area:
+                M &= ~(cm & ~S)
+                op = 'T6_clip_to_sam3' if inside < area else 'T6_inside_sam3'
+            else:
+                op = 'T6_keep_low_sam3_support'
+            step(stage='C', action='T6', uid=f"C:{comp['id']}", bbox=comp['bbox'], op=op,
+                 removed_px=int(area - inside) if op == 'T6_clip_to_sam3' else 0, sam3_inside=inside / area)
     snap['C'] = M.copy()
     stats = dict(calls=used, box_try=box_try, box_fail=box_fail,
                  seconds=dict(A=t_a - t_start, B=t_b - t_a, C=time.time() - t_b))

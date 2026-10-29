@@ -21,6 +21,8 @@ from agent import Config, Image, run
 
 TAU = [0.0, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95]
 GATES = [0.0, 0.3, 0.5, 0.7, 0.8, 0.9]
+CLIP_R = [0, 1, 2, 4]
+CLIP_COVER = [0.0, 0.3, 0.5]
 _P = None
 
 
@@ -82,6 +84,8 @@ def main(a):
             bb = best(rb)['config']
             cc = [replace(base, tau_a=bb['tau_a'], tau_b=bb['tau_b'], stages='ABC', c_mode='none')]
             cc += [replace(base, tau_a=bb['tau_a'], tau_b=bb['tau_b'], stages='ABC', c_mode='box', c_gate=g) for g in GATES]
+            cc += [replace(base, tau_a=bb['tau_a'], tau_b=bb['tau_b'], stages='ABC', c_mode='sam3clip', c_radius=r, c_cover=c, c_tile=a.c_tile)
+                   for r in CLIP_R for c in CLIP_COVER] if a.c_tile >= 0 else []
             rc = grid(pool, 'val', cc, 'C')
             out['budgets'][str(k)] = dict(A=ra, B=rb, C=rc, chosen=best(rc)['config'])
             print(k, 'A', best(ra)['f1'], 'B', best(rb)['f1'], 'C', best(rc)['f1'], best(rc)['config'], flush=True)
@@ -99,5 +103,6 @@ if __name__ == '__main__':
     p.add_argument('--use-t5', type=int, default=1)
     p.add_argument('--b-max', type=int, default=20)
     p.add_argument('--m0', default='mci', choices=['mci', 'imc'])
+    p.add_argument('--c-tile', type=int, default=-1, help='also try C = clip to SAM3 support from this SAM3 run (-1: off)')
     p.add_argument('--a-orders', nargs='+', help='also select the stage-A order on val among these')
     main(p.parse_args())

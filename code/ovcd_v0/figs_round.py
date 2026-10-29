@@ -116,10 +116,11 @@ def grid_curve(out, sel, stage, key, xlabel, title):
 
 
 def gate_bars(out, sel):
-    fig, ax = plt.subplots(figsize=(7.2, 3.8))
+    fig, ax = plt.subplots(figsize=(10, 4.2))
     ks = list(sel['budgets'])
     rows0 = sel['budgets'][ks[0]]['C']
-    labels = ['不修' if r['config']['c_mode'] == 'none' else f"门限 {r['config']['c_gate']:.1f}" for r in rows0]
+    labels = ['不修' if r['config']['c_mode'] == 'none' else f"框 {r['config']['c_gate']:.1f}" if r['config']['c_mode'] == 'box'
+              else f"裁 r{r['config'].get('c_radius', 0)} c{r['config'].get('c_cover', 0):.1f}" for r in rows0]
     x = np.arange(len(labels))
     w = .8 / len(ks)
     for i, k in enumerate(ks):
@@ -127,9 +128,9 @@ def gate_bars(out, sel):
         ax.bar(x + (i - (len(ks) - 1) / 2) * w, v, w, color=C[i], label=f'k={k}')
     lo = min(100 * r['f1'] for k in ks for r in sel['budgets'][k]['C'])
     ax.set_ylim(lo - 3, None)
-    ax.set_xticks(x, labels, fontsize=8)
+    ax.set_xticks(x, labels, fontsize=7, rotation=60)
     ax.set_ylabel('验证集 $F_1^c$ (%)')
-    ax.set_title('阶段 C：SAM 重分割的替换门限（IoU(新,旧) ≥ 门限才替换）')
+    ax.set_title('阶段 C：不修 / SAM 框重分割（门限）/ SAM3 建筑支撑裁剪（半径 r、覆盖 c）')
     ax.legend(frameon=False, fontsize=8)
     save(fig, out)
 

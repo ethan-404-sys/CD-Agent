@@ -26,8 +26,9 @@ from common import RUN, components, load_m0, load_rgb, names, read_jsonl, write_
 SAM3_TOOLS = '/guisongxia01/pangchao/wangyihan/Chang-Agent/probe'
 
 
-def out_dir(tile):
-    return RUN / ('sam3' if not tile else f'sam3_t{tile}')
+def out_dir(tile, conf=0.5):
+    base = 'sam3' if not tile else f'sam3_t{tile}'
+    return RUN / (base if conf == 0.5 else f'{base}_c{conf:g}')
 
 
 def segment(a):
@@ -36,8 +37,9 @@ def segment(a):
     from PIL import Image
     import sam3_tools
     proc = sam3_tools.build_processor()
+    proc.confidence_threshold = a.conf  # instances below it are dropped; scores are kept for later thresholds
     for name in names(a.split)[a.shard::a.shards]:
-        out = out_dir(a.tile) / a.split / (Path(name).stem + '.npz')
+        out = out_dir(a.tile, a.conf) / a.split / (Path(name).stem + '.npz')
         if out.exists():
             continue
         t0 = time.time()
@@ -66,14 +68,19 @@ def segment(a):
         print(name, len(arrays['scores0']), len(arrays['scores1']), f'{time.time() - t0:.1f}s', flush=True)
 
 
-def read(split, name, tile=0):
-    z = np.load(out_dir(tile) / split / (Path(name).stem + '.npz'))
+def read(split, name, tile=0, conf=0.5, min_score=None):
+    """Instance masks/scores per time; min_score filters a low-threshold run after the fact."""
+    z = np.load(out_dir(tile, conf) / split / (Path(name).stem + '.npz'))
     h, w = z['shape']
     inst = []
     for t in (0, 1):
         packed = z[f'masks{t}']
         m = np.unpackbits(packed, axis=1, count=h * w).reshape(-1, h, w).astype(bool) if len(packed) else np.zeros((0, h, w), bool)
-        inst.append((m, z[f'scores{t}']))
+        sc = z[f'scores{t}']
+        if min_score is not None and len(sc):
+            keep = sc >= min_score
+            m, sc = m[keep], sc[keep]
+        inst.append((m, sc))
     return inst
 
 
@@ -128,5 +135,6 @@ if __name__ == '__main__':
     p.add_argument('--max-area', type=int, default=20000)
     p.add_argument('--keep-b', type=int, default=50)
     p.add_argument('--tile', type=int, default=0, help='SAM3 on tile x tile pieces (0 = whole image)')
+    p.add_argument('--conf', type=float, default=0.5, help='SAM3 instance threshold at inference')
     a = p.parse_args()
     segment(a) if a.stage == 'segment' else queue(a)
