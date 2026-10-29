@@ -72,7 +72,8 @@ def main(a):
     out = dict(args=vars(a), budgets={})
     with Pool(a.procs) as pool:
         for k in a.ks:
-            base = Config(tag=a.tag, k=k, a_share=a.a_share, a_order=a.a_order, b_order='queue')
+            base = Config(tag=a.tag, k=k, a_share=a.a_share, a_order=a.a_order, b_order='queue',
+                          use_t5=bool(a.use_t5), b_max=a.b_max)
             ra = grid(pool, 'val', [replace(base, tau_a=t, stages='A') for t in TAU], 'A')
             ba = best(ra)['config']
             rb = grid(pool, 'val', [replace(base, tau_a=ba['tau_a'], tau_b=t, stages='AB') for t in TAU[1:] + [1.01]], 'B')
@@ -93,4 +94,6 @@ if __name__ == '__main__':
     p.add_argument('--a-order', required=True)
     p.add_argument('--ks', type=int, nargs='+', default=[10, 20, 50])
     p.add_argument('--procs', type=int, default=8)
+    p.add_argument('--use-t5', type=int, default=1)
+    p.add_argument('--b-max', type=int, default=20)
     main(p.parse_args())

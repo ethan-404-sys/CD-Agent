@@ -183,7 +183,8 @@ def build_review(input_path, output_path, figures_dir):
                 cards.append(f'<div class="review-block"><h3>{title}</h3>{value}</div>')
             body += panel(chr(65 + i), module, '<div class="am-grid">' + ''.join(cards) + '</div>')
         summary = row['summary_table']
-        body += panel('F', '本轮汇总', table(summary['columns'], summary['rows']))
+        body += panel('F', '本轮汇总', markdown(row.get('summary_note', '')) + table(summary['columns'], summary['rows'])
+                      + figures(row.get('summary_figs', []), input_path.parent, output_path.parent))
         if not row['examples']:
             raise ValueError(f'Round {row["id"]}: at least one example is required')
         body += panel('G', '例子回放', ''.join(example_html(e, row['id'], figures_dir, output_path.parent) for e in row['examples']))
