@@ -1,0 +1,2435 @@
+{
+  "name": "test_45.png",
+  "cfg": "r8_k50",
+  "split": "test",
+  "replay": "replay_test_45.png",
+  "f1": {
+    "M0": 0.6371055019781733,
+    "A": 0.6389076130587228,
+    "B": 0.6371964483115216,
+    "C": 0.44732129593366377
+  },
+  "zoom_bbox": null,
+  "calls": [
+    {
+      "step": 1,
+      "stage": "A",
+      "uid": 63,
+      "bbox": [
+        131,
+        327,
+        132,
+        328
+      ],
+      "action": "T2+T3",
+      "op": "keep",
+      "raw": "{\"change\": \"yes\", \"type\": \"new_building\", \"reason\": \"A building is present in T2 but absent in T1 within the red contour.\"}\n",
+      "p_yes": 0.6513549089431763,
+      "f1_before": 0.6371055019781733,
+      "f1_after": 0.6371055019781733,
+      "calls_used": 1,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_45/001_T3_t1.jpg",
+        "calls_test_45/001_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 2,
+      "stage": "A",
+      "uid": 69,
+      "bbox": [
+        516,
+        362,
+        517,
+        363
+      ],
+      "action": "T2+T3",
+      "op": "keep",
+      "raw": "{\"change\": \"yes\", \"type\": \"new_building\", \"reason\": \"A building structure is present in T2 but absent in T1 within the red contour.\"}\n",
+      "p_yes": 0.9796676635742188,
+      "f1_before": 0.6371055019781733,
+      "f1_after": 0.6371055019781733,
+      "calls_used": 2,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_45/002_T3_t1.jpg",
+        "calls_test_45/002_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 3,
+      "stage": "A",
+      "uid": 115,
+      "bbox": [
+        938,
+        638,
+        939,
+        639
+      ],
+      "action": "T2+T3+T4",
+      "op": "T4_delete",
+      "raw": "{\"change\": \"no\", \"type\": \"shadow\", \"reason\": \"The change observed is a shadow cast by a nearby structure, not a building itself.\"}\n",
+      "p_yes": 0.3208213150501251,
+      "f1_before": 0.6371055019781733,
+      "f1_after": 0.6371066379018311,
+      "calls_used": 3,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_45/003_T3_t1.jpg",
+        "calls_test_45/003_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 4,
+      "stage": "A",
+      "uid": 131,
+      "bbox": [
+        501,
+        763,
+        502,
+        764
+      ],
+      "action": "T2+T3",
+      "op": "keep",
+      "raw": "{\"change\": \"yes\", \"type\": \"new_building\", \"reason\": \"A building is present in T2 but absent in T1 within the red contour.\"}\n",
+      "p_yes": 0.9669140577316284,
+      "f1_before": 0.6371066379018311,
+      "f1_after": 0.6371066379018311,
+      "calls_used": 4,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_45/004_T3_t1.jpg",
+        "calls_test_45/004_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 5,
+      "stage": "A",
+      "uid": 132,
+      "bbox": [
+        528,
+        763,
+        529,
+        764
+      ],
+      "action": "T2+T3",
+      "op": "keep",
+      "raw": "{\"change\": \"yes\", \"type\": \"new_building\", \"reason\": \"A building is present in T2 but absent in T1 within the red contour.\"}\n",
+      "p_yes": 0.531209409236908,
+      "f1_before": 0.6371066379018311,
+      "f1_after": 0.6371066379018311,
+      "calls_used": 5,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_45/005_T3_t1.jpg",
+        "calls_test_45/005_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 6,
+      "stage": "A",
+      "uid": 135,
+      "bbox": [
+        221,
+        781,
+        222,
+        782
+      ],
+      "action": "T2+T3+T4",
+      "op": "T4_delete",
+      "raw": "{\"change\": \"no\", \"type\": \"seasonal_or_color\", \"reason\": \"The difference is due to seasonal changes in vegetation and lighting, not a building change.\"}\n",
+      "p_yes": 0.3775406777858734,
+      "f1_before": 0.6371066379018311,
+      "f1_after": 0.6371077738295395,
+      "calls_used": 6,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_45/006_T3_t1.jpg",
+        "calls_test_45/006_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 7,
+      "stage": "A",
+      "uid": 32,
+      "bbox": [
+        261,
+        156,
+        262,
+        158
+      ],
+      "action": "T2+T3",
+      "op": "keep",
+      "raw": "{\"change\": \"yes\", \"type\": \"new_building\", \"reason\": \"A building is present in T2 but absent in T1 within the red contour.\"}\n",
+      "p_yes": 0.9399133324623108,
+      "f1_before": 0.6371077738295395,
+      "f1_after": 0.6371077738295395,
+      "calls_used": 7,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_45/007_T3_t1.jpg",
+        "calls_test_45/007_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 8,
+      "stage": "A",
+      "uid": 61,
+      "bbox": [
+        131,
+        325,
+        133,
+        326
+      ],
+      "action": "T2+T3+T4",
+      "op": "T4_delete",
+      "raw": "{\"change\": \"no\", \"type\": \"no_change\", \"reason\": \"The red contour remains within the same building structure in both images, with no evidence of construction, demolition, or rebuilding.\"}\n",
+      "p_yes": 0.2689414322376251,
+      "f1_before": 0.6371077738295395,
+      "f1_after": 0.6371100456971083,
+      "calls_used": 8,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_45/008_T3_t1.jpg",
+        "calls_test_45/008_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 9,
+      "stage": "A",
+      "uid": 27,
+      "bbox": [
+        794,
+        126,
+        796,
+        128
+      ],
+      "action": "T2+T3",
+      "op": "keep",
+      "raw": "{\"change\": \"yes\", \"type\": \"new_building\", \"reason\": \"A building is present in T2 but absent in T1 within the red contour.\"}\n",
+      "p_yes": 0.9820137619972229,
+      "f1_before": 0.6371100456971083,
+      "f1_after": 0.6371100456971083,
+      "calls_used": 9,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_45/009_T3_t1.jpg",
+        "calls_test_45/009_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 10,
+      "stage": "A",
+      "uid": 35,
+      "bbox": [
+        924,
+        192,
+        926,
+        194
+      ],
+      "action": "T2+T3",
+      "op": "keep",
+      "raw": "{\"change\": \"yes\", \"type\": \"new_building\", \"reason\": \"A building is present in T2 but absent in T1 within the red contour.\"}\n",
+      "p_yes": 0.970687747001648,
+      "f1_before": 0.6371100456971083,
+      "f1_after": 0.6371100456971083,
+      "calls_used": 10,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_45/010_T3_t1.jpg",
+        "calls_test_45/010_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 11,
+      "stage": "A",
+      "uid": 50,
+      "bbox": [
+        363,
+        286,
+        366,
+        288
+      ],
+      "action": "T2+T3",
+      "op": "keep",
+      "raw": "{\"change\": \"yes\", \"type\": \"new_building\", \"reason\": \"A building is present in T2 but absent in T1 within the red contour.\"}\n",
+      "p_yes": 0.8807970285415649,
+      "f1_before": 0.6371100456971083,
+      "f1_after": 0.6371100456971083,
+      "calls_used": 11,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_45/011_T3_t1.jpg",
+        "calls_test_45/011_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 12,
+      "stage": "A",
+      "uid": 93,
+      "bbox": [
+        29,
+        473,
+        31,
+        475
+      ],
+      "action": "T2+T3",
+      "op": "keep",
+      "raw": "{\"change\": \"yes\", \"type\": \"new_building\", \"reason\": \"A building is present in T2 but absent in T1 within the red contour.\"}\n",
+      "p_yes": 0.562176525592804,
+      "f1_before": 0.6371100456971083,
+      "f1_after": 0.6371100456971083,
+      "calls_used": 12,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_45/012_T3_t1.jpg",
+        "calls_test_45/012_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 13,
+      "stage": "A",
+      "uid": 3,
+      "bbox": [
+        932,
+        2,
+        934,
+        4
+      ],
+      "action": "T2+T3",
+      "op": "keep",
+      "raw": "{\"change\": \"yes\", \"type\": \"new_building\", \"reason\": \"A building is present in T2 but absent in T1 within the red contour.\"}\n",
+      "p_yes": 0.9324532747268677,
+      "f1_before": 0.6371100456971083,
+      "f1_after": 0.6371100456971083,
+      "calls_used": 13,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_45/013_T3_t1.jpg",
+        "calls_test_45/013_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 14,
+      "stage": "A",
+      "uid": 4,
+      "bbox": [
+        972,
+        10,
+        974,
+        12
+      ],
+      "action": "T2+T3",
+      "op": "keep",
+      "raw": "{\"change\": \"yes\", \"type\": \"new_building\", \"reason\": \"A building is present in T2 but absent in T1 within the red contour.\"}\n",
+      "p_yes": 0.9465966820716858,
+      "f1_before": 0.6371100456971083,
+      "f1_after": 0.6371100456971083,
+      "calls_used": 14,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_45/014_T3_t1.jpg",
+        "calls_test_45/014_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 15,
+      "stage": "A",
+      "uid": 9,
+      "bbox": [
+        986,
+        22,
+        988,
+        24
+      ],
+      "action": "T2+T3",
+      "op": "keep",
+      "raw": "{\"change\": \"yes\", \"type\": \"new_building\", \"reason\": \"A building is present in T2 but absent in T1 within the red contour.\"}\n",
+      "p_yes": 0.8354835510253906,
+      "f1_before": 0.6371100456971083,
+      "f1_after": 0.6371100456971083,
+      "calls_used": 15,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_45/015_T3_t1.jpg",
+        "calls_test_45/015_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 16,
+      "stage": "A",
+      "uid": 11,
+      "bbox": [
+        968,
+        28,
+        970,
+        30
+      ],
+      "action": "T2+T3",
+      "op": "keep",
+      "raw": "{\"change\": \"yes\", \"type\": \"new_building\", \"reason\": \"A building is present in T2 but absent in T1 within the red contour.\"}\n",
+      "p_yes": 0.9241418242454529,
+      "f1_before": 0.6371100456971083,
+      "f1_after": 0.6371100456971083,
+      "calls_used": 16,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_45/016_T3_t1.jpg",
+        "calls_test_45/016_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 17,
+      "stage": "A",
+      "uid": 13,
+      "bbox": [
+        822,
+        32,
+        824,
+        34
+      ],
+      "action": "T2+T3+T4",
+      "op": "T4_delete",
+      "raw": "{\"change\": \"no\", \"type\": \"no_change\", \"reason\": \"The red contour in both images shows the same building structure with no evidence of construction, demolition, or rebuilding.\"}\n",
+      "p_yes": 0.2018132209777832,
+      "f1_before": 0.6371100456971083,
+      "f1_after": 0.6371145894808536,
+      "calls_used": 17,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_45/017_T3_t1.jpg",
+        "calls_test_45/017_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 18,
+      "stage": "A",
+      "uid": 15,
+      "bbox": [
+        854,
+        38,
+        856,
+        40
+      ],
+      "action": "T2+T3",
+      "op": "keep",
+      "raw": "{\"change\": \"yes\", \"type\": \"new_building\", \"reason\": \"A building structure is present in T2 but absent in T1 within the red contour.\"}\n",
+      "p_yes": 0.7981867790222168,
+      "f1_before": 0.6371145894808536,
+      "f1_after": 0.6371145894808536,
+      "calls_used": 18,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_45/018_T3_t1.jpg",
+        "calls_test_45/018_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 19,
+      "stage": "A",
+      "uid": 18,
+      "bbox": [
+        780,
+        58,
+        782,
+        60
+      ],
+      "action": "T2+T3",
+      "op": "keep",
+      "raw": "{\"change\": \"yes\", \"type\": \"new_building\", \"reason\": \"A building is present in T2 but absent in T1 within the red contour.\"}\n",
+      "p_yes": 0.531209409236908,
+      "f1_before": 0.6371145894808536,
+      "f1_after": 0.6371145894808536,
+      "calls_used": 19,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_45/019_T3_t1.jpg",
+        "calls_test_45/019_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 20,
+      "stage": "A",
+      "uid": 133,
+      "bbox": [
+        997,
+        766,
+        1003,
+        768
+      ],
+      "action": "T2+T3",
+      "op": "keep",
+      "raw": "{\"change\": \"yes\", \"type\": \"new_building\", \"reason\": \"A building is present in T2 but absent in T1 within the red contour.\"}\n",
+      "p_yes": 0.5926666259765625,
+      "f1_before": 0.6371145894808536,
+      "f1_after": 0.6371145894808536,
+      "calls_used": 20,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_45/020_T3_t1.jpg",
+        "calls_test_45/020_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 21,
+      "stage": "A",
+      "uid": 7,
+      "bbox": [
+        824,
+        20,
+        828,
+        24
+      ],
+      "action": "T2+T3+T4",
+      "op": "T4_delete",
+      "raw": "{\"change\": \"no\", \"type\": \"no_change\", \"reason\": \"The red contour in both images highlights the same area with no visible building changes, only slight variations due to lighting or shadows.\"}\n",
+      "p_yes": 0.08509904146194458,
+      "f1_before": 0.6371145894808536,
+      "f1_after": 0.6371236772427811,
+      "calls_used": 21,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_45/021_T3_t1.jpg",
+        "calls_test_45/021_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 22,
+      "stage": "A",
+      "uid": 6,
+      "bbox": [
+        976,
+        14,
+        984,
+        28
+      ],
+      "action": "T2+T3",
+      "op": "keep",
+      "raw": "{\"change\": \"yes\", \"type\": \"new_building\", \"reason\": \"A building is present in T2 but absent in T1 within the red contour.\"}\n",
+      "p_yes": 0.8933094143867493,
+      "f1_before": 0.6371236772427811,
+      "f1_after": 0.6371236772427811,
+      "calls_used": 22,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_45/022_T3_t1.jpg",
+        "calls_test_45/022_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 23,
+      "stage": "A",
+      "uid": 99,
+      "bbox": [
+        121,
+        503,
+        145,
+        512
+      ],
+      "action": "T2+T3",
+      "op": "keep",
+      "raw": "{\"change\": \"no\", \"type\": \"no_change\", \"reason\": \"The red contour in both images highlights the same area with no visible building changes, only differences in lighting and vegetation.\"}\n",
+      "p_yes": 0.4687906503677368,
+      "f1_before": 0.6371236772427811,
+      "f1_after": 0.6371236772427811,
+      "calls_used": 23,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_45/023_T3_t1.jpg",
+        "calls_test_45/023_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 24,
+      "stage": "A",
+      "uid": 40,
+      "bbox": [
+        88,
+        246,
+        117,
+        256
+      ],
+      "action": "T2+T3",
+      "op": "keep",
+      "raw": "{\"change\": \"yes\", \"type\": \"new_building\", \"reason\": \"A building is present in T2 but absent in T1 within the red contour.\"}\n",
+      "p_yes": 0.9241418242454529,
+      "f1_before": 0.6371236772427811,
+      "f1_after": 0.6371236772427811,
+      "calls_used": 24,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_45/024_T3_t1.jpg",
+        "calls_test_45/024_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 25,
+      "stage": "A",
+      "uid": 5,
+      "bbox": [
+        551,
+        11,
+        579,
+        33
+      ],
+      "action": "T2+T3",
+      "op": "keep",
+      "raw": "{\"change\": \"yes\", \"type\": \"new_building\", \"reason\": \"A building is present in T2 but absent in T1 within the red contour, indicating a new construction.\"}\n",
+      "p_yes": 0.8933094143867493,
+      "f1_before": 0.6371236772427811,
+      "f1_after": 0.6371236772427811,
+      "calls_used": 25,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_45/025_T3_t1.jpg",
+        "calls_test_45/025_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 26,
+      "stage": "A",
+      "uid": 98,
+      "bbox": [
+        408,
+        499,
+        457,
+        512
+      ],
+      "action": "T2+T3",
+      "op": "keep",
+      "raw": "{\"change\": \"yes\", \"type\": \"new_building\", \"reason\": \"A building is present in T2 but absent in T1 within the red contour.\"}\n",
+      "p_yes": 0.9796676635742188,
+      "f1_before": 0.6371236772427811,
+      "f1_after": 0.6371236772427811,
+      "calls_used": 26,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_45/026_T3_t1.jpg",
+        "calls_test_45/026_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 27,
+      "stage": "A",
+      "uid": 31,
+      "bbox": [
+        602,
+        153,
+        632,
+        177
+      ],
+      "action": "T2+T3",
+      "op": "keep",
+      "raw": "{\"change\": \"yes\", \"type\": \"new_building\", \"reason\": \"A building is present in T2 but absent in T1 within the red contour.\"}\n",
+      "p_yes": 0.9149009585380554,
+      "f1_before": 0.6371236772427811,
+      "f1_after": 0.6371236772427811,
+      "calls_used": 27,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_45/027_T3_t1.jpg",
+        "calls_test_45/027_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 28,
+      "stage": "A",
+      "uid": 130,
+      "bbox": [
+        424,
+        749,
+        457,
+        768
+      ],
+      "action": "T2+T3+T4",
+      "op": "T4_delete",
+      "raw": "{\"change\": \"no\", \"type\": \"no_change\", \"reason\": \"The red contour in both images encloses the same building with no visible changes in structure, indicating no building change occurred.\"}\n",
+      "p_yes": 0.2018132209777832,
+      "f1_before": 0.6371236772427811,
+      "f1_after": 0.6376056998988279,
+      "calls_used": 28,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_45/028_T3_t1.jpg",
+        "calls_test_45/028_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 29,
+      "stage": "A",
+      "uid": 72,
+      "bbox": [
+        666,
+        370,
+        695,
+        393
+      ],
+      "action": "T2+T3",
+      "op": "keep",
+      "raw": "{\"change\": \"yes\", \"type\": \"new_building\", \"reason\": \"A building is present in T2 but absent in T1 within the red contour, indicating new construction.\"}\n",
+      "p_yes": 0.9796676635742188,
+      "f1_before": 0.6376056998988279,
+      "f1_after": 0.6376056998988279,
+      "calls_used": 29,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_45/029_T3_t1.jpg",
+        "calls_test_45/029_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 30,
+      "stage": "A",
+      "uid": 153,
+      "bbox": [
+        408,
+        919,
+        439,
+        945
+      ],
+      "action": "T2+T3",
+      "op": "keep",
+      "raw": "{\"change\": \"yes\", \"type\": \"rebuilt\", \"reason\": \"The building inside the red contour has been demolished and rebuilt with a different structure in T2.\"}\n",
+      "p_yes": 0.7310585379600525,
+      "f1_before": 0.6376056998988279,
+      "f1_after": 0.6376056998988279,
+      "calls_used": 30,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_45/030_T3_t1.jpg",
+        "calls_test_45/030_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 31,
+      "stage": "A",
+      "uid": 141,
+      "bbox": [
+        141,
+        816,
+        174,
+        842
+      ],
+      "action": "T2+T3",
+      "op": "keep",
+      "raw": "{\"change\": \"yes\", \"type\": \"new_building\", \"reason\": \"A building is present in T2 but absent in T1 within the red contour.\"}\n",
+      "p_yes": 0.9796676635742188,
+      "f1_before": 0.6376056998988279,
+      "f1_after": 0.6376056998988279,
+      "calls_used": 31,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_45/031_T3_t1.jpg",
+        "calls_test_45/031_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 32,
+      "stage": "A",
+      "uid": 97,
+      "bbox": [
+        153,
+        498,
+        201,
+        521
+      ],
+      "action": "T2+T3",
+      "op": "keep",
+      "raw": "{\"change\": \"yes\", \"type\": \"new_building\", \"reason\": \"A building is present in T2 but absent in T1 within the red contour.\"}\n",
+      "p_yes": 0.531209409236908,
+      "f1_before": 0.6376056998988279,
+      "f1_after": 0.6376056998988279,
+      "calls_used": 32,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_45/032_T3_t1.jpg",
+        "calls_test_45/032_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 33,
+      "stage": "A",
+      "uid": 125,
+      "bbox": [
+        105,
+        715,
+        138,
+        741
+      ],
+      "action": "T2+T3+T4",
+      "op": "T4_delete",
+      "raw": "{\"change\": \"no\", \"type\": \"seasonal_or_color\", \"reason\": \"The building within the red contour appears to be the same structure in both images, with differences likely due to seasonal changes or illumination variations.\"}\n",
+      "p_yes": 0.22270014882087708,
+      "f1_before": 0.6376056998988279,
+      "f1_after": 0.638242312528578,
+      "calls_used": 33,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_45/033_T3_t1.jpg",
+        "calls_test_45/033_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 34,
+      "stage": "A",
+      "uid": 118,
+      "bbox": [
+        258,
+        669,
+        292,
+        696
+      ],
+      "action": "T2+T3+T4",
+      "op": "T4_delete",
+      "raw": "{\"change\": \"no\", \"type\": \"no_change\", \"reason\": \"The building within the red contour appears consistent in both images, with no evidence of construction, demolition, or rebuilding.\"}\n",
+      "p_yes": 0.042087726294994354,
+      "f1_before": 0.638242312528578,
+      "f1_after": 0.6389076130587228,
+      "calls_used": 34,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_45/034_T3_t1.jpg",
+        "calls_test_45/034_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 35,
+      "stage": "A",
+      "uid": 77,
+      "bbox": [
+        656,
+        397,
+        687,
+        431
+      ],
+      "action": "T2+T3",
+      "op": "keep",
+      "raw": "{\"change\": \"yes\", \"type\": \"new_building\", \"reason\": \"A building is present in T2 but absent in T1 within the red contour.\"}\n",
+      "p_yes": 0.9840936064720154,
+      "f1_before": 0.6389076130587228,
+      "f1_after": 0.6389076130587228,
+      "calls_used": 35,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_45/035_T3_t1.jpg",
+        "calls_test_45/035_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 36,
+      "stage": "A",
+      "uid": 134,
+      "bbox": [
+        666,
+        774,
+        700,
+        807
+      ],
+      "action": "T2+T3",
+      "op": "keep",
+      "raw": "{\"change\": \"yes\", \"type\": \"new_building\", \"reason\": \"A building is present in T2 but absent in T1 within the red contour.\"}\n",
+      "p_yes": 0.9626730680465698,
+      "f1_before": 0.6389076130587228,
+      "f1_after": 0.6389076130587228,
+      "calls_used": 36,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_45/036_T3_t1.jpg",
+        "calls_test_45/036_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 37,
+      "stage": "A",
+      "uid": 53,
+      "bbox": [
+        828,
+        308,
+        862,
+        343
+      ],
+      "action": "T2+T3",
+      "op": "keep",
+      "raw": "{\"change\": \"yes\", \"type\": \"new_building\", \"reason\": \"A building is present in T2 but absent in T1 within the red contour.\"}\n",
+      "p_yes": 0.8807970285415649,
+      "f1_before": 0.6389076130587228,
+      "f1_after": 0.6389076130587228,
+      "calls_used": 37,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_45/037_T3_t1.jpg",
+        "calls_test_45/037_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 38,
+      "stage": "A",
+      "uid": 129,
+      "bbox": [
+        46,
+        744,
+        91,
+        768
+      ],
+      "action": "T2+T3",
+      "op": "keep",
+      "raw": "{\"change\": \"yes\", \"type\": \"new_building\", \"reason\": \"A building is present in T2 but absent in T1 within the red contour.\"}\n",
+      "p_yes": 0.531209409236908,
+      "f1_before": 0.6389076130587228,
+      "f1_after": 0.6389076130587228,
+      "calls_used": 38,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_45/038_T3_t1.jpg",
+        "calls_test_45/038_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 39,
+      "stage": "B",
+      "uid": 200001,
+      "bbox": [
+        798,
+        0,
+        835,
+        22
+      ],
+      "action": "T2+T3+add",
+      "op": "candidate_mask",
+      "raw": "{\"change\": \"yes\", \"type\": \"new_building\", \"reason\": \"A building is present in T2 but absent in T1 within the red contour.\"}\n",
+      "p_yes": 0.7772998809814453,
+      "f1_before": 0.6389076130587228,
+      "f1_after": 0.6383050175325151,
+      "calls_used": 39,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_45/039_T3_t1.jpg",
+        "calls_test_45/039_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 40,
+      "stage": "B",
+      "uid": 200002,
+      "bbox": [
+        715,
+        3,
+        783,
+        58
+      ],
+      "action": "T2+T3",
+      "op": "skip",
+      "raw": "{\"change\": \"no\", \"type\": \"no_change\", \"reason\": \"The red contour highlights the same building in both images, with no evidence of construction, demolition, or rebuilding.\"}\n",
+      "p_yes": 0.3486451506614685,
+      "f1_before": 0.6383050175325151,
+      "f1_after": 0.6383050175325151,
+      "calls_used": 40,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_45/040_T3_t1.jpg",
+        "calls_test_45/040_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 41,
+      "stage": "B",
+      "uid": 200004,
+      "bbox": [
+        688,
+        29,
+        727,
+        66
+      ],
+      "action": "T2+T3",
+      "op": "skip",
+      "raw": "{\"change\": \"no\", \"type\": \"shadow\", \"reason\": \"The red contour highlights a shadow cast by a nearby structure, not a building itself, which does not count as a building change according to the scope card.\"}\n",
+      "p_yes": 0.13296423852443695,
+      "f1_before": 0.6383050175325151,
+      "f1_after": 0.6383050175325151,
+      "calls_used": 41,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_45/041_T3_t1.jpg",
+        "calls_test_45/041_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 42,
+      "stage": "B",
+      "uid": 200009,
+      "bbox": [
+        620,
+        70,
+        656,
+        110
+      ],
+      "action": "T2+T3",
+      "op": "skip",
+      "raw": "{\"change\": \"no\", \"type\": \"no_change\", \"reason\": \"The red contour in both images encloses the same building with no visible changes in structure or presence.\"}\n",
+      "p_yes": 0.11920291930437088,
+      "f1_before": 0.6383050175325151,
+      "f1_after": 0.6383050175325151,
+      "calls_used": 42,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_45/042_T3_t1.jpg",
+        "calls_test_45/042_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 43,
+      "stage": "B",
+      "uid": 200016,
+      "bbox": [
+        568,
+        94,
+        607,
+        139
+      ],
+      "action": "T2+T3+add",
+      "op": "candidate_mask",
+      "raw": "{\"change\": \"yes\", \"type\": \"new_building\", \"reason\": \"A building is present in T2 but absent in T1 within the red contour, indicating a newly constructed building.\"}\n",
+      "p_yes": 0.562176525592804,
+      "f1_before": 0.6383050175325151,
+      "f1_after": 0.6371964483115216,
+      "calls_used": 43,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_45/043_T3_t1.jpg",
+        "calls_test_45/043_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 44,
+      "stage": "B",
+      "uid": 200005,
+      "bbox": [
+        671,
+        44,
+        709,
+        87
+      ],
+      "action": "T2+T3",
+      "op": "skip",
+      "raw": "{\"change\": \"no\", \"type\": \"no_change\", \"reason\": \"The building within the red contour remains present and unchanged between T1 and T2, with no evidence of construction, demolition, or rebuilding.\"}\n",
+      "p_yes": 0.14804719388484955,
+      "f1_before": 0.6371964483115216,
+      "f1_after": 0.6371964483115216,
+      "calls_used": 44,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_45/044_T3_t1.jpg",
+        "calls_test_45/044_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 45,
+      "stage": "B",
+      "uid": 200031,
+      "bbox": [
+        409,
+        975,
+        444,
+        1016
+      ],
+      "action": "T2+T3",
+      "op": "skip",
+      "raw": "{\"change\": \"no\", \"type\": \"no_change\", \"reason\": \"The red contour in both images encloses the same building with no visible changes in structure or presence.\"}\n",
+      "p_yes": 0.11920291930437088,
+      "f1_before": 0.6371964483115216,
+      "f1_after": 0.6371964483115216,
+      "calls_used": 45,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_45/045_T3_t1.jpg",
+        "calls_test_45/045_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 46,
+      "stage": "B",
+      "uid": 200006,
+      "bbox": [
+        644,
+        55,
+        673,
+        90
+      ],
+      "action": "T2+T3",
+      "op": "skip",
+      "raw": "{\"change\": \"no\", \"type\": \"shadow\", \"reason\": \"The red contour highlights a shadow cast by the building, not a change in the building itself.\"}\n",
+      "p_yes": 0.06754669547080994,
+      "f1_before": 0.6371964483115216,
+      "f1_after": 0.6371964483115216,
+      "calls_used": 46,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_45/046_T3_t1.jpg",
+        "calls_test_45/046_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 47,
+      "stage": "B",
+      "uid": 200032,
+      "bbox": [
+        276,
+        979,
+        317,
+        1024
+      ],
+      "action": "T2+T3",
+      "op": "skip",
+      "raw": "{\"change\": \"no\", \"type\": \"no_change\", \"reason\": \"The red contour in both images highlights the same building with no visible changes in structure or presence.\"}\n",
+      "p_yes": 0.2018132209777832,
+      "f1_before": 0.6371964483115216,
+      "f1_after": 0.6371964483115216,
+      "calls_used": 47,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_45/047_T3_t1.jpg",
+        "calls_test_45/047_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 48,
+      "stage": "B",
+      "uid": 200030,
+      "bbox": [
+        303,
+        967,
+        342,
+        1008
+      ],
+      "action": "T2+T3",
+      "op": "skip",
+      "raw": "{\"change\": \"no\", \"type\": \"seasonal_or_color\", \"reason\": \"The building within the red contour appears to be the same structure in both images, with differences likely due to seasonal or illumination variations.\"}\n",
+      "p_yes": 0.06754669547080994,
+      "f1_before": 0.6371964483115216,
+      "f1_after": 0.6371964483115216,
+      "calls_used": 48,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_45/048_T3_t1.jpg",
+        "calls_test_45/048_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 49,
+      "stage": "B",
+      "uid": 200028,
+      "bbox": [
+        299,
+        807,
+        338,
+        850
+      ],
+      "action": "T2+T3",
+      "op": "skip",
+      "raw": "{\"change\": \"no\", \"type\": \"no_change\", \"reason\": \"The building within the red contour appears consistent in both images, with no evidence of construction, demolition, or significant changes.\"}\n",
+      "p_yes": 0.07585817575454712,
+      "f1_before": 0.6371964483115216,
+      "f1_after": 0.6371964483115216,
+      "calls_used": 49,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_45/049_T3_t1.jpg",
+        "calls_test_45/049_T3_t2.jpg"
+      ]
+    },
+    {
+      "step": 50,
+      "stage": "B",
+      "uid": 200027,
+      "bbox": [
+        351,
+        782,
+        388,
+        823
+      ],
+      "action": "T2+T3",
+      "op": "skip",
+      "raw": "{\"change\": \"no\", \"type\": \"shadow\", \"reason\": \"The red contour highlights a shadow cast by a building, which is consistent with lighting changes and does not indicate a building change.\"}\n",
+      "p_yes": 0.10669060051441193,
+      "f1_before": 0.6371964483115216,
+      "f1_after": 0.6371964483115216,
+      "calls_used": 50,
+      "kind": "T3",
+      "f1_scope": "本步",
+      "thumbs": [
+        "calls_test_45/050_T3_t1.jpg",
+        "calls_test_45/050_T3_t2.jpg"
+      ]
+    }
+  ],
+  "operations": [
+    {
+      "step": 51,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6371964483115216,
+      "f1_after": 0.6373368015607023
+    },
+    {
+      "step": 52,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6373368015607023,
+      "f1_after": 0.636018414029054
+    },
+    {
+      "step": 53,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_inside_sam3",
+      "f1_before": 0.636018414029054,
+      "f1_after": 0.636018414029054
+    },
+    {
+      "step": 54,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.636018414029054,
+      "f1_after": 0.6360229711284585
+    },
+    {
+      "step": 55,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6360229711284585,
+      "f1_after": 0.636027528293167
+    },
+    {
+      "step": 56,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.636027528293167,
+      "f1_after": 0.636030946209555
+    },
+    {
+      "step": 57,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.636030946209555,
+      "f1_after": 0.6360947540590072
+    },
+    {
+      "step": 58,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6360947540590072,
+      "f1_after": 0.6361732281489471
+    },
+    {
+      "step": 59,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6361732281489471,
+      "f1_after": 0.6361777874928107
+    },
+    {
+      "step": 60,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6361777874928107,
+      "f1_after": 0.6539287150041339
+    },
+    {
+      "step": 61,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6539287150041339,
+      "f1_after": 0.6539336751721836
+    },
+    {
+      "step": 62,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6539336751721836,
+      "f1_after": 0.6539286588106767
+    },
+    {
+      "step": 63,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6539286588106767,
+      "f1_after": 0.653096547303633
+    },
+    {
+      "step": 64,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.653096547303633,
+      "f1_after": 0.6531015160938757
+    },
+    {
+      "step": 65,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6531015160938757,
+      "f1_after": 0.6532487595506986
+    },
+    {
+      "step": 66,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6532487595506986,
+      "f1_after": 0.6532733876598926
+    },
+    {
+      "step": 67,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6532733876598926,
+      "f1_after": 0.653278359459876
+    },
+    {
+      "step": 68,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.653278359459876,
+      "f1_after": 0.6532813448499623
+    },
+    {
+      "step": 69,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6532813448499623,
+      "f1_after": 0.6531035351703441
+    },
+    {
+      "step": 70,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6531035351703441,
+      "f1_after": 0.6532081293485982
+    },
+    {
+      "step": 71,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6532081293485982,
+      "f1_after": 0.6532481721153038
+    },
+    {
+      "step": 72,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6532481721153038,
+      "f1_after": 0.6526808849910305
+    },
+    {
+      "step": 73,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_inside_sam3",
+      "f1_before": 0.6526808849910305,
+      "f1_after": 0.6526808849910305
+    },
+    {
+      "step": 74,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6526808849910305,
+      "f1_after": 0.6515073808357584
+    },
+    {
+      "step": 75,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6515073808357584,
+      "f1_after": 0.6515579103886947
+    },
+    {
+      "step": 76,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6515579103886947,
+      "f1_after": 0.6507189562618896
+    },
+    {
+      "step": 77,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6507189562618896,
+      "f1_after": 0.6507227150286602
+    },
+    {
+      "step": 78,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6507227150286602,
+      "f1_after": 0.649928726156054
+    },
+    {
+      "step": 79,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.649928726156054,
+      "f1_after": 0.6486021222519236
+    },
+    {
+      "step": 80,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6486021222519236,
+      "f1_after": 0.6486296189549551
+    },
+    {
+      "step": 81,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6486296189549551,
+      "f1_after": 0.6486459300526153
+    },
+    {
+      "step": 82,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6486459300526153,
+      "f1_after": 0.6486484395250678
+    },
+    {
+      "step": 83,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6486484395250678,
+      "f1_after": 0.6486575370026096
+    },
+    {
+      "step": 84,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6486575370026096,
+      "f1_after": 0.6486646482429073
+    },
+    {
+      "step": 85,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6486646482429073,
+      "f1_after": 0.6486684129680288
+    },
+    {
+      "step": 86,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6486684129680288,
+      "f1_after": 0.6474259757086277
+    },
+    {
+      "step": 87,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6474259757086277,
+      "f1_after": 0.6494293588266434
+    },
+    {
+      "step": 88,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6494293588266434,
+      "f1_after": 0.6494937265695255
+    },
+    {
+      "step": 89,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6494937265695255,
+      "f1_after": 0.6472904131333154
+    },
+    {
+      "step": 90,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6472904131333154,
+      "f1_after": 0.64750179414025
+    },
+    {
+      "step": 91,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.64750179414025,
+      "f1_after": 0.6457665760465061
+    },
+    {
+      "step": 92,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6457665760465061,
+      "f1_after": 0.6454467851290756
+    },
+    {
+      "step": 93,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6454467851290756,
+      "f1_after": 0.6454885860520614
+    },
+    {
+      "step": 94,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6454885860520614,
+      "f1_after": 0.6424150527258943
+    },
+    {
+      "step": 95,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6424150527258943,
+      "f1_after": 0.6424434120008115
+    },
+    {
+      "step": 96,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6424434120008115,
+      "f1_after": 0.6391755846843329
+    },
+    {
+      "step": 97,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6391755846843329,
+      "f1_after": 0.6378398566473438
+    },
+    {
+      "step": 98,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6378398566473438,
+      "f1_after": 0.6371563350637299
+    },
+    {
+      "step": 99,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6371563350637299,
+      "f1_after": 0.6372512308991539
+    },
+    {
+      "step": 100,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6372512308991539,
+      "f1_after": 0.637255038650066
+    },
+    {
+      "step": 101,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.637255038650066,
+      "f1_after": 0.6290826080292972
+    },
+    {
+      "step": 102,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6290826080292972,
+      "f1_after": 0.6291265582049157
+    },
+    {
+      "step": 103,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6291265582049157,
+      "f1_after": 0.6291290958190227
+    },
+    {
+      "step": 104,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6291290958190227,
+      "f1_after": 0.6292035112631511
+    },
+    {
+      "step": 105,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6292035112631511,
+      "f1_after": 0.6292561399969742
+    },
+    {
+      "step": 106,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6292561399969742,
+      "f1_after": 0.629450412856255
+    },
+    {
+      "step": 107,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.629450412856255,
+      "f1_after": 0.6295160177109023
+    },
+    {
+      "step": 108,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6295160177109023,
+      "f1_after": 0.6282276472778489
+    },
+    {
+      "step": 109,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6282276472778489,
+      "f1_after": 0.6282832289689173
+    },
+    {
+      "step": 110,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6282832289689173,
+      "f1_after": 0.6283164881611468
+    },
+    {
+      "step": 111,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6283164881611468,
+      "f1_after": 0.6285450454920083
+    },
+    {
+      "step": 112,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6285450454920083,
+      "f1_after": 0.6285463183090263
+    },
+    {
+      "step": 113,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6285463183090263,
+      "f1_after": 0.6288896048240522
+    },
+    {
+      "step": 114,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6288896048240522,
+      "f1_after": 0.6289182261218452
+    },
+    {
+      "step": 115,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6289182261218452,
+      "f1_after": 0.6265919241451579
+    },
+    {
+      "step": 116,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6265919241451579,
+      "f1_after": 0.6273611812833092
+    },
+    {
+      "step": 117,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6273611812833092,
+      "f1_after": 0.6274245310892178
+    },
+    {
+      "step": 118,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6274245310892178,
+      "f1_after": 0.627425809554083
+    },
+    {
+      "step": 119,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.627425809554083,
+      "f1_after": 0.6258972396550845
+    },
+    {
+      "step": 120,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6258972396550845,
+      "f1_after": 0.6259092950157162
+    },
+    {
+      "step": 121,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6259092950157162,
+      "f1_after": 0.6262180946038154
+    },
+    {
+      "step": 122,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6262180946038154,
+      "f1_after": 0.6262112813891199
+    },
+    {
+      "step": 123,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6262112813891199,
+      "f1_after": 0.6268588339479169
+    },
+    {
+      "step": 124,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6268588339479169,
+      "f1_after": 0.6269788830497761
+    },
+    {
+      "step": 125,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6269788830497761,
+      "f1_after": 0.6270275136258736
+    },
+    {
+      "step": 126,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6270275136258736,
+      "f1_after": 0.6257764484143243
+    },
+    {
+      "step": 127,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6257764484143243,
+      "f1_after": 0.6257769765011985
+    },
+    {
+      "step": 128,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6257769765011985,
+      "f1_after": 0.6262005123016805
+    },
+    {
+      "step": 129,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6262005123016805,
+      "f1_after": 0.6262148226016213
+    },
+    {
+      "step": 130,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6262148226016213,
+      "f1_after": 0.6262681667549682
+    },
+    {
+      "step": 131,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6262681667549682,
+      "f1_after": 0.6257724221323437
+    },
+    {
+      "step": 132,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6257724221323437,
+      "f1_after": 0.6246895995756208
+    },
+    {
+      "step": 133,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6246895995756208,
+      "f1_after": 0.6239837951289129
+    },
+    {
+      "step": 134,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6239837951289129,
+      "f1_after": 0.6239985936362038
+    },
+    {
+      "step": 135,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6239985936362038,
+      "f1_after": 0.6241741125635378
+    },
+    {
+      "step": 136,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6241741125635378,
+      "f1_after": 0.6242208911100456
+    },
+    {
+      "step": 137,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6242208911100456,
+      "f1_after": 0.6209504669930608
+    },
+    {
+      "step": 138,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6209504669930608,
+      "f1_after": 0.62094860081275
+    },
+    {
+      "step": 139,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.62094860081275,
+      "f1_after": 0.6190767960954493
+    },
+    {
+      "step": 140,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6190767960954493,
+      "f1_after": 0.6179260532226231
+    },
+    {
+      "step": 141,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6179260532226231,
+      "f1_after": 0.6180647604620337
+    },
+    {
+      "step": 142,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_inside_sam3",
+      "f1_before": 0.6180647604620337,
+      "f1_after": 0.6180647604620337
+    },
+    {
+      "step": 143,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6180647604620337,
+      "f1_after": 0.6187422724365806
+    },
+    {
+      "step": 144,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6187422724365806,
+      "f1_after": 0.6174190060872297
+    },
+    {
+      "step": 145,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6174190060872297,
+      "f1_after": 0.6142214965892618
+    },
+    {
+      "step": 146,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6142214965892618,
+      "f1_after": 0.6132367212266288
+    },
+    {
+      "step": 147,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6132367212266288,
+      "f1_after": 0.6136443591674994
+    },
+    {
+      "step": 148,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6136443591674994,
+      "f1_after": 0.6135455931054433
+    },
+    {
+      "step": 149,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6135455931054433,
+      "f1_after": 0.6124504594936052
+    },
+    {
+      "step": 150,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6124504594936052,
+      "f1_after": 0.6109362970994849
+    },
+    {
+      "step": 151,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6109362970994849,
+      "f1_after": 0.6091579436775166
+    },
+    {
+      "step": 152,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6091579436775166,
+      "f1_after": 0.6068466176419336
+    },
+    {
+      "step": 153,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6068466176419336,
+      "f1_after": 0.6053244759490133
+    },
+    {
+      "step": 154,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6053244759490133,
+      "f1_after": 0.6013201421421729
+    },
+    {
+      "step": 155,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.6013201421421729,
+      "f1_after": 0.5979802604354678
+    },
+    {
+      "step": 156,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.5979802604354678,
+      "f1_after": 0.5954836246637434
+    },
+    {
+      "step": 157,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.5954836246637434,
+      "f1_after": 0.5933760310571776
+    },
+    {
+      "step": 158,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.5933760310571776,
+      "f1_after": 0.5892859130256711
+    },
+    {
+      "step": 159,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.5892859130256711,
+      "f1_after": 0.5780894737080012
+    },
+    {
+      "step": 160,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.5780894737080012,
+      "f1_after": 0.5736491840724401
+    },
+    {
+      "step": 161,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.5736491840724401,
+      "f1_after": 0.5671985681860261
+    },
+    {
+      "step": 162,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.5671985681860261,
+      "f1_after": 0.5651216757649549
+    },
+    {
+      "step": 163,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.5651216757649549,
+      "f1_after": 0.5545725722152819
+    },
+    {
+      "step": 164,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.5545725722152819,
+      "f1_after": 0.5491887154408628
+    },
+    {
+      "step": 165,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.5491887154408628,
+      "f1_after": 0.5448937869275138
+    },
+    {
+      "step": 166,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.5448937869275138,
+      "f1_after": 0.540882365382175
+    },
+    {
+      "step": 167,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.540882365382175,
+      "f1_after": 0.5330848796493199
+    },
+    {
+      "step": 168,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.5330848796493199,
+      "f1_after": 0.5316873797020174
+    },
+    {
+      "step": 169,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.5316873797020174,
+      "f1_after": 0.5295263867515972
+    },
+    {
+      "step": 170,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.5295263867515972,
+      "f1_after": 0.5266024278268513
+    },
+    {
+      "step": 171,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.5266024278268513,
+      "f1_after": 0.5134119325557527
+    },
+    {
+      "step": 172,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.5134119325557527,
+      "f1_after": 0.5075962904903526
+    },
+    {
+      "step": 173,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.5075962904903526,
+      "f1_after": 0.5038764440152264
+    },
+    {
+      "step": 174,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.5038764440152264,
+      "f1_after": 0.5034209365753185
+    },
+    {
+      "step": 175,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.5034209365753185,
+      "f1_after": 0.5023880103369378
+    },
+    {
+      "step": 176,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.5023880103369378,
+      "f1_after": 0.502389250348021
+    },
+    {
+      "step": 177,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.502389250348021,
+      "f1_after": 0.5023904903652254
+    },
+    {
+      "step": 178,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.5023904903652254,
+      "f1_after": 0.5023991706570569
+    },
+    {
+      "step": 179,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.5023991706570569,
+      "f1_after": 0.500205218990916
+    },
+    {
+      "step": 180,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.500205218990916,
+      "f1_after": 0.4928784151236566
+    },
+    {
+      "step": 181,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.4928784151236566,
+      "f1_after": 0.4875547217010632
+    },
+    {
+      "step": 182,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.4875547217010632,
+      "f1_after": 0.4802576372666863
+    },
+    {
+      "step": 183,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.4802576372666863,
+      "f1_after": 0.4778804894443967
+    },
+    {
+      "step": 184,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.4778804894443967,
+      "f1_after": 0.4752844779127652
+    },
+    {
+      "step": 185,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.4752844779127652,
+      "f1_after": 0.47341584070549636
+    },
+    {
+      "step": 186,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.47341584070549636,
+      "f1_after": 0.47061334308950525
+    },
+    {
+      "step": 187,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.47061334308950525,
+      "f1_after": 0.4706961082691187
+    },
+    {
+      "step": 188,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.4706961082691187,
+      "f1_after": 0.4718596396475931
+    },
+    {
+      "step": 189,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.4718596396475931,
+      "f1_after": 0.46734414339199293
+    },
+    {
+      "step": 190,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.46734414339199293,
+      "f1_after": 0.45623144813392963
+    },
+    {
+      "step": 191,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.45623144813392963,
+      "f1_after": 0.4542676716235486
+    },
+    {
+      "step": 192,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.4542676716235486,
+      "f1_after": 0.4567058979985371
+    },
+    {
+      "step": 193,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.4567058979985371,
+      "f1_after": 0.4543394214104786
+    },
+    {
+      "step": 194,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.4543394214104786,
+      "f1_after": 0.4520691895707605
+    },
+    {
+      "step": 195,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.4520691895707605,
+      "f1_after": 0.4531864420409312
+    },
+    {
+      "step": 196,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.4531864420409312,
+      "f1_after": 0.453187713603793
+    },
+    {
+      "step": 197,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.453187713603793,
+      "f1_after": 0.45296606983663257
+    },
+    {
+      "step": 198,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.45296606983663257,
+      "f1_after": 0.4529782331996069
+    },
+    {
+      "step": 199,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.4529782331996069,
+      "f1_after": 0.4529805735032682
+    },
+    {
+      "step": 200,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.4529805735032682,
+      "f1_after": 0.4495447954678985
+    },
+    {
+      "step": 201,
+      "stage": "C",
+      "action": "T6",
+      "op": "T6_clip_to_sam3",
+      "f1_before": 0.4495447954678985,
+      "f1_after": 0.44732129593366377
+    }
+  ],
+  "stats": {
+    "calls": 50,
+    "box_try": 0,
+    "box_fail": 0,
+    "seconds": {
+      "A": 0.0624079704284668,
+      "B": 0.03484964370727539,
+      "C": 1.462982416152954
+    }
+  }
+}
