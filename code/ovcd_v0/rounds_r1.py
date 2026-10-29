@@ -7,12 +7,12 @@ from common import REPO, RUN
 F = '../figures/ovcd_v0/round_1/'
 
 
-def table():
+def table(r=1, imc=None):
     lab = {'M0': 'M0', 'A': 'M0+A', 'B': 'M0+A+B', 'C': 'M0+A+B+C'}
     cols = ['k', '状态', 'F1^c', 'IoU^c', 'P', 'R', '整目标漏检率', '整目标误检率', '逐图平均 F1', '平均调用', 'MLLM 秒/图']
     rows = []
     for k in (10, 20, 50):
-        d = json.loads((RUN / 'eval' / f'r1_k{k}_test.json').read_text())
+        d = json.loads((RUN / 'eval' / f'r{r}_k{k}_test.json').read_text())
         for st, v in d['states'].items():
             if st == 'M0' and k != 10:
                 continue
@@ -20,12 +20,12 @@ def table():
                         [f"{v['miss_rate']*100:.1f}", f"{v['false_alarm_rate']*100:.1f}", f"{v['mean_image_f1']*100:.2f}",
                          f"{v['mean_calls']:.1f}", f"{v['mean_mllm_seconds']:.2f}"])
     rows.append(['—', 'DynamicEarth M-C-I 原文', '53.6', '36.6'] + ['—'] * 7)
-    rows.append(['—', 'DynamicEarth I-M-C 原文（复现待补）', '69.7', '53.5'] + ['—'] * 7)
+    rows.append(['—', 'DynamicEarth I-M-C 原文' + (f'（本次复现 {imc[0]:.2f} / {imc[1]:.2f}）' if imc else '（复现待补）'), '69.7', '53.5'] + ['—'] * 7)
     return dict(columns=cols, rows=rows)
 
 
-def f1s(name):
-    d = json.loads((RUN / 'eval' / 'r1_k20_test.json').read_text())['per_image']
+def f1s(name, cfg='r1_k20'):
+    d = json.loads((RUN / 'eval' / f'{cfg}_test.json').read_text())['per_image']
     return {st: round(d[st][name], 4) for st in ('M0', 'A', 'B', 'C')}
 
 
@@ -44,7 +44,7 @@ ROUND = dict(
     sections=dict(
         M0=dict(
             did='用 DynamicEarth 官方 M-C-I 代码与参数在 LEVIR 1024² 全图上推理，**不改任何决策**，另外导出每个 SAM 提议（每图约 600 个）的 DINOv2 变化分数、两期 building 概率和是否进 M0。3 张验证图上官方流程与导出流程逐像素一致；每图约 7.2 GPU 秒。',
-            result='测试集 F1^c **53.76**、IoU^c **36.76**（原文 53.6 / 36.6，差 0.16），P 45.75、R 65.16。验证集 F1^c 57.82。I-M-C（APE-DINO）的环境本轮没跑通，图中只列原文数字。',
+            result='测试集 F1^c **53.76**、IoU^c **36.76**（原文 53.6 / 36.6，差 0.16），P 45.75、R 65.16。验证集 F1^c 57.82。I-M-C（APE-DINO）的环境本轮没跑通；第 2 轮补上：测试集 69.67 / 53.46（原文 69.7 / 53.5）。',
             issues='- 官方 SegEarth-OV 的上采样器保留 Dropout，输出带随机性；我们按图固定种子。\n- 网络慢：权重改从 ModelScope 下载并按 HF 的 sha256 核对；CLIP ViT-B/16 用 timm 发布的同一份 OpenAI 权重（已核对 fp16 无损）。\n- I-M-C 需要 16 GB 权重和 detectron2/detrex 编译，环境第一次因 detrex 的 omegaconf 版本冲突失败。',
             next='用这份 M0 和逐提议分数做 M1 错误分析；I-M-C 环境修好后补对比行。',
             figs=[dict(src=F + 'm0_repro.png', caption='M-C-I 复现与原文对比（I-M-C 只有原文数字）')]),
@@ -76,7 +76,7 @@ ROUND = dict(
             next='本轮不改 C；之后考虑只修 A 核实为“是”的连通域。',
             figs=[dict(src=F + 'm4_gate.png', caption='验证集：C 的替换门限')]),
     ),
-    summary_table=table(),
+    summary_table=table(1, (69.67, 53.46)),
     summary_note='测试集，每轮只评这一次。k=10 的 M0 行与 k=20、50 相同，只列一次。MLLM 秒/图是 16 条一批的缓存时间按批大小分摊；C 在 CPU 上每图约 11 秒；M-C-I 初始化约 7.2 GPU 秒/图未计入。',
     summary_figs=[dict(src=F + 'test_states.png', caption='测试集四个状态（k=20）'),
                   dict(src=F + 'test_budget.png', caption='测试集预算曲线（每个 k 在验证集上独立选参）'),

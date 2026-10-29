@@ -171,7 +171,7 @@ def main(a):
     mci = read_json(Path(a.mci_metrics))['metrics']
     imc = read_json(Path(a.imc_metrics)) if a.imc_metrics and Path(a.imc_metrics).exists() else None
     m0_repro(out / 'm0_repro.png', dict(f1=mci['f1_score_change'], iou=mci['iou_change']),
-             dict(f1=imc['stitched']['f1_score_change'], iou=imc['stitched']['iou_change']) if imc else None)
+             dict(f1=imc['stitched']['metrics']['f1_score_change'], iou=imc['stitched']['metrics']['iou_change']) if imc else None)
     m1v = read_json(RUN / 'm1' / a.tag / 'val.json')['summary']
     m1t = read_json(RUN / 'm1' / a.tag / 'test.json')['summary']
     m1_composition(out / 'm1_composition.png', m1v, m1t)
