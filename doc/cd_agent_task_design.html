@@ -85,6 +85,17 @@ ol.q li::marker{font-family:var(--mono);color:var(--muted)}
 .qtag{font-size:12px;color:var(--muted);margin-left:6px}
 @media (max-width:860px){.caps{grid-template-columns:1fr 1fr}.pipe{grid-template-columns:1fr}.arrow{transform:rotate(90deg);justify-self:center}}
 @media (max-width:640px){.caps,.tasks{grid-template-columns:1fr}.task dl{grid-template-columns:1fr}.task dt{padding-top:6px}h1{font-size:25px}}
+.cmp td.m{text-align:center;font-size:15px;white-space:nowrap}
+.y{color:var(--tp);font-weight:700} .pt{color:var(--fn);font-weight:700} .no{color:var(--muted)}
+.cmp tr.ours th,.cmp tr.ours td{background:var(--acc-soft)}
+.cmp th small{display:block;font-weight:400;color:var(--muted);font-size:12px;white-space:normal}
+.cmp td.w{font-size:12.5px;color:var(--muted);min-width:180px}
+.refine{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.rf{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:14px 16px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.rf .t{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;font-weight:600}
+.rf.add .t{color:var(--tp)} .rf.ref .t{color:var(--acc)}
+.rf p{font-size:14px} .rf .ev{font-size:13px;color:var(--muted)}
+@media (max-width:640px){.refine{grid-template-columns:1fr}}
 </style>
 
 <div class="wrap">
@@ -128,7 +139,40 @@ ol.q li::marker{font-family:var(--mono);color:var(--muted)}
 </section>
 
 <section>
-  <h2><span class="k">03</span>能力与任务的对应</h2>
+  <h2><span class="k">03</span>与已有方法的对比</h2>
+  <p>论文常用的讲法：我们的方法同时具备 A、B、C、D，已有方法只做到其中一部分。下表按两组列来比：本方案支持的三种任务输入，以及 Agent 的四种能力。</p>
+  <div class="scroll">
+  <table class="cmp">
+    <thead><tr><th>方法</th><th>给定类别</th><th>给定示例</th><th>自然语言</th><th>读图</th><th>判断</th><th>定位</th><th>工具调度</th><th>说明</th></tr></thead>
+    <tbody>
+<tr><th>免训练 OVCD<small>DynamicEarth、ReA-OVCD、OmniOVCD 等</small></th><td class="m"><span class="y" title="具备">●</span></td><td class="m"><span class="no" title="不具备">—</span></td><td class="m"><span class="no" title="不具备">—</span></td><td class="m"><span class="pt" title="部分">◐</span></td><td class="m"><span class="pt" title="部分">◐</span></td><td class="m"><span class="no" title="不具备">—</span></td><td class="m"><span class="no" title="不具备">—</span></td><td class="w">识别器是单期 CLIP、APE 或 SAM3，判断靠特征差或规则；SAM 自动提议，固定流程</td></tr>
+<tr><th>指代变化检测<small>RCD、QSCP</small></th><td class="m"><span class="y" title="具备">●</span></td><td class="m"><span class="no" title="不具备">—</span></td><td class="m"><span class="pt" title="部分">◐</span></td><td class="m"><span class="pt" title="部分">◐</span></td><td class="m"><span class="pt" title="部分">◐</span></td><td class="m"><span class="no" title="不具备">—</span></td><td class="m"><span class="no" title="不具备">—</span></td><td class="w">监督训练；RCD 只算新增方向；QSCP 支持同义词、句子和 from→to</td></tr>
+<tr><th>一次出掩码的 MLLM<small>UniChange、DVLChat、Delta-LLaVA</small></th><td class="m"><span class="y" title="具备">●</span></td><td class="m"><span class="no" title="不具备">—</span></td><td class="m"><span class="y" title="具备">●</span></td><td class="m"><span class="y" title="具备">●</span></td><td class="m"><span class="pt" title="部分">◐</span></td><td class="m"><span class="pt" title="部分">◐</span></td><td class="m"><span class="no" title="不具备">—</span></td><td class="w">文本指令直接生成掩码，一次完成，不检查、不修改</td></tr>
+<tr><th>LLM 调工具的变化智能体<small>Change-Agent、ChangeGPT、GaiaAgent</small></th><td class="m"><span class="pt" title="部分">◐</span></td><td class="m"><span class="no" title="不具备">—</span></td><td class="m"><span class="pt" title="部分">◐</span></td><td class="m"><span class="pt" title="部分">◐</span></td><td class="m"><span class="no" title="不具备">—</span></td><td class="m"><span class="no" title="不具备">—</span></td><td class="m"><span class="y" title="具备">●</span></td><td class="w">调度感知模型回答问题；Change-Agent 只有道路、建筑；不迭代修改掩码</td></tr>
+<tr><th>修正仲裁<small>TriSV-CD</small></th><td class="m"><span class="no" title="不具备">—</span></td><td class="m"><span class="no" title="不具备">—</span></td><td class="m"><span class="no" title="不具备">—</span></td><td class="m"><span class="no" title="不具备">—</span></td><td class="m"><span class="pt" title="部分">◐</span></td><td class="m"><span class="no" title="不具备">—</span></td><td class="m"><span class="no" title="不具备">—</span></td><td class="w">只对一次修正做接受或回滚，文中发现 VLM 判定不稳定</td></tr>
+<tr><th>单图分割智能体<small>SegAgent、SAM-Veteran（非变化检测）</small></th><td class="m"><span class="no" title="不具备">—</span></td><td class="m"><span class="no" title="不具备">—</span></td><td class="m"><span class="pt" title="部分">◐</span></td><td class="m"><span class="no" title="不具备">—</span></td><td class="m"><span class="pt" title="部分">◐</span></td><td class="m"><span class="y" title="具备">●</span></td><td class="m"><span class="y" title="具备">●</span></td><td class="w">单张图上多轮点击修改掩码，没有两期和变化的概念</td></tr>
+<tr class="ours"><th>CD-Agent（本方案）<small>设计目标</small></th><td class="m"><span class="y" title="具备">●</span></td><td class="m"><span class="y" title="具备">●</span></td><td class="m"><span class="y" title="具备">●</span></td><td class="m"><span class="y" title="具备">●</span></td><td class="m"><span class="y" title="具备">●</span></td><td class="m"><span class="y" title="具备">●</span></td><td class="m"><span class="y" title="具备">●</span></td><td class="w">OVCD-v0 只验证了“给定类别”；判断、定位目前偏弱（见下）</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="note">● 具备　◐ 部分具备　— 不具备。依据 <code>results/survey_ovcd.md</code> 第 1、6 节的方法描述，逐格的打分是 Claude 的判断，写进论文前要按原文逐项核对。“读图”在这里指用 MLLM 或 VLM 同时理解两期影像和文本。“给定示例”一列，检索范围内没有找到已有方法。本方案一行是设计目标，不是已达到的结果。</p>
+</section>
+
+<section>
+  <h2><span class="k">04</span>根据 OVCD-v0 建议的能力细化</h2>
+  <p>六轮实验里，每个失败都能对应到某项能力。建议把四项能力扩成六项：新增“搜索”和“核验”，其余三项细化子能力。以下是评审建议，不属于原方案。</p>
+  <div class="refine">
+    <article class="rf add"><span class="t">新增 · 搜索</span><h3>提出该去哪里看</h3><p>漏检场景里，判断之前要先提出可疑区域。</p><p class="ev">证据：原始提议覆盖 83–95% 的孤立漏检，取前 20 个后只剩 11–22%。瓶颈在候选的选择和排序。</p></article>
+    <article class="rf add"><span class="t">新增 · 核验</span><h3>检查工具输出，再决定是否采纳</h3><p>工具返回的掩码先核验，不合格就回滚。这也是 Agent 区别于固定流程的关键。</p><p class="ev">证据：整图框经 SAM 分出 97 万像素误检，被直接采纳，测试 F1 −3；修边界接受了与错误大区域 IoU 0.89 的替换。</p></article>
+    <article class="rf ref"><span class="t">细化 · 判断</span><h3>区分两个问题，加上方向</h3><p>“区域内有没有目标变化”和“这个区域整体该不该保留”是两个问题；再加上变化方向（新增、消失），服务细粒度查询。</p><p class="ev">证据：去误检的判别 AUC 0.85，按面积加权只有 0.69；该删的 887 个连通域里 418 个被答成新建建筑。</p></article>
+    <article class="rf ref"><span class="t">细化 · 定位</span><h3>整目标与局部，外加时相选择</h3><p>既要能补整个目标，也要能删目标外多出的局部；还要决定在 T1 还是 T2 上分割。</p><p class="ev">证据：误检像素中 69–85% 是命中目标外多出的像素；MLLM 画框后的掩码 IoU 0.13，低于候选本身的 0.22。</p></article>
+    <article class="rf ref"><span class="t">细化 · 工具调度</span><h3>选工具、分预算、何时停</h3><p>决定用不用某个工具、预算怎么在去误检和补漏之间分，以及何时停止。</p><p class="ev">证据：预算从 20 加到 50 不保证更好；修边界在 I-M-C 上一律有害，被验证集关掉。</p></article>
+    <article class="rf ref"><span class="t">细化 · 读图</span><h3>加上口径理解</h3><p>按用户给的口径（什么算变化、什么不算）去读图，服务“给定示例”和“自然语言”两种任务。</p><p class="ev">依据：OVCD-v0 的口径卡已经是这种用法；示例和自然语言任务的口径要从输入中自己归纳。</p></article>
+  </div>
+</section>
+
+<section>
+  <h2><span class="k">05</span>能力与任务的对应</h2>
   <p>任务分两大类：第一大类对应单项能力，是端到端系统中某个模块的小任务；第二大类是端到端的完整任务，同时用到多种能力。</p>
   <div class="scroll">
   <table>
@@ -150,7 +194,7 @@ ol.q li::marker{font-family:var(--mono);color:var(--muted)}
 </section>
 
 <section>
-  <h2><span class="k">04</span>第一大类：模块任务</h2>
+  <h2><span class="k">06</span>第一大类：模块任务</h2>
   <div class="tasks">
 
     <article class="task mod">
@@ -199,7 +243,7 @@ ol.q li::marker{font-family:var(--mono);color:var(--muted)}
 </section>
 
 <section>
-  <h2><span class="k">05</span>第二大类：端到端任务</h2>
+  <h2><span class="k">07</span>第二大类：端到端任务</h2>
   <div class="tasks">
     <article class="task e2e">
       <header><span class="id">任务 2.1</span><h3>给定类别的变化检测</h3></header>
@@ -220,7 +264,7 @@ ol.q li::marker{font-family:var(--mono);color:var(--muted)}
 </section>
 
 <section>
-  <h2><span class="k">06</span>待定的问题</h2>
+  <h2><span class="k">08</span>待定的问题</h2>
   <ol class="q">
     <li>任务 1.1 的具体形式：输出对象类别，还是区域的两期类别？<span class="qtag">原方案待定</span></li>
     <li>数据集 v0 的候选形状和大小：给 MLLM 看的图长什么样？<span class="qtag">原方案待定</span></li>
