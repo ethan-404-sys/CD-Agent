@@ -2,6 +2,7 @@
 #SBATCH --job-name=ovcd-cpu
 #SBATCH --partition=gre
 #SBATCH --exclude=gpu04,gpu06,gpu16,gpu20,gpu37
+#SBATCH --exclude=gpu04,gpu06,gpu16,gpu20,gpu37
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=4G
 #SBATCH --time=06:00:00

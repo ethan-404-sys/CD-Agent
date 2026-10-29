@@ -85,7 +85,7 @@ def main(a):
             x0, y0, x1, y1 = c['crop']
             g = gt[y0:y1, x0:x1]
             row['cand_iou'] = float((m[y0:y1, x0:x1] & g).sum() / max((m[y0:y1, x0:x1] | g).sum(), 1))
-            if c['box']['box'] is not None:
+            if c.get('box') and c['box']['box'] is not None:
                 fb = render.crop_to_full(c['box']['box'], c['crop'])
                 u = pr.box(a.split, name, 0, fb)[0] | pr.box(a.split, name, 1, fb)[0]
                 row['box_iou'] = float((u[y0:y1, x0:x1] & g).sum() / max((u[y0:y1, x0:x1] | g).sum(), 1))
