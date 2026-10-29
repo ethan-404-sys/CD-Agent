@@ -48,6 +48,7 @@ class Config:
     c_cover: float = 0.0         # sam3clip: clip a component only if >= c_cover of it lies in S
     c_tile: int = 512            # sam3clip: which SAM3 run (0 = whole image, 512 = tiled)
     c_conf: float = 0.5          # sam3clip: SAM3 instance score threshold (< 0.5 read from the conf=0.1 run)
+    c_score: float = 0.0         # after C: keep an M0 pixel only if the initializer's change score > c_score (0 = off; B pixels kept)
     stages: str = 'ABC'
     m0: str = 'mci'              # initializer: mci (DynamicEarth M-C-I) | imc (DynamicEarth I-M-C)
 
@@ -88,6 +89,16 @@ class Image:
             if radius:
                 S = ndi.binary_dilation(S, np.ones((3, 3), bool), iterations=radius)
             self._sam[key] = S
+        return self._sam[key]
+
+    def init_score(self, kind):
+        key = ('init_score', kind)
+        if key not in self._sam:
+            from common import REA
+            if kind != 'rea':
+                raise ValueError('initializer change scores are only exported for ReA-OVCD')
+            z = np.load(REA / self.split / 'score' / (Path(self.name).stem + '.npz'))
+            self._sam[key] = z['change_score'].astype(np.float32)
         return self._sam[key]
 
     def sam_box(self, t, box):
@@ -214,6 +225,12 @@ def run(img: Image, cfg: Config, log=True):
                 op = 'T6_keep_low_sam3_support'
             step(stage='C', action='T6', uid=f"C:{comp['id']}", bbox=comp['bbox'], op=op,
                  removed_px=int(area - inside) if op == 'T6_clip_to_sam3' else 0, sam3_inside=inside / area)
+    if 'C' in cfg.stages and cfg.c_score > 0:
+        sc = img.init_score(cfg.m0)
+        drop = M & img.m0 & (sc <= cfg.c_score)
+        M &= ~drop
+        step(stage='C', action='T6', uid='C:score', bbox=[0, 0, M.shape[1], M.shape[0]],
+             op=f'T6_keep_init_score_gt_{cfg.c_score:g}', removed_px=int(drop.sum()))
     snap['C'] = M.copy()
     stats = dict(calls=used, box_try=box_try, box_fail=box_fail,
                  seconds=dict(A=t_a - t_start, B=t_b - t_a, C=time.time() - t_b))

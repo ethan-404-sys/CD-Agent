@@ -103,6 +103,9 @@ def main(a):
             cc += [replace(base, tau_a=bb['tau_a'], tau_b=bb['tau_b'], stages='ABC', c_mode='sam3clip', c_radius=r, c_cover=c, c_tile=a.c_tile, c_conf=q)
                    for q in a.c_confs for r in CLIP_R for c in CLIP_COVER] if a.c_tile >= 0 else []
             rc = grid(pool, 'val', cc, 'C')
+            if a.c_scores:  # second C step on top of the best first step: initializer-score filter
+                bc = best(rc)['config']
+                rc += grid(pool, 'val', [replace(base, **{**bc, 'c_score': q}) for q in a.c_scores], 'C')
             out['budgets'][str(k)] = dict(A=ra, B=rb, C=rc, chosen=best(rc)['config'])
             print(k, 'A', best(ra)['f1'], 'B', best(rb)['f1'], 'C', best(rc)['f1'], best(rc)['config'], flush=True)
             write_json(RUN / 'select' / a.round / 'val.json', out)
@@ -122,5 +125,6 @@ if __name__ == '__main__':
     p.add_argument('--c-tile', type=int, default=-1, help='also try C = clip to SAM3 support from this SAM3 run (-1: off)')
     p.add_argument('--c-confs', type=float, nargs='+', default=[0.5], help='SAM3 score thresholds for the clip support')
     p.add_argument('--c-fixed', help='JSON of C fields; if given, A and B are selected on the state after this C')
+    p.add_argument('--c-scores', type=float, nargs='*', default=[], help='also try keeping M0 pixels only above these initializer scores')
     p.add_argument('--a-orders', nargs='+', help='also select the stage-A order on val among these')
     main(p.parse_args())
