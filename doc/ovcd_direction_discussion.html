@@ -1,0 +1,214 @@
+<title>OVCD 扩展方向讨论</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: single reading column; a two-route comparison band, then a class × granularity grid as the central figure */
+:root{
+  --bg:#f5f7f8; --surface:#ffffff; --fg:#17212b; --muted:#5a6773; --line:#d9e0e5;
+  --a:#0e6b70; --a-soft:#dcefee; --b:#8a4b12; --b-soft:#f6e8d8;
+  --have:#2f6f4f; --have-bg:#dcefe3; --derive:#7a5a00; --derive-bg:#f8edc9; --new:#7c2d3a; --new-bg:#f5dde1;
+  --display:"Noto Serif SC","Songti SC",serif; --body:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif; --mono:"JetBrains Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#11171c; --surface:#182027; --fg:#e4eaee; --muted:#9aa7b2; --line:#2c3842;
+  --a:#5cc2c4; --a-soft:#173436; --b:#e0a466; --b-soft:#3a2a1a;
+  --have:#7fd1a2; --have-bg:#1b3527; --derive:#e8c766; --derive-bg:#3a3117; --new:#f0a0ad; --new-bg:#3d1f25; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#11171c; --surface:#182027; --fg:#e4eaee; --muted:#9aa7b2; --line:#2c3842;
+  --a:#5cc2c4; --a-soft:#173436; --b:#e0a466; --b-soft:#3a2a1a;
+  --have:#7fd1a2; --have-bg:#1b3527; --derive:#e8c766; --derive-bg:#3a3117; --new:#f0a0ad; --new-bg:#3d1f25; color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.75}
+.wrap{max-width:1040px;margin:0 auto;padding-block:40px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:44px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;line-height:1.35;margin:0}
+h1{font-size:30px}
+h2{font-size:21px;display:flex;gap:12px;align-items:baseline}
+h2 .k{font-family:var(--mono);font-size:13px;color:var(--muted);letter-spacing:.06em}
+h3{font-size:17px}
+p{margin:0;max-width:68ch}
+section{display:flex;flex-direction:column;gap:16px}
+.meta{color:var(--muted);font-size:13px}
+.lead{font-size:16.5px}
+code,.mono{font-family:var(--mono);font-size:.88em}
+ul{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:4px}
+.status{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:14px 18px;display:grid;grid-template-columns:max-content 1fr;gap:6px 18px;font-size:14px}
+.status dt{color:var(--muted)} .status dd{margin:0;min-width:0}
+.routes{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.route{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:20px 20px 18px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.route .tag{font-family:var(--mono);font-size:12px;letter-spacing:.08em;font-weight:600;padding:2px 8px;border-radius:3px;align-self:flex-start}
+.route.ra{border-top:3px solid var(--a)} .ra .tag{background:var(--a-soft);color:var(--a)}
+.route.rb{border-top:3px solid var(--b)} .rb .tag{background:var(--b-soft);color:var(--b)}
+.route dl{margin:0;display:flex;flex-direction:column;gap:10px}
+.route dt{font-size:12.5px;color:var(--muted);letter-spacing:.04em}
+.route dd{margin:0;font-size:14.5px}
+.scroll{overflow-x:auto;border:1px solid var(--line);border-radius:6px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+thead th{font-size:12.5px;color:var(--muted);font-weight:500;letter-spacing:.04em;background:var(--bg)}
+tbody tr:last-child td,tbody tr:last-child th{border-bottom:0}
+.grid th[scope=row]{font-weight:500;min-width:150px}
+.grid th[scope=row] small{display:block;color:var(--muted);font-weight:400;font-size:12px}
+.cell{display:flex;flex-direction:column;gap:2px;border-radius:4px;padding:6px 8px;min-width:118px;font-size:13px;line-height:1.5}
+.cell b{font-size:11.5px;font-weight:600;letter-spacing:.04em}
+.have{background:var(--have-bg)} .have b{color:var(--have)}
+.derive{background:var(--derive-bg)} .derive b{color:var(--derive)}
+.new{background:var(--new-bg)} .new b{color:var(--new)}
+.colA{box-shadow:inset 0 -3px 0 var(--a)}
+.colB{box-shadow:inset 3px 0 0 var(--b)}
+.legend{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:13px;color:var(--muted);align-items:center}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.sw{width:14px;height:14px;border-radius:3px;display:inline-block}
+.sw.have{background:var(--have-bg);border:1px solid var(--have)} .sw.derive{background:var(--derive-bg);border:1px solid var(--derive)} .sw.new{background:var(--new-bg);border:1px solid var(--new)}
+.sw.la{height:3px;width:18px;background:var(--a);border-radius:0} .sw.lb{width:3px;height:16px;background:var(--b);border-radius:0}
+.map{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.map div{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:14px 16px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.map .l{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.rec{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--b);border-radius:0 6px 6px 0;padding:18px 20px;display:flex;flex-direction:column;gap:12px}
+ol.q{margin:0;padding-left:1.4em;display:flex;flex-direction:column;gap:10px}
+ol.q li::marker{font-family:var(--mono);color:var(--muted)}
+.note{font-size:13px;color:var(--muted)}
+a{color:var(--a)}
+@media (max-width:760px){.routes,.map{grid-template-columns:1fr}.status{grid-template-columns:1fr}.status dt{margin-top:6px}h1{font-size:25px}}
+</style>
+
+<div class="wrap">
+
+<header style="display:flex;flex-direction:column;gap:10px">
+  <p class="meta">CV Learning · OVCD 方向讨论 · 2026-10-29 · 供下午与师兄讨论</p>
+  <h1>开放词汇变化检测往哪扩展：更多类别，还是更细的类别</h1>
+  <p class="lead">我们要决定 OVCD 的“开放”体现在哪一个维度上。一条路是横向扩展类别，每个类别作为一个单独的检测任务；另一条路是在已有类别内部纵向细分，例如把建筑变化分成新建、拆除、损毁等。两条路需要的数据、能讲的故事和风险都不一样。</p>
+</header>
+
+<section>
+  <h2><span class="k">00</span>现状：OVCD 论文实际在测什么</h2>
+  <dl class="status">
+    <dt>DynamicEarth</dt><dd>建筑类 4 个数据集（LEVIR-CD、WHU-CD、S2Looking、BANDON），查询文本固定为 building；再加 SECOND 六类，按 OR 规则逐类构造真值。</dd>
+    <dt>后续论文</dt><dd>加入了 DSIFN、Hi-UCD mini（OpenDPR）、CLCD 耕地（Seg2Change、CogVis）、xBD（CogVis）。</dd>
+    <dt>变化定义</dt><dd>只问“这个类别有没有变化”，不区分方向。指代变化检测（RCD）只算新增方向；QSCP 支持 from→to 查询，但这两者都是在 SECOND 上做监督训练的。</dd>
+    <dt>空白</dt><dd>没有任何 OVCD 论文划分“见过”和“没见过”的类别，查询词基本等于数据集的类别名。在检索范围内，没有免训练方法处理过“新建的建筑”“被拆除的建筑”这类细粒度查询。</dd>
+  </dl>
+  <p class="note">出处：仓库 <code>results/survey_ovcd.md</code> 第 1、2、6 节。</p>
+</section>
+
+<section>
+  <h2><span class="k">01</span>两条路线</h2>
+  <div class="routes">
+    <article class="route ra">
+      <span class="tag">路线 A · 扩展类别</span>
+      <h3>每个类别作为一个单独的检测任务</h3>
+      <dl>
+        <dt>动机</dt><dd>DynamicEarth 的相关工作里写道：用户往往只关注特定类别的变化，例如城市扩张看建筑、农业保护看耕地、灾害监测看滑坡。</dd>
+        <dt>数据</dt><dd>收集现成的单类变化数据集，例如耕地 CLCD、滑坡 GVLM、灾损 xBD，加上已有的建筑和 SECOND 六类。基本不需要新标注。</dd>
+        <dt>对 Agent 的意义</dt><dd>每个任务配一张口径卡（什么算变化、什么不算），Agent 按口径核实。这一点能体现出来。</dd>
+        <dt>风险</dt>
+        <dd><ul>
+          <li>一个类别对应一个数据集，查询词和数据集一一对应，“开放”程度不强，更像是把几个单类基准拼在一起；</li>
+          <li>CLCD 和 xBD 已经有人在测，新意有限；</li>
+          <li>单类数据集只标了本类，其他地物的变化在真值里算背景。各数据集的口径不一致，评测会被标注口径拖累。</li>
+        </ul></dd>
+      </dl>
+    </article>
+    <article class="route rb">
+      <span class="tag">路线 B · 细粒度类别</span>
+      <h3>在已有类别内部再细分</h3>
+      <dl>
+        <dt>动机</dt><dd>来自和师兄的讨论。以建筑为例，可以分成新建、拆除、原址重建、厂房或温室，以及灾害损毁等级。这对应师兄方案里 L2 的 1.1–1.5、4.3、8.4。</dd>
+        <dt>数据</dt><dd>一部分可以从现有标注直接派生：S2Looking 的新建和拆除分开标注，SECOND 有两期语义图，xBD 有 4 级损毁。用途类细分要新标注，可以用 OSM 标签做种子。</dd>
+        <dt>对 Agent 的意义</dt><dd>要回答“是不是新建的”“是不是被拆了”，必须对照两期、结合上下文推理，CLIP 式的单期识别器很难做到。这正是 MLLM 比现有免训练流程强的地方，Agent 故事更站得住。</dd>
+        <dt>风险</dt>
+        <dd><ul>
+          <li>评测协议要自己定：OR 规则不区分方向，需要新的协议；</li>
+          <li>口径更难界定，例如扩张和新建的区别、原址重建在端点差分里看不到；</li>
+          <li>和已有论文的数字不能直接比；</li>
+          <li>超出派生范围的部分，标注成本高。</li>
+        </ul></dd>
+      </dl>
+    </article>
+  </div>
+</section>
+
+<section>
+  <h2><span class="k">02</span>类别 × 细粒度：数据从哪来</h2>
+  <p>横向是类别，纵向是细粒度。路线 A 沿第一行向右走，路线 B 沿建筑一列向下走。格子的颜色表示数据目前的可得程度。</p>
+  <div class="legend">
+    <span><i class="sw have"></i>已有 OVCD 评测</span>
+    <span><i class="sw derive"></i>现有数据可直接构造</span>
+    <span><i class="sw new"></i>需要新标注</span>
+    <span><i class="sw la"></i>路线 A</span>
+    <span><i class="sw lb"></i>路线 B</span>
+  </div>
+  <div class="scroll">
+  <table class="grid">
+    <thead><tr><th>细粒度 ↓ / 类别 →</th><th>建筑</th><th>耕地</th><th>水体</th><th>树、林地</th><th>滑坡</th><th>光伏、温室</th></tr></thead>
+    <tbody>
+      <tr>
+        <th scope="row">任意变化<small>当前 OVCD 协议（OR 规则）</small></th>
+        <td class="colA colB"><div class="cell have"><b>已有</b>LEVIR、WHU、S2Looking、BANDON、DSIFN</div></td>
+        <td class="colA"><div class="cell have"><b>已有</b>CLCD（Seg2Change F1 47.9）</div></td>
+        <td class="colA"><div class="cell have"><b>已有</b>SECOND 水体</div></td>
+        <td class="colA"><div class="cell have"><b>已有</b>SECOND 树</div></td>
+        <td class="colA"><div class="cell derive"><b>可构造</b>GVLM 等滑坡变化集，检索范围内未见 OVCD 评测</div></td>
+        <td class="colA"><div class="cell new"><b>需标注</b>无现成双期集，可用 OSM 做种子</div></td>
+      </tr>
+      <tr>
+        <th scope="row">变化方向<small>新增 / 消失</small></th>
+        <td class="colB"><div class="cell derive"><b>可构造</b>S2Looking 新建、拆除分开标注；SECOND 由两期语义图得到</div></td>
+        <td><div class="cell new"><b>需标注</b>CLCD 只有二值</div></td>
+        <td><div class="cell derive"><b>可构造</b>SECOND 两期语义图</div></td>
+        <td><div class="cell derive"><b>可构造</b>SECOND 两期语义图</div></td>
+        <td><div class="cell derive"><b>本身单向</b>植被 → 裸露堆积</div></td>
+        <td><div class="cell new"><b>需标注</b></div></td>
+      </tr>
+      <tr>
+        <th scope="row">转移、属性、程度<small>from→to、用途、损毁等级</small></th>
+        <td class="colB"><div class="cell derive"><b>部分可构造</b>SECOND from→to；xBD 4 级损毁。用途（厂房、住宅）需标注</div></td>
+        <td><div class="cell new"><b>需标注</b>如耕地非农化去向</div></td>
+        <td><div class="cell derive"><b>可构造</b>SECOND from→to</div></td>
+        <td><div class="cell derive"><b>可构造</b>SECOND from→to</div></td>
+        <td><div class="cell new"><b>需标注</b></div></td>
+        <td><div class="cell new"><b>需标注</b></div></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="note">“已有”一格的出处见 survey 第 2、4 节。GVLM 的规模和 SECOND 同类内变化的处理，讨论前建议再核对一遍原文；xBD 是灾前灾后影像，与常规变化检测的时间跨度不同。</p>
+</section>
+
+<section>
+  <h2><span class="k">03</span>和师兄方案的对应关系</h2>
+  <p>师兄的方案是建一个全球多场景变化数据集，按四层正交组织。它和这两条路线并不冲突，而是分别对应其中不同的层：</p>
+  <div class="map">
+    <div><span class="l">L1 成因域 · 9 类</span><strong>≈ 路线 A 的类别维度</strong><p>D1 城市建设、D4 农业、D8 灾害……每个成因域可以对应一个用户任务。</p></div>
+    <div><span class="l">L2 变化类型 · 26 种</span><strong>≈ 路线 B 的细粒度维度</strong><p>每种都写成“A→B”的语义转移，可以直接拿来当细粒度查询的词表，例如 1.1 建筑新建、1.2 建筑拆除。</p></div>
+    <div><span class="l">L4 地物词表 · 12+2 类</span><strong>≈ 查询文本的词汇</strong><p>决定 OVCD 的查询可以问什么地物；L3 场景只是 AOI 属性，不是类别。</p></div>
+  </div>
+  <p>区别在于时间尺度。师兄的方案要采 4000–8000 对、走完 5 个阶段，是长期的数据工作；我们现在要定的是近期的研究问题。比较现实的做法是：先用现有数据把方向验证出来，师兄的 L2 表作为细粒度词表的来源，等数据集建成后再作为最终的评测集。</p>
+</section>
+
+<section>
+  <h2><span class="k">04</span>我的建议</h2>
+  <div class="rec">
+    <p><strong>主线走路线 B，从建筑做起；路线 A 只保留少量类别，用来检验泛化。</strong></p>
+    <ul>
+      <li><strong>理由</strong>：路线 A 的增量主要是“多测几个数据集”，已经有人在做，而且和 MLLM Agent 的关系不紧。路线 B 的查询需要对照两期做推理，现有免训练流程难以回答，正好是 Agent 的用武之地，也是检索范围内的空白。</li>
+      <li><strong>第一步不需要新标注</strong>：用 S2Looking 的新建和拆除标注、SECOND 的建筑方向和 from→to、xBD 的损毁等级，构造一个建筑细粒度派生集。查询例如“newly built buildings”“demolished buildings”“destroyed buildings”。基线可以用 DynamicEarth 加两期类别规则，例如新建 = T2 是建筑且 T1 不是。</li>
+      <li><strong>路线 A</strong>：挑 CLCD 耕地和一个滑坡集，作为泛化检验，不作为主贡献。</li>
+      <li><strong>和 v0 的衔接</strong>：服务器上的 v0 正在 LEVIR building 上跑通流程，这一步不受影响。跑通后，第二个任务可以直接换成 S2Looking 的“新建 / 拆除”。</li>
+    </ul>
+    <p class="note">这是我的判断，不是检索得出的结论。</p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="k">05</span>下午要和师兄定的几个问题</h2>
+  <ol class="q">
+    <li>我们说的“开放词汇”，开放的是类别名，还是描述和转移（如“从耕地变成建筑”“被拆除的建筑”）？这决定了走 A 还是 B。</li>
+    <li>细粒度查询的评测协议怎么定：OR 规则不区分方向，方向和转移查询需要新协议。是否参照 RCD 和 QSCP 的定义？</li>
+    <li>建筑细分到哪一层就够写一篇：只做方向（新建、拆除），还是加上损毁等级和用途？</li>
+    <li>标注预算：派生集是否足够？什么时候需要人工标注，标多少？</li>
+    <li>和师兄数据集的关系：是否共用 L2 词表？他的数据集什么时候能有第一批可用的样本？</li>
+    <li>路线 A 保留哪几个类别作为泛化检验？</li>
+  </ol>
+</section>
+
+</div>
