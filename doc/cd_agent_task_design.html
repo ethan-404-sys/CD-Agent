@@ -124,7 +124,7 @@ ol.q li::marker{font-family:var(--mono);color:var(--muted)}
       <div class="sc"><span><i class="chip fp">误检</i>检测结果之内</span><span><i class="chip fn">漏检</i>检测结果之外</span></div></article>
     <article class="cap"><span class="n">能力 4</span><h3>工具调度</h3><p>和定位一起用：定位后选择合适的工具、给出合适的提示，交互式地完善掩码。</p></article>
   </div>
-  <p class="sug"><b>评审建议</b><span>漏检场景在判断之前还需要一步“搜索”，即提出该去看哪里；exp8 的经验是难点主要在这里。误检本身已经是掩码，删除时通常不需要定位。工具调度应包含何时停止、何时回滚。</span></p>
+  <p class="sug"><b>评审建议</b><span>漏检场景在判断之前还需要一步“搜索”，即提出该去看哪里；exp8 的经验是难点主要在这里。误检同样需要定位：OVCD-v0 中误检像素有 69–85% 是“命中目标外多出来的像素”，整块误检只占 15–30%，只删整块处理不了大部分误检。工具调度应包含何时停止、何时回滚。</span></p>
 </section>
 
 <section>
