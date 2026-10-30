@@ -53,7 +53,11 @@ ul{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:3px}
 .cap .badge{font-family:var(--mono);font-size:11px;letter-spacing:.06em;padding:1px 7px;border-radius:3px;align-self:flex-start}
 .cap .badge.old{background:var(--acc-soft);color:var(--acc)} .cap .badge.new{background:var(--tp-bg);color:var(--tp)}
 .cap.isnew{border-top-color:var(--tp)}
-.cap .ev{font-size:12.5px;color:var(--muted)}
+.scenes{display:grid;grid-template-columns:1.15fr 1fr;gap:14px}
+.scene{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:14px 16px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.scene.fpS{border-left:4px solid var(--fp)} .scene.fnS{border-left:4px solid var(--fn)}
+.scene .path{font-family:var(--mono);font-size:12.5px;color:var(--muted)}
+@media (max-width:760px){.scenes{grid-template-columns:1fr}}
 .task.mod.isnew{border-top-color:var(--tp)}
 .cap{background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--acc);border-radius:6px;padding:16px;display:flex;flex-direction:column;gap:8px;min-width:0}
 .cap .n{font-family:var(--mono);font-size:12px;color:var(--muted)}
@@ -110,7 +114,7 @@ ol.q li::marker{font-family:var(--mono);color:var(--muted)}
   <p class="meta">CV Learning · Ethan 的任务设置方案 · 2026-10-29 初稿 · 2026-10-30 按 OVCD-v0 十一轮结果更新能力体系</p>
   <h1>变化检测智能体：能力与任务设置</h1>
   <p class="lead">研究方向是“变化检测 + 变化检测智能体”，开放词汇变化检测是其中一个任务。任务围绕两件事来设：变化检测流程中存在哪些问题，以及 Agent 解决这些问题时需要具备哪些能力。参照师兄的做法：灾害智能体按灾害的四个特点建任务，另一位师兄按增、删、改、查建任务。</p>
-  <p class="note">灰底的“评审建议”是 Claude 的补充。2026-10-30 起，能力从“读图、判断、定位、工具调度”四项扩为六项，新增“搜索”和“核验”两项能力及对应的任务 1.5、1.6，Ethan 已确认。</p>
+  <p class="note">灰底的“评审建议”是 Claude 的补充。2026-10-30 起，能力从“读图、判断、定位、工具调度”四项扩为六项，新增“搜索”和“核验”两项能力及对应的任务 1.2 搜索、1.6 核验，Ethan 已确认。</p>
 </header>
 
 <section>
@@ -128,35 +132,36 @@ ol.q li::marker{font-family:var(--mono);color:var(--muted)}
       </div>
     </div>
   </div>
-  <div class="agentband"><strong>引入 Agent 之后</strong><span>理解 → 搜索可疑区域 → 判断是否变化 → 定位区域 → 调度工具修改掩码 → 核验后采纳或回滚</span><span class="note">误检场景看检测结果之内，漏检场景看检测结果之外</span></div>
+  <div class="agentband"><strong>引入 Agent 之后</strong><span>理解 → 搜索可疑区域 → 判断是否变化 → 定位区域 → 调度工具修改掩码 → 核验后采纳或回滚</span><span class="note">误检场景检查变化掩码之内的区域，漏检场景检查变化掩码之外的区域（见 02 节）</span></div>
 </section>
 
 <section>
   <h2><span class="k">02</span>Agent 需要的六种能力</h2>
-  <p>按 Agent 工作的顺序排列。每项能力下面拆出子能力；“原有”是原方案的四项，“新增”是根据 OVCD-v0 补上的两项。</p>
+  <p>按 Agent 工作的顺序排列。每项能力下面拆出子能力；“原有”是原方案的四项，“新增”是根据 OVCD-v0 补上的两项。卡片下方说明误检、漏检两个场景各用到哪些子能力。</p>
   <div class="caps">
     <article class="cap"><span class="n">能力 1</span><span class="badge old">原有 · 原“读图”</span><h3>理解</h3>
-      <ul><li><strong>1.1 地物识别</strong>：两期影像中各区域是什么类别</li><li><strong>1.2 口径理解</strong>：从类别名、示例或自然语言中归纳“什么算变化、什么不算”</li></ul>
-      <p class="ev">1.2 服务“给定示例”“自然语言”两种端到端任务；OVCD-v0 的口径卡是它的固定版本。</p></article>
+      <ul><li><strong>1.1 地物识别</strong>：两期影像中各区域是什么类别</li><li><strong>1.2 判定标准理解</strong>：从类别名、示例或自然语言中归纳“什么算变化、什么不算”</li></ul></article>
     <article class="cap isnew"><span class="n">能力 2</span><span class="badge new">新增</span><h3>搜索</h3>
       <ul><li><strong>2.1 漏检搜索</strong>：在检测结果之外提出可疑区域，并排序</li><li><strong>2.2 待查排序</strong>：在检测结果之内，决定先查哪个区域</li></ul>
-      <div class="sc"><span><i class="chip fn">漏检</i>2.1</span><span><i class="chip fp">误检</i>2.2</span></div>
-      <p class="ev">依据：原始候选覆盖 83–95% 的孤立漏检，取前 20 个后只剩 11–22%；去误检改为按变化分数排序，验证集 +1。</p></article>
+      <div class="sc"><span><i class="chip fp">误检</i>2.2 掩码之内先查哪个</span><span><i class="chip fn">漏检</i>2.1 掩码之外去哪里找</span></div></article>
     <article class="cap"><span class="n">能力 3</span><span class="badge old">原有 · 细化</span><h3>判断</h3>
       <ul><li><strong>3.1 存在性</strong>：区域内有没有目标类别的变化</li><li><strong>3.2 取舍</strong>：这个区域整体该保留还是删除</li><li><strong>3.3 方向与类型</strong>：新增、消失或类型转换</li></ul>
-      <div class="sc"><span><i class="chip fp">误检</i>判断检测结果之内的区域</span><span><i class="chip fn">漏检</i>判断检测结果之外的区域</span></div>
-      <p class="ev">依据：3.1 与 3.2 不是同一个问题，去误检的 AUC 0.85，按面积加权只有 0.69。3.3 服务细粒度查询。</p></article>
+      <div class="sc"><span><i class="chip fp">误检</i>判断检测结果之内的区域</span><span><i class="chip fn">漏检</i>判断检测结果之外的区域</span></div></article>
     <article class="cap"><span class="n">能力 4</span><span class="badge old">原有 · 细化</span><h3>定位</h3>
       <ul><li><strong>4.1 整目标</strong>：给出点或框，让工具分出整个目标</li><li><strong>4.2 局部</strong>：标出目标外多出的部分</li><li><strong>4.3 时相选择</strong>：在 T1 还是 T2 上分割</li></ul>
-      <div class="sc"><span><i class="chip fn">漏检</i>4.1 补回整个目标</span><span><i class="chip fp">误检</i>4.2 删除多余局部</span></div>
-      <p class="ev">依据：误检像素中 69–85% 是命中目标外多出的像素；MLLM 画框后的掩码 IoU 0.13，低于候选本身的 0.22。</p></article>
+      <div class="sc"><span><i class="chip fp">误检</i>4.2 删除多余局部</span><span><i class="chip fn">漏检</i>4.1 补回整个目标</span></div></article>
     <article class="cap"><span class="n">能力 5</span><span class="badge old">原有 · 细化</span><h3>工具调度</h3>
-      <ul><li><strong>5.1 选工具</strong>：SAM 框提示、SAM3 类别裁剪、分数过滤，或不动</li><li><strong>5.2 给提示和参数</strong>：点、框、门限</li><li><strong>5.3 预算与停止</strong>：去误检和补漏各分多少调用，何时停</li></ul>
-      <p class="ev">依据：SAM3 裁剪这一个工具在 I-M-C 上带来 +6.2；修边界换错工具会一律有害；预算从 20 加到 50 不保证更好。</p></article>
+      <ul><li><strong>5.1 选工具</strong>：SAM 框提示、SAM3 类别裁剪、分数过滤，或不动</li><li><strong>5.2 给提示和参数</strong>：点、框、门限</li><li><strong>5.3 预算与停止</strong>：去误检和补漏各分多少调用，何时停</li></ul></article>
     <article class="cap isnew"><span class="n">能力 6</span><span class="badge new">新增</span><h3>核验</h3>
-      <ul><li><strong>6.1 结果核验</strong>：工具输出先检查，不对就回滚</li><li><strong>6.2 工具可靠性</strong>：判断工具在这张图上靠不靠得住</li></ul>
-      <p class="ev">依据：整图框分出 97 万像素误检被直接采纳，测试 F1 −3；SAM3 在密集小住宅区漏检，裁剪让 test_45 从 0.64 降到 0.01。</p></article>
+      <ul><li><strong>6.1 结果核验</strong>：工具输出先检查，不对就回滚</li><li><strong>6.2 工具可靠性</strong>：判断工具在这张图上靠不靠得住</li></ul></article>
   </div>
+  <div class="scenes">
+    <div class="scene fpS"><span class="chip fp">误检场景</span><p><strong>检查变化掩码之内的区域</strong>：报出来的变化里，哪些不是真变化、哪些部分多出来了。</p>
+      <p class="path">2.2 待查排序 → 3.2 取舍 → 4.2 删除多余局部 → 5.1 选工具（如 SAM3 类别裁剪） → 6.1 结果核验</p></div>
+    <div class="scene fnS"><span class="chip fn">漏检场景</span><p><strong>检查变化掩码之外的区域</strong>：哪些真变化没有报出来。</p>
+      <p class="path">2.1 漏检搜索 → 3.1 存在性 → 4.1 补回整个目标、4.3 时相选择 → 5.2 给提示 → 6.1 结果核验</p></div>
+  </div>
+  <p class="note">误检是 OVCD-v0 中错误的大头：误检像素占全部错误的 68–80%，其中 69–87% 是贴在已检出目标外面的多余像素，所以误检场景更依赖“局部删除”（4.2）和工具，而不只是整块删除。</p>
 </section>
 
 <section>
@@ -186,8 +191,8 @@ ol.q li::marker{font-family:var(--mono);color:var(--muted)}
     <article class="rf ref"><span class="t">结论 1</span><h3>初始化越强，MLLM 作用越小</h3><p>MLLM 核实带来的增益：M-C-I 上 +2.1，I-M-C 上 +1.7，ReA-OVCD 上只有 +0.1。</p><p class="ev">判断任务应放在初始化弱、数据难的地方，或没有现成初始化的查询上。LEVIR 建筑已经饱和。</p></article>
     <article class="rf ref"><span class="t">结论 2</span><h3>不调用 MLLM 的工具贡献最大</h3><p>SAM3 类别裁剪在 I-M-C 上 +6.2，在 ReA-OVCD 上加分数过滤 +1.3。</p><p class="ev">工具调度是能力体系的中心，动作空间必须包含这些工具。</p></article>
     <article class="rf add"><span class="t">结论 3</span><h3>工具要逐图核验</h3><p>裁剪的开关现在由验证集统一决定。SAM3 漏检的图上，裁剪会删掉真变化。</p><p class="ev">由此新增能力 6“核验”和任务 1.6。</p></article>
-    <article class="rf add"><span class="t">结论 4</span><h3>瓶颈常在“去哪里看”</h3><p>候选池覆盖充足，截断到前 20 个后大部分漏检丢失。</p><p class="ev">由此新增能力 2“搜索”和任务 1.5。</p></article>
-    <article class="rf ref"><span class="t">结论 5</span><h3>判断能力取决于候选</h3><p>同一个 Qwen，在不同来源的候选上 AUC 从 0.74 到 0.94 不等。</p><p class="ev">任务 1.2 要固定候选定义，并分来源报告。</p></article>
+    <article class="rf add"><span class="t">结论 4</span><h3>瓶颈常在“去哪里看”</h3><p>候选池覆盖充足，截断到前 20 个后大部分漏检丢失。</p><p class="ev">由此新增能力 2“搜索”和任务 1.2。</p></article>
+    <article class="rf ref"><span class="t">结论 5</span><h3>判断能力取决于候选</h3><p>同一个 Qwen，在不同来源的候选上 AUC 从 0.74 到 0.94 不等。</p><p class="ev">任务 1.3 要固定候选定义，并分来源报告。</p></article>
     <article class="rf ref"><span class="t">结论 6</span><h3>每个任务都要有“不用 MLLM”的对照</h3><p>只在验证集上把 ReA-OVCD 的阈值调到 0.75，测试集 85.94，与完整 Agent 相同。</p><p class="ev">没有这个对照，会把调阈值的收益算到 Agent 头上。</p></article>
   </div>
 </section>
@@ -201,10 +206,10 @@ ol.q li::marker{font-family:var(--mono);color:var(--muted)}
     <tbody>
       <tr><td colspan="8" class="grp">第一大类 · 模块任务</td></tr>
       <tr><th>1.1 遥感图像理解</th><td class="c"><i class="dot"></i></td><td></td><td></td><td></td><td></td><td></td><td class="note">待定</td></tr>
-      <tr><th>1.2 变化判断</th><td class="c"><i class="ring"></i></td><td></td><td class="c"><i class="dot"></i></td><td></td><td></td><td></td><td class="note">先做，数据集 v0</td></tr>
-      <tr><th>1.3 定位</th><td class="c"><i class="ring"></i></td><td></td><td></td><td class="c"><i class="dot"></i></td><td class="c"><i class="ring"></i></td><td></td><td class="note">基于 v0</td></tr>
-      <tr><th>1.4 工具调度</th><td></td><td></td><td></td><td class="c"><i class="ring"></i></td><td class="c"><i class="dot"></i></td><td class="c"><i class="ring"></i></td><td class="note">可能与 1.3 合并</td></tr>
-      <tr><th>1.5 搜索（新增）</th><td class="c"><i class="ring"></i></td><td class="c"><i class="dot"></i></td><td class="c"><i class="ring"></i></td><td></td><td></td><td></td><td class="note">基于 v0</td></tr>
+      <tr><th>1.2 搜索（新增）</th><td class="c"><i class="ring"></i></td><td class="c"><i class="dot"></i></td><td class="c"><i class="ring"></i></td><td></td><td></td><td></td><td class="note">基于 v0</td></tr>
+      <tr><th>1.3 变化判断</th><td class="c"><i class="ring"></i></td><td></td><td class="c"><i class="dot"></i></td><td></td><td></td><td></td><td class="note">先做，数据集 v0</td></tr>
+      <tr><th>1.4 定位</th><td class="c"><i class="ring"></i></td><td></td><td></td><td class="c"><i class="dot"></i></td><td class="c"><i class="ring"></i></td><td></td><td class="note">基于 v0</td></tr>
+      <tr><th>1.5 工具调度</th><td></td><td></td><td></td><td class="c"><i class="ring"></i></td><td class="c"><i class="dot"></i></td><td class="c"><i class="ring"></i></td><td class="note">可能与 1.4 合并</td></tr>
       <tr><th>1.6 核验（新增）</th><td class="c"><i class="ring"></i></td><td></td><td class="c"><i class="ring"></i></td><td class="c"><i class="ring"></i></td><td class="c"><i class="ring"></i></td><td class="c"><i class="dot"></i></td><td class="note">可先用 OVCD-v0 轨迹</td></tr>
       <tr><td colspan="8" class="grp">第二大类 · 端到端任务</td></tr>
       <tr><th>2.1 给定类别</th><td class="c"><i class="dot"></i></td><td class="c"><i class="dot"></i></td><td class="c"><i class="dot"></i></td><td class="c"><i class="dot"></i></td><td class="c"><i class="dot"></i></td><td class="c"><i class="dot"></i></td><td class="note">即 OVCD</td></tr>
@@ -218,6 +223,7 @@ ol.q li::marker{font-family:var(--mono);color:var(--muted)}
 
 <section>
   <h2><span class="k">06</span>第一大类：模块任务</h2>
+  <p>按 Agent 的工作顺序排列：理解 → 搜索 → 判断 → 定位 → 工具调度 → 核验，每项能力对应一个任务。</p>
   <div class="tasks">
 
     <article class="task mod">
@@ -226,11 +232,23 @@ ol.q li::marker{font-family:var(--mono);color:var(--muted)}
         <dt>设想</dt><dd>给定类别集合，让 MLLM 输出两期对象的类别。</dd>
         <dt>目的</dt><dd>检验 MLLM 能否认出影像里的地物，以及文本对应的类别。</dd>
       </dl>
-      <p class="sug"><b>评审建议</b><span>做成区域级：给一个区域，分别问 T1、T2 的类别。SECOND 的两期语义图可直接当真值，零标注；也可以和 1.2 共用数据。口径理解（子能力 1.2）留给端到端任务 2.2、2.3 检验。</span></p>
+      <p class="sug"><b>评审建议</b><span>做成区域级：给一个区域，分别问 T1、T2 的类别。SECOND 的两期语义图可直接当真值，零标注；也可以和 1.3 共用数据。判定标准理解（子能力 1.2）留给端到端任务 2.2、2.3 检验。</span></p>
+    </article>
+
+    <article class="task mod isnew">
+      <header><span class="id">任务 1.2 · 搜索（新增）</span><h3>在固定预算内决定先看哪里</h3><span class="state">基于 v0</span></header>
+      <dl>
+        <dt>设定</dt><dd>在 v0（见任务 1.3）中给定检测结果，分两侧：<br><span class="chip fp">误检</span> 给变化掩码之内的连通域排序，最可能是误检的排在前面；<br><span class="chip fn">漏检</span> 提出变化掩码之外的可疑区域，并排序。</dd>
+        <dt>输出</dt><dd>候选区域列表（掩码或框），按可疑程度排序。</dd>
+        <dt>评测</dt><dd>误检侧：前 k 个连通域中误检像素的比例。漏检侧：前 k 个候选覆盖的漏检目标和漏检像素比例。k = 10、20、50。</dd>
+        <dt>对照</dt><dd>规则来源：检测器低置信区域、SAM3 两期分割差异、分块 SAM3；按规则分数排序。</dd>
+        <dt>目的</dt><dd>单独衡量“去哪里看”，和判断分开。</dd>
+      </dl>
+      <p class="sug"><b>评审建议</b><span>OVCD-v0 的数字可作参照：误检侧改为按变化分数排序后，验证集 +1；漏检侧原始候选覆盖 83–95% 的孤立漏检，前 20 个只剩 11–22%；SAM3 改为分块推理后，前 20 个的覆盖从 8.0% 升到 16.6%。真值直接由 GT 计算，零标注。</span></p>
     </article>
 
     <article class="task mod">
-      <header><span class="id">任务 1.2 · 判断</span><h3>变化判断：数据集 v0</h3><span class="state">先做</span></header>
+      <header><span class="id">任务 1.3 · 判断</span><h3>变化判断：数据集 v0</h3><span class="state">先做</span></header>
       <dl>
         <dt>数据</dt><dd>SECOND 的 building 类，单独抽成一个集合：T1、T2、T1 语义、T2 语义、building 变化掩码。挑 250 张作为初始开发集 v0，之后需要再扩。</dd>
         <dt>标注</dt><dd><span class="legend3"><i class="chip tp">检出的真实变化</i><i class="chip fn">漏检</i><i class="chip fp">误检</i></span>三种颜色，以 GT 为准。</dd>
@@ -243,7 +261,7 @@ ol.q li::marker{font-family:var(--mono);color:var(--muted)}
     </article>
 
     <article class="task mod">
-      <header><span class="id">任务 1.3 · 定位</span><h3>给出点或框，让 SAM 分出目标</h3><span class="state">基于 v0</span></header>
+      <header><span class="id">任务 1.4 · 定位</span><h3>给出点或框，让 SAM 分出目标</h3><span class="state">基于 v0</span></header>
       <dl>
         <dt>设定</dt><dd>在 v0 中，已知某个 building 是漏检或误检。</dd>
         <dt>输出</dt><dd>MLLM 输出点或框的坐标，输入给 SAM、SAM3 等工具，把这个 building 分出来。</dd>
@@ -254,24 +272,12 @@ ol.q li::marker{font-family:var(--mono);color:var(--muted)}
     </article>
 
     <article class="task mod">
-      <header><span class="id">任务 1.4 · 工具调度</span><h3>有限预算内取得最大 F1 收益</h3><span class="state">可能与 1.3 合并</span></header>
+      <header><span class="id">任务 1.5 · 工具调度</span><h3>有限预算内取得最大 F1 收益</h3><span class="state">可能与 1.4 合并</span></header>
       <dl>
         <dt>设定</dt><dd>同样已知漏检和误检。</dd>
         <dt>目标</dt><dd>在有限的预算内执行动作，取得最大的 F1 收益。</dd>
       </dl>
       <p class="sug"><b>评审建议</b><span>每张图最多 k 步，记录每一步后的 F1，画 F1–步数曲线。要注明这是“已知错误类型”的设定；端到端任务里 Agent 并不知道哪里是漏检，两者的数字不能直接比。动作空间要包含不调用 MLLM 的工具（SAM3 类别裁剪、按初始化分数过滤），OVCD-v0 中它们贡献了大部分收益。</span></p>
-    </article>
-
-    <article class="task mod isnew">
-      <header><span class="id">任务 1.5 · 搜索（新增）</span><h3>在固定预算内找出漏检</h3><span class="state">基于 v0</span></header>
-      <dl>
-        <dt>设定</dt><dd>在 v0 中给定检测结果，提出检测结果之外的可疑区域，并排序。</dd>
-        <dt>输出</dt><dd>候选区域列表（掩码或框），按可疑程度排序。</dd>
-        <dt>评测</dt><dd>前 k 个候选覆盖的漏检目标比例和漏检像素比例（k = 10、20、50）；候选中真变化的比例。</dd>
-        <dt>对照</dt><dd>规则来源：检测器低置信区域、SAM3 两期分割差异、分块 SAM3；按规则分数排序。</dd>
-        <dt>目的</dt><dd>单独衡量“去哪里看”，和判断分开。</dd>
-      </dl>
-      <p class="sug"><b>评审建议</b><span>OVCD-v0 的数字可作参照：原始候选覆盖 83–95% 的孤立漏检，前 20 个只剩 11–22%；SAM3 改为分块推理后，前 20 个的覆盖从 8.0% 升到 16.6%。真值直接由 GT 计算，零标注。</span></p>
     </article>
 
     <article class="task mod isnew">
@@ -316,10 +322,10 @@ ol.q li::marker{font-family:var(--mono);color:var(--muted)}
     <li>任务 1.1 的具体形式：输出对象类别，还是区域的两期类别？<span class="qtag">原方案待定</span></li>
     <li>数据集 v0 的候选形状和大小：给 MLLM 看的图长什么样？<span class="qtag">原方案待定</span></li>
     <li>定位任务是否需要人工 golden 点或框？<span class="qtag">原方案待定 · 建议不需要</span></li>
-    <li>任务 1.3 和 1.4 是否合并？<span class="qtag">原方案待定</span></li>
+    <li>任务 1.4 和 1.5 是否合并？<span class="qtag">原方案待定</span></li>
     <li>数据集 v0 用哪个检测器，250 张从 SECOND 的哪一部分取？<span class="qtag">评审补充</span></li>
     <li>任务 1.6 先用 OVCD-v0 的 LEVIR 轨迹，还是等 SECOND v0 建好后一起生成？<span class="qtag">评审补充</span></li>
-    <li>任务 1.5 的候选用掩码还是框表示？这决定它能否直接接到任务 1.2 的输入。<span class="qtag">评审补充</span></li>
+    <li>任务 1.2 的候选用掩码还是框表示？这决定它能否直接接到任务 1.3 的输入。<span class="qtag">评审补充</span></li>
   </ol>
 </section>
 
