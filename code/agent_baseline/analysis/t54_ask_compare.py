@@ -151,7 +151,8 @@ def run(rows, mask_dir, output, max_cost, concurrency=1, answer_fn=api_answer):
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--tasks', type=Path, required=True)
-    p.add_argument('--names', type=Path, required=True, help='Frozen WHU names_dev60.txt')
+    p.add_argument('--names', type=Path, required=True, help='Frozen WHU names_dev60.txt (dev) or names_val128.txt (report)')
+    p.add_argument('--split', choices=['dev', 'report'], default='dev', help='report: score the frozen 128 report images once (Ethan 2026-11-11 12:27)')
     p.add_argument('--mask-dir', type=Path, required=True)
     p.add_argument('--output-dir', type=Path, required=True)
     p.add_argument('--concurrency', type=int, default=1)
@@ -159,8 +160,9 @@ def main():
     a = p.parse_args()
     rows = retry_io(lambda: read_tasks(a.tasks))
     names = read_text(a.names).split()
-    if len(names) != 60 or len(set(names)) != 60 or len(rows) != 60 or {r['id'] for r in rows} != set(names):
-        p.error('Require exactly the frozen 60 development images')
+    expected = 128 if a.split == 'report' else 60
+    if len(names) != expected or len(set(names)) != expected or len(rows) != expected or {r['id'] for r in rows} != set(names):
+        p.error(f'Require exactly the frozen {expected} {a.split} images')
     print(json.dumps(run(rows, a.mask_dir, a.output_dir, a.max_cost_cny, a.concurrency)))
 
 

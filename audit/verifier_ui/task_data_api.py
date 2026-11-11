@@ -7,7 +7,7 @@ from contextlib import closing
 from typing import Literal
 
 import numpy as np
-from fastapi import APIRouter, HTTPException
+from fastapi import Query, APIRouter, HTTPException
 from fastapi.responses import Response
 from PIL import Image, ImageDraw
 from pydantic import BaseModel, Field
@@ -71,7 +71,8 @@ def catalog():
 
 
 @router.get('/components')
-def components(pass_number: Literal[1, 2] = 1, image: str = '', direction: str = ''):
+def components(pass_number: int = Query(1, ge=1, le=2), image: str = '', direction: str = ''):
+    # Query strings arrive as text; Literal[1, 2] rejected "2", so the blind second pass never loaded.
     with closing(store.connect()) as db:
         records = store.components(db, pass_number, image, direction)
         return dict(items=records, total=len(records), labeled=sum(bool(r['labeled_at']) for r in records))

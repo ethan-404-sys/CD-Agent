@@ -183,6 +183,17 @@ class TaskDataTest(unittest.TestCase):
                 self.assertEqual(api.export('task_review.json').status_code,200)
                 self.assertTrue(any(getattr(r,'path',None)=='/api/prompts' for r in app.app.routes))
 
+    def test_components_query_accepts_text_pass_number(self):
+        # Query strings arrive as text. Literal[1, 2] rejected "2" with 422, so the blind second pass never loaded.
+        import inspect
+        from fastapi.dependencies.utils import get_dependant, request_params_to_args
+        dependant = get_dependant(path='/components', call=api.components)
+        for text, ok in (('1', True), ('2', True), ('3', False)):
+            values, errors = request_params_to_args(dependant.query_params, {'pass_number': text})
+            self.assertEqual(not errors, ok, text)
+            if ok:
+                self.assertEqual(values['pass_number'], int(text))
+
     def test_new_schema_does_not_change_legacy_data(self):
         with closing(legacy.connect(':memory:')) as db:
             before=[tuple(r) for r in db.execute("SELECT name,sql FROM sqlite_master WHERE name NOT LIKE 'task_%' ORDER BY name")]
