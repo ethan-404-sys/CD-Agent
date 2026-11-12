@@ -6,6 +6,7 @@ from pathlib import Path
 import sys
 import traceback
 import numpy as np
+from .analysis.io_retry import write_text
 
 
 class DynamicBackend:
@@ -62,7 +63,7 @@ class DynamicBackend:
         if self.vocabulary != vocabulary:
             # A local names file avoids get_identifier's implicit ./class_name.txt write.
             names = self.cache/f'classes_{os.getpid()}.txt'
-            names.write_text('\n'.join(vocabulary)+'\n')
+            write_text(names, '\n'.join(vocabulary)+'\n')
             original = clip_loader.download_pretrained_from_url
             def local_download(url, cache_dir=None):
                 if not url.endswith('/ViT-B-16.pt'):

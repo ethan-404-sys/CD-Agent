@@ -20,6 +20,17 @@ def read_text(path):
     return retry_io(lambda: Path(path).read_text())
 
 
+def exists(path):
+    """Unlike Path.exists(), transient EIO must not masquerade as a missing cache."""
+    def check():
+        try:
+            Path(path).stat()
+            return True
+        except FileNotFoundError:
+            return False
+    return retry_io(check)
+
+
 def write_text(path, text):
     path = Path(path)
     def write():
