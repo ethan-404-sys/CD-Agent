@@ -36,3 +36,16 @@
 ### 交接规则
 
 下一位 Agent 在本日志追加新日期条目：实际命令、Git SHA、样本清单/数据划分、运行目录、费用、耗时、结果文件、失败/回滚与下一步。不要只改计划而不留下日志，也不要为了更新规划改写历史实验原始结果。
+
+
+## 2026-11-12 — Web GPT：根据 Ethan 最新方向修订规划与文档协作
+
+**本轮真实完成**：
+- 查验 `claude/project-thread-2tuaib` 原有 `doc/agent_baseline/README_ai.md`、`task_system.html`、`code/agent_baseline/README_t3_routes.md`、`README_missed_sources.md`；确认原技术文档可以复用，且原 `README_ai.md` 与 `index.html` 有同步约定。
+- 建立 `doc/agent_baseline/README_research_coordination.md`，作为短的研究策略与双端协作入口；不覆盖原 1900 多行历史 README。
+- 改写 `task_plan.md`：把“立刻论文收敛/暂停 T3、find_missed”调整为轨迹分析、Harness Debug、T3、find_missed 四条主线；T3 和 find_missed 获得在预算与数据约束内自主多轮迭代、失败后换技术路线/查论文的方法论权限。
+- 将“新数据收集与标注任务等 2026-11-13 开会后处理”的闸门、现有历史 Harness 结果不强制统一重跑，以及两个 Agent 对 README 的共同维护规则写入规划。
+
+**本轮没有做**：没有启动服务器作业或 API/GPU 实验；没有修改冻结任务数据；没有将这些研究决策误作实验结果；没有替服务器确认此前六项任务的完成状态。暂时不动 `README_ai.md` 和 `index.html` 以免打断原来的“本轮结果暂不汇总”要求。
+
+**下一步**：在服务器端拉取最新研究分支/已合并文档，核实六项既有任务的作业状态；按完成型与自主迭代型分别推进；每轮在专项 README 中记录假设/证据/成本/失败与下一轮决策。PR #5 仍为 Draft、未合并主开发分支。
