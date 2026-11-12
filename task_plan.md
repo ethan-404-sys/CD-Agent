@@ -2,7 +2,7 @@
 
 > 最后更新：2026-11-12。以 `claude/project-thread-2tuaib` 的已验证记录为研究依据；开发中的实际 HEAD 与运行档案以服务器核查为准。**用户最新决策取代此前“立即收敛论文主表、暂停 T3/补漏工具”的建议。**
 >
-> 长期目标及协作边界：[研究协作 README](doc/agent_baseline/README_research_coordination.md)；技术历史：[README_ai](doc/agent_baseline/README_ai.md)；任务定义：[task_system.html](doc/agent_baseline/task_system.html)。本文件只维护计划；`findings.md` 记可追溯证据，`progress.md` 记实际操作。
+> 长期目标及协作边界：[研究协作与最新决定（README_ai §0.2）](doc/agent_baseline/README_ai.md)；技术历史：[README_ai](doc/agent_baseline/README_ai.md)；任务定义：[task_system.html](doc/agent_baseline/task_system.html)。本文件只维护计划；`findings.md` 记可追溯证据，`progress.md` 记实际操作。
 
 ## 1. 总目标与当前策略
 
@@ -39,7 +39,7 @@
 - Agent 作业同时最多 2 个；任一实验或同一研究迭代累计预计 > ¥100、要使用测试集或需要新的外部资源/付费权限，先问 Ethan。不能通过拆分来绕过。
 - 严格保持数据开发/报告/测试隔离。报告/测试结果用于报告，不用于反向选择方法。WHU report 是从训练图块抽的，不等于官方 test。
 - 服务器保持自主推进并逐阶段推送；共享 Git 工作树先检查，拒绝推送时检查并 rebase，不 force push；保存真实账本、运行配置、实验负结果。
-- 当前有历史指示“本轮暂不汇总进正式开发总文档、先在推送说明汇报”，在其撤销之前，服务器对该轮结果先记专项记录；**本研究方向 README 与三文件计划可先维护，但不能误称最新实测结果已同步到 `README_ai.md` 与 `index.html`**。
+- 当前有历史指示“本轮暂不汇总进正式开发总文档、先在推送说明汇报”，在其撤销之前，服务器对该轮结果先记专项记录；**本 README §0.2 与三文件计划可先维护，但不能误称最新实测结果已同步到 `README_ai.md` 与 `index.html`**。
 
 ## 5. Web GPT 与服务器 GPT 的分工
 
