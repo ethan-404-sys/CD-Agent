@@ -76,3 +76,22 @@
 - 机制：`results/agent_baseline/data/gap_attribution.md`、`error_taxonomy/error_taxonomy.md`、`pyes/pyes_band.md`。
 - G4/G5：`code/agent_baseline/README_g4.md`、`README_g5.md`；G1 回归/通用化：`README_generalization.md`。
 - T4.1 v3 小试：`results/agent_baseline/t41_v3_dev2/t41_trace_stats.md`，HEAD commit `527f7a8`。
+
+
+## 8. 用户最新方向决定（2026-11-12，**不是实验数据**）
+
+Ethan 明确指出：当前大多数任务已有不错的历史结果，多个任务的展示表记录其最佳历史 Harness 版本，这是有意保留；**不要求为了统一 G5/G6 重新逐项跑全任务**。当下研究重点转为较弱任务根因与可真正形成创新的方法开发。
+
+主线：
+- **轨迹行为分析**（尚未正式开始时优先完成）：必须区分 Harness/Toolbox Bug、工具能力不足与 Agent 规划/推理/调度不足；看全过程而不是只看最终分数。
+- **T3 图像示例**：当前效果不能证明 Agent 真能利用图像示例；需要在开发集上持续尝试直到得到有效机制证据，遇到瓶颈换方法并参考论文，而不是一次 pilot 不理想就放弃。
+- **多来源补漏 `find_missed`**：为核心创新候选，需要真正发现并补回漏检 FN，不应只是低门限工具包装。结果与完整成本/来源互补性要经开发集实证。
+- **Harness Debug**：继续可靠性问题排查与修复，提供可回归的证据。
+
+Ethan 2026-11-12 的既有完成/待办清单包含 Gate6（`view.original_size`、`compare_features` 分位数）、`analysis/trace_behavior.py`、T4.1 v3 64×3、xBD 已有开发 10 图问法、S1–S5 前置、T3.1 开发 60 任务攻关。**这些是任务指令，不代表实验已完成。**
+
+**新增硬边界**：需要新收集/下载整备或人工标注数据的任务须等 2026-11-13 会议后讨论；**已存在的开发数据可继续用**。T3 / find_missed 是允许服务器 GPT 自主、多轮优化、必要时查文献并换技术路线的研究型任务；其余任务可以作为交付型任务完成即结束。
+
+协作约定：复用 `README_ai.md` 和 `index.html` 作为技术历史及展示的一对镜像；`task_system.html` 是任务定义；`README_t3_routes.md` 和 `README_missed_sources.md` 是专项细节；新增短入口 `doc/agent_baseline/README_research_coordination.md` 汇总新共识。Web GPT 与服务器 GPT 都维护 GitHub 文档，不另立两套冲突权威。
+
+**更正前文判断**：此前“应暂停 T3 和漏检工具、优先统一论文证据矩阵”的建议已被用户更高优先级的研究决定取代；现行计划以 `task_plan.md` 最新版为准。既有 F1、CI 不受本次研究决策改变。
