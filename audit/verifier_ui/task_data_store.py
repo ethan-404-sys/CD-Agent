@@ -134,10 +134,12 @@ def save_label(db, ident, pass_number, color, subtype, annotator):
         raise ValueError('pass_number 必须为 1 或 2')
     if not r or (pass_number == 2 and not r['second_pass']):
         raise KeyError(ident)
-    if color not in COLORS or subtype not in SUBTYPES:
-        raise ValueError('请同时选择屋顶颜色和子类')
+    if color not in COLORS or (subtype is not None and subtype not in SUBTYPES):
+        raise ValueError('请选择屋顶颜色')
     prefix = 'second_' if pass_number == 2 else ''
     keys = [prefix + k for k in ('color', 'subtype', 'annotator', 'labeled_at')]
+    if subtype is None:
+        subtype = r[prefix + 'subtype']  # Roof colour only: never erase an earlier subtype label.
     stamp = now()
     db.execute('INSERT INTO task_edit(kind,target,pass_number,before_value,annotator,modified_at) '
                'VALUES (?,?,?,?,?,?)', ('component', ident, pass_number,

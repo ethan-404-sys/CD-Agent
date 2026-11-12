@@ -171,6 +171,18 @@ class TaskDataTest(unittest.TestCase):
                     self.assertEqual(result,dict(ok=True))
                 blind_row=next(r for r in api.components(pass_number=2)['items'] if r['id']==cid)
                 self.assertEqual(blind_row['color'],'绿')
+                # Roof colour only (2026-11-12): subtype optional, and an earlier subtype is never erased.
+                self.assertEqual(api.label(cid,api.LabelInput(pass_number=1,color='红或橙',annotator='A')),dict(ok=True))
+                row=next(r for r in api.components()['items'] if r['id']==cid)
+                self.assertEqual((row['color'],row['subtype']),('红或橙',store.SUBTYPES[0]))
+                other=first[1]['id'] if first[1]['id']!=cid else first[2]['id']
+                self.assertEqual(api.label(other,api.LabelInput(color='蓝',annotator='A')),dict(ok=True))
+                row=next(r for r in api.components()['items'] if r['id']==other)
+                self.assertEqual((row['color'],row['subtype']),('蓝',None))
+                with self.assertRaises(Exception):
+                    api.label(other,api.LabelInput(color='紫',annotator='A'))
+                api.undo(api.UndoInput(kind='component',pass_number=1,annotator='A'))
+                api.undo(api.UndoInput(kind='component',pass_number=1,annotator='A'))
                 self.assertNotIn('prefill_color',blind_row)
                 self.assertEqual(app.prompts(),before)
                 self.assertEqual(before[0]['id'],'old')

@@ -5,7 +5,7 @@ window.TaskDataUI = (() => {
   const state = {catalog: null, items: [], image: '', direction: '', index: 0, reviewFilter: '', busy: false};
   const params = () => new URLSearchParams(location.search);
   const pass = () => params().get('pass') === '2' ? 2 : 1;
-  const tab = () => params().get('taskTab') === 'components' ? 'components' : 'review';
+  const tab = () => params().get('taskTab') === 'review' ? 'review' : 'components';
   let savedActor = '';
   try { savedActor = localStorage.getItem('task-data-annotator') || ''; } catch (_) {}
   const actor = () => {
@@ -49,13 +49,12 @@ window.TaskDataUI = (() => {
   function shell() {
     const meta = state.catalog.metadata;
     q('#main').innerHTML = `<section class="td"><div class="td-toolbar">
-      <div class="td-tabs"><button id="td-review-tab" class="${tab()==='review'?'on':''}">真值审查</button><button id="td-component-tab" class="${tab()==='components'?'on':''}">组件标注</button></div>
+      <div class="td-tabs"><button id="td-component-tab" class="on">屋顶颜色标注</button></div>
       <div class="td-row"><span class="td-source">${meta.source==='synthetic'?'合成演示数据':meta.preview?'真实数据 · 轻量预览':'真实任务数据'}</span><label>标注人 <input class="td-actor" id="td-actor" value="${h(savedActor)}" placeholder="填写姓名"></label>
-      <a href="/api/task-data/export/task_review.json" download>导出审查</a><a href="/api/task-data/export/second_component_labels.json" download>导出标注</a></div></div>
+      <a href="/api/task-data/export/second_component_labels.json" download>导出标注</a></div></div>
       <div id="td-status" class="td-status" role="status" aria-live="polite"></div>
       ${(meta.notes||[]).map(n=>`<div class="td-notice">${h(n)}</div>`).join('')}
       <div id="td-content"></div></section>`;
-    q('#td-review-tab').onclick = () => go('review');
     q('#td-component-tab').onclick = () => go('components');
     q('#td-actor').oninput = e => { savedActor = e.target.value; try {localStorage.setItem('task-data-annotator', savedActor);} catch (_) {} };
     q('#main').querySelectorAll('img').forEach(bindImageError);
@@ -116,15 +115,15 @@ window.TaskDataUI = (() => {
     if(restoreId) {const i=filtered.findIndex(c=>c.id===restoreId);if(i>=0)state.index=i;}
     state.index = Math.max(0,Math.min(state.index,filtered.length-1));
     const c=filtered[state.index], count=filtered.filter(x=>x.labeled_at).length, blind=pass()===2;
-    q('#td-content').innerHTML=`<div class="td-eyebrow">TASK DATA / COMPONENT LABELS</div><h2>${blind?'第二遍 · 盲标':'建筑变化组件标注'}</h2>
+    q('#td-content').innerHTML=`<div class="td-eyebrow">TASK DATA / COMPONENT LABELS</div><h2>${blind?'第二遍 · 盲标':'屋顶颜色标注'}</h2>
       <p class="td-intro">8 连通组件，面积 ≥64 px。新建主要看 T2，拆除主要看 T1；两期近景使用相同裁剪与红色轮廓。</p>
       <div class="td-toolbar"><div class="td-tabs"><button id="td-first-pass" class="${!blind?'on':''}">第一遍</button><button id="td-second-pass" class="${blind?'on':''}">第二遍</button></div>
       <div class="td-row"><label>图 <select id="td-image">${options([...new Set(state.items.map(x=>x.image))],state.image,'全部图')}</select></label><label>方向 <select id="td-direction"><option value="">全部方向</option><option value="new" ${state.direction==='new'?'selected':''}>新建</option><option value="demolished" ${state.direction==='demolished'?'selected':''}>拆除</option></select></label></div>
       <div><progress class="td-progress" max="${Math.max(1,filtered.length)}" value="${count}"></progress> 已标 ${count} / ${filtered.length}<span class="meta">（本遍总计 ${result.labeled}/${result.total}）</span></div></div>
-      ${blind?'<div class="td-notice">第二遍按种子 1016 抽取 20%。本视图不显示第一遍结果和颜色预填，请独立选择两个属性。</div>':'<p class="meta">颜色来自组件像素 HSV 中位数，仅作为初值；子类请人工选择。多栋混色或无法判断的组件，导出时标记为忽略。</p>'}
+      ${blind?'<div class="td-notice">第二遍按种子 1016 抽取 20%。本视图不显示第一遍结果和颜色预填，请独立选择屋顶颜色。</div>':'<p class="meta">颜色来自组件像素 HSV 中位数，仅作为初值，请人工确认。多栋混色或无法判断的组件，导出时标记为忽略。</p>'}
       <div id="td-current-card">${c?`<article class="card"><div class="td-row td-component-title"><h3>${h(c.image)} · ${c.direction==='new'?'新建':'拆除'}</h3><span>${state.index+1} / ${filtered.length} · 面积 <b>${c.area.toLocaleString()}</b> px · bbox [${c.bbox.join(', ')}]</span></div>
       <div class="td-component-layout"><div><div class="td-closeups">${picture('component',c.id,'t1','T1 近景'+(c.direction==='demolished'?' · 主要判读期':''))}${picture('component',c.id,'t2','T2 近景'+(c.direction==='new'?' · 主要判读期':''))}</div><div class="td-position">${picture('component',c.id,'thumb','整图位置 · 红框与红色轮廓')}</div><div class="meta">组件 ${h(c.id)} · ${h(c.pool)}</div></div>
-      <aside><b>屋顶颜色</b><div id="td-colors" class="td-attributes">${state.catalog.colors.map((color,i)=>`<button class="td-choice" data-color="${h(color)}"><kbd>${i+1}</kbd>${h(color)}</button>`).join('')}</div><b>子类</b><div id="td-subtypes" class="td-attributes">${state.catalog.subtypes.map((subtype,i)=>`<button class="td-choice" data-subtype="${h(subtype)}"><kbd>${['Q','W','E','R'][i]}</kbd>${h(subtype)}</button>`).join('')}</div>
+      <aside><b>屋顶颜色</b><div id="td-colors" class="td-attributes">${state.catalog.colors.map((color,i)=>`<button class="td-choice" data-color="${h(color)}"><kbd>${i+1}</kbd>${h(color)}</button>`).join('')}</div>
       ${!blind?`<p class="meta" id="td-prefill">HSV 预填：${h(c.prefill_color)}（可改）</p>`:''}<p class="meta">${c.labeled_at?`本遍已保存：${h(c.annotator)} · ${h(c.labeled_at)}`:'本遍未保存'}</p></aside></div>
       <div class="td-row td-card-actions"><button id="td-prev" class="td-action" ${state.index===0?'disabled':''}>上一张</button><button id="td-save" class="td-choice">保存并下一张 <kbd>空格</kbd></button><button id="td-next" class="td-action" ${state.index===filtered.length-1?'disabled':''}>下一张</button><button id="td-undo" class="td-action">撤销 <kbd>Z</kbd></button></div></article>`:'<div class="card empty">当前范围没有组件。请先导入数据或调整筛选条件。</div>'}</div>`;
     q('#td-first-pass').onclick=()=>go('components',1);q('#td-second-pass').onclick=()=>go('components',2);
@@ -137,8 +136,8 @@ window.TaskDataUI = (() => {
     q('#td-prev').onclick=()=>action(async()=>{state.index--;await componentView();});
     q('#td-next').onclick=()=>action(async()=>{state.index++;await componentView();});
     q('#td-save').onclick=()=>action(async()=>{
-      if(!state.current.color||!state.current.subtype)throw new Error('请同时选择屋顶颜色和子类。');
-      await api('labels/'+encodeURIComponent(c.id),{...state.current,pass_number:pass(),annotator:actor()});
+      if(!state.current.color)throw new Error('请选择屋顶颜色。');
+      await api('labels/'+encodeURIComponent(c.id),{color:state.current.color,pass_number:pass(),annotator:actor()});
       const atEnd=state.index===filtered.length-1;if(!atEnd)state.index++;await componentView();status(atEnd?'已保存；已到当前筛选的最后一张。':'已保存，进入下一张。');
     });
     q('#td-undo').onclick=()=>action(async()=>{const r=await api('undo',{kind:'component',pass_number:pass(),annotator:actor()});await componentView(r.target);status(r.target?'已撤销最近一次保存，并返回该组件。':'没有可撤销的保存。');});
@@ -152,7 +151,6 @@ window.TaskDataUI = (() => {
     if(event.target.closest('input,textarea,select,[contenteditable="true"]'))return;
     const key=event.key.toLowerCase();let button;
     if(/^[1-7]$/.test(key))button=document.querySelectorAll('[data-color]')[Number(key)-1];
-    else if(['q','w','e','r'].includes(key))button=document.querySelectorAll('[data-subtype]')[['q','w','e','r'].indexOf(key)];
     else if(key===' ')button=q('#td-save');else if(key==='z')button=q('#td-undo');
     if(button){event.preventDefault();button.click();}
   });

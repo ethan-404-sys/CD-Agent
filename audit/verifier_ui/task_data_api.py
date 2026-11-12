@@ -28,7 +28,8 @@ class ReviewInput(BaseModel):
 class LabelInput(BaseModel):
     pass_number: Literal[1, 2] = 1
     color: str
-    subtype: str
+    # Ethan 2026-11-12: roof colour only; subtype optional (kept if already stored).
+    subtype: str | None = None
     annotator: str = Field(min_length=1)
 
 
