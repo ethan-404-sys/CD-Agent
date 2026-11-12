@@ -48,13 +48,14 @@ def build_messages(rgb, exemplar, candidate, ask_variant='default'):
 
 
 def filtered_union(masks, indices, answers, exemplar):
-    """Delete explicit no. Unknown/unanswered means incomplete, not no."""
+    """Delete explicit no. A returned but unparsable reply is kept (unparsed is not no);
+    a missing answer means the run is incomplete."""
     pred = np.zeros(exemplar.shape, bool)
     for i in indices:
         answer = answers[i]['answer']
-        if answer not in ('yes', 'no'):
+        if answer not in ('yes', 'no', 'unparsed'):
             raise ValueError('Candidate answer is incomplete')
-        if answer == 'yes':
+        if answer != 'no':
             pred |= masks[i]
     return pred & ~exemplar
 

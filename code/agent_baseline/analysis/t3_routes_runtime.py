@@ -17,7 +17,9 @@ from .t3_routes_match import ranked_indices, build_messages, filtered_union
 
 # Eight 384px images and fixed short text; reserve far above the ledger estimate.
 # Actual provider usage is still authoritative and checked after every response.
-REQUEST_RESERVE = request_cost('qwen3.7-flash', dict(input=32000, cached=0, output=256))
+# 512 (was 256): the JSON reply with a free-text reason was cut off at 256 tokens (2026-11-12 run, unparsed).
+MAX_TOKENS = 512
+REQUEST_RESERVE = request_cost('qwen3.7-flash', dict(input=32000, cached=0, output=MAX_TOKENS))
 
 
 class Stopped(RuntimeError):
@@ -209,13 +211,20 @@ def ask_one(messages, budget, client=None):
             raise Stopped('Provider returned error')
         return response
     planner = Planner(client=guarded, max_attempts=1, parameters=dict(model='qwen3.7-flash',
-        logprobs=True, top_logprobs=5, max_tokens=256, response_format={'type':'json_object'}, parallel_tool_calls=False))
+        logprobs=True, top_logprobs=5, max_tokens=MAX_TOKENS, response_format={'type':'json_object'}, parallel_tool_calls=False))
     try:
         result = planner.complete(messages, [], 1)
-        parsed = parse_json(result['message'].get('content') or '')
-        if not isinstance(parsed, dict) or parsed.get('change') not in ('yes', 'no'):
-            raise ValueError('Verifier did not return yes/no')
+        content = result['message'].get('content') or ''
         tokens = usage_tokens(result['usage'])
+        try:
+            parsed = parse_json(content)
+        except Exception:
+            parsed = None
+        if not isinstance(parsed, dict) or parsed.get('change') not in ('yes', 'no'):
+            # The provider answered and billed, but not in the format (e.g. cut off at max_tokens).
+            # Same rule as the harness ask: unparsed is not no, so the candidate is kept. Raw text kept for review.
+            return dict(answer='unparsed', raw=content[:4000], tokens=tokens,
+                        cost_cny=request_cost('qwen3.7-flash', tokens))
         return dict(answer=parsed['change'], description={k: parsed.get(k) for k in
             ('example_t1', 'example_t2', 'candidate_t1', 'candidate_t2', 'reason')},
             tokens=tokens, cost_cny=request_cost('qwen3.7-flash', tokens))
@@ -287,7 +296,7 @@ def verify(rows, out, concurrency, max_cost, resume, ask_variant):
     by_id = {r['id']: r for r in rows}
     jobs = [(t['id'] + f'__{i}', dict(task_id=t['id'], index=i)) for t in prepared['tasks'] for i in t['indices']]
     policy = dict(preparation=prepared['policy'], ask_variant=ask_variant, model='qwen3.7-flash',
-                  request_version=1, views='example four + candidate four', max_tokens=256)
+                  request_version=2, views='example four + candidate four', max_tokens=MAX_TOKENS)
     # Keep only a bounded number of image/mask arrays in memory, one job per worker.
     def request(meta):
         row = by_id[meta['task_id']]

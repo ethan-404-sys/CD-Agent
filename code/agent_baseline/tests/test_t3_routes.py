@@ -135,6 +135,8 @@ class RouteTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             filtered_union(masks,[0],{0:dict(answer=None)},ex)
         np.testing.assert_array_equal(filtered_union(masks,[2],{2:dict(answer='yes')},ex),np.zeros_like(ex))
+        # Unparsed is not no: the candidate stays; only explicit no is deleted.
+        np.testing.assert_array_equal(filtered_union(masks,[0,1],{0:dict(answer='unparsed'),1:dict(answer='no')},ex),good)
 
     def test_verify_resume_reuses_answers_and_restores_cost(self):
         with tempdir() as d:
@@ -174,10 +176,14 @@ class RouteTests(unittest.TestCase):
             self.assertEqual(calls,[])
         with tempdir() as d:
             d = Path(d)
-            with self.assertRaises(Stopped):
-                verify_jobs([('one',{})],d,1,1,False,{},lambda _: [],lambda _:response('maybe'))
+            # A billed reply that is not yes/no (e.g. cut off at max_tokens) is kept as unparsed; the run goes on.
+            verify_jobs([('one',{}),('two',{})],d,1,1,False,{},lambda _: [],
+                        lambda p: response('maybe') if not (d/'answers/one.json').exists() else response('no'))
             self.assertGreater(Budget(d,1).spent,0)
-            self.assertTrue((d/'STOP.json').exists())
+            self.assertFalse((d/'STOP.json').exists())
+            one = json.loads((d/'answers/one.json').read_text())
+            self.assertEqual(one['answer'],'unparsed'); self.assertIn('maybe',one['raw'])
+            self.assertEqual(json.loads((d/'answers/two.json').read_text())['answer'],'no')
 
     def test_agent_sample_and_exemplar_classification_evidence(self):
         rows = [dict(id=f'x_{i:02}_1to5') for i in range(60)]
