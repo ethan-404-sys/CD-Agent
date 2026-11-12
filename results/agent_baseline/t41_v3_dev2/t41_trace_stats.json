@@ -1,0 +1,515 @@
+{
+  "sessions": 10,
+  "tasks": "t41/tasks_v3_dev2/T4.1_any.jsonl",
+  "missing_task_ids": [],
+  "rules": {
+    "area": "8 邻域。select 统计请求次数，另列成功次数。remove_region 仅计看到面积报告后实际删除面积不超过任务阈值的组件。",
+    "t2": "候选：某次更新当前答案保留至少 80% 的 T2 建筑分割并且答案至少 80% 来自该分割。每个 T2 分割只列首次。另报与 T1 的像素重叠和实例重叠比例；不据此断言建筑没有变化。需人工复核。",
+    "morph": "当前答案更新后组件数减少，且操作是 close 或实际增加像素；fill_holes 不计。列出输入与此前当前答案，供核对。",
+    "metrics": "沿用 t3_metrics.counts/score 与 probe/t41v2_trial.py。全图像素累计 F1/P/R，百分数；固定 SAM3 I-M-C p85 后按严格大于面积阈值筛 8 邻域组件。逐图空空 F1 按 recorder 取 100。"
+  },
+  "filtering": {
+    "mask_select": {
+      "calls": 2,
+      "sessions": 2,
+      "successful_calls": 2,
+      "successful_sessions": 2
+    },
+    "instance_select": {
+      "calls": 4,
+      "sessions": 4,
+      "successful_calls": 4,
+      "successful_sessions": 4
+    },
+    "remove_small_after_report": {
+      "calls": 1,
+      "sessions": 1,
+      "successful_calls": 1,
+      "successful_sessions": 1
+    },
+    "no_area_filter_sessions": 4,
+    "no_area_filter_session_paths": [
+      "t41v3dev_g3_any_s1/T4.1/val/train_195",
+      "t41v3dev_g3_any_s1/T4.1/val/train_300",
+      "t41v3dev_g3_any_s1/T4.1/val/train_397",
+      "t41v3dev_g3_any_s1/T4.1/val/train_442"
+    ],
+    "no_successful_area_filter_sessions": 4,
+    "no_successful_area_filter_session_paths": [
+      "t41v3dev_g3_any_s1/T4.1/val/train_195",
+      "t41v3dev_g3_any_s1/T4.1/val/train_300",
+      "t41v3dev_g3_any_s1/T4.1/val/train_397",
+      "t41v3dev_g3_any_s1/T4.1/val/train_442"
+    ],
+    "area_report_sessions": 3
+  },
+  "agent": {
+    "counts": [
+      160035,
+      85974,
+      36994
+    ],
+    "f1_c": 72.24436730032187,
+    "precision": 65.05249807933856,
+    "recall": 81.22408376431896
+  },
+  "fixed_area": {
+    "counts": [
+      162322,
+      76907,
+      34707
+    ],
+    "f1_c": 74.41559810937565,
+    "precision": 67.85214167178728,
+    "recall": 82.38482659913008
+  },
+  "per_session": [
+    {
+      "session": "t41v3dev_g3_any_s1/T4.1/val/train_195",
+      "id": "train_195",
+      "agent": {
+        "counts": [
+          0,
+          0,
+          0
+        ],
+        "f1_c": 100.0,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      "fixed_area": {
+        "counts": [
+          0,
+          0,
+          0
+        ],
+        "f1_c": 100.0,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      "submitted_by": "model",
+      "trace": {
+        "mask_select": [],
+        "instance_select": [],
+        "remove_small_after_report": [],
+        "t2_as_change_candidates": [],
+        "morph_merges": [],
+        "area_report_seen": true
+      }
+    },
+    {
+      "session": "t41v3dev_g3_any_s1/T4.1/val/train_286",
+      "id": "train_286",
+      "agent": {
+        "counts": [
+          10958,
+          5329,
+          2368
+        ],
+        "f1_c": 74.0080370107723,
+        "precision": 67.28065328175846,
+        "recall": 82.23022662464355
+      },
+      "fixed_area": {
+        "counts": [
+          10961,
+          2176,
+          2365
+        ],
+        "f1_c": 82.8401919661414,
+        "precision": 83.43609652127579,
+        "recall": 82.25273900645355
+      },
+      "submitted_by": "model",
+      "trace": {
+        "mask_select": [
+          {
+            "step": 12,
+            "call": 1,
+            "tool": "select",
+            "args": {
+              "set": "mask#7",
+              "area_min": 1040,
+              "set_current": true
+            },
+            "ok": true
+          }
+        ],
+        "instance_select": [],
+        "remove_small_after_report": [],
+        "t2_as_change_candidates": [],
+        "morph_merges": [],
+        "area_report_seen": false
+      }
+    },
+    {
+      "session": "t41v3dev_g3_any_s1/T4.1/val/train_293",
+      "id": "train_293",
+      "agent": {
+        "counts": [
+          3199,
+          12544,
+          12115
+        ],
+        "f1_c": 20.600830730592136,
+        "precision": 20.320142285460204,
+        "recall": 20.889382264594488
+      },
+      "fixed_area": {
+        "counts": [
+          3191,
+          9780,
+          12123
+        ],
+        "f1_c": 22.56319604030405,
+        "precision": 24.60103307377997,
+        "recall": 20.837142484001568
+      },
+      "submitted_by": "model",
+      "trace": {
+        "mask_select": [
+          {
+            "step": 9,
+            "call": 1,
+            "tool": "select",
+            "args": {
+              "set": "mask#7",
+              "area_min": 1041,
+              "set_current": true
+            },
+            "ok": true
+          }
+        ],
+        "instance_select": [],
+        "remove_small_after_report": [],
+        "t2_as_change_candidates": [
+          {
+            "step": 5,
+            "call": 1,
+            "tool": "to_mask",
+            "current_mask": "mask#5",
+            "t2_handle": "inst#1",
+            "t2_area_px": 161244,
+            "t2_retained_fraction": 0.9811527870804495,
+            "answer_from_t2_fraction": 1.0,
+            "t1_handle": "inst#0",
+            "t1_overlap_fraction": 0.014592791049589443,
+            "t2_instances_overlapping_t1": 8,
+            "t2_instances": 295,
+            "majority_t1_overlap": false
+          }
+        ],
+        "morph_merges": [],
+        "area_report_seen": false
+      }
+    },
+    {
+      "session": "t41v3dev_g3_any_s1/T4.1/val/train_300",
+      "id": "train_300",
+      "agent": {
+        "counts": [
+          3717,
+          5700,
+          6401
+        ],
+        "f1_c": 38.05477348349117,
+        "precision": 39.47116916215355,
+        "recall": 36.73650919153983
+      },
+      "fixed_area": {
+        "counts": [
+          6519,
+          2555,
+          3599
+        ],
+        "f1_c": 67.9345560650271,
+        "precision": 71.84262728675336,
+        "recall": 64.42972919549318
+      },
+      "submitted_by": "model",
+      "trace": {
+        "mask_select": [],
+        "instance_select": [],
+        "remove_small_after_report": [],
+        "t2_as_change_candidates": [],
+        "morph_merges": [],
+        "area_report_seen": false
+      }
+    },
+    {
+      "session": "t41v3dev_g3_any_s1/T4.1/val/train_383",
+      "id": "train_383",
+      "agent": {
+        "counts": [
+          2264,
+          4753,
+          157
+        ],
+        "f1_c": 47.97626615808434,
+        "precision": 32.26450049878866,
+        "recall": 93.51507641470467
+      },
+      "fixed_area": {
+        "counts": [
+          2264,
+          10476,
+          157
+        ],
+        "f1_c": 29.8661038190093,
+        "precision": 17.770800627943483,
+        "recall": 93.51507641470467
+      },
+      "submitted_by": "model",
+      "trace": {
+        "mask_select": [],
+        "instance_select": [
+          {
+            "step": 12,
+            "call": 1,
+            "tool": "select",
+            "args": {
+              "set": "inst#2",
+              "where": "area >= 1040",
+              "set_current": false
+            },
+            "ok": true
+          }
+        ],
+        "remove_small_after_report": [],
+        "t2_as_change_candidates": [],
+        "morph_merges": [],
+        "area_report_seen": false
+      }
+    },
+    {
+      "session": "t41v3dev_g3_any_s1/T4.1/val/train_397",
+      "id": "train_397",
+      "agent": {
+        "counts": [
+          12316,
+          13964,
+          3461
+        ],
+        "f1_c": 58.56813372328031,
+        "precision": 46.86453576864536,
+        "recall": 78.0630031057869
+      },
+      "fixed_area": {
+        "counts": [
+          11068,
+          15072,
+          4709
+        ],
+        "f1_c": 52.80912279027602,
+        "precision": 42.34123947972456,
+        "recall": 70.15275400900045
+      },
+      "submitted_by": "model",
+      "trace": {
+        "mask_select": [],
+        "instance_select": [],
+        "remove_small_after_report": [],
+        "t2_as_change_candidates": [],
+        "morph_merges": [],
+        "area_report_seen": false
+      }
+    },
+    {
+      "session": "t41v3dev_g3_any_s1/T4.1/val/train_43",
+      "id": "train_43",
+      "agent": {
+        "counts": [
+          12997,
+          3380,
+          439
+        ],
+        "f1_c": 87.19015194713715,
+        "precision": 79.36129938328143,
+        "recall": 96.7326585293242
+      },
+      "fixed_area": {
+        "counts": [
+          12984,
+          2191,
+          452
+        ],
+        "f1_c": 90.76229422250184,
+        "precision": 85.56177924217462,
+        "recall": 96.63590354272105
+      },
+      "submitted_by": "model",
+      "trace": {
+        "mask_select": [],
+        "instance_select": [
+          {
+            "step": 12,
+            "call": 1,
+            "tool": "select",
+            "args": {
+              "set": "inst#4",
+              "where": "area > 1040",
+              "set_current": false
+            },
+            "ok": true
+          }
+        ],
+        "remove_small_after_report": [],
+        "t2_as_change_candidates": [],
+        "morph_merges": [],
+        "area_report_seen": false
+      }
+    },
+    {
+      "session": "t41v3dev_g3_any_s1/T4.1/val/train_442",
+      "id": "train_442",
+      "agent": {
+        "counts": [
+          1036,
+          10279,
+          39
+        ],
+        "f1_c": 16.72316384180791,
+        "precision": 9.155987627043746,
+        "recall": 96.37209302325581
+      },
+      "fixed_area": {
+        "counts": [
+          1036,
+          4264,
+          39
+        ],
+        "f1_c": 32.501960784313724,
+        "precision": 19.547169811320753,
+        "recall": 96.37209302325581
+      },
+      "submitted_by": "budget",
+      "trace": {
+        "mask_select": [],
+        "instance_select": [],
+        "remove_small_after_report": [],
+        "t2_as_change_candidates": [],
+        "morph_merges": [],
+        "area_report_seen": true
+      }
+    },
+    {
+      "session": "t41v3dev_g3_any_s1/T4.1/val/train_78",
+      "id": "train_78",
+      "agent": {
+        "counts": [
+          34020,
+          9148,
+          2065
+        ],
+        "f1_c": 85.85163968556395,
+        "precision": 78.80837657524091,
+        "recall": 94.27740058195926
+      },
+      "fixed_area": {
+        "counts": [
+          34025,
+          9158,
+          2060
+        ],
+        "f1_c": 85.84800928495736,
+        "precision": 78.79258041358868,
+        "recall": 94.2912567548843
+      },
+      "submitted_by": "model",
+      "trace": {
+        "mask_select": [],
+        "instance_select": [
+          {
+            "step": 7,
+            "call": 1,
+            "tool": "select",
+            "args": {
+              "set": "inst#0",
+              "where": "area > 1040",
+              "set_current": true
+            },
+            "ok": true
+          }
+        ],
+        "remove_small_after_report": [
+          {
+            "step": 13,
+            "call": 1,
+            "tool": "remove_region",
+            "mask": "mask#4",
+            "ids": [
+              7,
+              8
+            ],
+            "removed_small_px": 16,
+            "ok": true
+          }
+        ],
+        "t2_as_change_candidates": [
+          {
+            "step": 8,
+            "call": 1,
+            "tool": "to_mask",
+            "current_mask": "mask#4",
+            "t2_handle": "inst#0",
+            "t2_area_px": 44951,
+            "t2_retained_fraction": 0.9606905296878824,
+            "answer_from_t2_fraction": 1.0,
+            "t1_handle": null,
+            "t1_overlap_fraction": null,
+            "t2_instances_overlapping_t1": null,
+            "t2_instances": null,
+            "majority_t1_overlap": null
+          }
+        ],
+        "morph_merges": [],
+        "area_report_seen": true
+      }
+    },
+    {
+      "session": "t41v3dev_g3_any_s1/T4.1/val/train_80",
+      "id": "train_80",
+      "agent": {
+        "counts": [
+          79528,
+          20877,
+          9949
+        ],
+        "f1_c": 83.76570712337136,
+        "precision": 79.20721079627509,
+        "recall": 88.88094147099254
+      },
+      "fixed_area": {
+        "counts": [
+          80274,
+          21235,
+          9203
+        ],
+        "f1_c": 84.06270616694417,
+        "precision": 79.0806726497158,
+        "recall": 89.71467527968082
+      },
+      "submitted_by": "model",
+      "trace": {
+        "mask_select": [],
+        "instance_select": [
+          {
+            "step": 5,
+            "call": 1,
+            "tool": "select",
+            "args": {
+              "set": "inst#1",
+              "area_min": 1040,
+              "set_current": false
+            },
+            "ok": true
+          }
+        ],
+        "remove_small_after_report": [],
+        "t2_as_change_candidates": [],
+        "morph_merges": [],
+        "area_report_seen": false
+      }
+    }
+  ]
+}

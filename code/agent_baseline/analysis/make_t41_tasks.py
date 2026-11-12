@@ -10,8 +10,13 @@ mask) and the rule (fixed route minus components the flash correspondence verifi
 import argparse
 import json
 from pathlib import Path
+if __package__ in (None, ''):
+    import sys
+    sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+    import agent_baseline
 import numpy as np
 from common import load_gt, components, save_mask_png, write_json, names
+from agent_baseline.analysis.io_retry import read_text, write_text
 
 RUN = Path('/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run')
 LEVIR = Path('/guisongxia01/pangchao/wangyihan/datasets/LEVIR-CD')
@@ -24,6 +29,9 @@ INSTRUCTION = ('Find building changes whose footprint is larger than {x} square 
 # instruction (read as single buildings) and the truth (connected change regions). Not tuning. No pixel count.
 INSTRUCTION_V2 = ('Find all building change regions (individual large buildings or contiguous building change blocks) '
                   'with a ground area over {x} m\u00b2 between T1 and T2 (image resolution: 0.5 m/pixel).')
+
+# v3 changes wording only. Keep the v2 manifests, fields, order and thresholds.
+INSTRUCTION_V3 = INSTRUCTION_V2.replace('contiguous building change blocks', 'connected building change regions')
 
 
 def keep_large(mask, min_m2):
@@ -97,12 +105,39 @@ def generate_v2(run=RUN, x=260, dev_images=10, seed=1016):
     return dict(val=len(val), dev2=dev2, instruction=INSTRUCTION_V2.format(x=x))
 
 
+def generate_v3(run=RUN, output=None):
+    """Copy the two existing v2 lists, changing only the instruction substring.
+
+    No truth regeneration or resampling. Default output is run/t41; staging can
+    pass --output to keep every write inside its own directory.
+    """
+    source = Path(run) / 't41'
+    output = Path(output) if output is not None else source
+    counts = {}
+    for suffix in ('_dev2', ''):
+        rows = [json.loads(line) for line in read_text(source / f'tasks_v2{suffix}/T4.1_any.jsonl').splitlines() if line.strip()]
+        for row in rows:
+            old = row['instruction']
+            if 'contiguous building change blocks' not in old:
+                raise ValueError('Expected the unchanged v2 instruction')
+            row['instruction'] = old.replace('contiguous building change blocks', 'connected building change regions')
+        folder = f'tasks_v3{suffix}'
+        write_text(output / folder / 'T4.1_any.jsonl', ''.join(json.dumps(r) + '\n' for r in rows))
+        counts[folder] = len(rows)
+    return counts
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--run-root', type=Path, default=RUN)
-    p.add_argument('--v2', action='store_true', help='Write the v2 task lists (instruction fix + area constraint fields).')
+    version = p.add_mutually_exclusive_group()
+    version.add_argument('--v2', action='store_true', help='Write the v2 task lists (instruction fix + area constraint fields).')
+    version.add_argument('--v3', action='store_true', help='Copy v2 lists, changing only the connected-region wording.')
+    p.add_argument('--output', type=Path, help='v3 output parent (default: RUN/t41).')
     a = p.parse_args()
-    print(json.dumps(generate_v2(a.run_root) if a.v2 else generate(a.run_root), ensure_ascii=False))
+    if a.output is not None and not a.v3:
+        p.error('--output requires --v3')
+    print(json.dumps(generate_v3(a.run_root, a.output) if a.v3 else generate_v2(a.run_root) if a.v2 else generate(a.run_root), ensure_ascii=False))
 
 
 if __name__ == '__main__':

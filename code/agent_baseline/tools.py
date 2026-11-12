@@ -99,9 +99,24 @@ PYTHON_SCHEMA = schema('python', 'Run array calculations in an isolated Python s
 SCHEMA_BY_NAME = {s['function']['name']: s['function']['parameters'] for s in [*SCHEMAS, PLAN_SCHEMA, SKILL_SCHEMA, PYTHON_SCHEMA, *tool_schemas()]}
 
 
+def area_select_schema(function):
+    """Extend a session-local copy only; the frozen no-area interface stays intact."""
+    function['description'] += (' For tasks with an area constraint, set may also be a binary mask: '
+        'select whole 8-connected change regions by component IDs and area in pixels (area_min/area_max are inclusive). '
+        'Use the same component IDs as inspect/remove_region; retained components keep their IDs. '
+        'where on masks accepts only area comparisons. A mask input returns a new mask. ' + CURRENT +
+        ' set_current applies only to mask inputs; instance selection never changes the current answer.')
+    properties = function['parameters']['properties']
+    properties['set'] = arg('string', description='An existing inst#k handle, or mask#k for connected-region selection by area in pixels.')
+    properties['set_current'] = SET_CURRENT.copy()
+    return function
+
+
 def session_schemas(session, python=False, tools_t13=False, tool_hints='off', gate5=False):
     import copy
     schemas = copy.deepcopy(SCHEMAS)
+    if session.area_min_px is not None:
+        area_select_schema(next(s['function'] for s in schemas if s['function']['name'] == 'select'))
     if (session.target, session.change_direction) != ('building', 'any'):
         ask = next(s['function'] for s in schemas if s['function']['name'] == 'ask')
         label = 'any land-cover change' if session.target == 'any change' else 'changes involving ' + ', '.join(session.target) if isinstance(session.target,(list,tuple)) else f'{session.target} change'
@@ -174,14 +189,14 @@ COMPARE = {ast.Lt: operator.lt, ast.LtE: operator.le, ast.Gt: operator.gt,
            ast.GtE: operator.ge, ast.Eq: operator.eq, ast.NotEq: operator.ne}
 
 
-def predicate(text, rows):
+def predicate(text, rows, allowed_fields=('score', 'area')):
     try:
         tree = ast.parse(text, mode='eval').body
     except SyntaxError:
         raise ToolError('bad_args', 'where must be a comparison expression.') from None
     fields = set()
     def check(node):
-        if isinstance(node, ast.Name) and node.id in ('score', 'area'):
+        if isinstance(node, ast.Name) and node.id in allowed_fields:
             fields.add(node.id)
         elif isinstance(node, ast.Constant) and type(node.value) in (int, float):
             pass
@@ -270,6 +285,9 @@ class Toolbox(ProposalTools):
                 raise ToolError('bad_args', 'Unknown tool name.')
             from .examples_t3x import external_spec
             spec = external_spec(self.session, name, SCHEMA_BY_NAME[name])
+            if name == 'select' and self.session.area_min_px is not None:
+                import copy
+                spec = area_select_schema(dict(description='', parameters=copy.deepcopy(spec)))['parameters']
             if self.gate5:
                 from .gate5 import SEGMENT_TOOLS, region_spec
                 if name in SEGMENT_TOOLS:
@@ -457,7 +475,19 @@ class Toolbox(ProposalTools):
                     entry['records'][-1][field] = row.get(field)
         return results
 
-    def select(self, set, ids=None, where=None, area_min=None, area_max=None):
+    def select(self, set, ids=None, where=None, area_min=None, area_max=None, set_current=True):
+        if self.session.area_min_px is not None:
+            item = self.get(set)
+            if isinstance(item, Mask):
+                wanted = chosen_ids(item.components, ids)
+                pred = predicate(where, item.components, ('area',)) if where is not None else lambda r: True
+                if area_min is not None and area_max is not None and area_min > area_max:
+                    raise ToolError('bad_args', 'area_min must not exceed area_max.')
+                rows = [r for r in item.components if r['id'] in wanted and pred(r)
+                        and (area_min is None or r['area'] >= area_min) and (area_max is None or r['area'] <= area_max)]
+                kept = [r['id'] for r in rows]
+                labels = np.where(np.isin(item.labels, kept), item.labels, 0)
+                return self._mask(labels > 0, (set,), set_current, item.data, (labels, rows))
         item = self.get(set, Instances)
         wanted = chosen_ids(item.items, ids)
         pred = predicate(where, item.items) if where is not None else lambda r: True
@@ -761,6 +791,7 @@ class Toolbox(ProposalTools):
             if small:
                 lines.append(f'Area constraint (regions must be larger than {self.session.area_min_m2:g} m^2): {len(small)} connected regions are not larger, '
                              f'{sum(c["area"] for c in small)} pixels in total, component IDs {sorted(c["id"] for c in small)[:30]}.')
+                lines.append('Regions are defined by connectivity in the change mask; do not merge regions to meet the area constraint.')
         return lines
 
     def ledger(self, final_key):
