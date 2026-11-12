@@ -1420,16 +1420,6 @@ html[data-theme="paper"] .am-md table { font-family: var(--font-sans); }
 </tr>
 </thead>
 <tbody><tr>
-<td style="background:var(--paper)">T1.1 × C0（验证集）</td>
-<td style="background:var(--paper)">LEVIR 验证</td>
-<td style="background:var(--paper)">85.76（G3）</td>
-<td style="background:var(--paper)">83.15</td>
-<td style="background:var(--paper)">规则 86.35</td>
-<td style="background:var(--paper)">约 −0.6</td>
-<td style="background:var(--paper)"><strong>验证集</strong></td>
-<td style="background:var(--paper)">验证集用来选设置，不作结论；结论看下面的测试集行</td>
-</tr>
-<tr>
 <td style="background:color-mix(in srgb, var(--ok-bg) 45%, var(--paper))">T1.1 × C0（测试集）</td>
 <td style="background:color-mix(in srgb, var(--ok-bg) 45%, var(--paper))">LEVIR 测试</td>
 <td style="background:color-mix(in srgb, var(--ok-bg) 45%, var(--paper))">82.63（G1）</td>
@@ -1437,17 +1427,7 @@ html[data-theme="paper"] .am-md table { font-family: var(--font-sans); }
 <td style="background:color-mix(in srgb, var(--ok-bg) 45%, var(--paper))">规则 80.97</td>
 <td style="background:color-mix(in srgb, var(--ok-bg) 45%, var(--paper))">+1.66 [−1.24, +5.79]（对规则）；+4.37 [+1.30, +8.53]（对固定组合）</td>
 <td style="background:color-mix(in srgb, var(--ok-bg) 45%, var(--paper))"><strong>胜（区间跨零）</strong></td>
-<td style="background:color-mix(in srgb, var(--ok-bg) 45%, var(--paper))">测试集只跑 1 次，用 G1 配置（G2、G3 未在测试集重跑）；胜固定组合（确认），对规则区间跨零</td>
-</tr>
-<tr>
-<td style="background:var(--paper)">T5.1 × C0（验证集）</td>
-<td style="background:var(--paper)">LEVIR 验证</td>
-<td style="background:var(--paper)">86.23</td>
-<td style="background:var(--paper)">给定掩码 83.15</td>
-<td style="background:var(--paper)">规则 86.35</td>
-<td style="background:var(--paper)">约 −0.1</td>
-<td style="background:var(--paper)"><strong>验证集</strong></td>
-<td style="background:var(--paper)">验证集用来选设置，不作结论；结论看下面的测试集行</td>
+<td style="background:color-mix(in srgb, var(--ok-bg) 45%, var(--paper))">G1 配置，测试集一次；配置固定后再更新。胜固定组合（确认），对规则区间跨零</td>
 </tr>
 <tr>
 <td style="background:color-mix(in srgb, var(--ink-2) 14%, var(--paper))">T5.1 × C0（测试集）</td>
@@ -1457,7 +1437,7 @@ html[data-theme="paper"] .am-md table { font-family: var(--font-sans); }
 <td style="background:color-mix(in srgb, var(--ink-2) 14%, var(--paper))">规则 80.97</td>
 <td style="background:color-mix(in srgb, var(--ink-2) 14%, var(--paper))">+0.22 [−0.44, +1.10]（对规则）；+2.93 [+1.78, +4.29]（对固定组合）</td>
 <td style="background:color-mix(in srgb, var(--ink-2) 14%, var(--paper))"><strong>平</strong></td>
-<td style="background:color-mix(in srgb, var(--ink-2) 14%, var(--paper))">胜固定组合（确认），和规则打平</td>
+<td style="background:color-mix(in srgb, var(--ink-2) 14%, var(--paper))">G1 配置，测试集一次；配置固定后再更新。胜固定组合（确认），和规则打平</td>
 </tr>
 <tr>
 <td style="background:color-mix(in srgb, var(--ink-2) 14%, var(--paper))">T1.1 × C0</td>
@@ -1940,10 +1920,8 @@ T3 靠外观匹配，地图没有外观，因此不适用。T5.4 本身就是地
 
 | 任务 | 数据 | Agent | 固定路线 | 规则或其他对照 | Agent − 最强对照 [95% CI] | 结论 | 说明 |
 |---|---|---|---|---|---|---|---|
-| T1.1 × C0（验证集） | LEVIR 验证 | 85.76（G3） | 83.15 | 规则 86.35 | 约 −0.6 | 验证集 | 验证集用来选设置，不作结论；结论看下面的测试集行 |
-| T1.1 × C0（测试集） | LEVIR 测试 | 82.63（G1） | 78.26（固定组合） | 规则 80.97 | +1.66 [−1.24, +5.79]（对规则）；+4.37 [+1.30, +8.53]（对固定组合） | 胜（区间跨零） | 测试集只跑 1 次，用 G1 配置（G2、G3 未在测试集重跑）；胜固定组合（确认），对规则区间跨零 |
-| T5.1 × C0（验证集） | LEVIR 验证 | 86.23 | 给定掩码 83.15 | 规则 86.35 | 约 −0.1 | 验证集 | 验证集用来选设置，不作结论；结论看下面的测试集行 |
-| T5.1 × C0（测试集） | LEVIR 测试 | 81.19（G1） | 78.26（固定组合） | 规则 80.97 | +0.22 [−0.44, +1.10]（对规则）；+2.93 [+1.78, +4.29]（对固定组合） | 平 | 胜固定组合（确认），和规则打平 |
+| T1.1 × C0（测试集） | LEVIR 测试 | 82.63（G1） | 78.26（固定组合） | 规则 80.97 | +1.66 [−1.24, +5.79]（对规则）；+4.37 [+1.30, +8.53]（对固定组合） | 胜（区间跨零） | G1 配置，测试集一次；配置固定后再更新。胜固定组合（确认），对规则区间跨零 |
+| T5.1 × C0（测试集） | LEVIR 测试 | 81.19（G1） | 78.26（固定组合） | 规则 80.97 | +0.22 [−0.44, +1.10]（对规则）；+2.93 [+1.78, +4.29]（对固定组合） | 平 | G1 配置，测试集一次；配置固定后再更新。胜固定组合（确认），和规则打平 |
 | T1.1 × C0 | SECOND | 64.24 | 51.83 | — | 比固定路线 +12.4 | 平 | 只有固定路线一个对照 |
 | T1.1 × C1 新建 | SECOND | 71.31 | 57.04 | 规则 63.74 | +7.57 [+2.36, +13.87] | 胜 |  |
 | T1.1 × C1 拆除 | SECOND | 48.45 | 32.84 | 规则 37.96 | +10.49 [+0.74, +21.40] | 胜 |  |
