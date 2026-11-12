@@ -755,6 +755,12 @@ class Toolbox(ProposalTools):
                 wrong.append(c['id'])
         if wrong:
             lines.append(f'Opposite-direction verifier types for {self.session.change_direction}: component IDs {sorted(wrong)} (types {sorted(opposite)}).')
+        if self.session.area_min_px is not None:
+            # Same mechanism as the region and direction reports: driven by the task list, reported, never removed.
+            small = [c for c in item.components if c['area'] <= self.session.area_min_px]
+            if small:
+                lines.append(f'Area constraint (regions must be larger than {self.session.area_min_m2:g} m^2): {len(small)} connected regions are not larger, '
+                             f'{sum(c["area"] for c in small)} pixels in total, component IDs {sorted(c["id"] for c in small)[:30]}.')
         return lines
 
     def ledger(self, final_key):

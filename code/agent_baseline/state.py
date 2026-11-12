@@ -27,7 +27,7 @@ class Instances:
 
 
 class Session:
-    def __init__(self, shape, init_mask=None, target="building", change_direction="any", instruction=None, constraint=None, scope=None, region_mask=None, targets=None, feedback_points=None, feedback_cells=None, source_classes=None, ask_variant=None):
+    def __init__(self, shape, init_mask=None, target="building", change_direction="any", instruction=None, constraint=None, scope=None, region_mask=None, targets=None, feedback_points=None, feedback_cells=None, source_classes=None, ask_variant=None, area_min_m2=None, gsd_m=None):
         from .scope_t13 import scope_card
         target = tuple(targets) if targets is not None else target
         scope_card(target, change_direction, scope)
@@ -52,6 +52,9 @@ class Session:
         self.initial_mask = None
         self.region_mask = None
         self.region_bbox = None
+        # Area constraint declared by the task list (T4.1): regions must be larger than area_min_m2 at gsd_m metres per pixel.
+        self.area_min_m2 = area_min_m2
+        self.area_min_px = area_min_m2 / (gsd_m * gsd_m) if area_min_m2 is not None and gsd_m else None
         self.submitted = None
         self.summary = None
         self.view_count = 0

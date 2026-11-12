@@ -20,6 +20,12 @@ INSTRUCTION = ('Find building changes whose footprint is larger than {x} square 
                'The images have 0.5 m resolution, so one pixel is 0.25 square meters. Output a binary change mask.')
 
 
+# v2 (Ethan 2026-11-11 13:04): written after the validation failure analysis to fix the mismatch between the
+# instruction (read as single buildings) and the truth (connected change regions). Not tuning. No pixel count.
+INSTRUCTION_V2 = ('Find all building change regions (individual large buildings or contiguous building change blocks) '
+                  'with a ground area over {x} m\u00b2 between T1 and T2 (image resolution: 0.5 m/pixel).')
+
+
 def keep_large(mask, min_m2):
     labels, comps = components(mask)
     keep = [c['id'] for c in comps if c['area'] * M2_PER_PX > min_m2]
@@ -69,10 +75,34 @@ def generate(run=RUN):
     return report
 
 
+def generate_v2(run=RUN, x=260, dev_images=10, seed=1016):
+    """v2 lists: the same truth, the v2 instruction and the area constraint fields read by the harness.
+    val: the 64 validation images (truth already in t41/gt). dev2: 10 of the 200 dev2 training images."""
+    import random
+    run = Path(run)
+    out = run / 't41'
+    common_fields = dict(task_type='T4.1', instruction=INSTRUCTION_V2.format(x=x), constraint=None, target='building',
+                         change_direction='any', scope=None, init_mask=None, area_min_m2=x, gsd_m=0.5)
+    val = [dict(id=n, image_t1=str(LEVIR / 'val_original/A' / n), image_t2=str(LEVIR / 'val_original/B' / n),
+                gt_mask=str(out / 'gt' / n), meta=dict(min_m2=x, version=2), **common_fields) for n in names('val')]
+    dev2 = sorted(random.Random(seed).sample((run / 'dev2/names.txt').read_text().split(), dev_images))
+    rows = []
+    for n in dev2:
+        save_mask_png(out / 'gt_dev2' / n, keep_large(load_gt('train', n), x))
+        rows.append(dict(id=n, image_t1=str(LEVIR / 'train_original/A' / n), image_t2=str(LEVIR / 'train_original/B' / n),
+                         gt_mask=str(out / 'gt_dev2' / n), meta=dict(min_m2=x, version=2), **common_fields))
+    for folder, items in (('tasks_v2', val), ('tasks_v2_dev2', rows)):
+        (out / folder).mkdir(parents=True, exist_ok=True)
+        (out / folder / 'T4.1_any.jsonl').write_text(''.join(json.dumps(r) + '\n' for r in items))
+    return dict(val=len(val), dev2=dev2, instruction=INSTRUCTION_V2.format(x=x))
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--run-root', type=Path, default=RUN)
-    print(json.dumps(generate(p.parse_args().run_root)))
+    p.add_argument('--v2', action='store_true', help='Write the v2 task lists (instruction fix + area constraint fields).')
+    a = p.parse_args()
+    print(json.dumps(generate_v2(a.run_root) if a.v2 else generate(a.run_root), ensure_ascii=False))
 
 
 if __name__ == '__main__':

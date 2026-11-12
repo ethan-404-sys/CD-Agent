@@ -502,6 +502,7 @@ def main():
             source_classes=row.get('source_classes') if row else None,
             ask_variant=args.map_ask_variant or (row.get('ask_variant') if row else None),
             region_mask=load_mask_png(row['region_mask']) if row and row.get('region_mask') else None,
+            area_min_m2=row.get('area_min_m2') if row else None, gsd_m=row.get('gsd_m') if row else None,
             **(public_feedback(row) if row else {}))
         if row and row.get('exemplar_mask'):
             session.exemplar_handle = session.add_mask(load_mask_png(row['exemplar_mask']))
