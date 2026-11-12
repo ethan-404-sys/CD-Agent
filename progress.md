@@ -42,10 +42,14 @@
 
 **本轮真实完成**：
 - 查验 `claude/project-thread-2tuaib` 原有 `doc/agent_baseline/README_ai.md`、`task_system.html`、`code/agent_baseline/README_t3_routes.md`、`README_missed_sources.md`；确认原技术文档可以复用，且原 `README_ai.md` 与 `index.html` 有同步约定。
-- 建立 `doc/agent_baseline/README_research_coordination.md`，作为短的研究策略与双端协作入口；不覆盖原 1900 多行历史 README。
+- 在原 `doc/agent_baseline/README_ai.md` 中追加 §0.2 作为最新研究与双端协作入口；同步更新 `index.html`，完整保留原 1900 多行历史正文。
 - 改写 `task_plan.md`：把“立刻论文收敛/暂停 T3、find_missed”调整为轨迹分析、Harness Debug、T3、find_missed 四条主线；T3 和 find_missed 获得在预算与数据约束内自主多轮迭代、失败后换技术路线/查论文的方法论权限。
 - 将“新数据收集与标注任务等 2026-11-13 开会后处理”的闸门、现有历史 Harness 结果不强制统一重跑，以及两个 Agent 对 README 的共同维护规则写入规划。
 
-**本轮没有做**：没有启动服务器作业或 API/GPU 实验；没有修改冻结任务数据；没有将这些研究决策误作实验结果；没有替服务器确认此前六项任务的完成状态。暂时不动 `README_ai.md` 和 `index.html` 以免打断原来的“本轮结果暂不汇总”要求。
+**本轮没有做**：没有启动服务器作业或 API/GPU 实验；没有修改冻结任务数据；没有将这些研究决策误作实验结果；没有替服务器确认此前六项任务的完成状态。只追加最新策略约定到 `README_ai.md` §0.2 和 `index.html`，未写入任何未确认实验结果，保留旧轮“结果暂不汇总”要求。
 
-**下一步**：在服务器端拉取最新研究分支/已合并文档，核实六项既有任务的作业状态；按完成型与自主迭代型分别推进；每轮在专项 README 中记录假设/证据/成本/失败与下一轮决策。PR #5 仍为 Draft、未合并主开发分支。
+**下一步**：在服务器端拉取最新研究分支/已合并文档，核实六项既有任务的作业状态；按完成型与自主迭代型分别推进；每轮在专项 README 中记录假设/证据/成本/失败与下一轮决策。PR #5 经用户指出应复用既有 README；已修订为原 README_ai §0.2 + index.html 同步，准备安全合并至主开发分支。
+
+## 2026-11-12 — Web GPT：纠正“另建 README/不合并”策略
+
+用户指出原 `README_ai.md` 本就是主 AI 交接文档，不应另设独立内容源。本轮已将当前研究方向写入 `README_ai.md` §0.2，同步到 `index.html`，并安排删除冗余的 `README_research_coordination.md`；保留 T3/漏检专项 README 及三文件计划。此次更新只有研究决策，没有新增实验指标或运行服务器任务。
