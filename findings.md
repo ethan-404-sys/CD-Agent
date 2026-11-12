@@ -92,6 +92,6 @@ Ethan 2026-11-12 的既有完成/待办清单包含 Gate6（`view.original_size`
 
 **新增硬边界**：需要新收集/下载整备或人工标注数据的任务须等 2026-11-13 会议后讨论；**已存在的开发数据可继续用**。T3 / find_missed 是允许服务器 GPT 自主、多轮优化、必要时查文献并换技术路线的研究型任务；其余任务可以作为交付型任务完成即结束。
 
-协作约定：复用 `README_ai.md` 和 `index.html` 作为技术历史及展示的一对镜像；`task_system.html` 是任务定义；`README_t3_routes.md` 和 `README_missed_sources.md` 是专项细节；新增短入口 `doc/agent_baseline/README_research_coordination.md` 汇总新共识。Web GPT 与服务器 GPT 都维护 GitHub 文档，不另立两套冲突权威。
+协作约定：复用 `README_ai.md` 和 `index.html` 作为技术历史及展示的一对镜像；`task_system.html` 是任务定义；`README_t3_routes.md` 和 `README_missed_sources.md` 是专项细节；复用原有 `doc/agent_baseline/README_ai.md` §0.2 汇总新共识。Web GPT 与服务器 GPT 都维护 GitHub 文档，不另立两套冲突权威。
 
 **更正前文判断**：此前“应暂停 T3 和漏检工具、优先统一论文证据矩阵”的建议已被用户更高优先级的研究决定取代；现行计划以 `task_plan.md` 最新版为准。既有 F1、CI 不受本次研究决策改变。
