@@ -257,12 +257,18 @@ class ApiAsk:
         self.client, self.guard, self.model, self.max_attempts = client, guard, model, max_attempts
         self.correspondence = correspondence
 
-    def one(self, images, question, number, level='L1'):
+    def one(self, images, question, number, level='L1', *, question_variant=None, record=None, seed=0):
         from mllm import parse_json
+        if question_variant not in (None, 'xbd-jds-v1'):
+            raise ValueError('Unsupported verifier question variant')
         events = []
+        def save_event(event):
+            events.append({k: v for k, v in event.items() if k != 'request'})
+            if record is not None:
+                record(event)
         # Region crops are reproducible from the mask, so the archive keeps the reply and not the images.
-        planner = Planner(client=self.client, guard=self.guard, max_attempts=self.max_attempts,
-            record=lambda event: events.append({k: v for k, v in event.items() if k != 'request'}),
+        planner = Planner(seed=seed, client=self.client, guard=self.guard, max_attempts=self.max_attempts,
+            record=save_event,
             parameters=dict(model=self.model, logprobs=True, top_logprobs=5, response_format={'type': 'json_object'},
                             parallel_tool_calls=False, max_tokens=256))
         state_question = self.session is not None and self.session.ask_variant == 't2_state'
@@ -279,7 +285,13 @@ class ApiAsk:
         settings = session_prompts(self.session) if self.session else verifier_prompts()
         if state_question:
             settings = dict(settings, SYSTEM=T2_STATE_SYSTEM)
-        content.append(dict(type='text', text=T2_STATE_QUESTION if state_question else settings['CORRESPONDENCE'] if self.correspondence else (CONTEXT_NOTE if len(images) > 2 else '') + question))
+        if question_variant == 'xbd-jds-v1':
+            from .analysis.xbd_damage import JDS_QUESTION
+            if len(images) != 2 or self.session is not None or self.correspondence or level != 'L1':
+                raise ValueError('xbd-jds-v1 requires a standalone L1 pre/post pair')
+            settings = dict(settings, SYSTEM='You assess building damage from satellite imagery.')
+            question = JDS_QUESTION
+        content.append(dict(type='text', text=question if question_variant else T2_STATE_QUESTION if state_question else settings['CORRESPONDENCE'] if self.correspondence else (CONTEXT_NOTE if len(images) > 2 else '') + question))
         try:
             with ASK_SLOTS:
                 result = planner.complete([dict(role='system', content=settings['SYSTEM']), dict(role='user', content=content)], [], number)
@@ -291,6 +303,9 @@ class ApiAsk:
         parsed = parsed if isinstance(parsed, dict) else {}
         answer = dict(answer=parsed.get('building' if state_question else 'change'), type=parsed.get('type'), reason=parsed.get('reason'), level=level,
                       p_yes=yes_probability(result['raw']['choices'][0]), raw=raw, usage=result['usage'])
+        if question_variant == 'xbd-jds-v1':
+            from .analysis.xbd_damage import parse_answer
+            answer['answer'] = parse_answer(raw)
         if state_question and answer['p_yes'] is None:
             answer['p_yes'] = parsed.get('p_yes')
         return answer, events, planner.tokens, planner.cost

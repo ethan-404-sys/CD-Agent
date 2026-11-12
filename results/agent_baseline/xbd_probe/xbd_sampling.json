@@ -1,0 +1,101 @@
+{
+  "seed": 1016,
+  "rule": "seed=1016; nonempty post-disaster building labels; exactly half severe images (>=1 major/destroyed), half clean images (only no/minor; no un-classified); within each stratum greedily balance disaster type then event, seeded random ties and seeded shuffled names; positive stratum first; no model outputs read",
+  "sets": {
+    "dev60": {
+      "images": 60,
+      "severe_images": 30,
+      "events": {
+        "guatemala-volcano": 4,
+        "hurricane-florence": 4,
+        "hurricane-harvey": 4,
+        "hurricane-matthew": 6,
+        "hurricane-michael": 5,
+        "mexico-earthquake": 11,
+        "midwest-flooding": 4,
+        "palu-tsunami": 10,
+        "santa-rosa-wildfire": 6,
+        "socal-fire": 6
+      },
+      "disaster_types": {
+        "earthquake": 11,
+        "fire": 12,
+        "flooding": 12,
+        "tsunami": 10,
+        "volcano": 4,
+        "wind": 11
+      },
+      "buildings": 8610,
+      "counts": {
+        "no-damage": 8169,
+        "minor-damage": 108,
+        "major-damage": 125,
+        "destroyed": 172,
+        "un-classified": 36
+      }
+    },
+    "report100": {
+      "images": 100,
+      "severe_images": 50,
+      "events": {
+        "guatemala-volcano": 3,
+        "hurricane-florence": 7,
+        "hurricane-harvey": 7,
+        "hurricane-matthew": 8,
+        "hurricane-michael": 12,
+        "mexico-earthquake": 20,
+        "midwest-flooding": 7,
+        "palu-tsunami": 16,
+        "santa-rosa-wildfire": 10,
+        "socal-fire": 10
+      },
+      "disaster_types": {
+        "earthquake": 20,
+        "fire": 20,
+        "flooding": 21,
+        "tsunami": 16,
+        "volcano": 3,
+        "wind": 20
+      },
+      "buildings": 13279,
+      "counts": {
+        "no-damage": 11862,
+        "minor-damage": 529,
+        "major-damage": 477,
+        "destroyed": 375,
+        "un-classified": 36
+      }
+    },
+    "probe10": {
+      "images": 10,
+      "severe_images": 5,
+      "events": {
+        "guatemala-volcano": 2,
+        "hurricane-florence": 1,
+        "hurricane-matthew": 1,
+        "hurricane-michael": 1,
+        "mexico-earthquake": 1,
+        "midwest-flooding": 1,
+        "palu-tsunami": 1,
+        "santa-rosa-wildfire": 1,
+        "socal-fire": 1
+      },
+      "disaster_types": {
+        "earthquake": 1,
+        "fire": 2,
+        "flooding": 2,
+        "tsunami": 1,
+        "volcano": 2,
+        "wind": 2
+      },
+      "buildings": 615,
+      "counts": {
+        "no-damage": 506,
+        "minor-damage": 8,
+        "major-damage": 27,
+        "destroyed": 69,
+        "un-classified": 5
+      }
+    }
+  }
+}

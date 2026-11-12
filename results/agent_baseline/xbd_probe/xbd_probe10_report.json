@@ -1,0 +1,227 @@
+{
+  "status": "complete",
+  "grades": [
+    "no-damage",
+    "minor-damage",
+    "major-damage",
+    "destroyed"
+  ],
+  "matrix_axes": "rows=truth; columns=prediction; unparsed and pending separate",
+  "scoring_unit": "building; oracle post-disaster footprint",
+  "unknown_policy": "un-classified skipped; neither positive nor negative; ignore their pixels",
+  "unparsed_policy": "class recall includes unparsed; binary severe unparsed counts as FN; negative unparsed shown separately",
+  "pending_policy": "unrequested buildings excluded from metric denominators; incomplete results are provisional",
+  "expected_requests": 610,
+  "requests": 610,
+  "request_attempts": 610,
+  "failed_attempts": 0,
+  "uncertain_attempts": 0,
+  "skipped_unclassified": 5,
+  "cost_cny": 0.06549440000000001,
+  "ledger_cost_cny": 0.06549440000000001,
+  "cost_note": "Usage-based existing Planner ledger estimate; provider console bill is authoritative",
+  "jds_source": "https://arxiv.org/abs/1911.09296 (xBD, Joint Damage Scale); https://xview2.org/",
+  "question_variant": "xbd-jds-v1",
+  "confusion_matrix": [
+    [
+      232,
+      46,
+      96,
+      132
+    ],
+    [
+      0,
+      0,
+      1,
+      7
+    ],
+    [
+      7,
+      3,
+      4,
+      13
+    ],
+    [
+      1,
+      0,
+      0,
+      68
+    ]
+  ],
+  "unparsed": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "pending": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "per_class": {
+    "no-damage": {
+      "support": 506,
+      "attempted": 506,
+      "precision": 0.9666666666666667,
+      "recall": 0.45849802371541504,
+      "unparsed": 0,
+      "pending": 0
+    },
+    "minor-damage": {
+      "support": 8,
+      "attempted": 8,
+      "precision": 0.0,
+      "recall": 0.0,
+      "unparsed": 0,
+      "pending": 0
+    },
+    "major-damage": {
+      "support": 27,
+      "attempted": 27,
+      "precision": 0.039603960396039604,
+      "recall": 0.14814814814814814,
+      "unparsed": 0,
+      "pending": 0
+    },
+    "destroyed": {
+      "support": 69,
+      "attempted": 69,
+      "precision": 0.3090909090909091,
+      "recall": 0.9855072463768116,
+      "unparsed": 0,
+      "pending": 0
+    }
+  },
+  "binary": {
+    "tp": 85,
+    "fp": 236,
+    "fn": 11,
+    "tn": 278,
+    "unparsed_positive": 0,
+    "unparsed_negative": 0,
+    "precision": 0.26479750778816197,
+    "recall": 0.8854166666666666,
+    "f1": 0.407673860911271
+  },
+  "by_event": {
+    "guatemala-volcano": {
+      "expected": 39,
+      "requests": 39,
+      "tp": 6,
+      "fp": 10,
+      "fn": 0,
+      "tn": 23,
+      "unparsed_positive": 0,
+      "unparsed_negative": 0,
+      "precision": 0.375,
+      "recall": 1.0,
+      "f1": 0.5454545454545454
+    },
+    "hurricane-florence": {
+      "expected": 8,
+      "requests": 8,
+      "tp": 2,
+      "fp": 0,
+      "fn": 6,
+      "tn": 0,
+      "unparsed_positive": 0,
+      "unparsed_negative": 0,
+      "precision": 1.0,
+      "recall": 0.25,
+      "f1": 0.4
+    },
+    "hurricane-matthew": {
+      "expected": 20,
+      "requests": 20,
+      "tp": 9,
+      "fp": 11,
+      "fn": 0,
+      "tn": 0,
+      "unparsed_positive": 0,
+      "unparsed_negative": 0,
+      "precision": 0.45,
+      "recall": 1.0,
+      "f1": 0.6206896551724138
+    },
+    "hurricane-michael": {
+      "expected": 21,
+      "requests": 21,
+      "tp": 0,
+      "fp": 4,
+      "fn": 0,
+      "tn": 17,
+      "unparsed_positive": 0,
+      "unparsed_negative": 0,
+      "precision": 0.0,
+      "recall": null,
+      "f1": 0.0
+    },
+    "mexico-earthquake": {
+      "expected": 199,
+      "requests": 199,
+      "tp": 0,
+      "fp": 104,
+      "fn": 0,
+      "tn": 95,
+      "unparsed_positive": 0,
+      "unparsed_negative": 0,
+      "precision": 0.0,
+      "recall": null,
+      "f1": 0.0
+    },
+    "midwest-flooding": {
+      "expected": 58,
+      "requests": 58,
+      "tp": 0,
+      "fp": 19,
+      "fn": 0,
+      "tn": 39,
+      "unparsed_positive": 0,
+      "unparsed_negative": 0,
+      "precision": 0.0,
+      "recall": null,
+      "f1": 0.0
+    },
+    "palu-tsunami": {
+      "expected": 128,
+      "requests": 128,
+      "tp": 33,
+      "fp": 39,
+      "fn": 5,
+      "tn": 51,
+      "unparsed_positive": 0,
+      "unparsed_negative": 0,
+      "precision": 0.4583333333333333,
+      "recall": 0.868421052631579,
+      "f1": 0.6
+    },
+    "santa-rosa-wildfire": {
+      "expected": 42,
+      "requests": 42,
+      "tp": 35,
+      "fp": 2,
+      "fn": 0,
+      "tn": 5,
+      "unparsed_positive": 0,
+      "unparsed_negative": 0,
+      "precision": 0.9459459459459459,
+      "recall": 1.0,
+      "f1": 0.9722222222222222
+    },
+    "socal-fire": {
+      "expected": 95,
+      "requests": 95,
+      "tp": 0,
+      "fp": 47,
+      "fn": 0,
+      "tn": 48,
+      "unparsed_positive": 0,
+      "unparsed_negative": 0,
+      "precision": 0.0,
+      "recall": null,
+      "f1": 0.0
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "requests": 610,
+  "skipped_unclassified": 5,
+  "total_buildings": 615,
+  "model": "qwen3.7-flash",
+  "reference_ledger": "ask_eval/dev2/f37_corr.jsonl",
+  "priced_reference_requests": 11956,
+  "unit_cost_cny": 0.00023786804951488795,
+  "estimated_cost_cny": 0.14509951020408166,
+  "proxy": true,
+  "note": "Existing same-model f37_corr ledger mean; old prompt has four images, new prompt two. Not a guaranteed bound.",
+  "by_image": {
+    "guatemala-volcano_00000012": 33,
+    "guatemala-volcano_00000014": 6,
+    "hurricane-florence_00000432": 8,
+    "hurricane-matthew_00000315": 20,
+    "hurricane-michael_00000525": 21,
+    "mexico-earthquake_00000014": 199,
+    "midwest-flooding_00000055": 58,
+    "palu-tsunami_00000149": 128,
+    "santa-rosa-wildfire_00000048": 42,
+    "socal-fire_00001173": 95
+  }
+}
