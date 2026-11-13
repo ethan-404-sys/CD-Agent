@@ -42,3 +42,8 @@
 .td-actor { width: 115px; padding: 5px 8px; border: 1px solid var(--border); border-radius: 5px; background: var(--surface); color: var(--text); }
 @media(max-width: 950px) { .td-component-layout { grid-template-columns: 1fr; } .td-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } .td-attributes { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media(max-width: 550px) { .td-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .td-closeups { grid-template-columns: 1fr; } }
+
+/* Complete versioned task review. */
+.cr-json {white-space:pre-wrap; overflow-wrap:anywhere; max-height:32rem; overflow:auto;}
+.cr-check {display:block; margin:.5rem 0;}
+#cr-note {width:100%; box-sizing:border-box; margin:.8rem 0;}

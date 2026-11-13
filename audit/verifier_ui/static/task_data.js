@@ -5,7 +5,7 @@ window.TaskDataUI = (() => {
   const state = {catalog: null, items: [], image: '', direction: '', index: 0, reviewFilter: '', busy: false};
   const params = () => new URLSearchParams(location.search);
   const pass = () => params().get('pass') === '2' ? 2 : 1;
-  const tab = () => params().get('taskTab') === 'review' ? 'review' : 'components';
+  const tab = () => ['review','construct'].includes(params().get('taskTab')) ? params().get('taskTab') : 'components';
   let savedActor = '';
   try { savedActor = localStorage.getItem('task-data-annotator') || ''; } catch (_) {}
   const actor = () => {
@@ -49,13 +49,15 @@ window.TaskDataUI = (() => {
   function shell() {
     const meta = state.catalog.metadata;
     q('#main').innerHTML = `<section class="td"><div class="td-toolbar">
-      <div class="td-tabs"><button id="td-component-tab" class="on">屋顶颜色标注</button></div>
+      <div class="td-tabs"><button id="td-construct-tab" class="${tab()==='construct'?'on':''}">完整任务审核</button><button id="td-review-tab" class="${tab()==='review'?'on':''}">历史真值抽检</button><button id="td-component-tab" class="${tab()==='components'?'on':''}">屋顶颜色标注</button></div>
       <div class="td-row"><span class="td-source">${meta.source==='synthetic'?'合成演示数据':meta.preview?'真实数据 · 轻量预览':'真实任务数据'}</span><label>标注人 <input class="td-actor" id="td-actor" value="${h(savedActor)}" placeholder="填写姓名"></label>
       <a href="/api/task-data/export/second_component_labels.json" download>导出标注</a></div></div>
       <div id="td-status" class="td-status" role="status" aria-live="polite"></div>
       ${(meta.notes||[]).map(n=>`<div class="td-notice">${h(n)}</div>`).join('')}
       <div id="td-content"></div></section>`;
     q('#td-component-tab').onclick = () => go('components');
+    q('#td-review-tab').onclick = () => go('review');
+    q('#td-construct-tab').onclick = () => go('construct');
     q('#td-actor').oninput = e => { savedActor = e.target.value; try {localStorage.setItem('task-data-annotator', savedActor);} catch (_) {} };
     q('#main').querySelectorAll('img').forEach(bindImageError);
   }
@@ -143,7 +145,55 @@ window.TaskDataUI = (() => {
     q('#td-undo').onclick=()=>action(async()=>{const r=await api('undo',{kind:'component',pass_number:pass(),annotator:actor()});await componentView(r.target);status(r.target?'已撤销最近一次保存，并返回该组件。':'没有可撤销的保存。');});
     q('#td-content').querySelectorAll('img').forEach(bindImageError);
   }
-  async function render(){shell();if(tab()==='review')reviewView();else await componentView();}
+  const complete = {filters:{task_type:'',target:'',relation:'',status:'',qc:''}, index:0};
+  const statusName = value => ({pending_review:'待审核',approved:'人工通过',needs_revision:'需修改',excluded:'剔除',pass:'通过',blocked:'自动QC阻塞'}[value] || value);
+  async function constructView(ident=null, revision=null) {
+    const data = await api('construct/tasks?' + new URLSearchParams(complete.filters));
+    if(ident) { const at=data.items.findIndex(t=>t.id===ident); if(at>=0)complete.index=at; }
+    complete.index=Math.max(0,Math.min(complete.index,data.items.length-1));
+    const selected=data.items[complete.index];
+    const row=selected?await api('construct/item?' + new URLSearchParams({ident:selected.id,...(revision?{revision}:{})})):null;
+    const p=row?.payload,m=p?.meta;
+    const picture = (key,caption) => row.assets[key]?`<figure><img loading="lazy" alt="${h(caption)}" src="/api/task-data/construct/image?${h(new URLSearchParams({ident:row.task_id,revision:row.revision,key}).toString())}"><figcaption>${h(caption)}</figcaption></figure>`:`<div class="td-notice">${h(caption)}：预览未生成</div>`;
+    const latest=row&&row.revision===selected.revision;
+    q('#td-content').innerHTML=`<h2>完整任务逐条审核</h2>
+      <p class="td-intro">所有清单任务逐条入库，修订后重新审核。人工通过需确认视觉与定义；正式导出还要求自动 QC 通过。旧抽检“合理”不算批准。</p>
+      <div class="td-row">${Object.entries(data.status_counts).map(([key,n])=>`<span>${h(statusName(key))} ${n}</span>`).join('')}<span>总数 ${data.total}</span>
+      <a href="/api/task-data/construct/export?kind=approved" download>正式批准清单</a><a href="/api/task-data/construct/export?kind=pending" download>完整审核快照</a><a href="/api/task-data/construct/export?kind=history" download>修改历史</a></div>
+      <div class="td-row">${Object.entries({task_type:'任务',target:'目标类别',relation:'空间关系',status:'审核状态',qc:'自动QC'}).map(([key,label])=>`<label>${label} <select data-construct-filter="${key}"><option value="">全部</option>${data.options[key].map(v=>`<option value="${h(v)}" ${complete.filters[key]===v?'selected':''}>${h(statusName(v))}</option>`).join('')}</select></label>`).join('')}</div>
+      <div class="td-row"><span>当前筛选 ${data.reviewed} / ${data.filtered_total} 已审</span><progress max="${Math.max(1,data.filtered_total)}" value="${data.reviewed}"></progress>
+      <button id="cr-prev" ${complete.index<=0?'disabled':''}>上一条</button><span>${selected?complete.index+1:0} / ${data.filtered_total}</span><button id="cr-next" ${complete.index>=data.items.length-1?'disabled':''}>下一条</button>
+      <label>跳转 <select id="cr-jump">${data.items.map((t,i)=>`<option value="${i}" ${i===complete.index?'selected':''}>${h(t.id)}</option>`).join('')}</select></label></div>
+      ${row?`<article class="card td-example"><h3>${h(row.task_id)}</h3><p class="td-instruction">${h(p.instruction)}</p>
+        <div class="td-row"><b>${h(statusName(row.status))}</b><span>数据版本 ${h(m.data_version)}</span><span>修订 ${row.revision}</span><span>${h(m.dataset)} / ${h(m.split)} / ${h(m.scene_id)}</span>
+        <label>历史版本 <select id="cr-revision">${row.revisions.map(r=>`<option value="${r.revision}" ${r.revision===row.revision?'selected':''}>修订 ${r.revision} · ${h(statusName(r.status))}</option>`).join('')}</select></label></div>
+        ${!latest?'<p class="td-notice">历史版本只读；请切到最新修订后审核。</p>':''}
+        ${!row.sources_current?'<p class="td-error">源文件已变化，需重新构建QC并导入；本版不能正式导出。</p>':''}
+        <p>自动QC：<b>${row.qc.passed?'通过':'阻塞正式导出'}</b> · GT ${row.qc.stats.gt_pixels??'未知'} px${m.candidate_count!==undefined?` · 候选 ${m.candidate_count} · 过滤 ${m.filtered_count} · 选中组件 ${h(JSON.stringify(m.target_component_ids))}`:''}</p>
+        ${m.relation_type?`<p>空间关系：${h(m.relation_type)} · ${h(JSON.stringify(m.relation_params))}</p><p>黄色填充 / 红色边界：目标GT；青色：参照物。距离按原图像素计算。</p>`:''}
+        <div class="td-grid">${picture('t1','T1 原图')}${picture('t2','T2 原图')}${picture('overlay','目标GT叠加在T2')}${m.reference_mask?picture('reference','目标与参照物异色叠加'):''}</div>
+        <details open><summary>自动QC证据与待核查项</summary><ul>${row.qc.findings.map(f=>`<li><b>${h(f.severity)}</b> · ${h(f.code)}：${h(f.message)}</li>`).join('')||'<li>自动检查通过</li>'}</ul></details>
+        <details><summary>来源、AOI、GT规则与完整任务</summary><pre class="cr-json">${h(JSON.stringify(p,null,2))}</pre></details>
+        <fieldset id="cr-checks" ${!latest?'disabled':''}><legend>批准前逐项人工确认</legend>${row.qc.findings.filter(f=>f.severity==='manual_review').map(f=>`<label class="cr-check"><input type="checkbox" value="${h(f.code)}" ${row.confirmations.includes(f.code)?'checked':''}>${h(f.message)}</label>`).join('')}</fieldset>
+        <textarea id="cr-note" class="td-note" rows="3" placeholder="审核备注：问题位置、来源或修改要求" ${!latest?'disabled':''}>${h(row.note)}</textarea>
+        <div class="td-row">${['approved','needs_revision','excluded'].map(v=>`<button data-construct-decision="${v}" ${!latest?'disabled':''}>${h(statusName(v))}</button>`).join('')}<span>${row.reviewer?h(row.reviewer)+' · '+h(row.reviewed_at):'尚无人审核'}</span></div>
+        <details><summary>本任务修改历史（全部修订）</summary><pre class="cr-json">${h(JSON.stringify(row.history.map(r=>({...r,before_value:JSON.parse(r.before_value),after_value:JSON.parse(r.after_value)})),null,2))}</pre></details>
+      </article>`:'<p class="empty">没有匹配任务。请先完整导入清单，或调整过滤条件。</p>'}`;
+    document.querySelectorAll('[data-construct-filter]').forEach(el=>el.onchange=()=>action(async()=>{complete.filters[el.dataset.constructFilter]=el.value;complete.index=0;await constructView();}));
+    q('#cr-prev').onclick=()=>action(async()=>{complete.index--;await constructView();});
+    q('#cr-next').onclick=()=>action(async()=>{complete.index++;await constructView();});
+    q('#cr-jump').onchange=e=>action(async()=>{complete.index=Number(e.target.value);await constructView();});
+    if(!row)return;
+    q('#cr-revision').onchange=e=>action(()=>constructView(row.task_id,Number(e.target.value)));
+    document.querySelectorAll('[data-construct-decision]').forEach(button=>button.onclick=()=>action(async()=>{
+      const confirmations=[...q('#cr-checks').querySelectorAll('input:checked')].map(el=>el.value);
+      await api('construct/review',{ident:row.task_id,revision:row.revision,status:button.dataset.constructDecision,note:q('#cr-note').value,reviewer:actor(),confirmations});
+      await constructView();status('已保存人工决定与修改历史；正式导出仍按自动QC和当前修订筛选。');
+    }));
+    q('#td-content').querySelectorAll('img').forEach(bindImageError);
+  }
+
+  async function render(){shell();if(tab()==='construct')await constructView();else if(tab()==='review')reviewView();else await componentView();}
   async function start(){try{state.catalog=await api('catalog');await render();}catch(error){q('#main').textContent='任务数据加载失败：'+error.message;}}
   window.addEventListener('popstate',()=>{if(params().get('mode')==='task-data'){state.index=0;render().catch(e=>status(e.message,true));}});
   window.addEventListener('keydown',event=>{

@@ -17,6 +17,8 @@ import task_data_store as store
 from task_data_import import read_image
 
 router = APIRouter(prefix='/api/task-data')
+from construct_review_api import router as construct_router
+router.include_router(construct_router)
 
 
 class ReviewInput(BaseModel):
