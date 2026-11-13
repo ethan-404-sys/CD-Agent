@@ -72,10 +72,10 @@ Gate6 已实现独立默认关闭开关（原图尺寸、特征分位数），�
 ## 0.3 执行与文档规则（2026-11-13，优先于旧记录）
 
 - 长实验统一走 `/guisongxia01/pangchao/wangyihan/wyh/exp-loop`。agent 仅用 `init` 建队列、`add` 追加一轮、`status` 看结果；不自行调用 `advance` / `tick` / `finalize` / `stop`，不直接提交长实验，不写监控循环，不在回合内 sleep 等作业。
-- 每轮提交时自动建立 `--dependency=afterany:<job_id>` 的 hook。父作业结束后由 hook 执行 `loop.py advance`：读本轮指标、判停、必要时提交下一轮和新 hook。预算到顶、连续两轮提升不足 1 分、队列跑完则收尾提交推送并发送 QQ 通知。
-- watchdog 由 crontab 每分钟运行，只负责 hook 提交失败、链断裂和推送/通知的兜底与收尾，不负责推进研究轮次；agent 不另建守护循环。
+- 每轮提交时自动建立 `--dependency=afterany:<job_id>` 的 hook。父作业结束后 hook 记录结果/错误并回传当前模型会话；由 agent 结合研究目标决定修复重试、补实验、继续或收尾。取消默认“连续两轮不足1分”判停，作业/指标失败不等于整个研究失败，队列为空也先交回结果。
+- watchdog 由 crontab 每分钟运行，只负责本项目已绑定实验的 hook 修复、遗漏事件回传、Git/QQ 收尾；不推进研究轮次。管理节点接收器等待 hook 网络事件，不查询 Slurm、不轮询实验；agent 不 sleep 等作业。
 - 作业权限限定在**本实验 state.json 的 job_id 与 hook_id**。禁止按共享账号查询队列；其他作业不查、不动、不取消；不手工改 state.json。
-- 实验目录为 `exp-loop/experiments/<本实验名>/`，`exp.json` 描述 jobs、metric、预算、提交路径与通知。metric 最后一行给 JSON，primary 越大越好，cost_cny 为本轮费用。Git paths 明确限定本实验产物及允许更新的文档，不能笼统收录用户文件。
+- 实验目录为 `exp-loop/experiments/<本实验名>/`，`exp.json` 描述 jobs、metric、预算、提交路径与通知。metric 最后一行给 JSON，primary 可选，仅作统计、不作默认判停依据，cost_cny 为本轮费用。Git paths 明确限定本实验产物及允许更新的文档，不能笼统收录用户文件。
 - 技术说明只维护本文件；T3、find_missed、Gate6 已合并到下方小节。三个规划文档保留；已有历史结果不改数字、不删轨迹。新数据仍须等会议决定，日期到达本身不等于授权。Agent 实验同时最多两个。
 
 操作入口（具体队列在准备完方法、脚本、指标和预算后初始化）：
@@ -87,7 +87,7 @@ cd /guisongxia01/pangchao/wangyihan/wyh/exp-loop
 /usr/bin/python3 loop.py status experiments/<本实验名>
 ```
 
-**2026-11-13 实现已更新**：用户已授权修改 exp-loop。版本化实现见 `tools/exp_loop/`；原入口保持不变。tick改为只补hook，min_gain用于连续不足1分判停，git/QQ失败不标记收尾完成；具体实现和验证见 [§10.17](#exp-loop)。不做下一轮预估费用拦截，额度不足让实际作业报错；保留累计实际费用停止条件。
+**2026-11-13 最新更正**：旧实现只是确定性脚本队列，没有把结果交给模型，不满足事件触发研究需求。现取消默认停滞判停和失败自动收尾，增加当前会话工具事件回传与 agent 决策；实现和验证进度见 [§10.17](#exp-loop)。不做下一轮预估费用拦截，保留累计实际费用边界。
 
 ## 1. 背景：为什么要做这个（先读）
 
@@ -1892,43 +1892,55 @@ compare_features 保留分数及实例，仅添加 score_quantiles（min/p10/p25
 
 <a id="exp-loop"></a>
 
-## 10.17 exp-loop：事件驱动的多轮实验
+## 10.17 exp-loop：事件交给模型，模型推进研究
 
-### 职责与可执行队列
+### 研究决策与事件链
 
-源代码 `tools/exp_loop/loop.py`、`watchdog.sh` 纳入本仓库；`install.py` 安装到工作区 `exp-loop` 的原入口，备份原入口，保留实验状态与 cron。无需每轮重新调用模型或由 agent 等待。
+用户 2026-11-13 更正：验证一个想法可能需要多次实验、经历中间失败，不能用通用的“连续两轮不足1分”判断结束。该默认规则已删除，包括旧 exp.json 中 min_gain/no_gain_rounds 的执行效果。后续如需特定优化规则，由用户提示词明确，再落实到该项研究。
 
-agent 在 init 前准备同一个假设的必要实验、明确的评分脚本与停止条件，不能只排首轮后假设系统会凭空发明后续方法。已知的后续实验一次列入 jobs，新的路线通过 add 追加。每轮按“假设→方法→结果→失败证据→成本→下一步”留下可读产物；自动链只执行已准备的实验，不把脚本调度冒充自主科学判断。
+`tools/exp_loop/loop.py` 负责提交与记账，`bridge.py` 负责把观察结果交给**绑定的当前模型会话**，不自行生成研究结论。每轮流程：
 
-每个实验作业提交后立即保存 job_id，再提交 afterany hook 并保存 hook_id。hook 的 advance 读取本轮指标、记录实际成本并判停；继续则提交下一作业及其hook。状态文件加锁并原子保存；重复/过期事件不重复记账，已经记账但尚未提交下一轮的事件可恢复。
+1. 提交作业并保存 job_id，挂 afterany hook 并保存 hook_id。
+2. hook 执行 advance，读取本轮结果/错误、保留日志路径、记录费用，写入 `events/event-NNNN.json`；状态变为 `awaiting_agent`。
+3. hook 向管理节点轻量接收器发一次通知。接收器通过现有 Codex App Server 的 `turn/start` + `toolOutput` 注入本会话：活跃回合接收工具事件，空闲会话被唤醒。不创建新任务，不覆盖模型、代理或权限。官方接口说明：https://learn.chatgpt.com/docs/app-server 。
+4. agent 阅读证据，决定修复重试、补对照、继续队列或明确结束，并通过 add 记录理由。需要继续时由 start hook 提交下一实验，再挂新的 afterany hook。
 
-cron 每分钟执行原 watchdog：tick只检查本实验记录的hook，hook缺失或已结束但链未前进时补挂hook；不读研究指标，不提交实验作业。Git/QQ收尾在管理节点由watchdog执行，不依赖计算节点的SSH代理。agent不调用tick/advance/finalize，不写轮询或sleep，不查询账号队列。
+这是“等待研究者处理事件”，不是宣告研究停止。作业提交失败、FAILED/TIMEOUT、指标读取失败同样回传；agent 先诊断可修复问题，再决定重试。失败不丢队列、已有费用或历史。没有有效数字时不伪造成功；工程检查可以只有结构化结果，没有单一主指标。
 
-### 停止与错误
+### 操作、成本与收尾
 
-- primary越大越好，首轮建立基准（可用initial_primary提供已有开发基准）。随后本轮primary减此前最佳值作为gain；gain<min_gain计一次停滞，默认连续2次不足1分就停，即使每轮略有正提升也不清零。最佳值仍如实更新。
-- 只按实际累计cost_cny达到budget_cny停止；**不按下一轮预估费用拦截**。预算不足、API拒绝等由实验本身报错，保留日志，FAILED/TIMEOUT等直接进入失败收尾。
-- metric失败、缺少有效primary或费用字段非法，记录metric_error并失败收尾，不把缺失指标当成成功。
-- 队列跑完就正常收尾；随后add可通过start hook启动新增轮次。预算/停滞/失败导致停止时，add不暗中清零或绕过停止原因，先分析证据，再为有实质差异的新假设建立新队列；同一研究的费用仍须合并核算，不能拆队列规避用户预算。
-- init拒绝覆盖已有state；status只读state，不访问Slurm。auto_start=false的队列可用add已有首个脚本启动；已运行队列add仅追加。
+公共入口仍是工作区 exp-loop 的 init / add / status。通常 init 前把同一假设已知的必要实验准备好；事件出现后由 agent 决策，不要求用户每轮批准。
 
-### 指标、产物与收尾
+```bash
+python loop.py init experiments/<本实验名>
+python loop.py status experiments/<本实验名>
+python loop.py add experiments/<本实验名> --continue --reason '已有结果支持执行预排对照：具体证据'
+python loop.py add experiments/<本实验名> --retry --reason '已修复具体错误，使用已有检查点续跑'
+python loop.py add experiments/<本实验名> /绝对路径/新实验.sbatch --reason '针对失败原因补充此实验'
+python loop.py add experiments/<本实验名> --finish --reason '研究结论、证据和未解决问题'
+```
 
-metric命令从实验目录执行，最后一行JSON至少含primary，费用cost_cny是**本轮**用量而非累计。可读取环境变量 EXP_LOOP_JOB、EXP_LOOP_JOB_ID、EXP_LOOP_ROUND、EXP_LOOP_DIR 定位本轮产物，避免读上一轮的旧文件。单轮计算结果必须在作业结束前写好。
+运行中的 add 只追加队列；审阅状态下 add 可以选择预排下一项、重试当前脚本或插入新方法。决定写进 state 的 decisions，关联事件编号和理由。init 不覆盖旧 state；status 只读状态，不联系 Slurm。队列为空也先回传结果，由 agent 明确收尾；不会自动把“没有下一个脚本”当作研究已完成。
 
-Git配置必须明确repo/branch/paths；只提交这些实验路径，用户其他暂存改动不带入。可用git.state_export将停止时的状态快照写入仓库内指定路径（也应包含在paths中）。提交与推送分开记状态：推送失败重试时不会再次提交；工作树无新变化仍会尝试推送。分支不符、远端拒绝等保留错误，不强推。
+不检查下一轮预估费用是否超过余额。保留实际累计费用边界；API 额度不足等让作业真实报错后交给 agent 判断，不能通过重试清零或拆队列规避研究预算。primary/gain 仅为可选的描述统计，不隐含“越大越好就一直优化”的研究目标。metric 的 cost_cny 是**本轮**用量，失败时已知用量仍计入；无法读取费用须在审阅时补核，不能声称已知为零。
 
-QQ仅在确认发送成功后标记notified；Git和通知均完成才置finalized。收尾失败由cron按间隔重试，默认60秒、最多5次；耗尽后finalized仍为false，status显式显示finalize_blocked与错误，并尝试发出收尾失败通知。发送服务本身不可用时不能声称已通知。dry_run不提交、不通知，也不标记真实收尾完成。
+只有 agent 明确 --finish 才请求 Git/QQ 收尾。Git 路径显式限定，保留其他暂存改动；推送失败可重试而不重复提交；QQ 确认成功才记 notified，两者都成功才记 finalized。重试默认间隔60秒、最多5次；耗尽保留错误，不能声称已推送或已通知。仍不 force push。
 
-### 当前研究队列与判据范围
+### 接收器与兜底
 
-`cd-trace-behavior-20261113` 已通过 init 启动：01-dev（4个已有开发配置）→02-history（历史非测试会话）。主指标是已分析会话数，用于工程覆盖进度，不代表Agent性能改善；队列共两阶段，任何读取失败都会保留部分证据并报错。首作业183949、hook183950；之后只通过本实验status读取状态。完整会话事件在 `.runtime/trace-event-20261113/checkpoint`，统计与报告在 `results/agent_baseline/trace_behavior_event_20261113`，由收尾自动提交。
+本会话绑定保存在 `.runtime/exp-loop-agent/bridge.json`（私有权限、不入 Git），实验 exp.json 的 agent_bridge 指向它。部署命令为使用现有 agent_env Python 执行 `tools/exp_loop/bridge.py bind <本实验目录>...`；只绑定显式列出的本项目实验。复用现有本地控制 socket，不启动另一个 Codex，不改启动脚本、LisaHost 出口或 SSH 配置。管理节点接收器只做轻量事件 I/O，计算仍走 Slurm。
 
-hook只按成功状态、有效指标、实际预算、停滞计数及队列是否耗尽决定继续；继续时取预先排好的下一脚本。它不调用模型分析轨迹、不自行选择新算法。T3/find_missed需要由研究者事先确定效果指标与后续对照，新的失败根因或换路线由agent分析后准备新的有依据队列，不把基础设施自动运行当成研究能力已解决。
+hook 直接回传为主路径；接口不可达时 `review.delivery=pending` 并保留 delivery_error，不能把写文件或 QQ 通知冒充模型已收到。watchdog 每分钟只对已绑定实验补 hook、补送 pending 事件、重试 Git/QQ，不读研究指标、不提交实验。模型接受事件后才置 delivery=accepted；重复 hook 不重复记账，已确认回传不反复注入。接收器进程退出时 cron 可通过本地 socket 补送；App Server 本身不可用时保留 pending，不能声称后台研究正在推进。
 
-### 验证记录
+### 当前队列与验证
 
-首轮单元验证15项中14项通过，1项是测试中写死假hook编号错误，已改成核对实际记录编号；新一轮增加临时真实Git仓库验证，覆盖推送失败重试及保留其他暂存改动。验证均经exp-loop提交单CPU作业，不在管理节点运行测试。unit2已通过16项测试；原入口已安装更新。真实三轮依赖链（cd-loop-chain-20261113）验证通过：10→10.4→10.8，14.8秒完成三轮，no_gain=2，第四轮未提交；自动Git提交、推送和QQ通知均成功，finalized=true。
+轨迹队列 `cd-trace-behavior-20261113`：01-dev 已分析40会话、0读取失败；02-history 已由此前的脚本链启动（job183951/hook183952）。完整会话事件在 `.runtime/trace-event-20261113/checkpoint`，阶段统计在 `results/agent_baseline/trace_behavior_event_20261113`。现绑定模型事件回传，结束后的判断由当前会话接管；不重跑已完成阶段、不动其他作业。
+
+旧验证（历史事实，已不代表现行停止规则）：16项单测和模拟三轮10→10.4→10.8通过，14.8秒后按旧停滞条件收尾，Git/QQ成功。最新修改必须重新验证，不能复用旧16项结果声称新语义通过。
+
+新验证 `cd-loop-review-20261113`：单CPU回归 **21项通过**（job183966/hook183967），覆盖无分数诊断、指标下降继续、提交失败修复、TIMEOUT续跑计费、回传失败保留pending及收尾重试。三个真实作业事件均进入当前模型上下文；模型先决定继续，再根据回传故障追加修复验证，最后明确收尾，未轮询Slurm。
+
+发现的真实故障：管理节点主机名优先解析到127.0.1.1，前两次事件由cron补送（03:34:02、03:36:02），不能称为hook直接回传。绑定改为明确内网地址后，第三轮job183974/hook183975的event-0003在03:37:00记录、03:37:01接受，state确认delivery_via=hook_http。证据归档 `results/agent_baseline/exp_loop_review_20261113/validation.json` 与 `tests.txt`；这些是基础设施验证，不是研究性能结果。实际实验API费用¥0；Git/QQ收尾由cron执行，结果以state为准。空闲会话唤醒使用官方同一接口，本轮直接验证的是活跃会话收事件，不能把未实测的空闲场景另报为通过。
 
 ## 11. 状态与变更记录（每个里程碑后追加，新的在上）
 

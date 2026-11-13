@@ -13,6 +13,7 @@ import shlex
 import subprocess
 import sys
 import time
+import urllib.request
 from contextlib import contextmanager
 
 TERMINAL = {'COMPLETED','FAILED','CANCELLED','TIMEOUT','OUT_OF_MEMORY','NODE_FAIL',
@@ -61,9 +62,43 @@ def finish(s,reason,failed=False):
 def stop_reason(cfg,s,check_queue=True):
     rule=cfg.get('stop',{})
     if s['cost_cny']>=rule.get('budget_cny',100): return 'budget reached'
-    if s['no_gain']>=rule.get('no_gain_rounds',2): return 'no gain for consecutive rounds'
     if check_queue and not s['queue']: return 'queue exhausted'
     return None
+
+
+def request_review(exp,s,kind,error=None):
+    """Record an observation for the researcher; never infer a research stopping rule."""
+    number=s.get('review_count',0)+1
+    event=dict(id=f'event-{number:04d}',kind=kind,error=error,at=now(),
+               job_id=s.get('job_id'),hook_id=s.get('hook_id'),current=s.get('current'),
+               latest=s['history'][-1] if kind=='round_finished' and s['history'] else None,
+               queued_jobs=list(s['queue']),cost_cny=s['cost_cny'],delivery='pending')
+    s.update(status='awaiting_agent',review_count=number,review=event,finalize_requested=False)
+    events=exp/'events';events.mkdir(exist_ok=True)
+    (events/(event['id']+'.json')).write_text(json.dumps(event,ensure_ascii=False,indent=2)+'\n')
+    save(exp,s)
+
+
+def notify_agent(exp):
+    """One event-triggered HTTP delivery attempt, outside the state lock. Cron only retries delivery."""
+    s=load(exp)
+    if not s or s['status']!='awaiting_agent' or s['review'].get('delivery')=='accepted': return
+    try:
+        binding=cfg_of(exp).get('agent_bridge')
+        if not binding: raise ValueError('No agent_bridge configured; result has NOT reached the agent')
+        bridge=json.loads(Path(binding).read_text())
+        request=urllib.request.Request(
+            f"http://{bridge['host']}:{bridge['port']}/event",
+            data=json.dumps(dict(experiment=str(exp),event_id=s['review']['id'])).encode(),
+            headers={'Authorization':'Bearer '+bridge['token'],'Content-Type':'application/json'})
+        # Cluster event traffic is local, never route it through the model/API proxy.
+        with urllib.request.build_opener(urllib.request.ProxyHandler({})).open(request,timeout=15) as response:
+            response.read()
+    except (OSError,ValueError,KeyError) as error:
+        with lock(exp/'.lock'):
+            current=load(exp)
+            if current.get('review',{}).get('id')==s['review']['id'] and current['review'].get('delivery')!='accepted':
+                current['review']['delivery_error']=str(error)[-400:];save(exp,current)
 
 
 def ensure_hook(exp,cfg,s):
@@ -94,14 +129,14 @@ set -euo pipefail
 def submit_round(exp,cfg,s):
     reason=stop_reason(cfg,s)
     if reason:
-        finish(s,reason);save(exp,s);return
+        request_review(exp,s,'submission_blocked',reason);return
     job=s['queue'][0]
     rc,out,err=run(['scontrol','ping'])
     if rc or ' is DOWN' in out:
-        finish(s,'Slurm control unavailable: '+(err or out)[-300:],True);save(exp,s);return
+        request_review(exp,s,'submission_failed','Slurm control unavailable: '+(err or out)[-300:]);return
     rc,out,err=run(['sbatch','--parsable',job],cwd=cfg.get('repo') or str(exp))
     if rc:
-        finish(s,'sbatch failed: '+(err or out)[-300:],True);save(exp,s);return
+        request_review(exp,s,'submission_failed','sbatch failed: '+(err or out)[-300:]);return
     s['queue'].pop(0)
     s.update(current=job,job_id=out.split(';')[0],hook_id=None,recorded_current=False,
              submitted_at=now(),last_advance_at=now(),rounds_submitted=s.get('rounds_submitted',0)+1)
@@ -112,14 +147,14 @@ def submit_round(exp,cfg,s):
 
 def read_metric(exp,cfg,s):
     cmd=cfg.get('metric')
-    if not cmd: raise ValueError('metric command is required')
+    if not cmd: return {}  # Engineering/diagnostic experiments need not have a scalar score.
     env=dict(os.environ,EXP_LOOP_JOB_ID=s['job_id'],EXP_LOOP_JOB=s['current'],
              EXP_LOOP_ROUND=str(s['rounds']+1),EXP_LOOP_DIR=str(exp))
     rc,out,err=run(cmd,cwd=str(exp),env=env,shell=isinstance(cmd,str))
     if rc: raise ValueError('metric failed: '+(err or out)[-400:])
     metric=json.loads(out.splitlines()[-1])
     primary=metric.get('primary');cost=metric.get('cost_cny',0)
-    if isinstance(primary,bool) or not isinstance(primary,(int,float)) or not math.isfinite(primary):
+    if primary is not None and (isinstance(primary,bool) or not isinstance(primary,(int,float)) or not math.isfinite(primary)):
         raise ValueError('metric.primary must be a finite number')
     if isinstance(cost,bool) or not isinstance(cost,(int,float)) or not math.isfinite(cost) or cost<0:
         raise ValueError('metric.cost_cny must be a nonnegative finite number')
@@ -135,17 +170,11 @@ def record(exp,cfg,s,state,ec):
     gain=None
     if primary is not None:
         old=s['primary_best'];gain=None if old is None else primary-old
-        s['no_gain']=0 if old is None or gain>=cfg.get('stop',{}).get('min_gain',1.) else s['no_gain']+1
         s['primary_best']=primary if old is None else max(old,primary)
     s['history'].append(dict(job=Path(s['current']).name,job_id=s['job_id'],hook_id=s.get('hook_id'),
         state=state,exit=ec,primary=primary,gain=gain,cost_cny=cost,metric=metric,metric_error=error,at=now()))
     s['done'].append(s['current']);s['rounds']+=1;s['recorded_current']=True
-    if state!='COMPLETED': finish(s,f'{state} exit={ec}',True)
-    elif error: finish(s,error,True)
-    else:
-        reason=stop_reason(cfg,s)
-        if reason: finish(s,reason)
-    save(exp,s)
+    request_review(exp,s,'round_finished',f'{state} exit={ec}' if state!='COMPLETED' else error)
 
 
 def init(exp):
@@ -155,10 +184,11 @@ def init(exp):
         jobs=sorted(glob.glob(str(exp/cfg.get('jobs_glob','jobs/*.sbatch'))))
         s=dict(name=cfg.get('name',exp.name),status='running' if jobs and cfg.get('auto_start',True) else 'ready',
             queue=jobs,done=[],current=None,job_id=None,hook_id=None,rounds=0,rounds_submitted=0,
-            primary_best=cfg.get('initial_primary'),cost_cny=0.,no_gain=0,finalized=False,
+            primary_best=cfg.get('initial_primary'),cost_cny=0.,finalized=False,
             finalize_requested=False,started_at=now(),started_epoch=time.time(),history=[],driver='dependency',recorded_current=False)
         save(exp,s)
         if s['status']=='running': submit_round(exp,cfg,s)
+    notify_agent(exp)
     return status(exp)
 
 
@@ -173,6 +203,7 @@ def advance(exp,event):
             record(exp,cfg,s,state,ec)
         if s['status']=='running': submit_round(exp,cfg,s)
         print(json.dumps(dict(name=s['name'],rounds=s['rounds'],status=s['status']),ensure_ascii=False))
+    notify_agent(exp)
     return 0
 
 
@@ -189,19 +220,35 @@ def tick(exp):
     return 0
 
 
-def add(exp,job):
-    job=str(Path(job).resolve())
-    if not Path(job).is_file(): raise ValueError('Job script does not exist')
+def add(exp,job=None,decision=None,reason=None):
+    if job:
+        job=str(Path(job).resolve())
+        if not Path(job).is_file(): raise ValueError('Job script does not exist')
     with lock(exp/'.lock'):
         s=load(exp)
         if not s: raise ValueError('Initialize first')
-        if job in s['done'] or job==s.get('current'): return 0
-        if job in s['queue'] and s['status']!='ready': return 0
         cfg=cfg_of(exp)
-        if s['status'] in ('failed','stopped') or stop_reason(cfg,s,False):
-            raise ValueError('Stopped by failure/budget/no-gain; inspect results and create a new justified queue')
-        if job not in s['queue']: s['queue'].append(job)
-        if s['status'] in ('ready','empty','done'):
+        if s['status']=='running':
+            if decision: raise ValueError('Wait for the current job event before deciding')
+            if job and job not in s['queue']: s['queue'].append(job)
+            save(exp,s);return 0
+        if s['status']=='awaiting_agent' or decision:
+            if not reason: raise ValueError('Record the evidence/reason for this decision with --reason')
+            if decision=='finish':
+                s.setdefault('decisions',[]).append(dict(event_id=s.get('review',{}).get('id'),action='finish',reason=reason,at=now()))
+                finish(s,reason);save(exp,s);return status(exp)
+            if decision=='retry':
+                job=(s['queue'][0] if s.get('review',{}).get('kind')=='submission_failed' else s.get('current'))
+                if not job: raise ValueError('No failed/current script to retry')
+            if not job and not s['queue']: raise ValueError('No next experiment; add a script or explicitly --finish')
+            if stop_reason(cfg,s,False): raise ValueError('Actual budget reached; cannot submit more in this research budget')
+            s.setdefault('decisions',[]).append(dict(event_id=s.get('review',{}).get('id'),action=decision or 'add',job=job,reason=reason,at=now()))
+            if job:
+                if job in s['queue']: s['queue'].remove(job)
+                s['queue'].insert(0,job)
+        elif job and job not in s['queue']: s['queue'].append(job)
+        if s['status'] in ('awaiting_agent','ready','empty','done','failed','stopped'):
+            if stop_reason(cfg,s,False): raise ValueError('Actual budget reached')
             s.update(status='running',current=None,job_id=None,hook_id=None,recorded_current=False,
                      finalized=False,finalize_requested=False,finalize_attempts=0,git_committed=False,git_pushed=False,notified=False)
             for k in ('stop_reason','finished_at','finalize_error','finalize_blocked','finalize_retry_at'): s.pop(k,None)
@@ -287,7 +334,15 @@ def main():
     cmd=sys.argv[1];exp=Path(sys.argv[2]).resolve()
     try:
         if cmd=='advance': return advance(exp,sys.argv[3])
-        if cmd=='add': return add(exp,sys.argv[3])
+        if cmd=='add':
+            import argparse
+            parser=argparse.ArgumentParser()
+            parser.add_argument('job',nargs='?')
+            group=parser.add_mutually_exclusive_group()
+            for action in ('continue','retry','finish'): group.add_argument('--'+action,dest='decision',action='store_const',const=action)
+            parser.add_argument('--reason')
+            args=parser.parse_args(sys.argv[3:])
+            return add(exp,args.job,args.decision,args.reason)
         return {'init':init,'status':status,'tick':tick,'finalize':finalize}[cmd](exp)
     except (ValueError,KeyError,IndexError,OSError) as e:
         print(str(e),file=sys.stderr);return 1

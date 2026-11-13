@@ -18,7 +18,7 @@ class QueueTests(unittest.TestCase):
         self.cfg=dict(metric=['python3','metric.py'],partition='gre',notify=False,
                       stop=dict(no_gain_rounds=2,min_gain=1.,budget_cny=10))
         self.config();self.calls=[];self.next_id=100;self.states={};self.metrics=[]
-        self.fail_hook=False;self.fail_qq=False;self.fail_push=False
+        self.fail_hook=False;self.fail_qq=False;self.fail_parent=False
         self.mock=patch.object(m,'run',self.fake);self.mock.start();self.addCleanup(self.mock.stop)
         self.output=contextlib.redirect_stdout(io.StringIO());self.output.__enter__();self.addCleanup(self.output.__exit__,None,None,None)
     def config(self): (self.exp/'exp.json').write_text(json.dumps(self.cfg))
@@ -27,6 +27,7 @@ class QueueTests(unittest.TestCase):
         if args[0]=='scontrol': return 0,'Slurmctld(primary) is UP',''
         if args[0]=='sbatch':
             if self.fail_hook and '/hooks/' in args[-1]: return 1,'','hook rejected'
+            if self.fail_parent and '/jobs/' in args[-1]: return 1,'','invalid resource request'
             self.next_id+=1;return 0,str(self.next_id),''
         if args[0]=='sacct': return 0,self.states.get(args[2],'COMPLETED')+'|0:0',''
         if args==self.cfg['metric']:
@@ -37,14 +38,36 @@ class QueueTests(unittest.TestCase):
     def state(self): return m.load(self.exp)
     def end(self,primary,cost=0):
         self.metrics.append(dict(primary=primary,cost_cny=cost));s=self.state();m.advance(self.exp,s['job_id'])
-    def test_three_round_chain_and_positive_small_gains_stop(self):
-        m.init(self.exp);self.end(10);self.end(10.4);self.end(10.8)
-        s=self.state();self.assertEqual(s['rounds'],3);self.assertEqual(s['no_gain'],2)
-        self.assertEqual(s['status'],'done');self.assertEqual(len(s['queue']),1)
-        parents=[c for c in self.calls if c[0]=='sbatch' and '/jobs/' in c[-1]]
-        hooks=[c for c in self.calls if c[0]=='sbatch' and '/hooks/' in c[-1]]
-        self.assertEqual(len(parents),3);self.assertEqual(len(hooks),3)
-        self.assertTrue(all(any(a.startswith('--dependency=afterany:') for a in c) for c in hooks))
+    def next_round(self):
+        m.add(self.exp,decision='continue',reason='Next planned comparison is needed to test the hypothesis')
+        m.advance(self.exp,'start')
+    def conclude(self):
+        m.add(self.exp,decision='finish',reason='Evidence sufficient for this test; record conclusion')
+    def test_small_gains_and_declines_do_not_stop_research(self):
+        m.init(self.exp)
+        for primary in (10,10.4,9):
+            self.end(primary)
+            self.assertEqual(self.state()['status'],'awaiting_agent')
+            self.assertFalse(self.state()['finalize_requested'])
+            self.next_round()
+        self.end(20)
+        s=self.state();self.assertEqual(s['rounds'],4)
+        self.assertEqual(s['status'],'awaiting_agent');self.assertFalse(s['queue'])
+        self.assertNotIn('no_gain',s)
+        self.assertEqual(len(s['decisions']),3)
+        self.conclude();self.assertEqual(self.state()['status'],'done')
+    def test_submit_failure_is_reviewable_and_retryable(self):
+        self.fail_parent=True;m.init(self.exp)
+        s=self.state();self.assertEqual(s['review']['kind'],'submission_failed')
+        self.assertEqual(len(s['queue']),4);self.assertFalse(s['finalize_requested'])
+        self.fail_parent=False
+        m.add(self.exp,decision='retry',reason='Corrected invalid resource request')
+        m.advance(self.exp,'start')
+        self.assertEqual(self.state()['rounds_submitted'],1)
+    def test_missing_binding_is_not_reported_as_delivered(self):
+        m.init(self.exp);self.end(1)
+        self.assertEqual(self.state()['review']['delivery'],'pending')
+        self.assertIn('NOT reached',self.state()['review']['delivery_error'])
     def test_duplicate_hook_and_reinit_do_not_duplicate_jobs(self):
         m.init(self.exp);old=self.state()['job_id'];self.end(10)
         before=len(self.calls);m.advance(self.exp,old);self.assertEqual(len(self.calls),before)
@@ -68,14 +91,24 @@ class QueueTests(unittest.TestCase):
         self.assertTrue(any(c[0]=='sbatch' for c in self.calls))
     def test_actual_budget_stops(self):
         m.init(self.exp);self.end(10,10);self.assertEqual(self.state()['rounds_submitted'],1)
-    def test_missing_metric_stops(self):
-        m.init(self.exp);self.metrics.append({});m.advance(self.exp,self.state()['job_id'])
-        self.assertEqual(self.state()['status'],'failed');self.assertEqual(self.state()['rounds_submitted'],1)
-    def test_failed_parent_stops_and_records_cost(self):
+    def test_diagnostic_does_not_require_scalar_score(self):
+        m.init(self.exp);self.metrics.append({'checks_passed':17});m.advance(self.exp,self.state()['job_id'])
+        s=self.state();self.assertEqual(s['status'],'awaiting_agent')
+        self.assertIsNone(s['history'][0]['metric_error'])
+    def test_invalid_metric_requests_review(self):
+        m.init(self.exp);self.metrics.append({'primary':'not a number'});m.advance(self.exp,self.state()['job_id'])
+        self.assertEqual(self.state()['status'],'awaiting_agent')
+        self.assertIn('finite number',self.state()['review']['error'])
+        self.assertFalse(self.state()['finalize_requested'])
+    def test_failed_parent_preserves_cost_and_allows_repair_retry(self):
         m.init(self.exp);self.states[self.state()['job_id']]='TIMEOUT';self.end(2,.3)
-        self.assertEqual(self.state()['status'],'failed');self.assertEqual(self.state()['cost_cny'],.3)
+        self.assertEqual(self.state()['status'],'awaiting_agent');self.assertEqual(self.state()['cost_cny'],.3)
+        m.add(self.exp,decision='retry',reason='Resume saved checkpoint with corrected time limit')
+        m.advance(self.exp,'start');self.end(2,.2)
+        self.assertEqual(self.state()['cost_cny'],.5)
+        self.assertEqual(self.state()['rounds'],2)
     def test_add_after_queue_drained_uses_start_hook(self):
-        self.cfg['jobs_glob']='jobs/0.sbatch';self.config();m.init(self.exp);self.end(10)
+        self.cfg['jobs_glob']='jobs/0.sbatch';self.config();m.init(self.exp);self.end(10);self.conclude()
         m.finalize(self.exp);self.assertTrue(self.state()['finalized'])
         m.add(self.exp,self.exp/'jobs/1.sbatch');s=self.state()
         self.assertFalse(s['finalized']);self.assertIsNone(s['job_id']);self.assertTrue(s['hook_id'])
@@ -83,20 +116,20 @@ class QueueTests(unittest.TestCase):
     def test_add_does_not_bypass_budget(self):
         m.init(self.exp);self.end(10,10)
         (self.exp/'extra.sbatch').write_text('true')
-        with self.assertRaises(ValueError):m.add(self.exp,self.exp/'extra.sbatch')
+        with self.assertRaisesRegex(ValueError,'budget'):m.add(self.exp,self.exp/'extra.sbatch',reason='more work')
     def test_recorded_event_recovery_does_not_double_bill(self):
         m.init(self.exp);s=self.state();self.metrics.append(dict(primary=5,cost_cny=1))
         m.record(self.exp,self.cfg,s,'COMPLETED','0:0')
         m.advance(self.exp,s['job_id']);self.assertEqual(self.state()['cost_cny'],1)
-        self.assertEqual(self.state()['rounds'],1);self.assertEqual(self.state()['rounds_submitted'],2)
+        self.assertEqual(self.state()['rounds'],1);self.assertEqual(self.state()['rounds_submitted'],1)
     def test_qq_failure_remains_pending_then_retries(self):
         self.cfg['notify']=True;self.cfg['finalize_retry_seconds']=0;self.config()
-        m.init(self.exp);self.end(10,10);self.fail_qq=True
+        m.init(self.exp);self.end(10,10);self.conclude();self.fail_qq=True
         self.assertEqual(m.finalize(self.exp),1);self.assertFalse(self.state()['finalized'])
         self.fail_qq=False;m.finalize(self.exp);self.assertTrue(self.state()['finalized'])
         before=len(self.calls);m.finalize(self.exp);self.assertEqual(len(self.calls),before)
     def test_push_failure_is_retryable_without_recommit(self):
-        self.cfg['finalize_retry_seconds']=0;self.config();m.init(self.exp);self.end(10,10)
+        self.cfg['finalize_retry_seconds']=0;self.config();m.init(self.exp);self.end(10,10);self.conclude()
         def git_fail(exp,cfg,s):
             s['git_committed']=True;m.save(exp,s);raise ValueError('push failed')
         with patch.object(m,'git_finalize',git_fail):m.finalize(self.exp)
@@ -105,7 +138,7 @@ class QueueTests(unittest.TestCase):
         self.assertTrue(self.state()['finalized']);self.assertEqual(g.call_count,1)
     def test_retry_limit_reports_unfinished(self):
         self.cfg.update(notify=True,finalize_retry_seconds=0,max_finalize_attempts=2);self.config()
-        m.init(self.exp);self.end(1,10);self.fail_qq=True
+        m.init(self.exp);self.end(1,10);self.conclude();self.fail_qq=True
         m.finalize(self.exp);m.finalize(self.exp);before=len(self.calls);m.finalize(self.exp)
         self.assertTrue(self.state()['finalize_blocked']);self.assertFalse(self.state()['finalized'])
         self.assertEqual(len(self.calls),before)
