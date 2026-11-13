@@ -4,6 +4,30 @@
 >
 > 长期目标及协作边界：[研究协作与最新决定（README_ai §0.2）](doc/agent_baseline/README_ai.md)；技术历史：[README_ai](doc/agent_baseline/README_ai.md)；任务定义：[task_system.html](doc/agent_baseline/task_system.html)。本文件只维护计划；`findings.md` 记可追溯证据，`progress.md` 记实际操作。
 
+## T4.3 / T4.4 新数据规划（2026-11-13；**本轮只更新文档，禁止启动服务器构造任务**）
+
+**当前计划阶段**：已完成仓库代码/旧成果初步核对；**尚未盘点服务器 SpaceNet8 本地数据、未生成本批任何任务、未进入人工审核**。与既有 20 条轨迹审查/Harness 改进为不同工作流；不能把下面的准备阶段说成已开跑。详细技术定义、审查规则见 `doc/agent_baseline/README_ai.md` §10.19，任务体系在 `doc/agent_baseline/task_system.html`。
+
+| 目标 | 数据与真实可用条件 | 目标规模（非保底） | 审核 |
+|---|---|---:|---|
+| T4.3 洪水事件影响 | **SpaceNet8 only**，受淹道路/建筑的原始标注→可回溯二值GT；道路线要先冻结 rasterize 宽度与GSD，区别于水面覆盖区域 | 道路64 + 建筑64 = 128 | 每条 `pending_review` |
+| T4.4 空间指代变化 | 优先 **SECOND**，复用旧 R3 新建筑靠近**新出现**水/运动场参照；相对方位、邻近、包含/围绕须定义明确且对候选有筛选作用。静态参照物不能从 SECOND 的 0 类直接推断 | 128 | 每条 `pending_review` |
+
+**复用现有资产**：`code/agent_baseline/analysis/make_construct_tasks.py` 的 R3 几何与 manifest 模式，旧 R3 曾生成 report128 / dev64（**未获本轮逐条审核通过**）；`audit/verifier_ui` 有 FastAPI + SQLite、`task_data_import.py`、`task_data_api.py`、`task_data_store.py`、前端样式。旧UI仅按组抽约3例、`reasonable/unreasonable`，新需求必须全任务逐条展示并用三态 `approved/needs_revision/excluded`，保留旧审核库与修改历史；不得迁移旧 `reasonable` 为 `approved`。正式清单只导出QC通过+人工 `approved`，任务修订需重新审核。**样本不足128如实报告，不制作无效空GT凑数**。
+
+**后续服务器执行阶段（用户单独下达执行提示后才开始）**：
+
+| 阶段 | 具体动作 | 验收与停止点 |
+|---|---|---|
+| D1 资产/标注/格式审计 | 盘点 SpaceNet8 可用图片、受淹属性、label格式、AOI、GSD与数据划分；复核旧R3实际128/64、邻近定义、潜在泄漏；审核UI与schema差异 | 不下载新数据、不启动推理；报可复用资产、数据不足/口径疑点，冻结GT定义前不批量生成 |
+| D2 两组GT构造（CPU） | 先少量样例，T4.3事件影响道路/建筑映射、T4.4参照物+关系参数生成；保留原始标注路径/feature IDs，创建versioned manifest；再按真实有效量准备至各128 | road/building 64/64（若足够）、T4.4按关系分层、分割掩码可重算；无效图剔除、不覆盖旧R1/R3 |
+| D3 全量QC与HTML人工审核 | 复用旧FastAPI/SQLite加新任务表/状态API；每条预览T1/T2、GT、参照物/关系、来源、三态审核+备注；自动检测GT空/重复/关系、类别、划分泄漏、正负分布 | 旧功能不破坏，合成fixture通过，全部待审任务可定位；导出只含approved+QC通过 |
+| D4 交付审核 | 报实际任务条数、每类/关系、通过QC数/排除数/空GT来源、已知疑点、HTML本地访问路径，推送Git | **等待Ethan逐条人工审核；未获批准不跑Agent、不发布正式结果** |
+
+**预算/权限**：仍遵守原来的并发/测试集/费用限制；正式评测与该轮无关。不得因用户设定目标128而触碰未批准测试集，SpaceNet8本地缺失时先报告下载量和许可，等待明确授权；所有后台任务只能由服务器在收到单独执行指令后通过既有 exp-loop 驱动。
+
+---
+
 ## 当前执行任务（2026-11-13 Ethan 最新决定，覆盖下方旧阶段计划）
 
 **研究定位与 T1 定义**：T1 现行只包含 **T1.1 单类别** 与 **T1.2 多类别**；T1.2 使用 **A 口径**（变化前后任一期属于指定目标类别集合即纳入相关变化，不只限于指定类别之间互变），以后从 **2 类组合** 起，比较不同组合，再扩展至 3 类和更多。**原 T1.3 退出主任务**，保留代码与历史数据作为困难任务诊断材料；不重跑、不开新 T1.2 实验。任务体系见 `doc/agent_baseline/task_system.html`，原则见 README_ai §0.2 / §10.18。
