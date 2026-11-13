@@ -1,0 +1,41 @@
+{
+  "status": "pending_review",
+  "api_calls": 0,
+  "source_images": 64,
+  "core_images": 52,
+  "candidates_per_task": {
+    "T5.2": 52,
+    "T5.3": 52
+  },
+  "excluded_images": 12,
+  "old_t53_no_feedback": 14,
+  "categories": {
+    "partial_shape_boundary": 52,
+    "mixed_omission_commission": 52,
+    "fragmented_objects": 21,
+    "merged_objects": 20
+  },
+  "feedback_provenance": "GT-simulated, fully reproducible, not collected human feedback",
+  "selection": "existing LEVIR validation 64 only; candidate pool pending human review, not a new formal test set",
+  "protocol": {
+    "min_error_region_px": 32,
+    "substantial_partial_error_px": 64,
+    "min_selected_error_px": 128,
+    "max_feedback_regions": 6,
+    "core": "at least one substantial partial-object error plus mixed FP/FN or multiple substantial partial errors",
+    "primary_evaluation": "full-mask quality F1/IoU, precision/recall; boundary/object measures are secondary; no strict local compliance emphasis",
+    "simple_edit_oracle_gate": "exclude best single whole-component delete/GT-add removes >=80% error or reaches F1>=.98; exclude arbitrary component deletion reaches F1>=.98; require >=128 residual error pixels after best one-edit",
+    "oracle_scope": "offline GT-assisted upper bound for specified edits, not inference; actual SAM and multi-step difficulty remains pending review"
+  },
+  "geometry_candidates_before_oracle": 53,
+  "selected_oracle_evidence": {
+    "n": 52,
+    "best_single_edit_f1_range": [
+      0.22075677059991036,
+      0.9506172839506173
+    ],
+    "maximum_single_edit_error_reduction": 0.6041780768327987,
+    "maximum_arbitrary_deletion_f1": 0.952633641197873
+  },
+  "revision": "v3_simple_edit_oracle_screen"
+}
