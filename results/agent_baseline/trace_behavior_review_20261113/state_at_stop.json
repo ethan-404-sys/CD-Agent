@@ -1,0 +1,116 @@
+{
+  "name": "cd-trace-review-20261113",
+  "status": "done",
+  "queue": [],
+  "done": [
+    "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-trace-review-20261113/jobs/01-pages.sbatch",
+    "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-trace-review-20261113/jobs/02-reviewed.sbatch"
+  ],
+  "current": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-trace-review-20261113/jobs/02-reviewed.sbatch",
+  "job_id": "184172",
+  "hook_id": "184173",
+  "rounds": 2,
+  "rounds_submitted": 2,
+  "primary_best": null,
+  "cost_cny": 0.0,
+  "finalized": false,
+  "finalize_requested": true,
+  "started_at": "2026-11-13 08:28:58",
+  "started_epoch": 1794558538.7805812,
+  "history": [
+    {
+      "job": "01-pages.sbatch",
+      "job_id": "184167",
+      "hook_id": "184168",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0,
+      "metric": {
+        "cases": 20,
+        "reviewed": 0,
+        "cost_cny": 0
+      },
+      "metric_error": null,
+      "at": "2026-11-13 08:29:41"
+    },
+    {
+      "job": "02-reviewed.sbatch",
+      "job_id": "184172",
+      "hook_id": "184173",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0,
+      "metric": {
+        "cases": 20,
+        "reviewed": 20,
+        "cost_cny": 0
+      },
+      "metric_error": null,
+      "at": "2026-11-13 08:35:14"
+    }
+  ],
+  "driver": "dependency",
+  "recorded_current": true,
+  "submitted_at": "2026-11-13 08:35:08",
+  "last_advance_at": "2026-11-13 08:35:08",
+  "hook_attempts": 3,
+  "review_count": 2,
+  "review": {
+    "id": "event-0002",
+    "kind": "round_finished",
+    "error": null,
+    "at": "2026-11-13 08:35:14",
+    "job_id": "184172",
+    "hook_id": "184173",
+    "current": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-trace-review-20261113/jobs/02-reviewed.sbatch",
+    "latest": {
+      "job": "02-reviewed.sbatch",
+      "job_id": "184172",
+      "hook_id": "184173",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0,
+      "metric": {
+        "cases": 20,
+        "reviewed": 20,
+        "cost_cny": 0
+      },
+      "metric_error": null,
+      "at": "2026-11-13 08:35:14"
+    },
+    "queued_jobs": [],
+    "cost_cny": 0.0,
+    "delivery": "accepted",
+    "delivered_at": "2026-11-13 08:35:14",
+    "delivery_turn_id": "01a1d402-f164-71c3-abec-09d3e2bd0c1a",
+    "delivery_via": "hook_http"
+  },
+  "decisions": [
+    {
+      "event_id": "event-0001",
+      "action": "add",
+      "job": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-trace-review-20261113/jobs/02-reviewed.sbatch",
+      "reason": "20条完整工具轨迹与全部掩码图已逐条复核，写入人工判定；生成审查栏、GitHub可直接阅读的完整Markdown回放，并复用既有HTML结构/内嵌资源检查。不改旧回放、不调用模型。",
+      "at": "2026-11-13 08:35:07"
+    },
+    {
+      "event_id": "event-0002",
+      "action": "finish",
+      "reason": "20条互异轨迹逐条文本/掩码审查完成，四类各5，20个完整HTML与GitHub可读Markdown、总结JSON/MD已通过页面检查。确认9/误报5/部分3/未确认3；离线API0。开始下一阶段单机制开发配对设计。",
+      "at": "2026-11-13 08:37:05"
+    }
+  ],
+  "finalize_attempts": 1,
+  "git_committed": false,
+  "git_pushed": false,
+  "notified": false,
+  "stop_reason": "20条互异轨迹逐条文本/掩码审查完成，四类各5，20个完整HTML与GitHub可读Markdown、总结JSON/MD已通过页面检查。确认9/误报5/部分3/未确认3；离线API0。开始下一阶段单机制开发配对设计。",
+  "finished_at": "2026-11-13 08:37:05",
+  "elapsed_seconds": 486.4
+}
