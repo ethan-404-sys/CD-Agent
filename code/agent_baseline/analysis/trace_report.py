@@ -10,10 +10,10 @@ from .trace_extended import summarize
 
 def main():
     p=argparse.ArgumentParser();p.add_argument('--checkpoint',type=Path,required=True)
-    p.add_argument('--coordinates',type=Path,required=True);p.add_argument('--output',type=Path,required=True)
+    p.add_argument('--coordinates',type=Path);p.add_argument('--output',type=Path,required=True)
     args=p.parse_args();args.output.mkdir(parents=True,exist_ok=True)
     rows=list({r['session']:r for r in load_journal(args.checkpoint/'sessions.jsonl')}.values())
-    audited={r['session']:r for r in load_journal(args.coordinates/'sessions.jsonl')}
+    audited={r['session']:r for r in load_journal(args.coordinates/'sessions.jsonl')} if args.coordinates else {}
     totals=Counter();category_events=Counter();category_sessions=Counter();examples=defaultdict(list);gaps=Counter();gap_examples={}
     for row in rows:
         # Upgrade only coordinate classification from the audited journal. This
@@ -45,7 +45,8 @@ def main():
             superseded_outlines='Exact earlier outlines fully covered by later verdicts are excluded from final-decision counts.',
             blind_trust='Following a verifier without a subsequent view is an observation, not proof of blind trust.',
             overrides='Latest-overlap pixel counterfactual relative to obeying verifier; not causal contribution.'),
-        journal=str(args.checkpoint/'sessions.jsonl'),coordinate_journal=str(args.coordinates/'sessions.jsonl'))
+        journal=str(args.checkpoint/'sessions.jsonl'),coordinate_journal=str(args.coordinates/'sessions.jsonl') if args.coordinates else None,
+        coordinate_classification='strict audit overlay' if args.coordinates else 'provisional trace classification; strict audit pending')
     write_json(args.output/'behavior_evidence.json',value)
     with (args.output/'task_config_counts.csv').open('w',newline='') as sink:
         writer=csv.writer(sink);writer.writerow(['dataset','task','config','split','sessions','tool_calls','no_submit','incomplete','spatial_unavailable'])
