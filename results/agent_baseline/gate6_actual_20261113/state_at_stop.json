@@ -1,0 +1,144 @@
+{
+  "name": "cd-gate6-actual-20261113",
+  "status": "done",
+  "queue": [],
+  "done": [
+    "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-gate6-actual-20261113/jobs/01-audit.sbatch",
+    "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-gate6-actual-20261113/jobs/02-preflight.sbatch",
+    "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-gate6-actual-20261113/jobs/03-reclassify.sbatch"
+  ],
+  "current": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-gate6-actual-20261113/jobs/03-reclassify.sbatch",
+  "job_id": "184089",
+  "hook_id": "184090",
+  "rounds": 3,
+  "rounds_submitted": 3,
+  "primary_best": null,
+  "cost_cny": 0.0,
+  "finalized": false,
+  "finalize_requested": true,
+  "started_at": "2026-11-13 03:45:11",
+  "started_epoch": 1794541511.231946,
+  "history": [
+    {
+      "job": "01-audit.sbatch",
+      "job_id": "183978",
+      "hook_id": "183979",
+      "state": "FAILED",
+      "exit": "1:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0,
+      "metric": {
+        "sessions": 20301,
+        "read_failures": 1,
+        "cost_cny": 0
+      },
+      "metric_error": null,
+      "at": "2026-11-13 05:02:41"
+    },
+    {
+      "job": "02-preflight.sbatch",
+      "job_id": "184055",
+      "hook_id": "184057",
+      "state": "TIMEOUT",
+      "exit": "0:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0,
+      "metric": {
+        "sessions": 20301,
+        "read_failures": 0,
+        "empty_sessions": 1,
+        "cost_cny": 0
+      },
+      "metric_error": null,
+      "at": "2026-11-13 05:14:11"
+    },
+    {
+      "job": "03-reclassify.sbatch",
+      "job_id": "184089",
+      "hook_id": "184090",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0,
+      "metric": {
+        "sessions": 20301,
+        "read_failures": 0,
+        "empty_sessions": 1,
+        "cost_cny": 0
+      },
+      "metric_error": null,
+      "at": "2026-11-13 05:20:29"
+    }
+  ],
+  "driver": "dependency",
+  "recorded_current": true,
+  "submitted_at": "2026-11-13 05:14:37",
+  "last_advance_at": "2026-11-13 05:14:37",
+  "hook_attempts": 5,
+  "review_count": 3,
+  "review": {
+    "id": "event-0003",
+    "kind": "round_finished",
+    "error": null,
+    "at": "2026-11-13 05:20:29",
+    "job_id": "184089",
+    "hook_id": "184090",
+    "current": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-gate6-actual-20261113/jobs/03-reclassify.sbatch",
+    "latest": {
+      "job": "03-reclassify.sbatch",
+      "job_id": "184089",
+      "hook_id": "184090",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0,
+      "metric": {
+        "sessions": 20301,
+        "read_failures": 0,
+        "empty_sessions": 1,
+        "cost_cny": 0
+      },
+      "metric_error": null,
+      "at": "2026-11-13 05:20:29"
+    },
+    "queued_jobs": [],
+    "cost_cny": 0.0,
+    "delivery": "accepted",
+    "delivered_at": "2026-11-13 05:20:29",
+    "delivery_turn_id": "01a1d359-a2e9-78b3-a2cb-34393c9e354d",
+    "delivery_via": "hook_http"
+  },
+  "decisions": [
+    {
+      "event_id": "event-0001",
+      "action": "continue",
+      "job": null,
+      "reason": "原20301会话结果已保存；唯一缺input目录val_58仅有0字节steps/messages，确认为未启动空会话。保留失败产物，第二阶段新增真实空会话回归、断点补漏与其他bad_args差异复核；不重跑已成功会话。",
+      "at": "2026-11-13 05:03:41"
+    },
+    {
+      "event_id": "event-0002",
+      "action": "add",
+      "job": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-gate6-actual-20261113/jobs/03-reclassify.sbatch",
+      "reason": "184055空目录恢复成功，其他bad_args差异复核超出10分钟；保留journal并新增分类版本断点标记，只续重分类阶段，时限1小时。",
+      "at": "2026-11-13 05:14:36"
+    },
+    {
+      "event_id": "event-0003",
+      "action": "finish",
+      "reason": "严格审计20301会话读取失败0，7项回归通过；SECOND/LEVIR合计18725会话2367次越界影响1261会话，其他参数错误分列、WHU单列。原始失败和增量journal保留。离线审计完成；Gate6实测由独立配对队列继续。",
+      "at": "2026-11-13 05:21:11"
+    }
+  ],
+  "finalize_attempts": 1,
+  "git_committed": false,
+  "git_pushed": false,
+  "notified": false,
+  "stop_reason": "严格审计20301会话读取失败0，7项回归通过；SECOND/LEVIR合计18725会话2367次越界影响1261会话，其他参数错误分列、WHU单列。原始失败和增量journal保留。离线审计完成；Gate6实测由独立配对队列继续。",
+  "finished_at": "2026-11-13 05:21:11",
+  "elapsed_seconds": 5760.3
+}
