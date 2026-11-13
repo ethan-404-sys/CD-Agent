@@ -98,3 +98,30 @@ class AnswerStateTests(unittest.TestCase):
             recorder = Recorder(Path(d), 'synthetic', 'image.png', gt=mask())
             run_session(box, Planner(client=client, sleep=lambda _: None), recorder, answer_state=True)
             self.assertEqual(recorder.steps[1]['calls'][0]['tool'], 'ask')
+
+    def test_repeated_view_and_segment_are_not_unlocked_by_own_side_effects(self):
+        from agent_baseline.tests.helpers import segment
+        for tool, arguments in [('view', {}), ('segment_text', {'time': 't1', 'text': 'building'})]:
+            with tempfile.TemporaryDirectory() as d:
+                box = Toolbox(rgb(), d, segment=segment, init_mask=mask(), answer_state=True)
+                action = response([call(tool, arguments)])
+                client = ScriptClient([action, action, response([call('submit', {'mask': 'mask#0', 'summary': 'Keep.'})])])
+                recorder = Recorder(Path(d), 'synthetic', 'image.png', gt=mask())
+                run_session(box, Planner(client=client, sleep=lambda _: None), recorder, answer_state=True)
+                self.assertEqual(len(recorder.steps[0]['calls']), 1)
+                self.assertEqual(recorder.steps[1]['calls'], [])
+                self.assertEqual(box.session.view_count, 2 if tool == 'view' else 1)
+                self.assertEqual(len(box.session.handles), 2 if tool == 'segment_text' else 1)
+
+    def test_same_ask_batch_runs_after_current_answer_switch(self):
+        from agent_baseline.tests.helpers import ask
+        with tempfile.TemporaryDirectory() as d:
+            box = Toolbox(rgb(), d, ask=ask, init_mask=mask(), answer_state=True)
+            other = box.session.add_mask(mask((20,18,28,26)))
+            batch = response([call('ask', {}, 'a'), call('set_answer', {'mask': other}, 's')])
+            client = ScriptClient([batch, batch, response([call('submit', {'mask': other, 'summary': 'Checked new answer.'})])])
+            recorder = Recorder(Path(d), 'synthetic', 'image.png', gt=mask())
+            run_session(box, Planner(client=client, sleep=lambda _: None), recorder, answer_state=True)
+            self.assertEqual(recorder.steps[1]['calls'][0]['tool'], 'ask')
+            self.assertTrue(recorder.steps[1]['calls'][0]['ok'])
+            self.assertIn(other, recorder.steps[1]['calls'][0]['result_text'])

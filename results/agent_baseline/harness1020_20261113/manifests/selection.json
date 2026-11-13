@@ -1,0 +1,603 @@
+[
+  {
+    "cohort": "hard",
+    "dataset": "LEVIR",
+    "task": "T1.1xC0",
+    "historical_session": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/json_qwen37flash_g3_s3/T1.1xC0/val/val_31",
+    "historical_f1": 0.0,
+    "state_events": [
+      {
+        "kind": "tool_error",
+        "category": "tool_failure",
+        "step": 21,
+        "tool": "ask",
+        "error_code": "bad_args",
+        "args": {},
+        "result": "{\"ok\":false,\"error_code\":\"bad_args\",\"message\":\"There is no current answer; pass regions with a mask handle.\"}",
+        "attribution": "needs_context_review"
+      },
+      {
+        "kind": "tool_error",
+        "category": "tool_failure",
+        "step": 22,
+        "tool": "to_mask",
+        "error_code": "bad_handle",
+        "args": {
+          "sets": [
+            "mask#9"
+          ],
+          "set_current": true
+        },
+        "result": "{\"ok\":false,\"error_code\":\"bad_handle\",\"message\":\"Expected a inst handle.\"}",
+        "attribution": "needs_context_review"
+      },
+      {
+        "kind": "tool_error",
+        "category": "tool_failure",
+        "step": 24,
+        "tool": "ask",
+        "error_code": "bad_args",
+        "args": {},
+        "result": "{\"ok\":false,\"error_code\":\"bad_args\",\"message\":\"There is no current answer; pass regions with a mask handle.\"}",
+        "attribution": "needs_context_review"
+      }
+    ],
+    "manifest": {
+      "id": "val_31.png",
+      "image_t1": "/guisongxia01/pangchao/wangyihan/datasets/LEVIR-CD/val_original/A/val_31.png",
+      "image_t2": "/guisongxia01/pangchao/wangyihan/datasets/LEVIR-CD/val_original/B/val_31.png",
+      "instruction": "Find all buildings that changed between T1 and T2 (newly built or demolished). Output a binary change mask.",
+      "task_type": "T1.1xC0",
+      "constraint": null,
+      "target": "building",
+      "change_direction": "any",
+      "init_mask": null,
+      "gt_mask": "/guisongxia01/pangchao/wangyihan/datasets/LEVIR-CD/val_original/label/val_31.png",
+      "meta": {}
+    },
+    "historical_errors": [
+      {
+        "tool": "view",
+        "error": "bad_args",
+        "count": 1
+      },
+      {
+        "tool": "select",
+        "error": "bad_args",
+        "count": 1
+      },
+      {
+        "tool": "ask",
+        "error": "bad_args",
+        "count": 2
+      },
+      {
+        "tool": "to_mask",
+        "error": "bad_handle",
+        "count": 1
+      }
+    ],
+    "historical_termination": "submit",
+    "pilot": true
+  },
+  {
+    "cohort": "hard",
+    "dataset": "LEVIR",
+    "task": "T1.1xC0",
+    "historical_session": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/json_qwen37flash_g3_s3/T1.1xC0/val/val_22",
+    "historical_f1": 0.7928826682549136,
+    "state_events": [
+      {
+        "kind": "tool_error",
+        "category": "tool_failure",
+        "step": 11,
+        "tool": "ask",
+        "error_code": "bad_args",
+        "args": {},
+        "result": "{\"ok\":false,\"error_code\":\"bad_args\",\"message\":\"There is no current answer; pass regions with a mask handle.\"}",
+        "attribution": "needs_context_review"
+      },
+      {
+        "kind": "tool_error",
+        "category": "tool_failure",
+        "step": 12,
+        "tool": "to_mask",
+        "error_code": "bad_handle",
+        "args": {
+          "sets": [
+            "mask#6"
+          ],
+          "set_current": true
+        },
+        "result": "{\"ok\":false,\"error_code\":\"bad_handle\",\"message\":\"Expected a inst handle.\"}",
+        "attribution": "needs_context_review"
+      }
+    ],
+    "manifest": {
+      "id": "val_22.png",
+      "image_t1": "/guisongxia01/pangchao/wangyihan/datasets/LEVIR-CD/val_original/A/val_22.png",
+      "image_t2": "/guisongxia01/pangchao/wangyihan/datasets/LEVIR-CD/val_original/B/val_22.png",
+      "instruction": "Find all buildings that changed between T1 and T2 (newly built or demolished). Output a binary change mask.",
+      "task_type": "T1.1xC0",
+      "constraint": null,
+      "target": "building",
+      "change_direction": "any",
+      "init_mask": null,
+      "gt_mask": "/guisongxia01/pangchao/wangyihan/datasets/LEVIR-CD/val_original/label/val_22.png",
+      "meta": {}
+    },
+    "historical_errors": [
+      {
+        "tool": "ask",
+        "error": "bad_args",
+        "count": 1
+      },
+      {
+        "tool": "to_mask",
+        "error": "bad_handle",
+        "count": 1
+      }
+    ],
+    "historical_termination": "submit",
+    "pilot": true
+  },
+  {
+    "cohort": "hard",
+    "dataset": "LEVIR",
+    "task": "T1.1xC0",
+    "historical_session": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/json_qwen37flash_g3_s1/T1.1xC0/val/val_11",
+    "historical_f1": 0.81972360256125,
+    "state_events": [
+      {
+        "kind": "tool_error",
+        "category": "tool_failure",
+        "step": 21,
+        "tool": "ask",
+        "error_code": "bad_args",
+        "args": {},
+        "result": "{\"ok\":false,\"error_code\":\"bad_args\",\"message\":\"There is no current answer; pass regions with a mask handle.\"}",
+        "attribution": "needs_context_review"
+      },
+      {
+        "kind": "tool_error",
+        "category": "tool_failure",
+        "step": 22,
+        "tool": "to_mask",
+        "error_code": "bad_handle",
+        "args": {
+          "sets": [
+            "mask#11"
+          ],
+          "set_current": true
+        },
+        "result": "{\"ok\":false,\"error_code\":\"bad_handle\",\"message\":\"Expected a inst handle.\"}",
+        "attribution": "needs_context_review"
+      }
+    ],
+    "manifest": {
+      "id": "val_11.png",
+      "image_t1": "/guisongxia01/pangchao/wangyihan/datasets/LEVIR-CD/val_original/A/val_11.png",
+      "image_t2": "/guisongxia01/pangchao/wangyihan/datasets/LEVIR-CD/val_original/B/val_11.png",
+      "instruction": "Find all buildings that changed between T1 and T2 (newly built or demolished). Output a binary change mask.",
+      "task_type": "T1.1xC0",
+      "constraint": null,
+      "target": "building",
+      "change_direction": "any",
+      "init_mask": null,
+      "gt_mask": "/guisongxia01/pangchao/wangyihan/datasets/LEVIR-CD/val_original/label/val_11.png",
+      "meta": {}
+    },
+    "historical_errors": [
+      {
+        "tool": "ask",
+        "error": "bad_args",
+        "count": 1
+      },
+      {
+        "tool": "to_mask",
+        "error": "bad_handle",
+        "count": 1
+      }
+    ],
+    "historical_termination": "submit",
+    "pilot": false
+  },
+  {
+    "cohort": "hard",
+    "dataset": "LEVIR",
+    "task": "T1.1xC0",
+    "historical_session": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/json_qwen37flash_g3_s2/T1.1xC0/val/val_21",
+    "historical_f1": 0.8238198363985233,
+    "state_events": [
+      {
+        "kind": "tool_error",
+        "category": "tool_failure",
+        "step": 17,
+        "tool": "ask",
+        "error_code": "bad_args",
+        "args": {},
+        "result": "{\"ok\":false,\"error_code\":\"bad_args\",\"message\":\"There is no current answer; pass regions with a mask handle.\"}",
+        "attribution": "needs_context_review"
+      },
+      {
+        "kind": "tool_error",
+        "category": "tool_failure",
+        "step": 18,
+        "tool": "to_mask",
+        "error_code": "bad_handle",
+        "args": {
+          "sets": [
+            "mask#9"
+          ],
+          "set_current": true
+        },
+        "result": "{\"ok\":false,\"error_code\":\"bad_handle\",\"message\":\"Expected a inst handle.\"}",
+        "attribution": "needs_context_review"
+      }
+    ],
+    "manifest": {
+      "id": "val_21.png",
+      "image_t1": "/guisongxia01/pangchao/wangyihan/datasets/LEVIR-CD/val_original/A/val_21.png",
+      "image_t2": "/guisongxia01/pangchao/wangyihan/datasets/LEVIR-CD/val_original/B/val_21.png",
+      "instruction": "Find all buildings that changed between T1 and T2 (newly built or demolished). Output a binary change mask.",
+      "task_type": "T1.1xC0",
+      "constraint": null,
+      "target": "building",
+      "change_direction": "any",
+      "init_mask": null,
+      "gt_mask": "/guisongxia01/pangchao/wangyihan/datasets/LEVIR-CD/val_original/label/val_21.png",
+      "meta": {}
+    },
+    "historical_errors": [
+      {
+        "tool": "ask",
+        "error": "bad_args",
+        "count": 1
+      },
+      {
+        "tool": "to_mask",
+        "error": "bad_handle",
+        "count": 1
+      }
+    ],
+    "historical_termination": "submit",
+    "pilot": false
+  },
+  {
+    "cohort": "simple",
+    "dataset": "LEVIR",
+    "task": "T1.1xC0",
+    "historical_session": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/json_qwen37flash_g3_s3/T1.1xC0/val/val_44",
+    "historical_f1": 0.9238892047762164,
+    "state_events": [],
+    "manifest": {
+      "id": "val_44.png",
+      "image_t1": "/guisongxia01/pangchao/wangyihan/datasets/LEVIR-CD/val_original/A/val_44.png",
+      "image_t2": "/guisongxia01/pangchao/wangyihan/datasets/LEVIR-CD/val_original/B/val_44.png",
+      "instruction": "Find all buildings that changed between T1 and T2 (newly built or demolished). Output a binary change mask.",
+      "task_type": "T1.1xC0",
+      "constraint": null,
+      "target": "building",
+      "change_direction": "any",
+      "init_mask": null,
+      "gt_mask": "/guisongxia01/pangchao/wangyihan/datasets/LEVIR-CD/val_original/label/val_44.png",
+      "meta": {}
+    },
+    "historical_errors": [],
+    "historical_termination": "submit",
+    "pilot": true
+  },
+  {
+    "cohort": "simple",
+    "dataset": "LEVIR",
+    "task": "T1.1xC0",
+    "historical_session": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/json_qwen37flash_g3_s1/T1.1xC0/val/val_27",
+    "historical_f1": 0.9226618396444932,
+    "state_events": [],
+    "manifest": {
+      "id": "val_27.png",
+      "image_t1": "/guisongxia01/pangchao/wangyihan/datasets/LEVIR-CD/val_original/A/val_27.png",
+      "image_t2": "/guisongxia01/pangchao/wangyihan/datasets/LEVIR-CD/val_original/B/val_27.png",
+      "instruction": "Find all buildings that changed between T1 and T2 (newly built or demolished). Output a binary change mask.",
+      "task_type": "T1.1xC0",
+      "constraint": null,
+      "target": "building",
+      "change_direction": "any",
+      "init_mask": null,
+      "gt_mask": "/guisongxia01/pangchao/wangyihan/datasets/LEVIR-CD/val_original/label/val_27.png",
+      "meta": {}
+    },
+    "historical_errors": [],
+    "historical_termination": "submit",
+    "pilot": false
+  },
+  {
+    "cohort": "simple",
+    "dataset": "LEVIR",
+    "task": "T1.1xC0",
+    "historical_session": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/json_qwen37flash_g3_s3/T1.1xC0/val/val_64",
+    "historical_f1": 0.9121930919683728,
+    "state_events": [],
+    "manifest": {
+      "id": "val_64.png",
+      "image_t1": "/guisongxia01/pangchao/wangyihan/datasets/LEVIR-CD/val_original/A/val_64.png",
+      "image_t2": "/guisongxia01/pangchao/wangyihan/datasets/LEVIR-CD/val_original/B/val_64.png",
+      "instruction": "Find all buildings that changed between T1 and T2 (newly built or demolished). Output a binary change mask.",
+      "task_type": "T1.1xC0",
+      "constraint": null,
+      "target": "building",
+      "change_direction": "any",
+      "init_mask": null,
+      "gt_mask": "/guisongxia01/pangchao/wangyihan/datasets/LEVIR-CD/val_original/label/val_64.png",
+      "meta": {}
+    },
+    "historical_errors": [],
+    "historical_termination": "submit",
+    "pilot": false
+  },
+  {
+    "cohort": "hard",
+    "dataset": "LEVIR",
+    "task": "T5.1",
+    "historical_session": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/json_qwen37flash_g3_s1/T5.1/val/val_32",
+    "historical_f1": 0.0,
+    "state_events": [
+      {
+        "kind": "tool_error",
+        "category": "tool_failure",
+        "step": 11,
+        "tool": "select",
+        "error_code": "bad_handle",
+        "args": {
+          "set": "mask#1",
+          "ids": [
+            1
+          ]
+        },
+        "result": "{\"ok\":false,\"error_code\":\"bad_handle\",\"message\":\"Expected a inst handle.\"}",
+        "attribution": "needs_context_review"
+      }
+    ],
+    "manifest": {
+      "id": "val_32.png",
+      "image_t1": "/guisongxia01/pangchao/wangyihan/datasets/LEVIR-CD/val_original/A/val_32.png",
+      "image_t2": "/guisongxia01/pangchao/wangyihan/datasets/LEVIR-CD/val_original/B/val_32.png",
+      "instruction": "Here is a building change detection mask (mask#0). Check it against T1 (earlier) and T2 (later), and correct it where needed. Submit the final binary change mask and briefly summarize your decision.",
+      "task_type": "T5.1",
+      "constraint": null,
+      "target": "building",
+      "change_direction": "any",
+      "init_mask": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/init/sam3_imc_p85/val/val_32.png",
+      "gt_mask": "/guisongxia01/pangchao/wangyihan/datasets/LEVIR-CD/val_original/label/val_32.png",
+      "meta": {}
+    },
+    "historical_errors": [
+      {
+        "tool": "select",
+        "error": "bad_handle",
+        "count": 1
+      }
+    ],
+    "historical_termination": "submit",
+    "pilot": true
+  },
+  {
+    "cohort": "hard",
+    "dataset": "LEVIR",
+    "task": "T5.1",
+    "historical_session": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/json_qwen37flash_g3_s2/T5.1/val/val_47",
+    "historical_f1": 0.3262618873445501,
+    "state_events": [
+      {
+        "kind": "tool_error",
+        "category": "tool_failure",
+        "step": 18,
+        "tool": "to_mask",
+        "error_code": "bad_handle",
+        "args": {
+          "sets": [
+            "mask#5"
+          ],
+          "set_current": true
+        },
+        "result": "{\"ok\":false,\"error_code\":\"bad_handle\",\"message\":\"Expected a inst handle.\"}",
+        "attribution": "needs_context_review"
+      }
+    ],
+    "manifest": {
+      "id": "val_47.png",
+      "image_t1": "/guisongxia01/pangchao/wangyihan/datasets/LEVIR-CD/val_original/A/val_47.png",
+      "image_t2": "/guisongxia01/pangchao/wangyihan/datasets/LEVIR-CD/val_original/B/val_47.png",
+      "instruction": "Here is a building change detection mask (mask#0). Check it against T1 (earlier) and T2 (later), and correct it where needed. Submit the final binary change mask and briefly summarize your decision.",
+      "task_type": "T5.1",
+      "constraint": null,
+      "target": "building",
+      "change_direction": "any",
+      "init_mask": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/init/sam3_imc_p85/val/val_47.png",
+      "gt_mask": "/guisongxia01/pangchao/wangyihan/datasets/LEVIR-CD/val_original/label/val_47.png",
+      "meta": {}
+    },
+    "historical_errors": [
+      {
+        "tool": "to_mask",
+        "error": "bad_handle",
+        "count": 1
+      }
+    ],
+    "historical_termination": "submit",
+    "pilot": true
+  },
+  {
+    "cohort": "hard",
+    "dataset": "LEVIR",
+    "task": "T5.1",
+    "historical_session": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/json_qwen37flash_g3_s2/T5.1/val/val_37",
+    "historical_f1": 0.5427069645203679,
+    "state_events": [
+      {
+        "kind": "tool_error",
+        "category": "tool_failure",
+        "step": 8,
+        "tool": "select",
+        "error_code": "bad_handle",
+        "args": {
+          "set": "mask#0",
+          "ids": [
+            5,
+            12,
+            17,
+            38,
+            40,
+            41,
+            42
+          ]
+        },
+        "result": "{\"ok\":false,\"error_code\":\"bad_handle\",\"message\":\"Expected a inst handle.\"}",
+        "attribution": "needs_context_review"
+      }
+    ],
+    "manifest": {
+      "id": "val_37.png",
+      "image_t1": "/guisongxia01/pangchao/wangyihan/datasets/LEVIR-CD/val_original/A/val_37.png",
+      "image_t2": "/guisongxia01/pangchao/wangyihan/datasets/LEVIR-CD/val_original/B/val_37.png",
+      "instruction": "Here is a building change detection mask (mask#0). Check it against T1 (earlier) and T2 (later), and correct it where needed. Submit the final binary change mask and briefly summarize your decision.",
+      "task_type": "T5.1",
+      "constraint": null,
+      "target": "building",
+      "change_direction": "any",
+      "init_mask": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/init/sam3_imc_p85/val/val_37.png",
+      "gt_mask": "/guisongxia01/pangchao/wangyihan/datasets/LEVIR-CD/val_original/label/val_37.png",
+      "meta": {}
+    },
+    "historical_errors": [
+      {
+        "tool": "select",
+        "error": "bad_handle",
+        "count": 1
+      }
+    ],
+    "historical_termination": "submit",
+    "pilot": false
+  },
+  {
+    "cohort": "hard",
+    "dataset": "LEVIR",
+    "task": "T5.1",
+    "historical_session": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/json_qwen37flash_g3_s2/T5.1/val/val_60",
+    "historical_f1": 0.8300787363656064,
+    "state_events": [
+      {
+        "kind": "tool_error",
+        "category": "tool_failure",
+        "step": 20,
+        "tool": "to_mask",
+        "error_code": "bad_handle",
+        "args": {
+          "sets": [
+            "mask#2",
+            "mask#3",
+            "mask#4",
+            "mask#5"
+          ],
+          "set_current": true
+        },
+        "result": "{\"ok\":false,\"error_code\":\"bad_handle\",\"message\":\"Expected a inst handle.\"}",
+        "attribution": "needs_context_review"
+      }
+    ],
+    "manifest": {
+      "id": "val_60.png",
+      "image_t1": "/guisongxia01/pangchao/wangyihan/datasets/LEVIR-CD/val_original/A/val_60.png",
+      "image_t2": "/guisongxia01/pangchao/wangyihan/datasets/LEVIR-CD/val_original/B/val_60.png",
+      "instruction": "Here is a building change detection mask (mask#0). Check it against T1 (earlier) and T2 (later), and correct it where needed. Submit the final binary change mask and briefly summarize your decision.",
+      "task_type": "T5.1",
+      "constraint": null,
+      "target": "building",
+      "change_direction": "any",
+      "init_mask": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/init/sam3_imc_p85/val/val_60.png",
+      "gt_mask": "/guisongxia01/pangchao/wangyihan/datasets/LEVIR-CD/val_original/label/val_60.png",
+      "meta": {}
+    },
+    "historical_errors": [
+      {
+        "tool": "to_mask",
+        "error": "bad_handle",
+        "count": 1
+      }
+    ],
+    "historical_termination": "submit",
+    "pilot": false
+  },
+  {
+    "cohort": "simple",
+    "dataset": "LEVIR",
+    "task": "T5.1",
+    "historical_session": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/json_qwen37flash_g3_s3/T5.1/val/val_36",
+    "historical_f1": 0.9300332025354664,
+    "state_events": [],
+    "manifest": {
+      "id": "val_36.png",
+      "image_t1": "/guisongxia01/pangchao/wangyihan/datasets/LEVIR-CD/val_original/A/val_36.png",
+      "image_t2": "/guisongxia01/pangchao/wangyihan/datasets/LEVIR-CD/val_original/B/val_36.png",
+      "instruction": "Here is a building change detection mask (mask#0). Check it against T1 (earlier) and T2 (later), and correct it where needed. Submit the final binary change mask and briefly summarize your decision.",
+      "task_type": "T5.1",
+      "constraint": null,
+      "target": "building",
+      "change_direction": "any",
+      "init_mask": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/init/sam3_imc_p85/val/val_36.png",
+      "gt_mask": "/guisongxia01/pangchao/wangyihan/datasets/LEVIR-CD/val_original/label/val_36.png",
+      "meta": {}
+    },
+    "historical_errors": [],
+    "historical_termination": "submit",
+    "pilot": true
+  },
+  {
+    "cohort": "simple",
+    "dataset": "LEVIR",
+    "task": "T5.1",
+    "historical_session": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/json_qwen37flash_g3_s2/T5.1/val/val_20",
+    "historical_f1": 0.9196969662695136,
+    "state_events": [],
+    "manifest": {
+      "id": "val_20.png",
+      "image_t1": "/guisongxia01/pangchao/wangyihan/datasets/LEVIR-CD/val_original/A/val_20.png",
+      "image_t2": "/guisongxia01/pangchao/wangyihan/datasets/LEVIR-CD/val_original/B/val_20.png",
+      "instruction": "Here is a building change detection mask (mask#0). Check it against T1 (earlier) and T2 (later), and correct it where needed. Submit the final binary change mask and briefly summarize your decision.",
+      "task_type": "T5.1",
+      "constraint": null,
+      "target": "building",
+      "change_direction": "any",
+      "init_mask": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/init/sam3_imc_p85/val/val_20.png",
+      "gt_mask": "/guisongxia01/pangchao/wangyihan/datasets/LEVIR-CD/val_original/label/val_20.png",
+      "meta": {}
+    },
+    "historical_errors": [],
+    "historical_termination": "submit",
+    "pilot": false
+  },
+  {
+    "cohort": "simple",
+    "dataset": "LEVIR",
+    "task": "T5.1",
+    "historical_session": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/json_qwen37flash_g3_s3/T5.1/val/val_15",
+    "historical_f1": 0.915604828066134,
+    "state_events": [],
+    "manifest": {
+      "id": "val_15.png",
+      "image_t1": "/guisongxia01/pangchao/wangyihan/datasets/LEVIR-CD/val_original/A/val_15.png",
+      "image_t2": "/guisongxia01/pangchao/wangyihan/datasets/LEVIR-CD/val_original/B/val_15.png",
+      "instruction": "Here is a building change detection mask (mask#0). Check it against T1 (earlier) and T2 (later), and correct it where needed. Submit the final binary change mask and briefly summarize your decision.",
+      "task_type": "T5.1",
+      "constraint": null,
+      "target": "building",
+      "change_direction": "any",
+      "init_mask": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/init/sam3_imc_p85/val/val_15.png",
+      "gt_mask": "/guisongxia01/pangchao/wangyihan/datasets/LEVIR-CD/val_original/label/val_15.png",
+      "meta": {}
+    },
+    "historical_errors": [],
+    "historical_termination": "submit",
+    "pilot": false
+  }
+]

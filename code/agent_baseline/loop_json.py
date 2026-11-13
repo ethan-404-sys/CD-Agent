@@ -221,9 +221,22 @@ def run_session(toolbox, planner, recorder, task='T1.1xC0', budget=30, prompt_ve
             # The provider rejects a history with the same call in consecutive rounds, and rerunning it teaches nothing.
             signature = [(c.get('function') or {}).get('name') for c in calls], [(c.get('function') or {}).get('arguments') for c in calls]
             if toolbox.answer_state:
-                # Same arguments are useful after current/handles/verification change.
-                signature = (signature, session.current_mask, tuple(session.handles),
-                             sum(len(v['records']) for v in toolbox.asked.values()), session.view_count)
+                # Only implicit ask depends on mutable current/verification state.
+                # A new unrelated handle or another view does not justify a repeat.
+                ask_state = []
+                for i, candidate in enumerate(calls):
+                    function = candidate.get('function') or {}
+                    if function.get('name') != 'ask':
+                        continue
+                    try:
+                        arguments = json.loads(function.get('arguments', ''))
+                    except (ValueError, TypeError):
+                        continue
+                    if isinstance(arguments, dict) and arguments.get('regions') is None:
+                        item = session.handles.get(session.current_mask)
+                        checked = tuple((k, len(v)) for k, v in toolbox.records(item).items()) if isinstance(item, Mask) else ()
+                        ask_state.append((i, session.current_mask, checked))
+                signature = (signature, tuple(ask_state))
             repeated = bool(calls) and signature == previous_calls
             if repeated:
                 calls = []
