@@ -8,7 +8,7 @@ from pathlib import Path
 import re
 import statistics
 
-from .coordinate_audit import coordinate_error,public,sessions,load_journal,write_json
+from .coordinate_audit import coordinate_error,public,sessions,load_journal,write_json,empty_session
 from .trace_behavior import analyze as base_analyze
 
 VERSION=2
@@ -231,31 +231,37 @@ def main():
     p=argparse.ArgumentParser();p.add_argument('--extended',action='store_true');p.add_argument('--root',type=Path,required=True)
     p.add_argument('--output',type=Path,required=True);p.add_argument('--resume',action='store_true');p.add_argument('--workers',type=int,default=4)
     p.add_argument('--base-journal',type=Path);p.add_argument('--include-test-logs',action='store_true');p.add_argument('--spatial',action='store_true');p.add_argument('--config',action='append')
+    p.add_argument('--resume-static-history',action='store_true',help='Reuse all recorded historical sessions, including terminated sessions without final.json.')
     args=p.parse_args();args.output.mkdir(parents=True,exist_ok=True);journal=args.output/'sessions.jsonl'
     previous={r['session']:r for r in load_journal(journal)}
-    rows=list(previous.values());done={r['session'] for r in rows if r['complete']};base={}
+    rows=list(previous.values());done={r['session'] for r in rows if r['complete'] or args.resume_static_history};base={}
     if args.base_journal:
         # The old scan may still be appending. Read a snapshot without modifying its journal.
         with args.base_journal.open() as f:
             for line in f:
                 try:r=json.loads(line);base[r['session']]=r
                 except ValueError:break
-    failures=[]
+    failures=[];excluded=[]
     def work(item):
-        try:return analyze(item,base.get(str(item[3])),args.spatial),None
+        try:
+            if empty_session(item[3]):return None,dict(session=str(item[3]),excluded='initialization_only_no_metadata_or_steps')
+            return analyze(item,base.get(str(item[3])),args.spatial),None
         except (OSError,ValueError,KeyError,TypeError) as error:return None,dict(session=str(item[3]),error=str(error))
     pending=(item for item in sessions(args.root,args.config,args.include_test_logs) if str(item[3]) not in done)
     with journal.open('a') as sink,ThreadPoolExecutor(max_workers=args.workers) as pool:
         while batch:=list(itertools.islice(pending,args.workers*4)):
             for row,error in pool.map(work,batch):
+                if error and error.get('excluded'):excluded.append(error);continue
                 if error:failures.append(error);write_json(args.output/'read_failures.json',failures);continue
                 sink.write(json.dumps(row,ensure_ascii=False)+'\n');sink.flush();rows.append(row)
                 if len(rows)%100==0:print('saved='+str(len(rows)),flush=True)
     rows=list({r['session']:r for r in rows}.values())
+    write_json(args.output/'read_failures.json',failures)
+    write_json(args.output/'empty_sessions.json',excluded)
     groups=summarize(rows)
     write_json(args.output/'summary.json',dict(version=VERSION,sessions=len(rows),groups=groups,read_failures=failures,
         scope='Existing logs only; development/report/test are separate; no new test inference',causal=False))
-    write_json(args.output/'metric.json',dict(sessions=len(rows),groups=len(groups),read_failures=len(failures),cost_cny=0))
+    write_json(args.output/'metric.json',dict(sessions=len(rows),groups=len(groups),read_failures=len(failures),empty_sessions=len(excluded),cost_cny=0))
     print(f'sessions={len(rows)} groups={len(groups)} read_failures={len(failures)}',flush=True)
     if failures:raise SystemExit('Incomplete reads retained for repair; not full coverage yet')
 
