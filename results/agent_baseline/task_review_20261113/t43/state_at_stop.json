@@ -1,0 +1,155 @@
+{
+  "name": "cd-t43-review-20261113",
+  "status": "done",
+  "queue": [],
+  "done": [
+    "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-t43-review-20261113/jobs/01-small.sbatch",
+    "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-t43-review-20261113/jobs/02-small.sbatch",
+    "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-t43-review-20261113/jobs/03-full.sbatch"
+  ],
+  "current": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-t43-review-20261113/jobs/03-full.sbatch",
+  "job_id": "184236",
+  "hook_id": "184237",
+  "rounds": 3,
+  "rounds_submitted": 3,
+  "primary_best": null,
+  "cost_cny": 0.0,
+  "finalized": false,
+  "finalize_requested": true,
+  "started_at": "2026-11-13 09:04:34",
+  "started_epoch": 1794560674.7454193,
+  "history": [
+    {
+      "job": "01-small.sbatch",
+      "job_id": "184220",
+      "hook_id": "184221",
+      "state": "FAILED",
+      "exit": "1:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0,
+      "metric": {},
+      "metric_error": "metric failed: , line 1134, in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors) as f:\n  File \"/usr/lib/python3.10/pathlib.py\", line 1119, in open\n    return self._accessor.open(self, mode, buffering, encoding, errors,\nFileNotFoundError: [Errno 2] No such file or directory: '/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/task_review_20261113/t43/small-v1/summary.json'",
+      "at": "2026-11-13 09:04:41"
+    },
+    {
+      "job": "02-small.sbatch",
+      "job_id": "184223",
+      "hook_id": "184224",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0,
+      "metric": {},
+      "metric_error": "Expecting value: line 1 column 1 (char 0)",
+      "at": "2026-11-13 09:08:44"
+    },
+    {
+      "job": "03-full.sbatch",
+      "job_id": "184236",
+      "hook_id": "184237",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0,
+      "metric": {
+        "count": 128,
+        "counts": {
+          "road": 64,
+          "building": 64
+        },
+        "shortfalls": {
+          "road": 0,
+          "building": 0
+        },
+        "review_status": "pending_review",
+        "formal_export_count": 0,
+        "cost_cny": 0,
+        "source_scene_count": 801,
+        "failed_scenes": 0
+      },
+      "metric_error": null,
+      "at": "2026-11-13 09:19:00"
+    }
+  ],
+  "driver": "dependency",
+  "recorded_current": true,
+  "submitted_at": "2026-11-13 09:12:31",
+  "last_advance_at": "2026-11-13 09:12:31",
+  "hook_attempts": 5,
+  "review_count": 3,
+  "review": {
+    "id": "event-0003",
+    "kind": "round_finished",
+    "error": null,
+    "at": "2026-11-13 09:19:00",
+    "job_id": "184236",
+    "hook_id": "184237",
+    "current": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-t43-review-20261113/jobs/03-full.sbatch",
+    "latest": {
+      "job": "03-full.sbatch",
+      "job_id": "184236",
+      "hook_id": "184237",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0,
+      "metric": {
+        "count": 128,
+        "counts": {
+          "road": 64,
+          "building": 64
+        },
+        "shortfalls": {
+          "road": 0,
+          "building": 0
+        },
+        "review_status": "pending_review",
+        "formal_export_count": 0,
+        "cost_cny": 0,
+        "source_scene_count": 801,
+        "failed_scenes": 0
+      },
+      "metric_error": null,
+      "at": "2026-11-13 09:19:00"
+    },
+    "queued_jobs": [],
+    "cost_cny": 0.0,
+    "delivery": "accepted",
+    "delivered_at": "2026-11-13 09:19:03",
+    "delivery_turn_id": "01a1d41e-095a-7ff2-999b-1cbbd43435c2",
+    "delivery_via": "hook_http"
+  },
+  "decisions": [
+    {
+      "event_id": "event-0001",
+      "action": "add",
+      "job": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-t43-review-20261113/jobs/02-small.sbatch",
+      "reason": "Initial test lacked affine in exp5; use existing kari-ai-spacenet8 geospatial environment and checkpoint-capable code v2. No model calls.",
+      "at": "2026-11-13 09:07:24"
+    },
+    {
+      "event_id": "event-0002",
+      "action": "add",
+      "job": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-t43-review-20261113/jobs/03-full.sbatch",
+      "reason": "Small batch succeeded: 6 tests, 2 roads+2 buildings, zero failed scenes; visual checks flag cloud/glint and local alignment for human review. Expand pending pool via checkpoints in separate full-v1; preserve small-v1 results. Metric JSON format fixed.",
+      "at": "2026-11-13 09:12:29"
+    },
+    {
+      "event_id": "event-0003",
+      "action": "finish",
+      "reason": "128 pending candidates complete (road64/building64), 103 unique scenes, no construction failures, checkpoints and small batch preserved. Full QC continues in cd-task-qc; human approvals and formal exports remain zero.",
+      "at": "2026-11-13 09:22:49"
+    }
+  ],
+  "finalize_attempts": 1,
+  "git_committed": false,
+  "git_pushed": false,
+  "notified": false,
+  "stop_reason": "128 pending candidates complete (road64/building64), 103 unique scenes, no construction failures, checkpoints and small batch preserved. Full QC continues in cd-task-qc; human approvals and formal exports remain zero.",
+  "finished_at": "2026-11-13 09:22:49",
+  "elapsed_seconds": 1095.2
+}

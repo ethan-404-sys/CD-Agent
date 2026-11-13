@@ -1,0 +1,493 @@
+{
+  "scene_id": "Germany_Training_Public/10500500C4DD7000_0_30_63",
+  "completed_targets": [
+    "building"
+  ],
+  "rows": [
+    {
+      "id": "t43-Germany_Training_Public-10500500C4DD7000_0_30_63-building",
+      "task_type": "T4.3",
+      "image_t1": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/task-review-20261113/t43-assets/small-v1/Germany_Training_Public/10500500C4DD7000_0_30_63/t1.png",
+      "image_t2": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/task-review-20261113/t43-assets/small-v1/Germany_Training_Public/10500500C4DD7000_0_30_63/t2.png",
+      "instruction": "Find the buildings flooded after the flood event. Output a binary mask.",
+      "target": "building",
+      "change_direction": "any",
+      "constraint": null,
+      "init_mask": null,
+      "gt_mask": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/task-review-20261113/t43-assets/small-v1/Germany_Training_Public/10500500C4DD7000_0_30_63/building_gt.png",
+      "meta": {
+        "review_id": "t43-Germany_Training_Public-10500500C4DD7000_0_30_63-building",
+        "data_version": "t43-candidate-v1",
+        "review_status": "pending_review",
+        "dataset": "SpaceNet8",
+        "split": "review_pool",
+        "source_split": "Training_Public",
+        "scene_id": "Germany_Training_Public/10500500C4DD7000_0_30_63",
+        "event_type": "flood",
+        "target_object": "building",
+        "impact_state": "flooded",
+        "aoi": {
+          "name": "Germany_Training_Public",
+          "crs": "EPSG:4326",
+          "bounds": [
+            6.98584033377115,
+            50.50674964260995,
+            6.990706208226801,
+            50.5116155170656
+          ]
+        },
+        "source_annotations": [
+          {
+            "path": "/guisongxia01/pangchao/wangyihan/datasets/SpaceNet8/Germany_Training_Public/annotations/0_30_63.geojson",
+            "version": "SpaceNet8 public training release",
+            "feature_ids": [
+              {
+                "feature_id": "way/847405896",
+                "feature_index": 16,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847405898",
+                "feature_index": 18,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847405903",
+                "feature_index": 19,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847405905",
+                "feature_index": 20,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847405914",
+                "feature_index": 21,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847405915",
+                "feature_index": 22,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847405916",
+                "feature_index": 23,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847405917",
+                "feature_index": 24,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847405918",
+                "feature_index": 25,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847405919",
+                "feature_index": 26,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847405920",
+                "feature_index": 27,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847405921",
+                "feature_index": 28,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847406040",
+                "feature_index": 49,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847406041",
+                "feature_index": 50,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847406042",
+                "feature_index": 51,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847406043",
+                "feature_index": 52,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847406044",
+                "feature_index": 53,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847406045",
+                "feature_index": 54,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847406046",
+                "feature_index": 55,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847406047",
+                "feature_index": 56,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847406048",
+                "feature_index": 57,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847406071",
+                "feature_index": 66,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847406072",
+                "feature_index": 67,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847406073",
+                "feature_index": 68,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847406074",
+                "feature_index": 69,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847406076",
+                "feature_index": 70,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847406077",
+                "feature_index": 71,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847406078",
+                "feature_index": 72,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847406079",
+                "feature_index": 73,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847406080",
+                "feature_index": 74,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847406081",
+                "feature_index": 75,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847406085",
+                "feature_index": 76,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847406086",
+                "feature_index": 77,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847406088",
+                "feature_index": 78,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847406089",
+                "feature_index": 79,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847406090",
+                "feature_index": 80,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847406091",
+                "feature_index": 81,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847406092",
+                "feature_index": 82,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847406093",
+                "feature_index": 83,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847406094",
+                "feature_index": 84,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847406095",
+                "feature_index": 85,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847406096",
+                "feature_index": 86,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847406097",
+                "feature_index": 87,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847406854",
+                "feature_index": 88,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847406855",
+                "feature_index": 89,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847406856",
+                "feature_index": 90,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847406857",
+                "feature_index": 91,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847406858",
+                "feature_index": 92,
+                "flooded_raw": "yes"
+              }
+            ],
+            "unknown_features": [
+              {
+                "feature_id": "way/847405897",
+                "feature_index": 17,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847405922",
+                "feature_index": 29,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847405923",
+                "feature_index": 30,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847405924",
+                "feature_index": 31,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847405925",
+                "feature_index": 32,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847405926",
+                "feature_index": 33,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847405927",
+                "feature_index": 34,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847405928",
+                "feature_index": 35,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847405929",
+                "feature_index": 36,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847406023",
+                "feature_index": 37,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847406024",
+                "feature_index": 38,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847406025",
+                "feature_index": 39,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847406029",
+                "feature_index": 40,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847406030",
+                "feature_index": 41,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847406031",
+                "feature_index": 42,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847406032",
+                "feature_index": 43,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847406033",
+                "feature_index": 44,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847406034",
+                "feature_index": 45,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847406037",
+                "feature_index": 46,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847406038",
+                "feature_index": 47,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847406039",
+                "feature_index": 48,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847406052",
+                "feature_index": 58,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847406053",
+                "feature_index": 59,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847406054",
+                "feature_index": 60,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847406055",
+                "feature_index": 61,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847406056",
+                "feature_index": 62,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847406057",
+                "feature_index": 63,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847406058",
+                "feature_index": 64,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847406059",
+                "feature_index": 65,
+                "flooded_raw": null
+              }
+            ],
+            "negative_features": []
+          }
+        ],
+        "source_images": {
+          "pre": "/guisongxia01/pangchao/wangyihan/datasets/SpaceNet8/Germany_Training_Public/PRE-event/10500500C4DD7000_0_30_63.tif",
+          "post": "/guisongxia01/pangchao/wangyihan/datasets/SpaceNet8/Germany_Training_Public/POST-event/10500500E6DD3C00_0_30_63.tif"
+        },
+        "source_license": "CC BY-SA 4.0",
+        "gt_rules": {
+          "version": "sn8-flood-candidate-v1",
+          "status": "pending_review",
+          "positive_flooded": [
+            "yes",
+            "true",
+            "1"
+          ],
+          "negative_flooded": [
+            "no",
+            "false",
+            "0"
+          ],
+          "unknown_policy": "ignore source geometry; ignore overrides positives",
+          "building_geometry": "original Polygon/MultiPolygon footprint",
+          "road_buffer_m": 3.0,
+          "road_buffer_crs": "local UTM from geometry centroid",
+          "road_buffer_resolution": 16,
+          "road_cap_style": "round",
+          "road_join_style": "round",
+          "all_touched": false,
+          "partial_flood_policy": "retain entire source feature marked flooded",
+          "grid": "native pre-event grid; post-event bilinear reprojected to this grid",
+          "claim": "flooded infrastructure coverage, not traffic passability"
+        },
+        "grid": {
+          "crs": "EPSG:4326",
+          "transform": [
+            3.74298035050102e-06,
+            0.0,
+            6.98584033377115,
+            0.0,
+            -3.74298035050102e-06,
+            50.5116155170656
+          ],
+          "width": 1300,
+          "height": 1300,
+          "bounds": [
+            6.98584033377115,
+            50.50674964260995,
+            6.990706208226801,
+            50.5116155170656
+          ]
+        },
+        "ignore_mask": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/task-review-20261113/t43-assets/small-v1/Germany_Training_Public/10500500C4DD7000_0_30_63/building_ignore.png",
+        "positive_pixels": 105819,
+        "ignore_pixels": 46774,
+        "road_sensitivity": null,
+        "registration_status": "unverified_visual_alignment",
+        "definition_status": "pending_review"
+      }
+    }
+  ]
+}

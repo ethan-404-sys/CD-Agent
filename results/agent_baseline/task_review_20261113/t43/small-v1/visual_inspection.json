@@ -1,0 +1,33 @@
+{
+  "inspection_type": "agent_read_only_visual_check",
+  "human_approval": false,
+  "review_status": "pending_review",
+  "scope": "Four existing T1/T2/GT triplets inspected with view_image; no alignment computation or mask editing",
+  "conclusion": "Suitable to continue candidate construction, not formal evaluation or export",
+  "observations": [
+    {
+      "scene_id": "Germany_Training_Public/10500500C4DD7000_0_18_63",
+      "target": "road",
+      "positive_pixels": 4349,
+      "note": "T2 bottom has cloud/haze; right-side road and mask may have local displacement. Registration remains unverified. Unknown annotation geometry has a separate ignore mask."
+    },
+    {
+      "scene_id": "Louisiana-East_Training_Public/105001001A0FFC00_0_11_15",
+      "target": "road",
+      "positive_pixels": 2039,
+      "note": "Strong reflected light on floodwater in T2; target covers a short lower-edge road segment, not the water surface. Visual registration remains unverified."
+    },
+    {
+      "scene_id": "Louisiana-East_Training_Public/105001001A0FFC00_0_12_13",
+      "target": "building",
+      "positive_pixels": 2238,
+      "note": "T2 lower-left cloud/haze and floodwater make the marked buildings difficult to identify; human review must assess visibility and alignment."
+    },
+    {
+      "scene_id": "Louisiana-East_Training_Public/105001001A0FFC00_0_12_14",
+      "target": "building",
+      "positive_pixels": 190,
+      "note": "Very small target near the top boundary; target is not clearly identifiable in T2. Prioritize visibility and boundary checks during human review."
+    }
+  ]
+}

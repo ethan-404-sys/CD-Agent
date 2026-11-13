@@ -1,0 +1,473 @@
+{
+  "scene_id": "Germany_Training_Public/10500500C4DD7000_0_40_59",
+  "completed_targets": [
+    "building"
+  ],
+  "rows": [
+    {
+      "id": "t43-Germany_Training_Public-10500500C4DD7000_0_40_59-building",
+      "task_type": "T4.3",
+      "image_t1": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/task-review-20261113/t43-assets/small-v1/Germany_Training_Public/10500500C4DD7000_0_40_59/t1.png",
+      "image_t2": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/task-review-20261113/t43-assets/small-v1/Germany_Training_Public/10500500C4DD7000_0_40_59/t2.png",
+      "instruction": "Find the buildings flooded after the flood event. Output a binary mask.",
+      "target": "building",
+      "change_direction": "any",
+      "constraint": null,
+      "init_mask": null,
+      "gt_mask": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/task-review-20261113/t43-assets/small-v1/Germany_Training_Public/10500500C4DD7000_0_40_59/building_gt.png",
+      "meta": {
+        "review_id": "t43-Germany_Training_Public-10500500C4DD7000_0_40_59-building",
+        "data_version": "t43-candidate-v1",
+        "review_status": "pending_review",
+        "dataset": "SpaceNet8",
+        "split": "review_pool",
+        "source_split": "Training_Public",
+        "scene_id": "Germany_Training_Public/10500500C4DD7000_0_40_59",
+        "event_type": "flood",
+        "target_object": "building",
+        "impact_state": "flooded",
+        "aoi": {
+          "name": "Germany_Training_Public",
+          "crs": "EPSG:4326",
+          "bounds": [
+            7.034499078327663,
+            50.52621314043255,
+            7.039364952783314,
+            50.531079014888206
+          ]
+        },
+        "source_annotations": [
+          {
+            "path": "/guisongxia01/pangchao/wangyihan/datasets/SpaceNet8/Germany_Training_Public/annotations/0_40_59.geojson",
+            "version": "SpaceNet8 public training release",
+            "feature_ids": [
+              {
+                "feature_id": "way/847402586",
+                "feature_index": 33,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847402740",
+                "feature_index": 51,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847402767",
+                "feature_index": 61,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847402770",
+                "feature_index": 62,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847402771",
+                "feature_index": 63,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847402782",
+                "feature_index": 64,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847402783",
+                "feature_index": 65,
+                "flooded_raw": "yes"
+              }
+            ],
+            "unknown_features": [
+              {
+                "feature_id": "way/847402345",
+                "feature_index": 12,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847402346",
+                "feature_index": 13,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847402347",
+                "feature_index": 14,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847402348",
+                "feature_index": 15,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847402349",
+                "feature_index": 16,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847402350",
+                "feature_index": 17,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847402351",
+                "feature_index": 18,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847402352",
+                "feature_index": 19,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847402353",
+                "feature_index": 20,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847402354",
+                "feature_index": 21,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847402572",
+                "feature_index": 22,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847402573",
+                "feature_index": 23,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847402574",
+                "feature_index": 24,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847402575",
+                "feature_index": 25,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847402576",
+                "feature_index": 26,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847402577",
+                "feature_index": 27,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847402578",
+                "feature_index": 28,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847402581",
+                "feature_index": 29,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847402582",
+                "feature_index": 30,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847402583",
+                "feature_index": 31,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847402585",
+                "feature_index": 32,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847402588",
+                "feature_index": 34,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847402589",
+                "feature_index": 35,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847402590",
+                "feature_index": 36,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847402591",
+                "feature_index": 37,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847402592",
+                "feature_index": 38,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847402593",
+                "feature_index": 39,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847402594",
+                "feature_index": 40,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847402595",
+                "feature_index": 41,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847402596",
+                "feature_index": 42,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847402597",
+                "feature_index": 43,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847402598",
+                "feature_index": 44,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847402599",
+                "feature_index": 45,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847402600",
+                "feature_index": 46,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847402601",
+                "feature_index": 47,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847402602",
+                "feature_index": 48,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847402603",
+                "feature_index": 49,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847402604",
+                "feature_index": 50,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847402757",
+                "feature_index": 52,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847402758",
+                "feature_index": 53,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847402759",
+                "feature_index": 54,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847402760",
+                "feature_index": 55,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847402761",
+                "feature_index": 56,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847402762",
+                "feature_index": 57,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847402763",
+                "feature_index": 58,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847402764",
+                "feature_index": 59,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847402765",
+                "feature_index": 60,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847402787",
+                "feature_index": 66,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847402788",
+                "feature_index": 67,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847403063",
+                "feature_index": 68,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847403064",
+                "feature_index": 69,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847403067",
+                "feature_index": 70,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847403068",
+                "feature_index": 71,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847403069",
+                "feature_index": 72,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847403070",
+                "feature_index": 73,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847403071",
+                "feature_index": 74,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847403072",
+                "feature_index": 75,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847403073",
+                "feature_index": 76,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847403074",
+                "feature_index": 77,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847403075",
+                "feature_index": 78,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847403076",
+                "feature_index": 79,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847403077",
+                "feature_index": 80,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847406113",
+                "feature_index": 81,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847406118",
+                "feature_index": 82,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847406119",
+                "feature_index": 83,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847406120",
+                "feature_index": 84,
+                "flooded_raw": null
+              }
+            ],
+            "negative_features": []
+          }
+        ],
+        "source_images": {
+          "pre": "/guisongxia01/pangchao/wangyihan/datasets/SpaceNet8/Germany_Training_Public/PRE-event/10500500C4DD7000_0_40_59.tif",
+          "post": "/guisongxia01/pangchao/wangyihan/datasets/SpaceNet8/Germany_Training_Public/POST-event/10500500E6DD3C00_0_40_59.tif"
+        },
+        "source_license": "CC BY-SA 4.0",
+        "gt_rules": {
+          "version": "sn8-flood-candidate-v1",
+          "status": "pending_review",
+          "positive_flooded": [
+            "yes",
+            "true",
+            "1"
+          ],
+          "negative_flooded": [
+            "no",
+            "false",
+            "0"
+          ],
+          "unknown_policy": "ignore source geometry; ignore overrides positives",
+          "building_geometry": "original Polygon/MultiPolygon footprint",
+          "road_buffer_m": 3.0,
+          "road_buffer_crs": "local UTM from geometry centroid",
+          "road_buffer_resolution": 16,
+          "road_cap_style": "round",
+          "road_join_style": "round",
+          "all_touched": false,
+          "partial_flood_policy": "retain entire source feature marked flooded",
+          "grid": "native pre-event grid; post-event bilinear reprojected to this grid",
+          "claim": "flooded infrastructure coverage, not traffic passability"
+        },
+        "grid": {
+          "crs": "EPSG:4326",
+          "transform": [
+            3.74298035050102e-06,
+            0.0,
+            7.034499078327663,
+            0.0,
+            -3.74298035050102e-06,
+            50.531079014888206
+          ],
+          "width": 1300,
+          "height": 1300,
+          "bounds": [
+            7.034499078327663,
+            50.52621314043255,
+            7.039364952783314,
+            50.531079014888206
+          ]
+        },
+        "ignore_mask": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/task-review-20261113/t43-assets/small-v1/Germany_Training_Public/10500500C4DD7000_0_40_59/building_ignore.png",
+        "positive_pixels": 9223,
+        "ignore_pixels": 71304,
+        "road_sensitivity": null,
+        "registration_status": "unverified_visual_alignment",
+        "definition_status": "pending_review"
+      }
+    }
+  ]
+}

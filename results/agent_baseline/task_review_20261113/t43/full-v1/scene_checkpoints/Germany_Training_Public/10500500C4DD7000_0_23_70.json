@@ -1,0 +1,162 @@
+{
+  "scene_id": "Germany_Training_Public/10500500C4DD7000_0_23_70",
+  "completed_targets": [
+    "road"
+  ],
+  "rows": [
+    {
+      "id": "t43-Germany_Training_Public-10500500C4DD7000_0_23_70-road",
+      "task_type": "T4.3",
+      "image_t1": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/task-review-20261113/t43-assets/small-v1/Germany_Training_Public/10500500C4DD7000_0_23_70/t1.png",
+      "image_t2": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/task-review-20261113/t43-assets/small-v1/Germany_Training_Public/10500500C4DD7000_0_23_70/t2.png",
+      "instruction": "Find the road segments flooded after the flood event. Output a binary mask.",
+      "target": "road",
+      "change_direction": "any",
+      "constraint": null,
+      "init_mask": null,
+      "gt_mask": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/task-review-20261113/t43-assets/small-v1/Germany_Training_Public/10500500C4DD7000_0_23_70/road_gt.png",
+      "meta": {
+        "review_id": "t43-Germany_Training_Public-10500500C4DD7000_0_23_70-road",
+        "data_version": "t43-candidate-v1",
+        "review_status": "pending_review",
+        "dataset": "SpaceNet8",
+        "split": "review_pool",
+        "source_split": "Training_Public",
+        "scene_id": "Germany_Training_Public/10500500C4DD7000_0_23_70",
+        "event_type": "flood",
+        "target_object": "road",
+        "impact_state": "flooded",
+        "aoi": {
+          "name": "Germany_Training_Public",
+          "crs": "EPSG:4326",
+          "bounds": [
+            6.951779212581591,
+            50.47268852142039,
+            6.956645087037242,
+            50.47755439587604
+          ]
+        },
+        "source_annotations": [
+          {
+            "path": "/guisongxia01/pangchao/wangyihan/datasets/SpaceNet8/Germany_Training_Public/annotations/0_23_70.geojson",
+            "version": "SpaceNet8 public training release",
+            "feature_ids": [
+              {
+                "feature_id": "way/847401886",
+                "feature_index": 0,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847401887",
+                "feature_index": 1,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847401889",
+                "feature_index": 3,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847406293",
+                "feature_index": 6,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847406294",
+                "feature_index": 7,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847406295",
+                "feature_index": 8,
+                "flooded_raw": "yes"
+              }
+            ],
+            "unknown_features": [
+              {
+                "feature_id": "way/847401888",
+                "feature_index": 2,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847401890",
+                "feature_index": 4,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847402179",
+                "feature_index": 5,
+                "flooded_raw": null
+              }
+            ],
+            "negative_features": []
+          }
+        ],
+        "source_images": {
+          "pre": "/guisongxia01/pangchao/wangyihan/datasets/SpaceNet8/Germany_Training_Public/PRE-event/10500500C4DD7000_0_23_70.tif",
+          "post": "/guisongxia01/pangchao/wangyihan/datasets/SpaceNet8/Germany_Training_Public/POST-event/1040050035DC3B00_0_23_70.tif"
+        },
+        "source_license": "CC BY-SA 4.0",
+        "gt_rules": {
+          "version": "sn8-flood-candidate-v1",
+          "status": "pending_review",
+          "positive_flooded": [
+            "yes",
+            "true",
+            "1"
+          ],
+          "negative_flooded": [
+            "no",
+            "false",
+            "0"
+          ],
+          "unknown_policy": "ignore source geometry; ignore overrides positives",
+          "building_geometry": "original Polygon/MultiPolygon footprint",
+          "road_buffer_m": 3.0,
+          "road_buffer_crs": "local UTM from geometry centroid",
+          "road_buffer_resolution": 16,
+          "road_cap_style": "round",
+          "road_join_style": "round",
+          "all_touched": false,
+          "partial_flood_policy": "retain entire source feature marked flooded",
+          "grid": "native pre-event grid; post-event bilinear reprojected to this grid",
+          "claim": "flooded infrastructure coverage, not traffic passability"
+        },
+        "grid": {
+          "crs": "EPSG:4326",
+          "transform": [
+            3.74298035050102e-06,
+            0.0,
+            6.951779212581591,
+            0.0,
+            -3.74298035050102e-06,
+            50.47755439587604
+          ],
+          "width": 1300,
+          "height": 1300,
+          "bounds": [
+            6.951779212581591,
+            50.47268852142039,
+            6.956645087037242,
+            50.47755439587604
+          ]
+        },
+        "ignore_mask": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/task-review-20261113/t43-assets/small-v1/Germany_Training_Public/10500500C4DD7000_0_23_70/road_ignore.png",
+        "positive_pixels": 24612,
+        "ignore_pixels": 23851,
+        "road_sensitivity": {
+          "2.0": {
+            "positive_pixels": 16444,
+            "changed_pixels_from_3m": 8474
+          },
+          "4.0": {
+            "positive_pixels": 32522,
+            "changed_pixels_from_3m": 8416
+          }
+        },
+        "registration_status": "unverified_visual_alignment",
+        "definition_status": "pending_review"
+      }
+    }
+  ]
+}

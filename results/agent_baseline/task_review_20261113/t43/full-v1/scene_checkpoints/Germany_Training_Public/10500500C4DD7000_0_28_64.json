@@ -1,0 +1,653 @@
+{
+  "scene_id": "Germany_Training_Public/10500500C4DD7000_0_28_64",
+  "completed_targets": [
+    "building",
+    "road"
+  ],
+  "rows": [
+    {
+      "id": "t43-Germany_Training_Public-10500500C4DD7000_0_28_64-road",
+      "task_type": "T4.3",
+      "image_t1": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/task-review-20261113/t43-assets/small-v1/Germany_Training_Public/10500500C4DD7000_0_28_64/t1.png",
+      "image_t2": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/task-review-20261113/t43-assets/small-v1/Germany_Training_Public/10500500C4DD7000_0_28_64/t2.png",
+      "instruction": "Find the road segments flooded after the flood event. Output a binary mask.",
+      "target": "road",
+      "change_direction": "any",
+      "constraint": null,
+      "init_mask": null,
+      "gt_mask": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/task-review-20261113/t43-assets/small-v1/Germany_Training_Public/10500500C4DD7000_0_28_64/road_gt.png",
+      "meta": {
+        "review_id": "t43-Germany_Training_Public-10500500C4DD7000_0_28_64-road",
+        "data_version": "t43-candidate-v1",
+        "review_status": "pending_review",
+        "dataset": "SpaceNet8",
+        "split": "review_pool",
+        "source_split": "Training_Public",
+        "scene_id": "Germany_Training_Public/10500500C4DD7000_0_28_64",
+        "event_type": "flood",
+        "target_object": "road",
+        "impact_state": "flooded",
+        "aoi": {
+          "name": "Germany_Training_Public",
+          "crs": "EPSG:4326",
+          "bounds": [
+            6.976108584859848,
+            50.50188376815429,
+            6.980974459315499,
+            50.50674964260995
+          ]
+        },
+        "source_annotations": [
+          {
+            "path": "/guisongxia01/pangchao/wangyihan/datasets/SpaceNet8/Germany_Training_Public/annotations/0_28_64.geojson",
+            "version": "SpaceNet8 public training release",
+            "feature_ids": [
+              {
+                "feature_id": "way/847402029",
+                "feature_index": 1,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847402031",
+                "feature_index": 3,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847402032",
+                "feature_index": 4,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847402033",
+                "feature_index": 5,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847402034",
+                "feature_index": 6,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847402086",
+                "feature_index": 7,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847406321",
+                "feature_index": 9,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847406322",
+                "feature_index": 10,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847406323",
+                "feature_index": 11,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847406324",
+                "feature_index": 12,
+                "flooded_raw": "yes"
+              }
+            ],
+            "unknown_features": [
+              {
+                "feature_id": "way/847401996",
+                "feature_index": 0,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847402030",
+                "feature_index": 2,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847402120",
+                "feature_index": 8,
+                "flooded_raw": null
+              }
+            ],
+            "negative_features": []
+          }
+        ],
+        "source_images": {
+          "pre": "/guisongxia01/pangchao/wangyihan/datasets/SpaceNet8/Germany_Training_Public/PRE-event/10500500C4DD7000_0_28_64.tif",
+          "post": "/guisongxia01/pangchao/wangyihan/datasets/SpaceNet8/Germany_Training_Public/POST-event/10500500E6DD3C00_0_28_64.tif"
+        },
+        "source_license": "CC BY-SA 4.0",
+        "gt_rules": {
+          "version": "sn8-flood-candidate-v1",
+          "status": "pending_review",
+          "positive_flooded": [
+            "yes",
+            "true",
+            "1"
+          ],
+          "negative_flooded": [
+            "no",
+            "false",
+            "0"
+          ],
+          "unknown_policy": "ignore source geometry; ignore overrides positives",
+          "building_geometry": "original Polygon/MultiPolygon footprint",
+          "road_buffer_m": 3.0,
+          "road_buffer_crs": "local UTM from geometry centroid",
+          "road_buffer_resolution": 16,
+          "road_cap_style": "round",
+          "road_join_style": "round",
+          "all_touched": false,
+          "partial_flood_policy": "retain entire source feature marked flooded",
+          "grid": "native pre-event grid; post-event bilinear reprojected to this grid",
+          "claim": "flooded infrastructure coverage, not traffic passability"
+        },
+        "grid": {
+          "crs": "EPSG:4326",
+          "transform": [
+            3.74298035050102e-06,
+            0.0,
+            6.976108584859848,
+            0.0,
+            -3.74298035050102e-06,
+            50.50674964260995
+          ],
+          "width": 1300,
+          "height": 1300,
+          "bounds": [
+            6.976108584859848,
+            50.50188376815429,
+            6.980974459315499,
+            50.50674964260995
+          ]
+        },
+        "ignore_mask": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/task-review-20261113/t43-assets/small-v1/Germany_Training_Public/10500500C4DD7000_0_28_64/road_ignore.png",
+        "positive_pixels": 108333,
+        "ignore_pixels": 30033,
+        "road_sensitivity": {
+          "2.0": {
+            "positive_pixels": 72519,
+            "changed_pixels_from_3m": 36054
+          },
+          "4.0": {
+            "positive_pixels": 143944,
+            "changed_pixels_from_3m": 35955
+          }
+        },
+        "registration_status": "unverified_visual_alignment",
+        "definition_status": "pending_review"
+      }
+    },
+    {
+      "id": "t43-Germany_Training_Public-10500500C4DD7000_0_28_64-building",
+      "task_type": "T4.3",
+      "image_t1": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/task-review-20261113/t43-assets/small-v1/Germany_Training_Public/10500500C4DD7000_0_28_64/t1.png",
+      "image_t2": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/task-review-20261113/t43-assets/small-v1/Germany_Training_Public/10500500C4DD7000_0_28_64/t2.png",
+      "instruction": "Find the buildings flooded after the flood event. Output a binary mask.",
+      "target": "building",
+      "change_direction": "any",
+      "constraint": null,
+      "init_mask": null,
+      "gt_mask": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/task-review-20261113/t43-assets/small-v1/Germany_Training_Public/10500500C4DD7000_0_28_64/building_gt.png",
+      "meta": {
+        "review_id": "t43-Germany_Training_Public-10500500C4DD7000_0_28_64-building",
+        "data_version": "t43-candidate-v1",
+        "review_status": "pending_review",
+        "dataset": "SpaceNet8",
+        "split": "review_pool",
+        "source_split": "Training_Public",
+        "scene_id": "Germany_Training_Public/10500500C4DD7000_0_28_64",
+        "event_type": "flood",
+        "target_object": "building",
+        "impact_state": "flooded",
+        "aoi": {
+          "name": "Germany_Training_Public",
+          "crs": "EPSG:4326",
+          "bounds": [
+            6.976108584859848,
+            50.50188376815429,
+            6.980974459315499,
+            50.50674964260995
+          ]
+        },
+        "source_annotations": [
+          {
+            "path": "/guisongxia01/pangchao/wangyihan/datasets/SpaceNet8/Germany_Training_Public/annotations/0_28_64.geojson",
+            "version": "SpaceNet8 public training release",
+            "feature_ids": [
+              {
+                "feature_id": "way/847403274",
+                "feature_index": 13,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847403276",
+                "feature_index": 14,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847403279",
+                "feature_index": 15,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847403284",
+                "feature_index": 16,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847403285",
+                "feature_index": 17,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847403286",
+                "feature_index": 18,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847403290",
+                "feature_index": 19,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847403294",
+                "feature_index": 20,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847403295",
+                "feature_index": 21,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847403297",
+                "feature_index": 22,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847403298",
+                "feature_index": 23,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847403300",
+                "feature_index": 24,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847403301",
+                "feature_index": 25,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847403302",
+                "feature_index": 26,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847403307",
+                "feature_index": 27,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847403309",
+                "feature_index": 28,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847403312",
+                "feature_index": 29,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847403313",
+                "feature_index": 30,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847403314",
+                "feature_index": 31,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847403317",
+                "feature_index": 32,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847403318",
+                "feature_index": 33,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847403319",
+                "feature_index": 34,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847403322",
+                "feature_index": 35,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847403324",
+                "feature_index": 36,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847403325",
+                "feature_index": 37,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847403326",
+                "feature_index": 38,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847403425",
+                "feature_index": 39,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847403426",
+                "feature_index": 40,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847403427",
+                "feature_index": 41,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847403428",
+                "feature_index": 42,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847403429",
+                "feature_index": 43,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847403430",
+                "feature_index": 44,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847403431",
+                "feature_index": 45,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847403432",
+                "feature_index": 46,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847403433",
+                "feature_index": 47,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847403435",
+                "feature_index": 49,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847403436",
+                "feature_index": 50,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847403437",
+                "feature_index": 51,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847403438",
+                "feature_index": 52,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847403439",
+                "feature_index": 53,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847403440",
+                "feature_index": 54,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847403441",
+                "feature_index": 55,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847403442",
+                "feature_index": 56,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847403443",
+                "feature_index": 57,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847403444",
+                "feature_index": 58,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847403445",
+                "feature_index": 59,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847403446",
+                "feature_index": 60,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847403447",
+                "feature_index": 61,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847403448",
+                "feature_index": 62,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847403449",
+                "feature_index": 63,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847403450",
+                "feature_index": 64,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847403451",
+                "feature_index": 65,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847403454",
+                "feature_index": 66,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847403455",
+                "feature_index": 67,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847403456",
+                "feature_index": 68,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847403457",
+                "feature_index": 69,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847403458",
+                "feature_index": 70,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847403459",
+                "feature_index": 71,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847403460",
+                "feature_index": 72,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847403461",
+                "feature_index": 73,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847403468",
+                "feature_index": 74,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847403469",
+                "feature_index": 75,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847406159",
+                "feature_index": 76,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847406165",
+                "feature_index": 77,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847406166",
+                "feature_index": 78,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847406172",
+                "feature_index": 79,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847406173",
+                "feature_index": 80,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847406174",
+                "feature_index": 81,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847406193",
+                "feature_index": 82,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847406194",
+                "feature_index": 83,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847406195",
+                "feature_index": 84,
+                "flooded_raw": "yes"
+              }
+            ],
+            "unknown_features": [
+              {
+                "feature_id": "way/847403434",
+                "feature_index": 48,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847406847",
+                "feature_index": 85,
+                "flooded_raw": null
+              },
+              {
+                "feature_id": "way/847406848",
+                "feature_index": 86,
+                "flooded_raw": null
+              }
+            ],
+            "negative_features": []
+          }
+        ],
+        "source_images": {
+          "pre": "/guisongxia01/pangchao/wangyihan/datasets/SpaceNet8/Germany_Training_Public/PRE-event/10500500C4DD7000_0_28_64.tif",
+          "post": "/guisongxia01/pangchao/wangyihan/datasets/SpaceNet8/Germany_Training_Public/POST-event/10500500E6DD3C00_0_28_64.tif"
+        },
+        "source_license": "CC BY-SA 4.0",
+        "gt_rules": {
+          "version": "sn8-flood-candidate-v1",
+          "status": "pending_review",
+          "positive_flooded": [
+            "yes",
+            "true",
+            "1"
+          ],
+          "negative_flooded": [
+            "no",
+            "false",
+            "0"
+          ],
+          "unknown_policy": "ignore source geometry; ignore overrides positives",
+          "building_geometry": "original Polygon/MultiPolygon footprint",
+          "road_buffer_m": 3.0,
+          "road_buffer_crs": "local UTM from geometry centroid",
+          "road_buffer_resolution": 16,
+          "road_cap_style": "round",
+          "road_join_style": "round",
+          "all_touched": false,
+          "partial_flood_policy": "retain entire source feature marked flooded",
+          "grid": "native pre-event grid; post-event bilinear reprojected to this grid",
+          "claim": "flooded infrastructure coverage, not traffic passability"
+        },
+        "grid": {
+          "crs": "EPSG:4326",
+          "transform": [
+            3.74298035050102e-06,
+            0.0,
+            6.976108584859848,
+            0.0,
+            -3.74298035050102e-06,
+            50.50674964260995
+          ],
+          "width": 1300,
+          "height": 1300,
+          "bounds": [
+            6.976108584859848,
+            50.50188376815429,
+            6.980974459315499,
+            50.50674964260995
+          ]
+        },
+        "ignore_mask": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/task-review-20261113/t43-assets/small-v1/Germany_Training_Public/10500500C4DD7000_0_28_64/building_ignore.png",
+        "positive_pixels": 46013,
+        "ignore_pixels": 836,
+        "road_sensitivity": null,
+        "registration_status": "unverified_visual_alignment",
+        "definition_status": "pending_review"
+      }
+    }
+  ]
+}

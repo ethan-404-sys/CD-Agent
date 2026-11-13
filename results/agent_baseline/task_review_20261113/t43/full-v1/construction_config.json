@@ -1,0 +1,30 @@
+{
+  "dataset": "/guisongxia01/pangchao/wangyihan/datasets/SpaceNet8",
+  "assets": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/task-review-20261113/t43-assets/small-v1",
+  "version": "t43-candidate-v1",
+  "rules": {
+    "version": "sn8-flood-candidate-v1",
+    "status": "pending_review",
+    "positive_flooded": [
+      "yes",
+      "true",
+      "1"
+    ],
+    "negative_flooded": [
+      "no",
+      "false",
+      "0"
+    ],
+    "unknown_policy": "ignore source geometry; ignore overrides positives",
+    "building_geometry": "original Polygon/MultiPolygon footprint",
+    "road_buffer_m": 3.0,
+    "road_buffer_crs": "local UTM from geometry centroid",
+    "road_buffer_resolution": 16,
+    "road_cap_style": "round",
+    "road_join_style": "round",
+    "all_touched": false,
+    "partial_flood_policy": "retain entire source feature marked flooded",
+    "grid": "native pre-event grid; post-event bilinear reprojected to this grid",
+    "claim": "flooded infrastructure coverage, not traffic passability"
+  }
+}

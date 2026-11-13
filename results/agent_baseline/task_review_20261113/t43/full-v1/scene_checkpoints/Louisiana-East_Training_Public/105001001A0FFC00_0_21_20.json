@@ -1,0 +1,307 @@
+{
+  "scene_id": "Louisiana-East_Training_Public/105001001A0FFC00_0_21_20",
+  "completed_targets": [
+    "building"
+  ],
+  "rows": [
+    {
+      "id": "t43-Louisiana-East_Training_Public-105001001A0FFC00_0_21_20-building",
+      "task_type": "T4.3",
+      "image_t1": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/task-review-20261113/t43-assets/small-v1/Louisiana-East_Training_Public/105001001A0FFC00_0_21_20/t1.png",
+      "image_t2": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/task-review-20261113/t43-assets/small-v1/Louisiana-East_Training_Public/105001001A0FFC00_0_21_20/t2.png",
+      "instruction": "Find the buildings flooded after the flood event. Output a binary mask.",
+      "target": "building",
+      "change_direction": "any",
+      "constraint": null,
+      "init_mask": null,
+      "gt_mask": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/task-review-20261113/t43-assets/small-v1/Louisiana-East_Training_Public/105001001A0FFC00_0_21_20/building_gt.png",
+      "meta": {
+        "review_id": "t43-Louisiana-East_Training_Public-105001001A0FFC00_0_21_20-building",
+        "data_version": "t43-candidate-v1",
+        "review_status": "pending_review",
+        "dataset": "SpaceNet8",
+        "split": "review_pool",
+        "source_split": "Training_Public",
+        "scene_id": "Louisiana-East_Training_Public/105001001A0FFC00_0_21_20",
+        "event_type": "flood",
+        "target_object": "building",
+        "impact_state": "flooded",
+        "aoi": {
+          "name": "Louisiana-East_Training_Public",
+          "crs": "EPSG:4326",
+          "bounds": [
+            -89.9562525650981,
+            29.62964795182516,
+            -89.95026753951765,
+            29.635632977405606
+          ]
+        },
+        "source_annotations": [
+          {
+            "path": "/guisongxia01/pangchao/wangyihan/datasets/SpaceNet8/Louisiana-East_Training_Public/annotations/0_21_20.geojson",
+            "version": "SpaceNet8 public training release",
+            "feature_ids": [
+              {
+                "feature_id": "way/847379484",
+                "feature_index": 0,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847379485",
+                "feature_index": 1,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847379487",
+                "feature_index": 2,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847379488",
+                "feature_index": 3,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847379489",
+                "feature_index": 4,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847379490",
+                "feature_index": 5,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847379491",
+                "feature_index": 6,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847379492",
+                "feature_index": 7,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847379496",
+                "feature_index": 8,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847379498",
+                "feature_index": 9,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847379499",
+                "feature_index": 10,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847379500",
+                "feature_index": 11,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847379501",
+                "feature_index": 12,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847379502",
+                "feature_index": 13,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847380012",
+                "feature_index": 14,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847380013",
+                "feature_index": 15,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847380014",
+                "feature_index": 16,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847380015",
+                "feature_index": 17,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847380016",
+                "feature_index": 18,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847380017",
+                "feature_index": 19,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847380018",
+                "feature_index": 20,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847380019",
+                "feature_index": 21,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847380020",
+                "feature_index": 22,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847380021",
+                "feature_index": 23,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847380022",
+                "feature_index": 24,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847380023",
+                "feature_index": 25,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847380024",
+                "feature_index": 26,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847380025",
+                "feature_index": 27,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847380026",
+                "feature_index": 28,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847380034",
+                "feature_index": 29,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847380035",
+                "feature_index": 30,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847380042",
+                "feature_index": 31,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847380043",
+                "feature_index": 32,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847380045",
+                "feature_index": 33,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847380046",
+                "feature_index": 34,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847380047",
+                "feature_index": 35,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847380048",
+                "feature_index": 36,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847380049",
+                "feature_index": 37,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847380050",
+                "feature_index": 38,
+                "flooded_raw": "yes"
+              },
+              {
+                "feature_id": "way/847380051",
+                "feature_index": 39,
+                "flooded_raw": "yes"
+              }
+            ],
+            "unknown_features": [],
+            "negative_features": []
+          }
+        ],
+        "source_images": {
+          "pre": "/guisongxia01/pangchao/wangyihan/datasets/SpaceNet8/Louisiana-East_Training_Public/PRE-event/105001001A0FFC00_0_21_20.tif",
+          "post": "/guisongxia01/pangchao/wangyihan/datasets/SpaceNet8/Louisiana-East_Training_Public/POST-event/10300100C46F5900_0_21_20.tif"
+        },
+        "source_license": "CC BY-SA 4.0",
+        "gt_rules": {
+          "version": "sn8-flood-candidate-v1",
+          "status": "pending_review",
+          "positive_flooded": [
+            "yes",
+            "true",
+            "1"
+          ],
+          "negative_flooded": [
+            "no",
+            "false",
+            "0"
+          ],
+          "unknown_policy": "ignore source geometry; ignore overrides positives",
+          "building_geometry": "original Polygon/MultiPolygon footprint",
+          "road_buffer_m": 3.0,
+          "road_buffer_crs": "local UTM from geometry centroid",
+          "road_buffer_resolution": 16,
+          "road_cap_style": "round",
+          "road_join_style": "round",
+          "all_touched": false,
+          "partial_flood_policy": "retain entire source feature marked flooded",
+          "grid": "native pre-event grid; post-event bilinear reprojected to this grid",
+          "claim": "flooded infrastructure coverage, not traffic passability"
+        },
+        "grid": {
+          "crs": "EPSG:4326",
+          "transform": [
+            4.603865831112476e-06,
+            0.0,
+            -89.9562525650981,
+            0.0,
+            -4.603865831112476e-06,
+            29.635632977405606
+          ],
+          "width": 1300,
+          "height": 1300,
+          "bounds": [
+            -89.9562525650981,
+            29.62964795182516,
+            -89.95026753951765,
+            29.635632977405606
+          ]
+        },
+        "ignore_mask": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/task-review-20261113/t43-assets/small-v1/Louisiana-East_Training_Public/105001001A0FFC00_0_21_20/building_ignore.png",
+        "positive_pixels": 45750,
+        "ignore_pixels": 37,
+        "road_sensitivity": null,
+        "registration_status": "unverified_visual_alignment",
+        "definition_status": "pending_review"
+      }
+    }
+  ]
+}
