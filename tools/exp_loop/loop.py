@@ -52,6 +52,9 @@ def job_state(jid):
 def finish(s,reason,failed=False):
     s.update(status='failed' if failed else 'done',stop_reason=reason,
              finalize_requested=True,finalized=False,finished_at=now())
+    started=s.get('started_epoch')
+    if started is None: started=time.mktime(time.strptime(s['started_at'],'%Y-%m-%d %H:%M:%S'))
+    s['elapsed_seconds']=round(time.time()-started,1)
     if failed: s['error']=reason
 
 
@@ -153,7 +156,7 @@ def init(exp):
         s=dict(name=cfg.get('name',exp.name),status='running' if jobs and cfg.get('auto_start',True) else 'ready',
             queue=jobs,done=[],current=None,job_id=None,hook_id=None,rounds=0,rounds_submitted=0,
             primary_best=cfg.get('initial_primary'),cost_cny=0.,no_gain=0,finalized=False,
-            finalize_requested=False,started_at=now(),history=[],driver='dependency',recorded_current=False)
+            finalize_requested=False,started_at=now(),started_epoch=time.time(),history=[],driver='dependency',recorded_current=False)
         save(exp,s)
         if s['status']=='running': submit_round(exp,cfg,s)
     return status(exp)
@@ -222,7 +225,7 @@ def git_finalize(exp,cfg,s):
     if not paths or any(p in ('.','*') or Path(p).is_absolute() or '..' in Path(p).parts for p in paths):
         raise ValueError('git.paths must explicitly name experiment files inside repo')
     export=settings.get('state_export')
-    if export:
+    if export and not s.get('git_committed'):
         if Path(export).is_absolute() or '..' in Path(export).parts:
             raise ValueError('state_export must be inside repo')
         target=repo/export;target.parent.mkdir(parents=True,exist_ok=True)
@@ -261,7 +264,7 @@ def finalize(exp):
             if cfg.get('notify',True) and not s.get('notified'):
                 body=(f"{s['name']}: {s['status']}; rounds={s['rounds']}; best={s['primary_best']}; "
                       f"cost={s['cost_cny']} CNY; reason={s.get('stop_reason')}; "
-                      f"started={s.get('started_at')}; ended={s.get('finished_at')}; artifacts={exp}; "
+                      f"elapsed_seconds={s.get('elapsed_seconds')}; started={s.get('started_at')}; ended={s.get('finished_at')}; artifacts={exp}; "
                       f"repo={(cfg.get('git') or {}).get('repo','-')}")
                 rc,_,err=run([QQ],env=dict(os.environ,QQ_SUB=f"[{s['name']}] {s['status']}",QQ_BODY=body))
                 if rc: raise ValueError('QQ failed: '+err[-300:])
