@@ -54,6 +54,13 @@ def sessions(root,configs=None,include_test=False):
                     if item.is_dir():yield cfg.name,task.name,split.name,item
 
 
+def empty_session(directory):
+    """Observed initialization-only directory; missing metadata with real logs remains an error."""
+    return not (directory/'input.json').exists() and not (directory/'final.json').exists() and all(
+        not (directory/name).exists() or (directory/name).stat().st_size==0
+        for name in ('steps.jsonl','messages.jsonl'))
+
+
 def audit(item):
     config,task,split,directory=item
     meta=json.loads((directory/'input.json').read_text())
@@ -145,22 +152,30 @@ def main():
     parser.add_argument('--recheck-other-errors',action='store_true',help='Reclassify only previously non-coordinate bad_args, preserving all prior journal entries.')
     args=parser.parse_args();args.output.mkdir(parents=True,exist_ok=True)
     journal=args.output/'sessions.jsonl';rows=list({r['session']:r for r in load_journal(journal)}.values());done={r['session'] for r in rows};failures=[]
+    excluded_path=args.output/'empty_sessions.json'
+    excluded=json.loads(excluded_path.read_text()) if excluded_path.exists() else []
     def work(item):
-        try:return audit(item),None
+        try:
+            if empty_session(item[3]):return None,dict(session=str(item[3]),excluded='initialization_only_no_metadata_or_steps')
+            return audit(item),None
         except (OSError,ValueError,KeyError,TypeError) as error:return None,dict(session=str(item[3]),error=str(error))
     pending=(iter((r['config'],r['task'],r['split'],Path(r['session'])) for r in rows if r['other_bad_args']) if args.recheck_other_errors else
              (item for item in sessions(args.root,args.config,args.include_test_logs) if str(item[3]) not in done))
     with journal.open('a') as sink,ThreadPoolExecutor(max_workers=args.workers) as pool:
         while batch:=list(itertools.islice(pending,args.workers*4)):
             for row,error in pool.map(work,batch):
+                if error and error.get('excluded'):
+                    if error not in excluded:excluded.append(error)
+                    write_json(excluded_path,excluded);continue
                 if error:
                     failures.append(error);write_json(args.output/'read_failures.json',failures);continue
                 sink.write(json.dumps(row,ensure_ascii=False)+'\n');sink.flush();rows.append(row)
                 if len(rows)%100==0:print('sessions_saved='+str(len(rows)),flush=True)
     rows=list({r['session']:r for r in rows}.values())
+    write_json(args.output/'read_failures.json',failures)
     report(rows,args.output,failures)
     if args.dev_manifest:select_dev(rows,args.dev_manifest,args.output)
-    write_json(args.output/'metric.json',dict(sessions=len(rows),read_failures=len(failures),cost_cny=0))
+    write_json(args.output/'metric.json',dict(sessions=len(rows),read_failures=len(failures),empty_sessions=len(excluded),cost_cny=0))
     print(f'Completed sessions={len(rows)} read_failures={len(failures)}',flush=True)
     if failures:raise SystemExit('Read failures retained; investigate before calling coverage complete')
 
