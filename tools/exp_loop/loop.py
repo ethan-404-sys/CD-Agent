@@ -129,7 +129,7 @@ def read_metric(exp,cfg,s):
 def record(exp,cfg,s,state,ec):
     error=None
     try: metric=read_metric(exp,cfg,s)
-    except (ValueError,IndexError,TypeError) as e: metric={};error=str(e)
+    except (ValueError,IndexError,TypeError,OSError) as e: metric={};error=str(e)
     primary=metric.get('primary');cost=metric.get('cost_cny',0)
     s['cost_cny']=round(s['cost_cny']+cost,6)
     gain=None
