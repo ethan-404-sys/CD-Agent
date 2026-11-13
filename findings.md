@@ -124,3 +124,7 @@ exp-loop修复验证：16项测试通过；tick只补控制hook，不读指标�
 view.box_pixels把坐标越界与框顺序/空框合并成同一句bad_args。审计必须再按image_shape数值验证，不能按bad_args或该句文本直接计数；box_too_large是不同错误，不计入坐标越界。Gate6当前只提供原图尺寸与坐标说明，没有裁剪错误坐标或更改图像；是否降低模型错误须用开发10任务配对检验。
 
 新分析回归9项已在计算节点通过，含remove_region保留ID的轮廓匹配与断点尾行恢复。抽核train_1136/T1.3/g5dev：历史错误为box_too_large，不是坐标越界；核验26个不同历史轮廓中21个参与最终决策，其余被后续重叠轮廓覆盖，需单列superseded而非误报缺失。正常submit预核验报告排除异常计数；未看图就服从核验意见不等同于已证实盲信。
+
+百炼预检更正：旧脚本的代理探测与直连探测复用同一urllib Request，ProxyHandler会修改请求，原Connection refused不能证明计算节点直连失败。仅CSV workspace端点、清空代理、新建请求；保留HTTP状态，成功后移除临时预检。用户已提供gpu42 200/182模型的验证。
+
+连接子阶段收尾：184009取消后184010正常回传，已add --finish，不再重试。事件中gpu43网络信息来自上一轮旧文件，不能算取消作业的结果。已删除tools/exp_loop/gate6_preflight.py；配对准备器采用用户确认的gpu42，移除旧失败记录拦截。

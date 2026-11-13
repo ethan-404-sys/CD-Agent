@@ -73,6 +73,8 @@ Gate6 已实现独立默认关闭开关（原图尺寸、特征分位数），�
 
 ## 0.3 执行与文档规则（2026-11-13，优先于旧记录）
 
+- 每次简短汇报附“后台任务”清单，列出本轮未结束作业的名称/阶段与Job ID，并区分exp-loop未结束状态、已完成和尚未提交；不把提交成功当作Slurm实际RUNNING。
+
 - 长实验统一走 `/guisongxia01/pangchao/wangyihan/wyh/exp-loop`。agent 仅用 `init` 建队列、`add` 追加一轮、`status` 看结果；不自行调用 `advance` / `tick` / `finalize` / `stop`，不直接提交长实验，不写监控循环，不在回合内 sleep 等作业。
 - 每轮提交时自动建立 `--dependency=afterany:<job_id>` 的 hook。父作业结束后 hook 记录结果/错误并回传当前模型会话；由 agent 结合研究目标决定修复重试、补实验、继续或收尾。取消默认“连续两轮不足1分”判停，作业/指标失败不等于整个研究失败，队列为空也先交回结果。
 - watchdog 由 crontab 每分钟运行，只负责本项目已绑定实验的 hook 修复、遗漏事件回传、Git/QQ 收尾；不推进研究轮次。管理节点接收器等待 hook 网络事件，不查询 Slurm、不轮询实验；agent 不 sleep 等作业。
@@ -1896,6 +1898,8 @@ compare_features 保留分数及实例，仅添加 score_quantiles（min/p10/p25
 
 ### 2026-11-13 本轮实际验证（进行中）
 
+百炼只使用CSV中的openAiCompatible workspace端点；计算节点清空代理，GET /models返回200才算通过。日志必须含node、endpoint_host、HTTP状态、using_proxy；401/403/404按配置问题处理。用户已验证gpu42返回200/182模型。此前预检复用被ProxyHandler修改的Request，所谓直连失败无效；不据此停工，成功确认后删除临时预检脚本。
+
 - `analysis/coordinate_audit.py`：严格同时核对bad_args消息、原图shape与坐标，排除仅框顺序错误、字段错误和box_too_large；逐会话journal、按数据/任务/配置/划分汇总。开发60清单内优先选历史越界最多的10任务，不使用报告/测试图选任务。
 - `analysis/trace_behavior.py --extended`（实现拆分在trace_extended.py）：复用既有基础journal，只补新指标；包含标准化参数重复、2–4步循环、原生请求被Harness过滤、失败后重试、状态切换/更好候选放弃、核验轮廓最终保留/删除及跟随核验意见的像素反事实F1。标准化不改变坐标顺序；remove_region保留ID，空间复核沿归档重建ID。
 - “没有重新view就跟随意见”只是行为观察，不能直接证明盲信；像素反事实不是验证器的因果贡献；空掩码、set_current=false、提交通知也不能直接标为Bug。缺少归档/真值时显式统计不可计算案例。
@@ -2187,3 +2191,5 @@ hook 直接回传为主路径；接口不可达时 `review.delivery=pending` 并
 | `code/ovcd_v0/mllm.py`、`prompts.py` | Qwen3.5-4B 批量推理、yes/no 读数、口径卡 |
 | `code/ovcd_v0/page/` | v0 审核页的生成脚本和 CSS，回放页可参考 |
 | `results/ovcd_v0_baseline.md` | 11 轮的经验：SAM3 用 512² 分块召回更高；按变化分数升序核实最有效；Qwen3.5-4B 核实 AUC 0.85 但面积加权只有 0.69 |
+
+2026-11-13连接检查收尾：临时gate6_preflight.py已删除。184009实际未执行、因GPU资源等待而取消，184010成功回传；其附带旧gpu43指标不构成新测量。正式配对采用用户验证的gpu42/CSV workspace端点/清空代理，不再以旧预检失败拦截。

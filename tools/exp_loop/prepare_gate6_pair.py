@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Write the paired job after the same-node preflight has succeeded; does not submit."""
+"""Write the paired job using the user-confirmed compute node; does not submit."""
 import json
 from pathlib import Path
 import re
@@ -7,12 +7,9 @@ import shlex
 
 repo=Path(__file__).resolve().parents[2]
 runtime=repo/'.runtime/gate6-actual-20261113';exp=repo.parent/'exp-loop/experiments/cd-gate6-actual-20261113'
-probe=json.loads((runtime/'compute_preflight.json').read_text())
-manager=json.loads((runtime/'management_preflight.json').read_text())
-if probe['direct'].get('http_status')!=200 or manager['direct'].get('http_status')!=200 or not probe['gpu_visible'] or probe['missing_paths']:
-    raise SystemExit('Need successful management and compute direct endpoint/path/GPU preflight')
-node=probe['node']
-if not re.fullmatch(r'[A-Za-z0-9_-]+',node):raise SystemExit('Unexpected node name')
+# User confirmed gpu42 + CSV workspace endpoint: HTTP 200, 182 models.
+# This is user-provided evidence, not a measurement by the cancelled probe.
+node='gpu42'
 manifest=runtime/'coordinate_checkpoint/paired_tasks.jsonl'
 tasks=[json.loads(line) for line in manifest.read_text().splitlines() if line.strip()]
 if len(tasks)!=10:raise SystemExit('Need exactly 10 paired development tasks')

@@ -128,3 +128,16 @@
 
 - 轨迹补充队列的9项回归已全部通过（61.147秒）；已逐会话保存扩展结果。新增报告排除正常提交前核验，明确覆盖/循环/无效重试及空间反事实解释边界。
 - Gate6在线脚本、配对报告与失败账本归档已准备；先完成节点预检再固定节点提交。配对统计包含原生重复请求被Harness过滤的情况，避免只统计已执行工具调用而漏计无效重试。
+
+- 阶段实现和进行中计划已提交推送，未把运行结果标为完成。为了缩短关键路径，GPU节点预检独立通过exp-loop init启动cd-gate6-nodeprobe-20261113（job183988/hook183989）；主Gate6队列02改为CPU差异复核与配对报告单测，不重复申请GPU预检。Agent模型推理尚未启动。
+
+- 节点预检job183988失败：gpu42的GPU/全部模型路径正常，继承代理和直连均无HTTP响应；日志exp-loop/experiments/cd-gate6-nodeprobe-20261113/logs/probe-183988.{out,err}，失败证据归档preflight/gpu42_failed.json。另修复本预检metric输出多行JSON导致hook解析失败的问题。没有付费推理。修复诊断信息并固定gpu43进行下一次节点探测。
+- 成本台账：2026-11-13 / gpu42失败预检与gpu43差异验证 / API ¥0 / API ¥0。
+
+- 同步修复新轨迹队列的metric适配器：将产物JSON解析后压成单行交给exp-loop，避免分析本身成功后却因格式被报作指标读取失败。只改本轮适配脚本，不重跑分析。
+
+- 用户确认gpu42+CSV workspace端点已200（182模型）。定位我预检的实现错误：先经代理打开的urllib Request会被ProxyHandler修改，随后直连复用同一Request，不能当作有效直连探测。改为仅使用CSV workspace端点、清空代理、创建全新Request；补齐node/endpoint_host/HTTP状态/using_proxy输出。旧两次失败不再作为停工依据。成功后删除临时预检脚本。
+
+- 连接检查未回传的实际原因已核实：184009为PENDING(Resources)，Elapsed=0；184010为PENDING(Dependency)。不是hook丢事件，而是多余GPU资源请求造成排队。依据用户已验证gpu42 workspace 200，取消本实验184009；保留hook和历史记录，收到取消事件后明确finish，不再重试连接检查。
+
+连接子阶段收尾：184009取消后184010正常回传，已add --finish，不再重试。事件中gpu43网络信息来自上一轮旧文件，不能算取消作业的结果。已删除tools/exp_loop/gate6_preflight.py；配对准备器采用用户确认的gpu42，移除旧失败记录拦截。
