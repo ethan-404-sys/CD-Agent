@@ -1,0 +1,89 @@
+{
+  "name": "cd-loop-chain-20261113",
+  "status": "done",
+  "queue": [
+    "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-loop-chain-20261113/jobs/04.sbatch"
+  ],
+  "done": [
+    "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-loop-chain-20261113/jobs/01.sbatch",
+    "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-loop-chain-20261113/jobs/02.sbatch",
+    "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-loop-chain-20261113/jobs/03.sbatch"
+  ],
+  "current": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-loop-chain-20261113/jobs/03.sbatch",
+  "job_id": "183947",
+  "hook_id": "183948",
+  "rounds": 3,
+  "rounds_submitted": 3,
+  "primary_best": 10.8,
+  "cost_cny": 0.0,
+  "no_gain": 2,
+  "finalized": false,
+  "finalize_requested": true,
+  "started_at": "2026-11-13 03:13:14",
+  "started_epoch": 1794539594.7725487,
+  "history": [
+    {
+      "job": "01.sbatch",
+      "job_id": "183943",
+      "hook_id": "183944",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": 10,
+      "gain": null,
+      "cost_cny": 0,
+      "metric": {
+        "round": 1,
+        "primary": 10,
+        "cost_cny": 0,
+        "purpose": "dependency-chain validation; no model or dataset"
+      },
+      "metric_error": null,
+      "at": "2026-11-13 03:13:18"
+    },
+    {
+      "job": "02.sbatch",
+      "job_id": "183945",
+      "hook_id": "183946",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": 10.4,
+      "gain": 0.40000000000000036,
+      "cost_cny": 0,
+      "metric": {
+        "round": 2,
+        "primary": 10.4,
+        "cost_cny": 0,
+        "purpose": "dependency-chain validation; no model or dataset"
+      },
+      "metric_error": null,
+      "at": "2026-11-13 03:13:23"
+    },
+    {
+      "job": "03.sbatch",
+      "job_id": "183947",
+      "hook_id": "183948",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": 10.8,
+      "gain": 0.40000000000000036,
+      "cost_cny": 0,
+      "metric": {
+        "round": 3,
+        "primary": 10.8,
+        "cost_cny": 0,
+        "purpose": "dependency-chain validation; no model or dataset"
+      },
+      "metric_error": null,
+      "at": "2026-11-13 03:13:29"
+    }
+  ],
+  "driver": "dependency",
+  "recorded_current": true,
+  "submitted_at": "2026-11-13 03:13:23",
+  "last_advance_at": "2026-11-13 03:13:23",
+  "hook_attempts": 3,
+  "stop_reason": "no gain for consecutive rounds",
+  "finished_at": "2026-11-13 03:13:29",
+  "elapsed_seconds": 14.8,
+  "finalize_attempts": 1
+}
