@@ -184,3 +184,17 @@ view.box_pixels把坐标越界与框顺序/空框合并成同一句bad_args。�
 
 
 2026-11-13 §10.18 A完成：20条互异会话，四类各5，3数据集/11任务/15配置；逐步工具与掩码审查，确认9、误报5、部分3、未确认3（针对入选信号，不是整体错误率）。完整回放、GitHub可读逐步Markdown及20_case_review.md/json已生成且页面检查通过。下一阶段只试显式当前答案切换这一机制，先冻结开发困难/简单保护集，不动T1.3/T3/Gate6/显示/扩边。成本预估/实际API¥0。
+
+
+## 2026-11-13 新数据方案核对：T4.3 洪水影响 / T4.4 空间指代（**仅资料与文档核对**）
+
+**历史资产（GitHub已有，不是本轮新产物）**：
+
+1. `code/agent_baseline/analysis/make_construct_tasks.py` 已实现 SECOND `r3_truth` / `r3_tasks`：新建筑目标T1≠5/T2=5，参考物限定为同样**新出现**的水面或运动场；`d=20`像素，8连通整组件按距离保留。旧 §10.12 记录 train 2,968 图中合资格非空图218张，历史生成 T4.4/R3 **report128 + dev64**，report中20张来自原297验证图、108张从其它train补；这不是完整空间指代任务，数据分布和划分必须重新核对，且旧样例未获本批全部人工批准。SECOND `slabel1/slabel2` 中 0 是未变化/未标类，**不能把不变水体/运动场从该标签反推出来**。
+2. **T4.3 旧 R1 已作废**：旧 `make_construct_tasks.py` 的 `r1_rows` 是 SECOND 两期语义变化推导的泛用途任务，历史亦命名 T4.3，但**与此次新定义“洪水事件影响分析”不同**，不得把旧128 R1充当SpaceNet8候选。旧代码和历史指标保留。
+3. `audit/verifier_ui/task_data_import.py` 只从旧 R1/R2/R3/T4.1 中每组抽3例；`task_data_api.py` 的审核状态是 `reasonable/unreasonable` 或空，`task_data_store.py` 只写旧 `task_example` 表；`static/task_data.js` 已有审查渲染和GT叠加函数，但当前页导航侧重屋顶颜色组件。应复用 FastAPI + SQLite + 现有静态布局、图像渲染，做**全量逐条审查**的版本化新任务表/API；不能将旧合理票自动当作新批准。
+4. SpaceNet8 官方挑战数据确实面向 flooded / non-flooded roads and buildings（来源 [SpaceNetChallenge官方GitHub](https://github.com/SpaceNetChallenge/SpaceNet8)、[SpaceNet官方挑战页](https://spacenet.ai/sn8-challenge/)）；但**GitHub仓库未发现本项目的现成SpaceNet8任务构造器或本地数据库存清单**。是否存在服务器本地副本/完整矢量标签与pre/post影像，仍待服务器实际盘点。SpaceNet8的道路线、建筑几何及受淹标记不能等同于“水淹像素掩码”，rasterize口径必须预先冻结。
+
+**用户本轮决定（不是审核结果）**：T4.3仅用SpaceNet8，受淹道路64+建筑64目标128；T4.4以SECOND为主、必要时补有可靠参照来源的LEVIR/WHU，目标128。相对方位、邻近、包含/围绕都须可复算，优先能从多个候选中筛出关系目标的图。任务每条默认 `pending_review`，Ethan决定 `approved / needs_revision / excluded`，批准且QC通过才进入正式评测；不准凑数。当前只改GitHub文档，**没有在服务器执行数据生成、Slurm、下载、API或人工审查**。
+
+**仍需以后用真实数据核实、不可提前宣称**：SpaceNet8 GT能生成的合法样本量和道路线栅格化参数；每个AOI/scene的划分防泄漏；SECOND R3旧样本是否满足新“空间关系有筛选效果”条件；是否能覆盖方位、包含/围绕且参照物真正可识别；新增任务多少条有有效正GT、多少条为预先定义的合法空GT。用户需在审核页面逐条确认，未批准不得进入报告实验。
