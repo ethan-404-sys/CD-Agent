@@ -128,3 +128,8 @@ view.box_pixels把坐标越界与框顺序/空框合并成同一句bad_args。�
 百炼预检更正：旧脚本的代理探测与直连探测复用同一urllib Request，ProxyHandler会修改请求，原Connection refused不能证明计算节点直连失败。仅CSV workspace端点、清空代理、新建请求；保留HTTP状态，成功后移除临时预检。用户已提供gpu42 200/182模型的验证。
 
 连接子阶段收尾：184009取消后184010正常回传，已add --finish，不再重试。事件中gpu43网络信息来自上一轮旧文件，不能算取消作业的结果。已删除tools/exp_loop/gate6_preflight.py；配对准备器采用用户确认的gpu42，移除旧失败记录拦截。
+
+
+## 2026-11-13 解除开发筛选对全量扫描的依赖
+
+此前配对未提交的直接依赖是 coordinate_audit 在全量扫描末尾才写 paired_tasks.jsonl，并非配对脚本未准备好。该依赖不必要：开发60清单内的历史会话足以筛选10任务。新增 select_gate6_dev 只读取该范围并复用已有严格坐标记录；与全量扫描共享的 journal 只读，不修复/截断它。全量扫描保留跨任务统计职责；修正全量审计第二阶段 metric 仍读取旧预检文件的问题。

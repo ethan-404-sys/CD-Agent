@@ -2,15 +2,17 @@
 """Write the paired job using the user-confirmed compute node; does not submit."""
 import json
 from pathlib import Path
-import re
+import argparse
 import shlex
 
 repo=Path(__file__).resolve().parents[2]
-runtime=repo/'.runtime/gate6-actual-20261113';exp=repo.parent/'exp-loop/experiments/cd-gate6-actual-20261113'
+runtime=repo/'.runtime/gate6-actual-20261113'
+p=argparse.ArgumentParser();p.add_argument('--experiment',type=Path,required=True);p.add_argument('--manifest',type=Path,required=True);args=p.parse_args()
+exp=args.experiment.resolve()
 # User confirmed gpu42 + CSV workspace endpoint: HTTP 200, 182 models.
 # This is user-provided evidence, not a measurement by the cancelled probe.
 node='gpu42'
-manifest=runtime/'coordinate_checkpoint/paired_tasks.jsonl'
+manifest=args.manifest.resolve()
 tasks=[json.loads(line) for line in manifest.read_text().splitlines() if line.strip()]
 if len(tasks)!=10:raise SystemExit('Need exactly 10 paired development tasks')
 snapshot=runtime/'code/agent_baseline';online=runtime/'online';output=repo/'results/agent_baseline/gate6_actual_20261113/paired'
