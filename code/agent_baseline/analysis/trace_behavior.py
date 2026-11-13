@@ -19,10 +19,10 @@ def read(path):
 def signature(call):
     return (call.get('tool'), json.dumps(call.get('args'),sort_keys=True,ensure_ascii=False))
 
-def analyze(directory):
+def analyze(directory,final=None,steps=None):
     directory=Path(directory)
-    final=read(directory/'final.json')
-    steps=[json.loads(line) for line in (directory/'steps.jsonl').read_text().splitlines() if line.strip()]
+    final=read(directory/'final.json') if final is None else final
+    steps=[json.loads(line) for line in (directory/'steps.jsonl').read_text().splitlines() if line.strip()] if steps is None else steps
     events=[]; calls=[]; previous=None; repeated=0; longest=0; views=0; max_views=0
     first_mask=None; latest=None; current=None; empty=set(); errors=Counter(); tools=Counter(); reactions=Counter(); answers=Counter()
     parents={}; creators={}; unresolved=False
@@ -121,6 +121,10 @@ def summarize(rows):
     return result
 
 def main():
+    import sys
+    if '--extended' in sys.argv:
+        from .trace_extended import main as extended_main
+        return extended_main()
     p=argparse.ArgumentParser()
     p.add_argument('--root',type=Path,required=True)
     p.add_argument('--output',type=Path,required=True)
