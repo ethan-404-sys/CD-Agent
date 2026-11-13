@@ -1,0 +1,182 @@
+{
+  "name": "cd-gate6-nodeprobe-20261113",
+  "status": "done",
+  "queue": [],
+  "done": [
+    "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-gate6-nodeprobe-20261113/jobs/01-probe.sbatch",
+    "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-gate6-nodeprobe-20261113/jobs/01-probe.sbatch",
+    "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-gate6-nodeprobe-20261113/jobs/01-probe.sbatch"
+  ],
+  "current": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-gate6-nodeprobe-20261113/jobs/01-probe.sbatch",
+  "job_id": "184009",
+  "hook_id": "184010",
+  "rounds": 3,
+  "rounds_submitted": 3,
+  "primary_best": null,
+  "cost_cny": 0.0,
+  "finalized": false,
+  "finalize_requested": true,
+  "started_at": "2026-11-13 04:07:20",
+  "started_epoch": 1794542840.0441747,
+  "history": [
+    {
+      "job": "01-probe.sbatch",
+      "job_id": "183988",
+      "hook_id": "183989",
+      "state": "FAILED",
+      "exit": "1:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0,
+      "metric": {},
+      "metric_error": "Expecting value: line 1 column 1 (char 0)",
+      "at": "2026-11-13 04:07:35"
+    },
+    {
+      "job": "01-probe.sbatch",
+      "job_id": "183991",
+      "hook_id": "183992",
+      "state": "FAILED",
+      "exit": "1:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0,
+      "metric": {
+        "node": "gpu43",
+        "proxy_present": true,
+        "localhost_proxy": true,
+        "inherited": {
+          "http_status": null,
+          "error_type": "ConnectionRefusedError",
+          "error": "[Errno 111] Connection refused"
+        },
+        "direct": {
+          "http_status": null,
+          "error_type": "ConnectionRefusedError",
+          "error": "[Errno 111] Connection refused"
+        },
+        "network_mode": "direct",
+        "cost_cny": 0,
+        "gpu": "NVIDIA A800-SXM4-80GB, 81920 MiB\nNVIDIA A800-SXM4-80GB, 81920 MiB\nNVIDIA A800-SXM4-80GB, 81920 MiB\nNVIDIA A800-SXM4-80GB, 81920 MiB\nNVIDIA A800-SXM4-80GB, 81920 MiB\nNVIDIA A800-SXM4-80GB, 81920 MiB\nNVIDIA A800-SXM4-80GB, 81920 MiB\nNVIDIA A800-SXM4-80GB, 81920 MiB",
+        "gpu_visible": true,
+        "missing_paths": []
+      },
+      "metric_error": null,
+      "at": "2026-11-13 04:09:18"
+    },
+    {
+      "job": "01-probe.sbatch",
+      "job_id": "184009",
+      "hook_id": "184010",
+      "state": "CANCELLED",
+      "exit": "0:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0,
+      "metric": {
+        "node": "gpu43",
+        "proxy_present": true,
+        "localhost_proxy": true,
+        "inherited": {
+          "http_status": null,
+          "error_type": "ConnectionRefusedError",
+          "error": "[Errno 111] Connection refused"
+        },
+        "direct": {
+          "http_status": null,
+          "error_type": "ConnectionRefusedError",
+          "error": "[Errno 111] Connection refused"
+        },
+        "network_mode": "direct",
+        "cost_cny": 0,
+        "gpu": "NVIDIA A800-SXM4-80GB, 81920 MiB\nNVIDIA A800-SXM4-80GB, 81920 MiB\nNVIDIA A800-SXM4-80GB, 81920 MiB\nNVIDIA A800-SXM4-80GB, 81920 MiB\nNVIDIA A800-SXM4-80GB, 81920 MiB\nNVIDIA A800-SXM4-80GB, 81920 MiB\nNVIDIA A800-SXM4-80GB, 81920 MiB\nNVIDIA A800-SXM4-80GB, 81920 MiB",
+        "gpu_visible": true,
+        "missing_paths": []
+      },
+      "metric_error": null,
+      "at": "2026-11-13 04:46:06"
+    }
+  ],
+  "driver": "dependency",
+  "recorded_current": true,
+  "submitted_at": "2026-11-13 04:24:26",
+  "last_advance_at": "2026-11-13 04:24:26",
+  "hook_attempts": 5,
+  "review_count": 3,
+  "review": {
+    "id": "event-0003",
+    "kind": "round_finished",
+    "error": "CANCELLED exit=0:0",
+    "at": "2026-11-13 04:46:06",
+    "job_id": "184009",
+    "hook_id": "184010",
+    "current": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-gate6-nodeprobe-20261113/jobs/01-probe.sbatch",
+    "latest": {
+      "job": "01-probe.sbatch",
+      "job_id": "184009",
+      "hook_id": "184010",
+      "state": "CANCELLED",
+      "exit": "0:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0,
+      "metric": {
+        "node": "gpu43",
+        "proxy_present": true,
+        "localhost_proxy": true,
+        "inherited": {
+          "http_status": null,
+          "error_type": "ConnectionRefusedError",
+          "error": "[Errno 111] Connection refused"
+        },
+        "direct": {
+          "http_status": null,
+          "error_type": "ConnectionRefusedError",
+          "error": "[Errno 111] Connection refused"
+        },
+        "network_mode": "direct",
+        "cost_cny": 0,
+        "gpu": "NVIDIA A800-SXM4-80GB, 81920 MiB\nNVIDIA A800-SXM4-80GB, 81920 MiB\nNVIDIA A800-SXM4-80GB, 81920 MiB\nNVIDIA A800-SXM4-80GB, 81920 MiB\nNVIDIA A800-SXM4-80GB, 81920 MiB\nNVIDIA A800-SXM4-80GB, 81920 MiB\nNVIDIA A800-SXM4-80GB, 81920 MiB\nNVIDIA A800-SXM4-80GB, 81920 MiB",
+        "gpu_visible": true,
+        "missing_paths": []
+      },
+      "metric_error": null,
+      "at": "2026-11-13 04:46:06"
+    },
+    "queued_jobs": [],
+    "cost_cny": 0.0,
+    "delivery": "accepted",
+    "delivered_at": "2026-11-13 04:46:08",
+    "delivery_turn_id": "01a1d33a-30bd-7d62-a45d-65efd7a04acd",
+    "delivery_via": "hook_http"
+  },
+  "decisions": [
+    {
+      "event_id": "event-0001",
+      "action": "retry",
+      "job": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-gate6-nodeprobe-20261113/jobs/01-probe.sbatch",
+      "reason": "gpu42模型路径与GPU通过但网络两路失败；已修复metric单行JSON并保留失败证据，改探测gpu43并记录具体网络异常。",
+      "at": "2026-11-13 04:09:09"
+    },
+    {
+      "event_id": "event-0002",
+      "action": "retry",
+      "job": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-gate6-nodeprobe-20261113/jobs/01-probe.sbatch",
+      "reason": "用户已确认gpu42 workspace端点200；修复预检复用被代理修改的Request错误，清空代理且只读CSV workspace端点，补齐必需日志字段。",
+      "at": "2026-11-13 04:24:19"
+    },
+    {
+      "event_id": "event-0003",
+      "action": "finish",
+      "reason": "多余预检因GPU资源排队已取消，hook正常回传；采用用户确认gpu42 workspace直连200/182模型。取消事件附带旧gpu43指标不是本轮新测量，不再重试。",
+      "at": "2026-11-13 04:46:26"
+    }
+  ],
+  "finalize_attempts": 1,
+  "git_committed": false,
+  "git_pushed": false,
+  "notified": false,
+  "stop_reason": "多余预检因GPU资源排队已取消，hook正常回传；采用用户确认gpu42 workspace直连200/182模型。取消事件附带旧gpu43指标不是本轮新测量，不再重试。",
+  "finished_at": "2026-11-13 04:46:26",
+  "elapsed_seconds": 2346.3
+}
