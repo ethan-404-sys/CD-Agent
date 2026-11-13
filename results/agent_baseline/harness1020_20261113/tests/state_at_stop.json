@@ -7,13 +7,15 @@
     "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-harness1020-tests-20261113/jobs/02-p1.sbatch",
     "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-harness1020-tests-20261113/jobs/03-p2.sbatch",
     "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-harness1020-tests-20261113/jobs/04-r1.sbatch",
-    "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-harness1020-tests-20261113/jobs/05-r2.sbatch"
+    "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-harness1020-tests-20261113/jobs/05-r2.sbatch",
+    "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-harness1020-tests-20261113/jobs/06-cost.sbatch",
+    "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-harness1020-tests-20261113/jobs/07-cache-echo.sbatch"
   ],
-  "current": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-harness1020-tests-20261113/jobs/05-r2.sbatch",
-  "job_id": "184627",
-  "hook_id": "184628",
-  "rounds": 5,
-  "rounds_submitted": 5,
+  "current": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-harness1020-tests-20261113/jobs/07-cache-echo.sbatch",
+  "job_id": "184649",
+  "hook_id": "184650",
+  "rounds": 7,
+  "rounds_submitted": 7,
   "primary_best": null,
   "cost_cny": 0.0,
   "finalized": false,
@@ -105,44 +107,78 @@
       },
       "metric_error": null,
       "at": "2026-11-13 16:46:44"
-    }
-  ],
-  "driver": "dependency",
-  "recorded_current": true,
-  "submitted_at": "2026-11-13 16:45:22",
-  "last_advance_at": "2026-11-13 16:45:22",
-  "hook_attempts": 9,
-  "review_count": 5,
-  "review": {
-    "id": "event-0005",
-    "kind": "round_finished",
-    "error": null,
-    "at": "2026-11-13 16:46:44",
-    "job_id": "184627",
-    "hook_id": "184628",
-    "current": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-harness1020-tests-20261113/jobs/05-r2.sbatch",
-    "latest": {
-      "job": "05-r2.sbatch",
-      "job_id": "184627",
-      "hook_id": "184628",
+    },
+    {
+      "job": "06-cost.sbatch",
+      "job_id": "184640",
+      "hook_id": "184641",
       "state": "COMPLETED",
       "exit": "0:0",
       "primary": null,
       "gain": null,
-      "cost_cny": 0,
+      "cost_cny": 0.0,
       "metric": {
-        "stage": "r2",
+        "stage": "cost_accounting",
         "passed": true,
         "cost_cny": 0
       },
       "metric_error": null,
-      "at": "2026-11-13 16:46:44"
+      "at": "2026-11-13 17:14:17"
+    },
+    {
+      "job": "07-cache-echo.sbatch",
+      "job_id": "184649",
+      "hook_id": "184650",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0.0,
+      "metric": {
+        "stage": "cached_verification_v2",
+        "passed": true,
+        "cost_cny": 0
+      },
+      "metric_error": null,
+      "at": "2026-11-13 17:18:49"
+    }
+  ],
+  "driver": "dependency",
+  "recorded_current": true,
+  "submitted_at": "2026-11-13 17:17:33",
+  "last_advance_at": "2026-11-13 17:17:33",
+  "hook_attempts": 13,
+  "review_count": 7,
+  "review": {
+    "id": "event-0007",
+    "kind": "round_finished",
+    "error": null,
+    "at": "2026-11-13 17:18:49",
+    "job_id": "184649",
+    "hook_id": "184650",
+    "current": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-harness1020-tests-20261113/jobs/07-cache-echo.sbatch",
+    "latest": {
+      "job": "07-cache-echo.sbatch",
+      "job_id": "184649",
+      "hook_id": "184650",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0.0,
+      "metric": {
+        "stage": "cached_verification_v2",
+        "passed": true,
+        "cost_cny": 0
+      },
+      "metric_error": null,
+      "at": "2026-11-13 17:18:49"
     },
     "queued_jobs": [],
     "cost_cny": 0.0,
     "delivery": "accepted",
-    "delivered_at": "2026-11-13 16:46:44",
-    "delivery_turn_id": "01a1d5ac-a8a6-7823-8082-d6fc592fbdad",
+    "delivered_at": "2026-11-13 17:18:50",
+    "delivery_turn_id": "01a1d5e5-94e7-7723-a084-20830a9757ae",
     "delivery_via": "hook_http"
   },
   "decisions": [
@@ -178,14 +214,27 @@
       "action": "finish",
       "reason": "Verified actual r2 logs: 68/71/74 tests and 2 report tests passed, including new side-effect repeat and answer-switch recovery tests. Earlier skipped patch documented, artifacts pushed; real Agent queue remains independently active.",
       "at": "2026-11-13 16:47:51"
+    },
+    {
+      "event_id": "event-0006",
+      "action": "add",
+      "job": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-harness1020-tests-20261113/jobs/07-cache-echo.sbatch",
+      "reason": "P0 real val31 no_submit exposed inaccessible cached ID-to-answer mapping; validate bounded summary IDs and cached echo with unchanged backend calls, component identity and defaults.",
+      "at": "2026-11-13 17:17:32"
+    },
+    {
+      "event_id": "event-0007",
+      "action": "finish",
+      "reason": "Cumulative accounting passed 22 regressions; cached-identity snapshots passed 71/74/77 and two report tests. New tests actually observed in logs; source and evidence pushed. Real Agent comparison remains independently active.",
+      "at": "2026-11-13 17:24:53"
     }
   ],
   "finalize_attempts": 1,
   "git_committed": false,
   "git_pushed": false,
   "notified": false,
-  "elapsed_seconds": 1427.9,
-  "finalized_at": "2026-11-13 16:40:15",
-  "stop_reason": "Verified actual r2 logs: 68/71/74 tests and 2 report tests passed, including new side-effect repeat and answer-switch recovery tests. Earlier skipped patch documented, artifacts pushed; real Agent queue remains independently active.",
-  "finished_at": "2026-11-13 16:47:51"
+  "elapsed_seconds": 3649.4,
+  "finalized_at": "2026-11-13 16:48:09",
+  "stop_reason": "Cumulative accounting passed 22 regressions; cached-identity snapshots passed 71/74/77 and two report tests. New tests actually observed in logs; source and evidence pushed. Real Agent comparison remains independently active.",
+  "finished_at": "2026-11-13 17:24:53"
 }
