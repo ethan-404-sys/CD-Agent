@@ -1,0 +1,960 @@
+{
+  "arms": {
+    "baseline": {
+      "all": {
+        "n": 6,
+        "mean_f1": 66.65922942878208,
+        "pooled_f1": 88.66302779346258,
+        "precision": 88.1157251527622,
+        "recall": 89.21717171717172,
+        "counts": {
+          "tp": 98924,
+          "fp": 13342,
+          "fn": 11956
+        },
+        "calls": 94,
+        "rounds": 94,
+        "tokens": {
+          "input": 1282670,
+          "cached": 559872,
+          "output": 26366
+        },
+        "errors": {
+          "bad_args": 1
+        },
+        "error_rate": 0.010638297872340425,
+        "invalid_retries": 0,
+        "termination": {
+          "submit": 6
+        },
+        "abnormal": 0,
+        "seconds": 445.5964098330587,
+        "token_metered_cost_cny": 0.27762679999999995,
+        "set_answer_calls": 0,
+        "pair_tool_calls": 0,
+        "segmentation_backend_invocations": 6
+      },
+      "hard": {
+        "n": 4,
+        "mean_f1": 53.82152105569736,
+        "pooled_f1": 78.41814421805607,
+        "precision": 70.0345161680998,
+        "recall": 89.08187629977662,
+        "counts": {
+          "tp": 23131,
+          "fp": 9897,
+          "fn": 2835
+        },
+        "calls": 75,
+        "rounds": 75,
+        "tokens": {
+          "input": 990997,
+          "cached": 464256,
+          "output": 18084
+        },
+        "errors": {},
+        "error_rate": 0.0,
+        "invalid_retries": 0,
+        "termination": {
+          "submit": 4
+        },
+        "abnormal": 0,
+        "seconds": 336.72693400271237,
+        "token_metered_cost_cny": 0.21266659999999998,
+        "set_answer_calls": 0,
+        "pair_tool_calls": 0,
+        "segmentation_backend_invocations": 4
+      },
+      "simple": {
+        "n": 2,
+        "mean_f1": 92.33464617495153,
+        "pooled_f1": 92.34489984892052,
+        "precision": 95.65233852444534,
+        "recall": 89.25854393857314,
+        "counts": {
+          "tp": 75793,
+          "fp": 3445,
+          "fn": 9121
+        },
+        "calls": 19,
+        "rounds": 19,
+        "tokens": {
+          "input": 291673,
+          "cached": 95616,
+          "output": 8282
+        },
+        "errors": {
+          "bad_args": 1
+        },
+        "error_rate": 0.05263157894736842,
+        "invalid_retries": 0,
+        "termination": {
+          "submit": 2
+        },
+        "abnormal": 0,
+        "seconds": 108.86947583034635,
+        "token_metered_cost_cny": 0.0649602,
+        "set_answer_calls": 0,
+        "pair_tool_calls": 0,
+        "segmentation_backend_invocations": 2
+      }
+    },
+    "p0": {
+      "all": {
+        "n": 6,
+        "mean_f1": 66.06102890625483,
+        "pooled_f1": 87.71815116190544,
+        "precision": 87.11849631283525,
+        "recall": 88.32611832611832,
+        "counts": {
+          "tp": 97936,
+          "fp": 14481,
+          "fn": 12944
+        },
+        "calls": 73,
+        "rounds": 76,
+        "tokens": {
+          "input": 1060890,
+          "cached": 420480,
+          "output": 29900
+        },
+        "errors": {},
+        "error_rate": 0.0,
+        "invalid_retries": 0,
+        "termination": {
+          "no_submit": 1,
+          "submit": 5
+        },
+        "abnormal": 1,
+        "seconds": 1099.8552005309612,
+        "token_metered_cost_cny": 0.23609800000000003,
+        "set_answer_calls": 1,
+        "pair_tool_calls": 0,
+        "segmentation_backend_invocations": 6
+      },
+      "hard": {
+        "n": 4,
+        "mean_f1": 52.981549510710465,
+        "pooled_f1": 75.07775385351516,
+        "precision": 67.4827967559597,
+        "recall": 84.59909111915582,
+        "counts": {
+          "tp": 21967,
+          "fp": 10585,
+          "fn": 3999
+        },
+        "calls": 62,
+        "rounds": 65,
+        "tokens": {
+          "input": 880897,
+          "cached": 397440,
+          "output": 23579
+        },
+        "errors": {},
+        "error_rate": 0.0,
+        "invalid_retries": 0,
+        "termination": {
+          "no_submit": 1,
+          "submit": 3
+        },
+        "abnormal": 1,
+        "seconds": 1023.3044365942478,
+        "token_metered_cost_cny": 0.1950426,
+        "set_answer_calls": 1,
+        "pair_tool_calls": 0,
+        "segmentation_backend_invocations": 4
+      },
+      "simple": {
+        "n": 2,
+        "mean_f1": 92.21998769734357,
+        "pooled_f1": 92.20713804550337,
+        "precision": 95.12176798347211,
+        "recall": 89.46581246908637,
+        "counts": {
+          "tp": 75969,
+          "fp": 3896,
+          "fn": 8945
+        },
+        "calls": 11,
+        "rounds": 11,
+        "tokens": {
+          "input": 179993,
+          "cached": 23040,
+          "output": 6321
+        },
+        "errors": {},
+        "error_rate": 0.0,
+        "invalid_retries": 0,
+        "termination": {
+          "submit": 2
+        },
+        "abnormal": 0,
+        "seconds": 76.55076393671334,
+        "token_metered_cost_cny": 0.0410554,
+        "set_answer_calls": 0,
+        "pair_tool_calls": 0,
+        "segmentation_backend_invocations": 2
+      }
+    },
+    "p0v2": {
+      "all": {
+        "n": 6,
+        "mean_f1": 66.91316734349024,
+        "pooled_f1": 88.71416183162431,
+        "precision": 87.94600918162965,
+        "recall": 89.49585137085137,
+        "counts": {
+          "tp": 99233,
+          "fp": 13601,
+          "fn": 11647
+        },
+        "calls": 87,
+        "rounds": 86,
+        "tokens": {
+          "input": 1109910,
+          "cached": 384768,
+          "output": 25135
+        },
+        "errors": {},
+        "error_rate": 0.0,
+        "invalid_retries": 0,
+        "termination": {
+          "submit": 6
+        },
+        "abnormal": 0,
+        "seconds": 375.3228143360466,
+        "token_metered_cost_cny": 0.24209000000000003,
+        "set_answer_calls": 2,
+        "pair_tool_calls": 0,
+        "segmentation_backend_invocations": 6
+      },
+      "hard": {
+        "n": 4,
+        "mean_f1": 54.20287325580212,
+        "pooled_f1": 78.66483021306263,
+        "precision": 70.42901074810462,
+        "recall": 89.08187629977662,
+        "counts": {
+          "tp": 23131,
+          "fp": 9712,
+          "fn": 2835
+        },
+        "calls": 67,
+        "rounds": 66,
+        "tokens": {
+          "input": 776993,
+          "cached": 288000,
+          "output": 16667
+        },
+        "errors": {},
+        "error_rate": 0.0,
+        "invalid_retries": 0,
+        "termination": {
+          "submit": 4
+        },
+        "abnormal": 0,
+        "seconds": 278.6703779119998,
+        "token_metered_cost_cny": 0.16873220000000003,
+        "set_answer_calls": 2,
+        "pair_tool_calls": 0,
+        "segmentation_backend_invocations": 5
+      },
+      "simple": {
+        "n": 2,
+        "mean_f1": 92.3337555188665,
+        "pooled_f1": 92.2979897516752,
+        "precision": 95.13820304784288,
+        "recall": 89.62244152907648,
+        "counts": {
+          "tp": 76102,
+          "fp": 3889,
+          "fn": 8812
+        },
+        "calls": 20,
+        "rounds": 20,
+        "tokens": {
+          "input": 332917,
+          "cached": 96768,
+          "output": 8468
+        },
+        "errors": {},
+        "error_rate": 0.0,
+        "invalid_retries": 0,
+        "termination": {
+          "submit": 2
+        },
+        "abnormal": 0,
+        "seconds": 96.65243642404675,
+        "token_metered_cost_cny": 0.0733578,
+        "set_answer_calls": 0,
+        "pair_tool_calls": 0,
+        "segmentation_backend_invocations": 1
+      }
+    },
+    "p1v2": {
+      "all": {
+        "n": 6,
+        "mean_f1": 69.04415487524963,
+        "pooled_f1": 89.3020242332075,
+        "precision": 89.10277705450856,
+        "recall": 89.5021645021645,
+        "counts": {
+          "tp": 99240,
+          "fp": 12137,
+          "fn": 11640
+        },
+        "calls": 74,
+        "rounds": 73,
+        "tokens": {
+          "input": 1034046,
+          "cached": 349056,
+          "output": 25430
+        },
+        "errors": {
+          "bad_args": 1
+        },
+        "error_rate": 0.013513513513513514,
+        "invalid_retries": 0,
+        "termination": {
+          "submit": 6
+        },
+        "abnormal": 0,
+        "seconds": 318.7732593342662,
+        "token_metered_cost_cny": 0.2271532,
+        "set_answer_calls": 3,
+        "pair_tool_calls": 3,
+        "segmentation_backend_invocations": 8
+      },
+      "hard": {
+        "n": 4,
+        "mean_f1": 57.27628626037906,
+        "pooled_f1": 80.07823994737845,
+        "precision": 72.72755855997485,
+        "recall": 89.08187629977662,
+        "counts": {
+          "tp": 23131,
+          "fp": 8674,
+          "fn": 2835
+        },
+        "calls": 57,
+        "rounds": 56,
+        "tokens": {
+          "input": 753127,
+          "cached": 288000,
+          "output": 17588
+        },
+        "errors": {
+          "bad_args": 1
+        },
+        "error_rate": 0.017543859649122806,
+        "invalid_retries": 0,
+        "termination": {
+          "submit": 4
+        },
+        "abnormal": 0,
+        "seconds": 227.7325489204377,
+        "token_metered_cost_cny": 0.1646958,
+        "set_answer_calls": 3,
+        "pair_tool_calls": 2,
+        "segmentation_backend_invocations": 6
+      },
+      "simple": {
+        "n": 2,
+        "mean_f1": 92.57989210499076,
+        "pooled_f1": 92.54161448390745,
+        "precision": 95.64796662142462,
+        "recall": 89.6306851638128,
+        "counts": {
+          "tp": 76109,
+          "fp": 3463,
+          "fn": 8805
+        },
+        "calls": 17,
+        "rounds": 17,
+        "tokens": {
+          "input": 280919,
+          "cached": 61056,
+          "output": 7842
+        },
+        "errors": {},
+        "error_rate": 0.0,
+        "invalid_retries": 0,
+        "termination": {
+          "submit": 2
+        },
+        "abnormal": 0,
+        "seconds": 91.04071041382849,
+        "token_metered_cost_cny": 0.0624574,
+        "set_answer_calls": 0,
+        "pair_tool_calls": 1,
+        "segmentation_backend_invocations": 2
+      }
+    },
+    "p2v2": {
+      "all": {
+        "n": 3,
+        "mean_f1": 58.27268718671211,
+        "pooled_f1": 88.48007065210332,
+        "precision": 87.47351796926158,
+        "recall": 89.51005767891633,
+        "counts": {
+          "tp": 68127,
+          "fp": 9756,
+          "fn": 7984
+        },
+        "calls": 36,
+        "rounds": 35,
+        "tokens": {
+          "input": 430475,
+          "cached": 94464,
+          "output": 10216
+        },
+        "errors": {},
+        "error_rate": 0.0,
+        "invalid_retries": 0,
+        "termination": {
+          "submit": 3
+        },
+        "abnormal": 0,
+        "seconds": 139.5836566928774,
+        "token_metered_cost_cny": 0.09426780000000001,
+        "set_answer_calls": 0,
+        "pair_tool_calls": 1,
+        "segmentation_backend_invocations": 6
+      },
+      "hard": {
+        "n": 2,
+        "mean_f1": 41.33070822676505,
+        "pooled_f1": 81.84219635277185,
+        "precision": 73.86628958532013,
+        "recall": 91.74904011110203,
+        "counts": {
+          "tp": 22462,
+          "fp": 7947,
+          "fn": 2020
+        },
+        "calls": 30,
+        "rounds": 29,
+        "tokens": {
+          "input": 336626,
+          "cached": 85248,
+          "output": 7009
+        },
+        "errors": {},
+        "error_rate": 0.0,
+        "invalid_retries": 0,
+        "termination": {
+          "submit": 2
+        },
+        "abnormal": 0,
+        "seconds": 107.37760732509196,
+        "token_metered_cost_cny": 0.07293240000000001,
+        "set_answer_calls": 0,
+        "pair_tool_calls": 1,
+        "segmentation_backend_invocations": 4
+      },
+      "simple": {
+        "n": 1,
+        "mean_f1": 92.15664510660626,
+        "pooled_f1": 92.15664510660626,
+        "precision": 96.18949319627586,
+        "recall": 88.44835267001105,
+        "counts": {
+          "tp": 45665,
+          "fp": 1809,
+          "fn": 5964
+        },
+        "calls": 6,
+        "rounds": 6,
+        "tokens": {
+          "input": 93849,
+          "cached": 9216,
+          "output": 3207
+        },
+        "errors": {},
+        "error_rate": 0.0,
+        "invalid_retries": 0,
+        "termination": {
+          "submit": 1
+        },
+        "abnormal": 0,
+        "seconds": 32.206049367785454,
+        "token_metered_cost_cny": 0.021335399999999997,
+        "set_answer_calls": 0,
+        "pair_tool_calls": 0,
+        "segmentation_backend_invocations": 2
+      }
+    }
+  },
+  "pairs": [
+    {
+      "reference": "baseline",
+      "arm": "p0",
+      "task": "T1.1xC0",
+      "name": "val_31",
+      "cohort": "hard",
+      "paired_inputs_match": true,
+      "old_f1": 0.0,
+      "new_f1": 0.0,
+      "delta_f1": 0.0,
+      "old_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/baseline/T1.1xC0/val/val_31",
+      "new_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/p0/T1.1xC0/val/val_31"
+    },
+    {
+      "reference": "baseline",
+      "arm": "p0",
+      "task": "T1.1xC0",
+      "name": "val_22",
+      "cohort": "hard",
+      "paired_inputs_match": true,
+      "old_f1": 82.65989548833443,
+      "new_f1": 79.30000930838685,
+      "delta_f1": -3.35988617994758,
+      "old_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/baseline/T1.1xC0/val/val_22",
+      "new_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/p0/T1.1xC0/val/val_22"
+    },
+    {
+      "reference": "baseline",
+      "arm": "p0",
+      "task": "T1.1xC0",
+      "name": "val_44",
+      "cohort": "simple",
+      "paired_inputs_match": true,
+      "old_f1": 92.38596206182217,
+      "new_f1": 92.15664510660626,
+      "delta_f1": -0.229316955215908,
+      "old_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/baseline/T1.1xC0/val/val_44",
+      "new_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/p0/T1.1xC0/val/val_44"
+    },
+    {
+      "reference": "baseline",
+      "arm": "p0",
+      "task": "T5.1",
+      "name": "val_32",
+      "cohort": "hard",
+      "paired_inputs_match": true,
+      "old_f1": 100.0,
+      "new_f1": 100.0,
+      "delta_f1": 0.0,
+      "old_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/baseline/T5.1/val/val_32",
+      "new_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/p0/T5.1/val/val_32"
+    },
+    {
+      "reference": "baseline",
+      "arm": "p0",
+      "task": "T5.1",
+      "name": "val_47",
+      "cohort": "hard",
+      "paired_inputs_match": true,
+      "old_f1": 32.626188734455006,
+      "new_f1": 32.626188734455006,
+      "delta_f1": 0.0,
+      "old_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/baseline/T5.1/val/val_47",
+      "new_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/p0/T5.1/val/val_47"
+    },
+    {
+      "reference": "baseline",
+      "arm": "p0",
+      "task": "T5.1",
+      "name": "val_36",
+      "cohort": "simple",
+      "paired_inputs_match": true,
+      "old_f1": 92.28333028808088,
+      "new_f1": 92.28333028808088,
+      "delta_f1": 0.0,
+      "old_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/baseline/T5.1/val/val_36",
+      "new_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/p0/T5.1/val/val_36"
+    },
+    {
+      "reference": "baseline",
+      "arm": "p0v2",
+      "task": "T1.1xC0",
+      "name": "val_31",
+      "cohort": "hard",
+      "paired_inputs_match": true,
+      "old_f1": 0.0,
+      "new_f1": 0.0,
+      "delta_f1": 0.0,
+      "old_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/baseline/T1.1xC0/val/val_31",
+      "new_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/p0v2/T1.1xC0/val/val_31"
+    },
+    {
+      "reference": "baseline",
+      "arm": "p0v2",
+      "task": "T1.1xC0",
+      "name": "val_22",
+      "cohort": "hard",
+      "paired_inputs_match": true,
+      "old_f1": 82.65989548833443,
+      "new_f1": 82.6614164535301,
+      "delta_f1": 0.0015209651956560322,
+      "old_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/baseline/T1.1xC0/val/val_22",
+      "new_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/p0v2/T1.1xC0/val/val_22"
+    },
+    {
+      "reference": "baseline",
+      "arm": "p0v2",
+      "task": "T1.1xC0",
+      "name": "val_44",
+      "cohort": "simple",
+      "paired_inputs_match": true,
+      "old_f1": 92.38596206182217,
+      "new_f1": 92.15664510660626,
+      "delta_f1": -0.229316955215908,
+      "old_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/baseline/T1.1xC0/val/val_44",
+      "new_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/p0v2/T1.1xC0/val/val_44"
+    },
+    {
+      "reference": "baseline",
+      "arm": "p0v2",
+      "task": "T5.1",
+      "name": "val_32",
+      "cohort": "hard",
+      "paired_inputs_match": true,
+      "old_f1": 100.0,
+      "new_f1": 100.0,
+      "delta_f1": 0.0,
+      "old_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/baseline/T5.1/val/val_32",
+      "new_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/p0v2/T5.1/val/val_32"
+    },
+    {
+      "reference": "baseline",
+      "arm": "p0v2",
+      "task": "T5.1",
+      "name": "val_47",
+      "cohort": "hard",
+      "paired_inputs_match": true,
+      "old_f1": 32.626188734455006,
+      "new_f1": 34.150076569678404,
+      "delta_f1": 1.5238878352233975,
+      "old_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/baseline/T5.1/val/val_47",
+      "new_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/p0v2/T5.1/val/val_47"
+    },
+    {
+      "reference": "baseline",
+      "arm": "p0v2",
+      "task": "T5.1",
+      "name": "val_36",
+      "cohort": "simple",
+      "paired_inputs_match": true,
+      "old_f1": 92.28333028808088,
+      "new_f1": 92.51086593112672,
+      "delta_f1": 0.22753564304583973,
+      "old_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/baseline/T5.1/val/val_36",
+      "new_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/p0v2/T5.1/val/val_36"
+    },
+    {
+      "reference": "p0",
+      "arm": "p0v2",
+      "task": "T1.1xC0",
+      "name": "val_31",
+      "cohort": "hard",
+      "paired_inputs_match": true,
+      "old_f1": 0.0,
+      "new_f1": 0.0,
+      "delta_f1": 0.0,
+      "old_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/p0/T1.1xC0/val/val_31",
+      "new_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/p0v2/T1.1xC0/val/val_31"
+    },
+    {
+      "reference": "p0",
+      "arm": "p0v2",
+      "task": "T1.1xC0",
+      "name": "val_22",
+      "cohort": "hard",
+      "paired_inputs_match": true,
+      "old_f1": 79.30000930838685,
+      "new_f1": 82.6614164535301,
+      "delta_f1": 3.361407145143236,
+      "old_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/p0/T1.1xC0/val/val_22",
+      "new_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/p0v2/T1.1xC0/val/val_22"
+    },
+    {
+      "reference": "p0",
+      "arm": "p0v2",
+      "task": "T1.1xC0",
+      "name": "val_44",
+      "cohort": "simple",
+      "paired_inputs_match": true,
+      "old_f1": 92.15664510660626,
+      "new_f1": 92.15664510660626,
+      "delta_f1": 0.0,
+      "old_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/p0/T1.1xC0/val/val_44",
+      "new_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/p0v2/T1.1xC0/val/val_44"
+    },
+    {
+      "reference": "p0",
+      "arm": "p0v2",
+      "task": "T5.1",
+      "name": "val_32",
+      "cohort": "hard",
+      "paired_inputs_match": true,
+      "old_f1": 100.0,
+      "new_f1": 100.0,
+      "delta_f1": 0.0,
+      "old_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/p0/T5.1/val/val_32",
+      "new_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/p0v2/T5.1/val/val_32"
+    },
+    {
+      "reference": "p0",
+      "arm": "p0v2",
+      "task": "T5.1",
+      "name": "val_47",
+      "cohort": "hard",
+      "paired_inputs_match": true,
+      "old_f1": 32.626188734455006,
+      "new_f1": 34.150076569678404,
+      "delta_f1": 1.5238878352233975,
+      "old_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/p0/T5.1/val/val_47",
+      "new_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/p0v2/T5.1/val/val_47"
+    },
+    {
+      "reference": "p0",
+      "arm": "p0v2",
+      "task": "T5.1",
+      "name": "val_36",
+      "cohort": "simple",
+      "paired_inputs_match": true,
+      "old_f1": 92.28333028808088,
+      "new_f1": 92.51086593112672,
+      "delta_f1": 0.22753564304583973,
+      "old_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/p0/T5.1/val/val_36",
+      "new_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/p0v2/T5.1/val/val_36"
+    },
+    {
+      "reference": "baseline",
+      "arm": "p1v2",
+      "task": "T1.1xC0",
+      "name": "val_31",
+      "cohort": "hard",
+      "paired_inputs_match": true,
+      "old_f1": 0.0,
+      "new_f1": 0.0,
+      "delta_f1": 0.0,
+      "old_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/baseline/T1.1xC0/val/val_31",
+      "new_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/p1v2/T1.1xC0/val/val_31"
+    },
+    {
+      "reference": "baseline",
+      "arm": "p1v2",
+      "task": "T1.1xC0",
+      "name": "val_22",
+      "cohort": "hard",
+      "paired_inputs_match": true,
+      "old_f1": 82.65989548833443,
+      "new_f1": 82.66293747469915,
+      "delta_f1": 0.003041986364715754,
+      "old_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/baseline/T1.1xC0/val/val_22",
+      "new_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/p1v2/T1.1xC0/val/val_22"
+    },
+    {
+      "reference": "baseline",
+      "arm": "p1v2",
+      "task": "T1.1xC0",
+      "name": "val_44",
+      "cohort": "simple",
+      "paired_inputs_match": true,
+      "old_f1": 92.38596206182217,
+      "new_f1": 92.38596206182217,
+      "delta_f1": 0.0,
+      "old_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/baseline/T1.1xC0/val/val_44",
+      "new_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/p1v2/T1.1xC0/val/val_44"
+    },
+    {
+      "reference": "baseline",
+      "arm": "p1v2",
+      "task": "T5.1",
+      "name": "val_32",
+      "cohort": "hard",
+      "paired_inputs_match": true,
+      "old_f1": 100.0,
+      "new_f1": 100.0,
+      "delta_f1": 0.0,
+      "old_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/baseline/T5.1/val/val_32",
+      "new_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/p1v2/T5.1/val/val_32"
+    },
+    {
+      "reference": "baseline",
+      "arm": "p1v2",
+      "task": "T5.1",
+      "name": "val_47",
+      "cohort": "hard",
+      "paired_inputs_match": true,
+      "old_f1": 32.626188734455006,
+      "new_f1": 46.44220756681708,
+      "delta_f1": 13.81601883236207,
+      "old_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/baseline/T5.1/val/val_47",
+      "new_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/p1v2/T5.1/val/val_47"
+    },
+    {
+      "reference": "baseline",
+      "arm": "p1v2",
+      "task": "T5.1",
+      "name": "val_36",
+      "cohort": "simple",
+      "paired_inputs_match": true,
+      "old_f1": 92.28333028808088,
+      "new_f1": 92.77382214815937,
+      "delta_f1": 0.4904918600784902,
+      "old_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/baseline/T5.1/val/val_36",
+      "new_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/p1v2/T5.1/val/val_36"
+    },
+    {
+      "reference": "p0v2",
+      "arm": "p1v2",
+      "task": "T1.1xC0",
+      "name": "val_31",
+      "cohort": "hard",
+      "paired_inputs_match": true,
+      "old_f1": 0.0,
+      "new_f1": 0.0,
+      "delta_f1": 0.0,
+      "old_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/p0v2/T1.1xC0/val/val_31",
+      "new_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/p1v2/T1.1xC0/val/val_31"
+    },
+    {
+      "reference": "p0v2",
+      "arm": "p1v2",
+      "task": "T1.1xC0",
+      "name": "val_22",
+      "cohort": "hard",
+      "paired_inputs_match": true,
+      "old_f1": 82.6614164535301,
+      "new_f1": 82.66293747469915,
+      "delta_f1": 0.001521021169059722,
+      "old_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/p0v2/T1.1xC0/val/val_22",
+      "new_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/p1v2/T1.1xC0/val/val_22"
+    },
+    {
+      "reference": "p0v2",
+      "arm": "p1v2",
+      "task": "T1.1xC0",
+      "name": "val_44",
+      "cohort": "simple",
+      "paired_inputs_match": true,
+      "old_f1": 92.15664510660626,
+      "new_f1": 92.38596206182217,
+      "delta_f1": 0.229316955215908,
+      "old_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/p0v2/T1.1xC0/val/val_44",
+      "new_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/p1v2/T1.1xC0/val/val_44"
+    },
+    {
+      "reference": "p0v2",
+      "arm": "p1v2",
+      "task": "T5.1",
+      "name": "val_32",
+      "cohort": "hard",
+      "paired_inputs_match": true,
+      "old_f1": 100.0,
+      "new_f1": 100.0,
+      "delta_f1": 0.0,
+      "old_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/p0v2/T5.1/val/val_32",
+      "new_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/p1v2/T5.1/val/val_32"
+    },
+    {
+      "reference": "p0v2",
+      "arm": "p1v2",
+      "task": "T5.1",
+      "name": "val_47",
+      "cohort": "hard",
+      "paired_inputs_match": true,
+      "old_f1": 34.150076569678404,
+      "new_f1": 46.44220756681708,
+      "delta_f1": 12.292130997138672,
+      "old_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/p0v2/T5.1/val/val_47",
+      "new_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/p1v2/T5.1/val/val_47"
+    },
+    {
+      "reference": "p0v2",
+      "arm": "p1v2",
+      "task": "T5.1",
+      "name": "val_36",
+      "cohort": "simple",
+      "paired_inputs_match": true,
+      "old_f1": 92.51086593112672,
+      "new_f1": 92.77382214815937,
+      "delta_f1": 0.2629562170326505,
+      "old_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/p0v2/T5.1/val/val_36",
+      "new_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/p1v2/T5.1/val/val_36"
+    },
+    {
+      "reference": "baseline",
+      "arm": "p2v2",
+      "task": "T1.1xC0",
+      "name": "val_31",
+      "cohort": "hard",
+      "paired_inputs_match": true,
+      "old_f1": 0.0,
+      "new_f1": 0.0,
+      "delta_f1": 0.0,
+      "old_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/baseline/T1.1xC0/val/val_31",
+      "new_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/p2v2/T1.1xC0/val/val_31"
+    },
+    {
+      "reference": "baseline",
+      "arm": "p2v2",
+      "task": "T1.1xC0",
+      "name": "val_22",
+      "cohort": "hard",
+      "paired_inputs_match": true,
+      "old_f1": 82.65989548833443,
+      "new_f1": 82.6614164535301,
+      "delta_f1": 0.0015209651956560322,
+      "old_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/baseline/T1.1xC0/val/val_22",
+      "new_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/p2v2/T1.1xC0/val/val_22"
+    },
+    {
+      "reference": "baseline",
+      "arm": "p2v2",
+      "task": "T1.1xC0",
+      "name": "val_44",
+      "cohort": "simple",
+      "paired_inputs_match": true,
+      "old_f1": 92.38596206182217,
+      "new_f1": 92.15664510660626,
+      "delta_f1": -0.229316955215908,
+      "old_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/baseline/T1.1xC0/val/val_44",
+      "new_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/p2v2/T1.1xC0/val/val_44"
+    },
+    {
+      "reference": "p1v2",
+      "arm": "p2v2",
+      "task": "T1.1xC0",
+      "name": "val_31",
+      "cohort": "hard",
+      "paired_inputs_match": true,
+      "old_f1": 0.0,
+      "new_f1": 0.0,
+      "delta_f1": 0.0,
+      "old_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/p1v2/T1.1xC0/val/val_31",
+      "new_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/p2v2/T1.1xC0/val/val_31"
+    },
+    {
+      "reference": "p1v2",
+      "arm": "p2v2",
+      "task": "T1.1xC0",
+      "name": "val_22",
+      "cohort": "hard",
+      "paired_inputs_match": true,
+      "old_f1": 82.66293747469915,
+      "new_f1": 82.6614164535301,
+      "delta_f1": -0.001521021169059722,
+      "old_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/p1v2/T1.1xC0/val/val_22",
+      "new_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/p2v2/T1.1xC0/val/val_22"
+    },
+    {
+      "reference": "p1v2",
+      "arm": "p2v2",
+      "task": "T1.1xC0",
+      "name": "val_44",
+      "cohort": "simple",
+      "paired_inputs_match": true,
+      "old_f1": 92.38596206182217,
+      "new_f1": 92.15664510660626,
+      "delta_f1": -0.229316955215908,
+      "old_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/p1v2/T1.1xC0/val/val_44",
+      "new_session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/p2v2/T1.1xC0/val/val_44"
+    }
+  ],
+  "caveat": "Frozen purposive development cases, one seed. Staged pilots can contain fewer cases: compare matched rows and their cohort counts, never all-six versus three aggregate. F1 changes are observations, not causal proof or test results."
+}

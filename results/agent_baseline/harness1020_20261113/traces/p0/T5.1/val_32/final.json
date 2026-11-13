@@ -1,0 +1,98 @@
+{
+ "task_id": "T5.1",
+ "final_handle": "mask#3",
+ "mask_path": "masks/mask_3.png",
+ "summary": "No building changes detected between T1 and T2. Initial segmentation of linear structures in T2 (around y=500-540, x=0-400) was evaluated by the independent verifier, which determined all 7 components represent non-building features (fences, boundary markers, or temporary piles) rather than actual buildings. All components received \"no\" answers from the verifier. Final answer is an empty binary change mask with 0 pixels and 0 components, correctly reflecting no confirmed building construction, demolition, or rebuilding events.",
+ "summary_source": "model",
+ "submitted_by": "model",
+ "termination_reason": "submit",
+ "fallback_kind": "none",
+ "change_component_count": 0,
+ "change_area_px": 0,
+ "eval": {
+  "tp": 0,
+  "fp": 0,
+  "fn": 0,
+  "f1": 1.0,
+  "iou": 1.0
+ },
+ "initial_eval": {
+  "tp": 0,
+  "fp": 0,
+  "fn": 0,
+  "f1": 1.0,
+  "iou": 1.0
+ },
+ "objects": {
+  "gt_objects": 0,
+  "missed": 0,
+  "pred_objects": 0,
+  "false_alarms": 0
+ },
+ "initial_objects": {
+  "gt_objects": 0,
+  "missed": 0,
+  "pred_objects": 0,
+  "false_alarms": 0
+ },
+ "precision": 0.0,
+ "recall": 0.0,
+ "planning_rounds": 14,
+ "api_attempts": 21,
+ "planner_api_attempts": 14,
+ "ask_api_attempts": 7,
+ "tool_calls": 14,
+ "tokens": {
+  "input": 152898,
+  "cached": 64512,
+  "output": 3427
+ },
+ "planner_tokens": {
+  "input": 146087,
+  "cached": 64512,
+  "output": 2969
+ },
+ "ask_tokens": {
+  "input": 6811,
+  "cached": 0,
+  "output": 458
+ },
+ "cost_cny": 0.033321199999999995,
+ "planner_cost_cny": 0.0315926,
+ "ask_cost_cny": 0.0017286,
+ "planner_model": "qwen3.7-flash",
+ "elapsed_seconds": 645.6222998667508,
+ "identical_to_init": true,
+ "added_px": 0,
+ "removed_px": 0,
+ "view_calls": 6,
+ "ask_calls": 1,
+ "initial_images_present": true,
+ "final_delta": {
+  "tp": 0,
+  "fp": 0,
+  "fn": 0,
+  "f1": 1.0,
+  "iou": 1.0,
+  "delta_f1": 0.0
+ },
+ "error": null,
+ "backends": {
+  "ask": "api",
+  "review": false,
+  "status": true,
+  "verify_stage": true,
+  "plan": false,
+  "skills": [],
+  "ask_correspondence": true,
+  "ask_model": "qwen3.7-flash",
+  "sam3_worker": true,
+  "pixel_thr": 0.85,
+  "sam_prompt": "shared_cpu",
+  "sam_model": "SAM ViT-H",
+  "answer_state": true,
+  "gate3": true,
+  "gate2": true,
+  "big_box_share": 0.1
+ }
+}

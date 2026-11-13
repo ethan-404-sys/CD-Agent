@@ -1,0 +1,129 @@
+{
+  "id": "event-0006",
+  "kind": "round_finished",
+  "error": null,
+  "at": "2026-11-13 17:32:25",
+  "job_id": "184687",
+  "hook_id": "184688",
+  "current": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-harness1020-20261113/jobs/04-p2.sbatch",
+  "latest": {
+    "job": "04-p2.sbatch",
+    "job_id": "184687",
+    "hook_id": "184688",
+    "state": "COMPLETED",
+    "exit": "0:0",
+    "primary": null,
+    "gain": null,
+    "cost_cny": 0.094268,
+    "metric": {
+      "stage": "p2v2",
+      "completed": 3,
+      "expected": 3,
+      "missing": 0,
+      "cost_cny": 1.0772358000000004,
+      "cumulative": true,
+      "groups": {
+        "all": {
+          "n": 3,
+          "mean_f1": 58.27268718671211,
+          "pooled_f1": 88.48007065210332,
+          "precision": 87.47351796926158,
+          "recall": 89.51005767891633,
+          "counts": {
+            "tp": 68127,
+            "fp": 9756,
+            "fn": 7984
+          },
+          "calls": 36,
+          "rounds": 35,
+          "tokens": {
+            "input": 430475,
+            "cached": 94464,
+            "output": 10216
+          },
+          "errors": {},
+          "error_rate": 0.0,
+          "invalid_retries": 0,
+          "termination": {
+            "submit": 3
+          },
+          "abnormal": 0,
+          "seconds": 139.5836566928774,
+          "token_metered_cost_cny": 0.09426780000000001,
+          "set_answer_calls": 0,
+          "pair_tool_calls": 1,
+          "segmentation_backend_invocations": 6
+        },
+        "hard": {
+          "n": 2,
+          "mean_f1": 41.33070822676505,
+          "pooled_f1": 81.84219635277185,
+          "precision": 73.86628958532013,
+          "recall": 91.74904011110203,
+          "counts": {
+            "tp": 22462,
+            "fp": 7947,
+            "fn": 2020
+          },
+          "calls": 30,
+          "rounds": 29,
+          "tokens": {
+            "input": 336626,
+            "cached": 85248,
+            "output": 7009
+          },
+          "errors": {},
+          "error_rate": 0.0,
+          "invalid_retries": 0,
+          "termination": {
+            "submit": 2
+          },
+          "abnormal": 0,
+          "seconds": 107.37760732509196,
+          "token_metered_cost_cny": 0.07293240000000001,
+          "set_answer_calls": 0,
+          "pair_tool_calls": 1,
+          "segmentation_backend_invocations": 4
+        },
+        "simple": {
+          "n": 1,
+          "mean_f1": 92.15664510660626,
+          "pooled_f1": 92.15664510660626,
+          "precision": 96.18949319627586,
+          "recall": 88.44835267001105,
+          "counts": {
+            "tp": 45665,
+            "fp": 1809,
+            "fn": 5964
+          },
+          "calls": 6,
+          "rounds": 6,
+          "tokens": {
+            "input": 93849,
+            "cached": 9216,
+            "output": 3207
+          },
+          "errors": {},
+          "error_rate": 0.0,
+          "invalid_retries": 0,
+          "termination": {
+            "submit": 1
+          },
+          "abnormal": 0,
+          "seconds": 32.206049367785454,
+          "token_metered_cost_cny": 0.021335399999999997,
+          "set_answer_calls": 0,
+          "pair_tool_calls": 0,
+          "segmentation_backend_invocations": 2
+        }
+      }
+    },
+    "metric_error": null,
+    "at": "2026-11-13 17:32:25"
+  },
+  "queued_jobs": [
+    "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-harness1020-20261113/jobs/05-archive.sbatch"
+  ],
+  "cost_cny": 1.077236,
+  "delivery": "pending"
+}

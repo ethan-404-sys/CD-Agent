@@ -1,0 +1,936 @@
+[
+ {
+  "area": 544,
+  "bbox": [
+   373,
+   409,
+   397,
+   441
+  ],
+  "runs": [
+   [
+    419206,
+    1
+   ],
+   [
+    420228,
+    5
+   ],
+   [
+    421252,
+    6
+   ],
+   [
+    422275,
+    7
+   ],
+   [
+    423290,
+    17
+   ],
+   [
+    424310,
+    22
+   ],
+   [
+    425334,
+    22
+   ],
+   [
+    426358,
+    22
+   ],
+   [
+    427382,
+    22
+   ],
+   [
+    428406,
+    22
+   ],
+   [
+    429430,
+    23
+   ],
+   [
+    430454,
+    23
+   ],
+   [
+    431478,
+    23
+   ],
+   [
+    432501,
+    24
+   ],
+   [
+    433525,
+    24
+   ],
+   [
+    434549,
+    24
+   ],
+   [
+    435573,
+    24
+   ],
+   [
+    436597,
+    24
+   ],
+   [
+    437621,
+    24
+   ],
+   [
+    438645,
+    23
+   ],
+   [
+    439670,
+    22
+   ],
+   [
+    440694,
+    21
+   ],
+   [
+    441718,
+    20
+   ],
+   [
+    442744,
+    18
+   ],
+   [
+    443769,
+    16
+   ],
+   [
+    444794,
+    15
+   ],
+   [
+    445820,
+    13
+   ],
+   [
+    446846,
+    10
+   ],
+   [
+    447871,
+    9
+   ],
+   [
+    448896,
+    8
+   ],
+   [
+    449920,
+    7
+   ],
+   [
+    450946,
+    3
+   ]
+  ],
+  "records": [
+   {
+    "answer": "yes",
+    "type": "new_building",
+    "reason": "The area inside the contour is covered by vegetation in T1 but shows a distinct building structure with a roof and shadow in T2, indicating new construction.",
+    "p_yes": 0.9999938558662341,
+    "level": "L1",
+    "source": "ask",
+    "mask": "mask#9",
+    "id": 9
+   }
+  ],
+  "latest": "yes",
+  "kept": true,
+  "differs_from_rule": false
+ },
+ {
+  "area": 422,
+  "bbox": [
+   31,
+   196,
+   64,
+   218
+  ],
+  "runs": [
+   [
+    200738,
+    4
+   ],
+   [
+    201761,
+    7
+   ],
+   [
+    202784,
+    11
+   ],
+   [
+    203808,
+    12
+   ],
+   [
+    204832,
+    14
+   ],
+   [
+    205856,
+    17
+   ],
+   [
+    206879,
+    19
+   ],
+   [
+    207903,
+    21
+   ],
+   [
+    208927,
+    22
+   ],
+   [
+    209951,
+    24
+   ],
+   [
+    210975,
+    26
+   ],
+   [
+    211999,
+    28
+   ],
+   [
+    213023,
+    29
+   ],
+   [
+    214047,
+    30
+   ],
+   [
+    215071,
+    31
+   ],
+   [
+    216095,
+    7
+   ],
+   [
+    216105,
+    21
+   ],
+   [
+    217119,
+    6
+   ],
+   [
+    217131,
+    20
+   ],
+   [
+    218143,
+    5
+   ],
+   [
+    218157,
+    18
+   ],
+   [
+    219168,
+    3
+   ],
+   [
+    219182,
+    17
+   ],
+   [
+    220192,
+    4
+   ],
+   [
+    220208,
+    16
+   ],
+   [
+    221218,
+    2
+   ],
+   [
+    221234,
+    5
+   ],
+   [
+    221246,
+    2
+   ],
+   [
+    222244,
+    1
+   ]
+  ],
+  "records": [
+   {
+    "answer": "no",
+    "type": "shadow",
+    "reason": "The building footprint remains identical in both dates; the large dark area inside the red contour in T2 corresponds to a shadow cast by nearby trees, consistent with the vegetation visible in T1.",
+    "p_yes": 0.0013250194067400032,
+    "level": "L1",
+    "source": "ask",
+    "mask": "mask#9",
+    "id": 3
+   }
+  ],
+  "latest": "no",
+  "kept": false,
+  "differs_from_rule": false
+ },
+ {
+  "area": 218,
+  "bbox": [
+   234,
+   322,
+   256,
+   338
+  ],
+  "runs": [
+   [
+    329964,
+    4
+   ],
+   [
+    330987,
+    9
+   ],
+   [
+    332010,
+    12
+   ],
+   [
+    333034,
+    14
+   ],
+   [
+    334058,
+    16
+   ],
+   [
+    335082,
+    18
+   ],
+   [
+    336106,
+    19
+   ],
+   [
+    337131,
+    19
+   ],
+   [
+    338155,
+    20
+   ],
+   [
+    339180,
+    19
+   ],
+   [
+    340206,
+    17
+   ],
+   [
+    341232,
+    16
+   ],
+   [
+    342259,
+    13
+   ],
+   [
+    343285,
+    10
+   ],
+   [
+    344310,
+    8
+   ],
+   [
+    345336,
+    4
+   ]
+  ],
+  "records": [
+   {
+    "answer": "no",
+    "type": "no_change",
+    "reason": "The object within the red contour maintains a consistent shape, size, and position relative to the road in both dates, indicating it is the same structure with only minor variations in tone and shadow.",
+    "p_yes": 0.00010889687380517456,
+    "level": "L1",
+    "source": "ask",
+    "mask": "mask#9",
+    "id": 8
+   }
+  ],
+  "latest": "no",
+  "kept": false,
+  "differs_from_rule": false
+ },
+ {
+  "area": 158,
+  "bbox": [
+   186,
+   293,
+   198,
+   310
+  ],
+  "runs": [
+   [
+    300222,
+    3
+   ],
+   [
+    301245,
+    6
+   ],
+   [
+    302268,
+    7
+   ],
+   [
+    303291,
+    9
+   ],
+   [
+    304315,
+    10
+   ],
+   [
+    305339,
+    10
+   ],
+   [
+    306362,
+    12
+   ],
+   [
+    307386,
+    12
+   ],
+   [
+    308410,
+    12
+   ],
+   [
+    309434,
+    12
+   ],
+   [
+    310458,
+    12
+   ],
+   [
+    311482,
+    12
+   ],
+   [
+    312506,
+    11
+   ],
+   [
+    313530,
+    11
+   ],
+   [
+    314555,
+    9
+   ],
+   [
+    315581,
+    7
+   ],
+   [
+    316608,
+    3
+   ]
+  ],
+  "records": [
+   {
+    "answer": "no",
+    "type": "no_change",
+    "reason": "The object within the red contour maintains a consistent shape and position relative to the road in both dates, indicating it is the same structure with only variations in tone and shadow likely due to seasonal or illumination differences.",
+    "p_yes": 0.00043055646204507366,
+    "level": "L1",
+    "source": "ask",
+    "mask": "mask#9",
+    "id": 7
+   }
+  ],
+  "latest": "no",
+  "kept": false,
+  "differs_from_rule": false
+ },
+ {
+  "area": 102,
+  "bbox": [
+   0,
+   461,
+   8,
+   476
+  ],
+  "runs": [
+   [
+    472064,
+    4
+   ],
+   [
+    473088,
+    4
+   ],
+   [
+    474112,
+    6
+   ],
+   [
+    475136,
+    7
+   ],
+   [
+    476160,
+    8
+   ],
+   [
+    477184,
+    8
+   ],
+   [
+    478208,
+    8
+   ],
+   [
+    479232,
+    8
+   ],
+   [
+    480256,
+    8
+   ],
+   [
+    481280,
+    8
+   ],
+   [
+    482304,
+    8
+   ],
+   [
+    483328,
+    8
+   ],
+   [
+    484352,
+    8
+   ],
+   [
+    485376,
+    7
+   ],
+   [
+    486400,
+    2
+   ]
+  ],
+  "records": [
+   {
+    "answer": "no",
+    "type": "non_building_change",
+    "reason": "The object inside the red contour appears to be a patch of vegetation or ground texture rather than a building, and the change between dates represents a difference in land cover (e.g., crop growth or soil condition) consistent with the surrounding agricultural field.",
+    "p_yes": 0.0015011813825921007,
+    "level": "L1",
+    "source": "ask",
+    "mask": "mask#9",
+    "id": 11
+   }
+  ],
+  "latest": "no",
+  "kept": false,
+  "differs_from_rule": false
+ },
+ {
+  "area": 89,
+  "bbox": [
+   0,
+   434,
+   7,
+   449
+  ],
+  "runs": [
+   [
+    444416,
+    6
+   ],
+   [
+    445440,
+    7
+   ],
+   [
+    446464,
+    7
+   ],
+   [
+    447488,
+    7
+   ],
+   [
+    448512,
+    7
+   ],
+   [
+    449536,
+    7
+   ],
+   [
+    450560,
+    7
+   ],
+   [
+    451584,
+    7
+   ],
+   [
+    452608,
+    7
+   ],
+   [
+    453632,
+    7
+   ],
+   [
+    454656,
+    6
+   ],
+   [
+    455680,
+    6
+   ],
+   [
+    456704,
+    4
+   ],
+   [
+    457728,
+    3
+   ],
+   [
+    458752,
+    1
+   ]
+  ],
+  "records": [
+   {
+    "answer": "no",
+    "type": "non_building_change",
+    "reason": "The object inside the contour is not a building but appears to be vegetation or a shadow on the edge of a field, and the change reflects differences in land cover or image artifacts rather than construction or demolition.",
+    "p_yes": 0.0002034269329997554,
+    "level": "L1",
+    "source": "ask",
+    "mask": "mask#9",
+    "id": 10
+   }
+  ],
+  "latest": "no",
+  "kept": false,
+  "differs_from_rule": false
+ },
+ {
+  "area": 50,
+  "bbox": [
+   47,
+   218,
+   65,
+   229
+  ],
+  "runs": [
+   [
+    223296,
+    1
+   ],
+   [
+    224320,
+    1
+   ],
+   [
+    225343,
+    2
+   ],
+   [
+    226366,
+    3
+   ],
+   [
+    227389,
+    4
+   ],
+   [
+    228399,
+    1
+   ],
+   [
+    228412,
+    5
+   ],
+   [
+    229424,
+    2
+   ],
+   [
+    229436,
+    4
+   ],
+   [
+    230450,
+    3
+   ],
+   [
+    230459,
+    4
+   ],
+   [
+    231476,
+    4
+   ],
+   [
+    231481,
+    5
+   ],
+   [
+    232502,
+    7
+   ],
+   [
+    233528,
+    4
+   ]
+  ],
+  "records": [
+   {
+    "answer": "no",
+    "type": "seasonal_or_color",
+    "reason": "The building within the red contour maintains the same outline and position in both dates, with apparent differences in roof color and shadow likely due to seasonal or illumination changes.",
+    "p_yes": 0.0011695096983224535,
+    "level": "L1",
+    "source": "ask",
+    "mask": "mask#9",
+    "id": 4
+   }
+  ],
+  "latest": "no",
+  "kept": false,
+  "differs_from_rule": false
+ },
+ {
+  "area": 45,
+  "bbox": [
+   0,
+   178,
+   8,
+   187
+  ],
+  "runs": [
+   [
+    182272,
+    3
+   ],
+   [
+    183296,
+    4
+   ],
+   [
+    184320,
+    6
+   ],
+   [
+    185344,
+    6
+   ],
+   [
+    186368,
+    7
+   ],
+   [
+    187392,
+    7
+   ],
+   [
+    188418,
+    6
+   ],
+   [
+    189444,
+    4
+   ],
+   [
+    190470,
+    2
+   ]
+  ],
+  "records": [
+   {
+    "answer": "no",
+    "type": "no_change",
+    "reason": "The red contour marks the same building in both T1 and T2, showing consistent roof structure and position relative to fixed surroundings, with only minor differences in shadow and visibility.",
+    "p_yes": 4.006368497486212e-05,
+    "level": "L1",
+    "source": "ask",
+    "mask": "mask#9",
+    "id": 1
+   }
+  ],
+  "latest": "no",
+  "kept": false,
+  "differs_from_rule": false
+ },
+ {
+  "area": 36,
+  "bbox": [
+   0,
+   188,
+   10,
+   200
+  ],
+  "runs": [
+   [
+    192519,
+    2
+   ],
+   [
+    193543,
+    3
+   ],
+   [
+    194567,
+    3
+   ],
+   [
+    195590,
+    3
+   ],
+   [
+    196613,
+    4
+   ],
+   [
+    197637,
+    3
+   ],
+   [
+    198660,
+    3
+   ],
+   [
+    199683,
+    3
+   ],
+   [
+    200706,
+    3
+   ],
+   [
+    201728,
+    4
+   ],
+   [
+    202752,
+    3
+   ],
+   [
+    203776,
+    2
+   ]
+  ],
+  "records": [
+   {
+    "answer": "no",
+    "type": "no_change",
+    "reason": "The red contour marks the same white building in both dates, showing consistent outline and position relative to fixed surroundings, with only minor visibility differences.",
+    "p_yes": 0.0031726796372110178,
+    "level": "L1",
+    "source": "ask",
+    "mask": "mask#9",
+    "id": 2
+   }
+  ],
+  "latest": "no",
+  "kept": false,
+  "differs_from_rule": false
+ },
+ {
+  "area": 1,
+  "bbox": [
+   42,
+   220,
+   43,
+   221
+  ],
+  "runs": [
+   [
+    225322,
+    1
+   ]
+  ],
+  "records": [
+   {
+    "answer": "yes",
+    "type": "rebuilt",
+    "reason": "The object in T1 is a small, light-colored structure, while the object at the same location in T2 is a significantly larger building with a dark roof and different dimensions, indicating the original was demolished and replaced.",
+    "p_yes": 0.9982993002304832,
+    "level": "L1",
+    "source": "ask",
+    "mask": "mask#9",
+    "id": 5
+   }
+  ],
+  "latest": "yes",
+  "kept": true,
+  "differs_from_rule": false
+ },
+ {
+  "area": 1,
+  "bbox": [
+   45,
+   222,
+   46,
+   223
+  ],
+  "runs": [
+   [
+    227373,
+    1
+   ]
+  ],
+  "records": [
+   {
+    "answer": "no",
+    "type": "seasonal_or_color",
+    "reason": "The building at the red contour is present in both dates with the same outline and structure, but shows different roof coloration and shadowing likely due to seasonal or illumination differences.",
+    "p_yes": 0.022978675716633562,
+    "level": "L1",
+    "source": "ask",
+    "mask": "mask#9",
+    "id": 6
+   }
+  ],
+  "latest": "no",
+  "kept": false,
+  "differs_from_rule": false
+ }
+]
