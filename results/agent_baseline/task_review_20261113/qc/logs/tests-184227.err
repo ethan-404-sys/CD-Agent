@@ -1,0 +1,37 @@
+test_construct_review (unittest.loader._FailedTest) ... ERROR
+test_task_data (unittest.loader._FailedTest) ... ERROR
+
+======================================================================
+ERROR: test_construct_review (unittest.loader._FailedTest)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_construct_review
+Traceback (most recent call last):
+  File "/persist_data/home/guisongxia/anaconda3/envs/kari-ai-spacenet8/lib/python3.9/unittest/loader.py", line 154, in loadTestsFromName
+    module = __import__(module_name)
+  File "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/task-review-20261113/qc-code/test_construct_review.py", line 15, in <module>
+    import construct_review_import as prepare
+  File "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/task-review-20261113/qc-code/construct_review_import.py", line 15, in <module>
+    from task_data_api import paint, outline
+  File "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/task-review-20261113/qc-code/task_data_api.py", line 10, in <module>
+    from fastapi import Query, APIRouter, HTTPException
+ModuleNotFoundError: No module named 'fastapi'
+
+
+======================================================================
+ERROR: test_task_data (unittest.loader._FailedTest)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_task_data
+Traceback (most recent call last):
+  File "/persist_data/home/guisongxia/anaconda3/envs/kari-ai-spacenet8/lib/python3.9/unittest/loader.py", line 154, in loadTestsFromName
+    module = __import__(module_name)
+  File "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/task-review-20261113/qc-code/test_task_data.py", line 16, in <module>
+    import app
+  File "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/task-review-20261113/qc-code/app.py", line 17, in <module>
+    from fastapi import FastAPI, HTTPException
+ModuleNotFoundError: No module named 'fastapi'
+
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.000s
+
+FAILED (errors=2)
