@@ -1,0 +1,1009 @@
+{
+  "config": "p0",
+  "groups": {
+    "all": {
+      "n": 6,
+      "mean_f1": 66.06102890625483,
+      "pooled_f1": 87.71815116190544,
+      "precision": 87.11849631283525,
+      "recall": 88.32611832611832,
+      "counts": {
+        "tp": 97936,
+        "fp": 14481,
+        "fn": 12944
+      },
+      "calls": 73,
+      "rounds": 76,
+      "tokens": {
+        "input": 1060890,
+        "cached": 420480,
+        "output": 29900
+      },
+      "errors": {},
+      "error_rate": 0.0,
+      "invalid_retries": 0,
+      "termination": {
+        "no_submit": 1,
+        "submit": 5
+      },
+      "abnormal": 1,
+      "seconds": 1099.8552005309612,
+      "token_metered_cost_cny": 0.23609800000000003,
+      "set_answer_calls": 1,
+      "pair_tool_calls": 0,
+      "segmentation_backend_invocations": 6
+    },
+    "hard": {
+      "n": 4,
+      "mean_f1": 52.981549510710465,
+      "pooled_f1": 75.07775385351516,
+      "precision": 67.4827967559597,
+      "recall": 84.59909111915582,
+      "counts": {
+        "tp": 21967,
+        "fp": 10585,
+        "fn": 3999
+      },
+      "calls": 62,
+      "rounds": 65,
+      "tokens": {
+        "input": 880897,
+        "cached": 397440,
+        "output": 23579
+      },
+      "errors": {},
+      "error_rate": 0.0,
+      "invalid_retries": 0,
+      "termination": {
+        "no_submit": 1,
+        "submit": 3
+      },
+      "abnormal": 1,
+      "seconds": 1023.3044365942478,
+      "token_metered_cost_cny": 0.1950426,
+      "set_answer_calls": 1,
+      "pair_tool_calls": 0,
+      "segmentation_backend_invocations": 4
+    },
+    "simple": {
+      "n": 2,
+      "mean_f1": 92.21998769734357,
+      "pooled_f1": 92.20713804550337,
+      "precision": 95.12176798347211,
+      "recall": 89.46581246908637,
+      "counts": {
+        "tp": 75969,
+        "fp": 3896,
+        "fn": 8945
+      },
+      "calls": 11,
+      "rounds": 11,
+      "tokens": {
+        "input": 179993,
+        "cached": 23040,
+        "output": 6321
+      },
+      "errors": {},
+      "error_rate": 0.0,
+      "invalid_retries": 0,
+      "termination": {
+        "submit": 2
+      },
+      "abnormal": 0,
+      "seconds": 76.55076393671334,
+      "token_metered_cost_cny": 0.0410554,
+      "set_answer_calls": 0,
+      "pair_tool_calls": 0,
+      "segmentation_backend_invocations": 2
+    }
+  },
+  "rows": [
+    {
+      "config": "p0",
+      "task": "T1.1xC0",
+      "name": "val_31",
+      "cohort": "hard",
+      "session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/p0/T1.1xC0/val/val_31",
+      "final": {
+        "task_id": "T1.1xC0",
+        "final_handle": "mask#6",
+        "mask_path": "masks/mask_6.png",
+        "summary": "系统兜底：no_submit；使用当前掩码。",
+        "summary_source": "system",
+        "submitted_by": "no_submit",
+        "termination_reason": "no_submit",
+        "fallback_kind": "current",
+        "change_component_count": 2,
+        "change_area_px": 702,
+        "eval": {
+          "tp": 0,
+          "fp": 702,
+          "fn": 0,
+          "f1": 0.0,
+          "iou": 0.0
+        },
+        "initial_eval": null,
+        "objects": {
+          "gt_objects": 0,
+          "missed": 0,
+          "pred_objects": 2,
+          "false_alarms": 2
+        },
+        "initial_objects": null,
+        "precision": 0.0,
+        "recall": 0.0,
+        "planning_rounds": 23,
+        "api_attempts": 28,
+        "planner_api_attempts": 23,
+        "ask_api_attempts": 5,
+        "tool_calls": 20,
+        "tokens": {
+          "input": 351846,
+          "cached": 213120,
+          "output": 11135
+        },
+        "planner_tokens": {
+          "input": 346981,
+          "cached": 213120,
+          "output": 10829
+        },
+        "ask_tokens": {
+          "input": 4865,
+          "cached": 0,
+          "output": 306
+        },
+        "cost_cny": 0.0792772,
+        "planner_cost_cny": 0.0780594,
+        "ask_cost_cny": 0.0012178000000000002,
+        "planner_model": "qwen3.7-flash",
+        "elapsed_seconds": 256.83470529317856,
+        "identical_to_init": null,
+        "added_px": null,
+        "removed_px": null,
+        "view_calls": 7,
+        "ask_calls": 2,
+        "initial_images_present": true,
+        "final_delta": {
+          "tp": 0,
+          "fp": 702,
+          "fn": 0,
+          "f1": 0.0,
+          "iou": 0.0,
+          "delta_f1": 0.0
+        },
+        "error": null,
+        "backends": {
+          "ask": "api",
+          "review": false,
+          "status": true,
+          "verify_stage": true,
+          "plan": false,
+          "skills": [],
+          "ask_correspondence": true,
+          "ask_model": "qwen3.7-flash",
+          "sam3_worker": true,
+          "pixel_thr": 0.85,
+          "sam_prompt": "shared_cpu",
+          "sam_model": "SAM ViT-H",
+          "answer_state": true,
+          "gate3": true,
+          "gate2": true,
+          "big_box_share": 0.1
+        }
+      },
+      "error_codes": {},
+      "errors": [],
+      "tools": {
+        "segment_text": 2,
+        "inspect": 6,
+        "match_instances": 1,
+        "view": 7,
+        "to_mask": 1,
+        "ask": 2,
+        "remove_region": 1
+      },
+      "invalid_retries": [],
+      "segmentation_backend_invocations": 2,
+      "seed": 5803,
+      "model_parameters": {
+        "model": "qwen3.7-flash",
+        "temperature": 0,
+        "enable_thinking": false,
+        "parallel_tool_calls": true,
+        "max_tokens": 1500,
+        "seed": 5803
+      },
+      "backends": {
+        "ask": "api",
+        "review": false,
+        "status": true,
+        "verify_stage": true,
+        "plan": false,
+        "skills": [],
+        "ask_correspondence": true,
+        "ask_model": "qwen3.7-flash",
+        "sam3_worker": true,
+        "pixel_thr": 0.85,
+        "sam_prompt": "shared_cpu",
+        "sam_model": "SAM ViT-H",
+        "answer_state": true,
+        "gate3": true,
+        "gate2": true,
+        "big_box_share": 0.1
+      },
+      "gt_mask_path": "/guisongxia01/pangchao/wangyihan/datasets/LEVIR-CD/val_original/label/val_31.png",
+      "f1_drop_calls": [],
+      "successful_after_error": [],
+      "state_recovery": []
+    },
+    {
+      "config": "p0",
+      "task": "T1.1xC0",
+      "name": "val_22",
+      "cohort": "hard",
+      "session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/p0/T1.1xC0/val/val_22",
+      "final": {
+        "task_id": "T1.1xC0",
+        "final_handle": "mask#8",
+        "mask_path": "masks/mask_8.png",
+        "summary": "Final binary change mask with 24 verified building changes: newly built structures (absent in T1, present in T2) and demolished structures (present in T1, absent in T2). All 24 components confirmed by independent verifier as valid building changes. Removed 9 false positives including shadows, swimming pools, unchanged structures, and non-building land cover.",
+        "summary_source": "model",
+        "submitted_by": "model",
+        "termination_reason": "submit",
+        "fallback_kind": "none",
+        "change_component_count": 24,
+        "change_area_px": 29233,
+        "eval": {
+          "tp": 21298,
+          "fp": 7935,
+          "fn": 3184,
+          "f1": 0.7930000930838685,
+          "iou": 0.6570009562883672
+        },
+        "initial_eval": null,
+        "objects": {
+          "gt_objects": 23,
+          "missed": 2,
+          "pred_objects": 24,
+          "false_alarms": 4
+        },
+        "initial_objects": null,
+        "precision": 0.7285601888252025,
+        "recall": 0.8699452659060944,
+        "planning_rounds": 11,
+        "api_attempts": 44,
+        "planner_api_attempts": 11,
+        "ask_api_attempts": 33,
+        "tool_calls": 11,
+        "tokens": {
+          "input": 119784,
+          "cached": 26496,
+          "output": 3476
+        },
+        "planner_tokens": {
+          "input": 87675,
+          "cached": 26496,
+          "output": 1594
+        },
+        "ask_tokens": {
+          "input": 32109,
+          "cached": 0,
+          "output": 1882
+        },
+        "cost_cny": 0.026737600000000007,
+        "planner_cost_cny": 0.018810200000000003,
+        "ask_cost_cny": 0.007927400000000003,
+        "planner_model": "qwen3.7-flash",
+        "elapsed_seconds": 39.34475124441087,
+        "identical_to_init": null,
+        "added_px": null,
+        "removed_px": null,
+        "view_calls": 1,
+        "ask_calls": 1,
+        "initial_images_present": true,
+        "final_delta": {
+          "tp": 21298,
+          "fp": 7935,
+          "fn": 3184,
+          "f1": 0.7930000930838685,
+          "iou": 0.6570009562883672,
+          "delta_f1": 0.0
+        },
+        "error": null,
+        "backends": {
+          "ask": "api",
+          "review": false,
+          "status": true,
+          "verify_stage": true,
+          "plan": false,
+          "skills": [],
+          "ask_correspondence": true,
+          "ask_model": "qwen3.7-flash",
+          "sam3_worker": true,
+          "pixel_thr": 0.85,
+          "sam_prompt": "shared_cpu",
+          "sam_model": "SAM ViT-H",
+          "answer_state": true,
+          "gate3": true,
+          "gate2": true,
+          "big_box_share": 0.1
+        }
+      },
+      "error_codes": {},
+      "errors": [],
+      "tools": {
+        "segment_text": 2,
+        "match_instances": 1,
+        "to_mask": 2,
+        "combine": 1,
+        "view": 1,
+        "ask": 1,
+        "remove_region": 1,
+        "submit": 2
+      },
+      "invalid_retries": [],
+      "segmentation_backend_invocations": 2,
+      "seed": 5804,
+      "model_parameters": {
+        "model": "qwen3.7-flash",
+        "temperature": 0,
+        "enable_thinking": false,
+        "parallel_tool_calls": true,
+        "max_tokens": 1500,
+        "seed": 5804
+      },
+      "backends": {
+        "ask": "api",
+        "review": false,
+        "status": true,
+        "verify_stage": true,
+        "plan": false,
+        "skills": [],
+        "ask_correspondence": true,
+        "ask_model": "qwen3.7-flash",
+        "sam3_worker": true,
+        "pixel_thr": 0.85,
+        "sam_prompt": "shared_cpu",
+        "sam_model": "SAM ViT-H",
+        "answer_state": true,
+        "gate3": true,
+        "gate2": true,
+        "big_box_share": 0.1
+      },
+      "gt_mask_path": "/guisongxia01/pangchao/wangyihan/datasets/LEVIR-CD/val_original/label/val_22.png",
+      "f1_drop_calls": [],
+      "successful_after_error": [],
+      "state_recovery": []
+    },
+    {
+      "config": "p0",
+      "task": "T1.1xC0",
+      "name": "val_44",
+      "cohort": "simple",
+      "session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/p0/T1.1xC0/val/val_44",
+      "final": {
+        "task_id": "T1.1xC0",
+        "final_handle": "mask#2",
+        "mask_path": "masks/mask_2.png",
+        "summary": "Final submission: 53 newly constructed residential buildings detected in T2 bottom-right area, absent in T1. All 53 components verified as yes by independent verifier. No demolished buildings found.",
+        "summary_source": "model",
+        "submitted_by": "model",
+        "termination_reason": "submit",
+        "fallback_kind": "none",
+        "change_component_count": 53,
+        "change_area_px": 47474,
+        "eval": {
+          "tp": 45665,
+          "fp": 1809,
+          "fn": 5964,
+          "f1": 0.9215664510660626,
+          "iou": 0.8545417118904151
+        },
+        "initial_eval": null,
+        "objects": {
+          "gt_objects": 41,
+          "missed": 1,
+          "pred_objects": 53,
+          "false_alarms": 1
+        },
+        "initial_objects": null,
+        "precision": 0.9618949319607324,
+        "recall": 0.8844835266983972,
+        "planning_rounds": 6,
+        "api_attempts": 59,
+        "planner_api_attempts": 6,
+        "ask_api_attempts": 53,
+        "tool_calls": 6,
+        "tokens": {
+          "input": 89186,
+          "cached": 13824,
+          "output": 3258
+        },
+        "planner_tokens": {
+          "input": 37617,
+          "cached": 13824,
+          "output": 747
+        },
+        "ask_tokens": {
+          "input": 51569,
+          "cached": 0,
+          "output": 2511
+        },
+        "cost_cny": 0.0204436,
+        "planner_cost_cny": 0.008121000000000001,
+        "ask_cost_cny": 0.012322599999999998,
+        "planner_model": "qwen3.7-flash",
+        "elapsed_seconds": 41.456801775842905,
+        "identical_to_init": null,
+        "added_px": null,
+        "removed_px": null,
+        "view_calls": 1,
+        "ask_calls": 0,
+        "initial_images_present": true,
+        "final_delta": {
+          "tp": 45665,
+          "fp": 1809,
+          "fn": 5964,
+          "f1": 0.9215664510660626,
+          "iou": 0.8545417118904151,
+          "delta_f1": 0.0
+        },
+        "error": null,
+        "backends": {
+          "ask": "api",
+          "review": false,
+          "status": true,
+          "verify_stage": true,
+          "plan": false,
+          "skills": [],
+          "ask_correspondence": true,
+          "ask_model": "qwen3.7-flash",
+          "sam3_worker": true,
+          "pixel_thr": 0.85,
+          "sam_prompt": "shared_cpu",
+          "sam_model": "SAM ViT-H",
+          "answer_state": true,
+          "gate3": true,
+          "gate2": true,
+          "big_box_share": 0.1
+        }
+      },
+      "error_codes": {},
+      "errors": [],
+      "tools": {
+        "segment_text": 2,
+        "to_mask": 1,
+        "view": 1,
+        "submit": 2
+      },
+      "invalid_retries": [],
+      "segmentation_backend_invocations": 2,
+      "seed": 5826,
+      "model_parameters": {
+        "model": "qwen3.7-flash",
+        "temperature": 0,
+        "enable_thinking": false,
+        "parallel_tool_calls": true,
+        "max_tokens": 1500,
+        "seed": 5826
+      },
+      "backends": {
+        "ask": "api",
+        "review": false,
+        "status": true,
+        "verify_stage": true,
+        "plan": false,
+        "skills": [],
+        "ask_correspondence": true,
+        "ask_model": "qwen3.7-flash",
+        "sam3_worker": true,
+        "pixel_thr": 0.85,
+        "sam_prompt": "shared_cpu",
+        "sam_model": "SAM ViT-H",
+        "answer_state": true,
+        "gate3": true,
+        "gate2": true,
+        "big_box_share": 0.1
+      },
+      "gt_mask_path": "/guisongxia01/pangchao/wangyihan/datasets/LEVIR-CD/val_original/label/val_44.png",
+      "f1_drop_calls": [],
+      "successful_after_error": [],
+      "state_recovery": []
+    },
+    {
+      "config": "p0",
+      "task": "T5.1",
+      "name": "val_32",
+      "cohort": "hard",
+      "session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/p0/T5.1/val/val_32",
+      "final": {
+        "task_id": "T5.1",
+        "final_handle": "mask#3",
+        "mask_path": "masks/mask_3.png",
+        "summary": "No building changes detected between T1 and T2. Initial segmentation of linear structures in T2 (around y=500-540, x=0-400) was evaluated by the independent verifier, which determined all 7 components represent non-building features (fences, boundary markers, or temporary piles) rather than actual buildings. All components received \"no\" answers from the verifier. Final answer is an empty binary change mask with 0 pixels and 0 components, correctly reflecting no confirmed building construction, demolition, or rebuilding events.",
+        "summary_source": "model",
+        "submitted_by": "model",
+        "termination_reason": "submit",
+        "fallback_kind": "none",
+        "change_component_count": 0,
+        "change_area_px": 0,
+        "eval": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "f1": 1.0,
+          "iou": 1.0
+        },
+        "initial_eval": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "f1": 1.0,
+          "iou": 1.0
+        },
+        "objects": {
+          "gt_objects": 0,
+          "missed": 0,
+          "pred_objects": 0,
+          "false_alarms": 0
+        },
+        "initial_objects": {
+          "gt_objects": 0,
+          "missed": 0,
+          "pred_objects": 0,
+          "false_alarms": 0
+        },
+        "precision": 0.0,
+        "recall": 0.0,
+        "planning_rounds": 14,
+        "api_attempts": 21,
+        "planner_api_attempts": 14,
+        "ask_api_attempts": 7,
+        "tool_calls": 14,
+        "tokens": {
+          "input": 152898,
+          "cached": 64512,
+          "output": 3427
+        },
+        "planner_tokens": {
+          "input": 146087,
+          "cached": 64512,
+          "output": 2969
+        },
+        "ask_tokens": {
+          "input": 6811,
+          "cached": 0,
+          "output": 458
+        },
+        "cost_cny": 0.033321199999999995,
+        "planner_cost_cny": 0.0315926,
+        "ask_cost_cny": 0.0017286,
+        "planner_model": "qwen3.7-flash",
+        "elapsed_seconds": 645.6222998667508,
+        "identical_to_init": true,
+        "added_px": 0,
+        "removed_px": 0,
+        "view_calls": 6,
+        "ask_calls": 1,
+        "initial_images_present": true,
+        "final_delta": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "f1": 1.0,
+          "iou": 1.0,
+          "delta_f1": 0.0
+        },
+        "error": null,
+        "backends": {
+          "ask": "api",
+          "review": false,
+          "status": true,
+          "verify_stage": true,
+          "plan": false,
+          "skills": [],
+          "ask_correspondence": true,
+          "ask_model": "qwen3.7-flash",
+          "sam3_worker": true,
+          "pixel_thr": 0.85,
+          "sam_prompt": "shared_cpu",
+          "sam_model": "SAM ViT-H",
+          "answer_state": true,
+          "gate3": true,
+          "gate2": true,
+          "big_box_share": 0.1
+        }
+      },
+      "error_codes": {},
+      "errors": [],
+      "tools": {
+        "view": 6,
+        "segment_prompt": 2,
+        "inspect": 2,
+        "set_answer": 1,
+        "ask": 1,
+        "submit": 2
+      },
+      "invalid_retries": [],
+      "segmentation_backend_invocations": 0,
+      "seed": 5809,
+      "model_parameters": {
+        "model": "qwen3.7-flash",
+        "temperature": 0,
+        "enable_thinking": false,
+        "parallel_tool_calls": true,
+        "max_tokens": 1500,
+        "seed": 5809
+      },
+      "backends": {
+        "ask": "api",
+        "review": false,
+        "status": true,
+        "verify_stage": true,
+        "plan": false,
+        "skills": [],
+        "ask_correspondence": true,
+        "ask_model": "qwen3.7-flash",
+        "sam3_worker": true,
+        "pixel_thr": 0.85,
+        "sam_prompt": "shared_cpu",
+        "sam_model": "SAM ViT-H",
+        "answer_state": true,
+        "gate3": true,
+        "gate2": true,
+        "big_box_share": 0.1
+      },
+      "gt_mask_path": "/guisongxia01/pangchao/wangyihan/datasets/LEVIR-CD/val_original/label/val_32.png",
+      "f1_drop_calls": [
+        {
+          "step": 11,
+          "tool": "set_answer",
+          "args": {
+            "mask": "mask#1"
+          },
+          "before": "mask#0",
+          "after": "mask#1",
+          "eval": {
+            "tp": 0,
+            "fp": 5022,
+            "fn": 0,
+            "f1": 0.0,
+            "iou": 0.0,
+            "delta_f1": -1.0
+          }
+        }
+      ],
+      "successful_after_error": [],
+      "state_recovery": [
+        {
+          "step": 11,
+          "tool": "set_answer",
+          "args": {
+            "mask": "mask#1"
+          },
+          "ok": true,
+          "current": "mask#1"
+        }
+      ]
+    },
+    {
+      "config": "p0",
+      "task": "T5.1",
+      "name": "val_47",
+      "cohort": "hard",
+      "session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/p0/T5.1/val/val_47",
+      "final": {
+        "task_id": "T5.1",
+        "final_handle": "mask#1",
+        "mask_path": "masks/mask_1.png",
+        "summary": "Final building change detection mask with 7 components (2617 pixels total). All components verified by independent verifier as actual building changes: 3 new buildings (IDs 1, 3, 16), 3 rebuilt structures where old small structures were replaced by new buildings (IDs 7, 9, 11), and 1 demolished building (ID 18 - large grey-roofed building present in T1 but cleared in T2). Removed 14 false positives including vehicles, trailers, and same-buildings with illumination/color differences that do not count as building changes per the scope rules.",
+        "summary_source": "model",
+        "submitted_by": "model",
+        "termination_reason": "submit",
+        "fallback_kind": "none",
+        "change_component_count": 7,
+        "change_area_px": 2617,
+        "eval": {
+          "tp": 669,
+          "fp": 1948,
+          "fn": 815,
+          "f1": 0.3262618873445501,
+          "iou": 0.19493006993006992
+        },
+        "initial_eval": {
+          "tp": 1221,
+          "fp": 7178,
+          "fn": 263,
+          "f1": 0.2470909642821006,
+          "iou": 0.14096051720157007
+        },
+        "objects": {
+          "gt_objects": 4,
+          "missed": 3,
+          "pred_objects": 7,
+          "false_alarms": 6
+        },
+        "initial_objects": {
+          "gt_objects": 4,
+          "missed": 2,
+          "pred_objects": 21,
+          "false_alarms": 19
+        },
+        "precision": 0.25563622467498526,
+        "recall": 0.45080862530654925,
+        "planning_rounds": 17,
+        "api_attempts": 38,
+        "planner_api_attempts": 17,
+        "ask_api_attempts": 21,
+        "tool_calls": 17,
+        "tokens": {
+          "input": 256369,
+          "cached": 93312,
+          "output": 5541
+        },
+        "planner_tokens": {
+          "input": 235936,
+          "cached": 93312,
+          "output": 4286
+        },
+        "ask_tokens": {
+          "input": 20433,
+          "cached": 0,
+          "output": 1255
+        },
+        "cost_cny": 0.05570660000000001,
+        "planner_cost_cny": 0.05061600000000001,
+        "ask_cost_cny": 0.005090600000000001,
+        "planner_model": "qwen3.7-flash",
+        "elapsed_seconds": 81.50268018990755,
+        "identical_to_init": false,
+        "added_px": 0,
+        "removed_px": 5782,
+        "view_calls": 12,
+        "ask_calls": 1,
+        "initial_images_present": true,
+        "final_delta": {
+          "tp": 669,
+          "fp": 1948,
+          "fn": 815,
+          "f1": 0.3262618873445501,
+          "iou": 0.19493006993006992,
+          "delta_f1": 0.0
+        },
+        "error": null,
+        "backends": {
+          "ask": "api",
+          "review": false,
+          "status": true,
+          "verify_stage": true,
+          "plan": false,
+          "skills": [],
+          "ask_correspondence": true,
+          "ask_model": "qwen3.7-flash",
+          "sam3_worker": true,
+          "pixel_thr": 0.85,
+          "sam_prompt": "shared_cpu",
+          "sam_model": "SAM ViT-H",
+          "answer_state": true,
+          "gate3": true,
+          "gate2": true,
+          "big_box_share": 0.1
+        }
+      },
+      "error_codes": {},
+      "errors": [],
+      "tools": {
+        "inspect": 1,
+        "view": 12,
+        "ask": 1,
+        "remove_region": 1,
+        "submit": 2
+      },
+      "invalid_retries": [],
+      "segmentation_backend_invocations": 0,
+      "seed": 5844,
+      "model_parameters": {
+        "model": "qwen3.7-flash",
+        "temperature": 0,
+        "enable_thinking": false,
+        "parallel_tool_calls": true,
+        "max_tokens": 1500,
+        "seed": 5844
+      },
+      "backends": {
+        "ask": "api",
+        "review": false,
+        "status": true,
+        "verify_stage": true,
+        "plan": false,
+        "skills": [],
+        "ask_correspondence": true,
+        "ask_model": "qwen3.7-flash",
+        "sam3_worker": true,
+        "pixel_thr": 0.85,
+        "sam_prompt": "shared_cpu",
+        "sam_model": "SAM ViT-H",
+        "answer_state": true,
+        "gate3": true,
+        "gate2": true,
+        "big_box_share": 0.1
+      },
+      "gt_mask_path": "/guisongxia01/pangchao/wangyihan/datasets/LEVIR-CD/val_original/label/val_47.png",
+      "f1_drop_calls": [],
+      "successful_after_error": [],
+      "state_recovery": []
+    },
+    {
+      "config": "p0",
+      "task": "T5.1",
+      "name": "val_36",
+      "cohort": "simple",
+      "session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/p0/T5.1/val/val_36",
+      "final": {
+        "task_id": "T5.1",
+        "final_handle": "mask#1",
+        "mask_path": "masks/mask_1.png",
+        "summary": "Final mask with 43 components (32391 pixels). Removed 3 false positives: id=18 (house present in both dates), id=46 (same roof structure in both dates), id=24 (non-building vegetation/soil). All 43 remaining components verified as actual building changes: 42 newly constructed buildings and 1 demolished building (id=21).",
+        "summary_source": "model",
+        "submitted_by": "model",
+        "termination_reason": "submit",
+        "fallback_kind": "none",
+        "change_component_count": 43,
+        "change_area_px": 32391,
+        "eval": {
+          "tp": 30304,
+          "fp": 2087,
+          "fn": 2981,
+          "f1": 0.9228333028808088,
+          "iou": 0.8567228316182292
+        },
+        "initial_eval": {
+          "tp": 31297,
+          "fp": 2182,
+          "fn": 1988,
+          "f1": 0.9375411898628003,
+          "iou": 0.8824259170496518
+        },
+        "objects": {
+          "gt_objects": 45,
+          "missed": 4,
+          "pred_objects": 43,
+          "false_alarms": 0
+        },
+        "initial_objects": {
+          "gt_objects": 45,
+          "missed": 2,
+          "pred_objects": 46,
+          "false_alarms": 0
+        },
+        "precision": 0.9355685221174537,
+        "recall": 0.9104401381976552,
+        "planning_rounds": 5,
+        "api_attempts": 51,
+        "planner_api_attempts": 5,
+        "ask_api_attempts": 46,
+        "tool_calls": 5,
+        "tokens": {
+          "input": 90807,
+          "cached": 9216,
+          "output": 3063
+        },
+        "planner_tokens": {
+          "input": 46049,
+          "cached": 9216,
+          "output": 726
+        },
+        "ask_tokens": {
+          "input": 44758,
+          "cached": 0,
+          "output": 2337
+        },
+        "cost_cny": 0.0206118,
+        "planner_cost_cny": 0.0097906,
+        "ask_cost_cny": 0.0108212,
+        "planner_model": "qwen3.7-flash",
+        "elapsed_seconds": 35.09396216087043,
+        "identical_to_init": false,
+        "added_px": 0,
+        "removed_px": 1088,
+        "view_calls": 0,
+        "ask_calls": 1,
+        "initial_images_present": true,
+        "final_delta": {
+          "tp": 30304,
+          "fp": 2087,
+          "fn": 2981,
+          "f1": 0.9228333028808088,
+          "iou": 0.8567228316182292,
+          "delta_f1": 0.0
+        },
+        "error": null,
+        "backends": {
+          "ask": "api",
+          "review": false,
+          "status": true,
+          "verify_stage": true,
+          "plan": false,
+          "skills": [],
+          "ask_correspondence": true,
+          "ask_model": "qwen3.7-flash",
+          "sam3_worker": true,
+          "pixel_thr": 0.85,
+          "sam_prompt": "shared_cpu",
+          "sam_model": "SAM ViT-H",
+          "answer_state": true,
+          "gate3": true,
+          "gate2": true,
+          "big_box_share": 0.1
+        }
+      },
+      "error_codes": {},
+      "errors": [],
+      "tools": {
+        "inspect": 1,
+        "ask": 1,
+        "remove_region": 1,
+        "submit": 2
+      },
+      "invalid_retries": [],
+      "segmentation_backend_invocations": 0,
+      "seed": 5833,
+      "model_parameters": {
+        "model": "qwen3.7-flash",
+        "temperature": 0,
+        "enable_thinking": false,
+        "parallel_tool_calls": true,
+        "max_tokens": 1500,
+        "seed": 5833
+      },
+      "backends": {
+        "ask": "api",
+        "review": false,
+        "status": true,
+        "verify_stage": true,
+        "plan": false,
+        "skills": [],
+        "ask_correspondence": true,
+        "ask_model": "qwen3.7-flash",
+        "sam3_worker": true,
+        "pixel_thr": 0.85,
+        "sam_prompt": "shared_cpu",
+        "sam_model": "SAM ViT-H",
+        "answer_state": true,
+        "gate3": true,
+        "gate2": true,
+        "big_box_share": 0.1
+      },
+      "gt_mask_path": "/guisongxia01/pangchao/wangyihan/datasets/LEVIR-CD/val_original/label/val_36.png",
+      "f1_drop_calls": [
+        {
+          "step": 3,
+          "tool": "remove_region",
+          "args": {
+            "mask": "mask#0",
+            "ids": [
+              18,
+              46,
+              24
+            ]
+          },
+          "before": "mask#0",
+          "after": "mask#1",
+          "eval": {
+            "tp": 30304,
+            "fp": 2087,
+            "fn": 2981,
+            "f1": 0.9228333028808088,
+            "iou": 0.8567228316182292,
+            "delta_f1": -0.014707886981991547
+          }
+        }
+      ],
+      "successful_after_error": [],
+      "state_recovery": []
+    }
+  ],
+  "missing": [],
+  "cost_note": "Metered real API tokens valued with repository price table, not provider invoice.",
+  "expected": 6
+}

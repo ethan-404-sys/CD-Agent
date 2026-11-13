@@ -161,18 +161,30 @@ def read_metric(exp,cfg,s):
     return metric
 
 
+def accounted_cost(history):
+    """Replay measured costs; cumulative metrics already include earlier rounds."""
+    total=0.
+    for row in history:
+        metric=row.get('metric') or {}
+        cost=metric.get('cost_cny',row.get('cost_cny',0))
+        total=max(total,cost) if metric.get('cumulative') else total+cost
+    return round(total,6)
+
+
 def record(exp,cfg,s,state,ec):
     error=None
     try: metric=read_metric(exp,cfg,s)
     except (ValueError,IndexError,TypeError,OSError) as e: metric={};error=str(e)
     primary=metric.get('primary');cost=metric.get('cost_cny',0)
-    s['cost_cny']=round(s['cost_cny']+cost,6)
+    previous_cost=accounted_cost(s['history'])
+    s['cost_cny']=accounted_cost([*s['history'],dict(metric=metric)])
+    round_cost=round(s['cost_cny']-previous_cost,6)
     gain=None
     if primary is not None:
         old=s['primary_best'];gain=None if old is None else primary-old
         s['primary_best']=primary if old is None else max(old,primary)
     s['history'].append(dict(job=Path(s['current']).name,job_id=s['job_id'],hook_id=s.get('hook_id'),
-        state=state,exit=ec,primary=primary,gain=gain,cost_cny=cost,metric=metric,metric_error=error,at=now()))
+        state=state,exit=ec,primary=primary,gain=gain,cost_cny=round_cost,metric=metric,metric_error=error,at=now()))
     s['done'].append(s['current']);s['rounds']+=1;s['recorded_current']=True
     request_review(exp,s,'round_finished',f'{state} exit={ec}' if state!='COMPLETED' else error)
 
@@ -227,6 +239,7 @@ def add(exp,job=None,decision=None,reason=None):
     with lock(exp/'.lock'):
         s=load(exp)
         if not s: raise ValueError('Initialize first')
+        s['cost_cny']=accounted_cost(s.get('history',[]))
         cfg=cfg_of(exp)
         if s['status']=='running':
             if decision: raise ValueError('Wait for the current job event before deciding')

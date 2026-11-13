@@ -89,6 +89,21 @@ class QueueTests(unittest.TestCase):
         self.cfg['round_cost_cny']={'0.sbatch':11};self.config();m.init(self.exp)
         self.assertEqual(self.state()['rounds_submitted'],1)
         self.assertTrue(any(c[0]=='sbatch' for c in self.calls))
+    def test_cumulative_cost_is_not_charged_again_and_legacy_state_repairs(self):
+        m.init(self.exp)
+        self.metrics.append(dict(cost_cny=.277627,cumulative=True))
+        m.advance(self.exp,self.state()['job_id']);self.next_round()
+        self.metrics.append(dict(cost_cny=.513725,cumulative=True))
+        m.advance(self.exp,self.state()['job_id'])
+        self.assertEqual(self.state()['cost_cny'],.513725)
+        self.assertEqual(self.state()['history'][-1]['cost_cny'],.236098)
+        s=self.state();s['cost_cny']=.791352;m.save(self.exp,s)
+        self.next_round()
+        self.assertEqual(self.state()['cost_cny'],.513725)
+        self.metrics.append(dict(cost_cny=.8,cumulative=True))
+        m.advance(self.exp,self.state()['job_id'])
+        self.assertEqual(self.state()['cost_cny'],.8)
+
     def test_actual_budget_stops(self):
         m.init(self.exp);self.end(10,10);self.assertEqual(self.state()['rounds_submitted'],1)
     def test_diagnostic_does_not_require_scalar_score(self):
