@@ -1,0 +1,128 @@
+{
+  "name": "cd-t44-review-20261113",
+  "status": "done",
+  "queue": [],
+  "done": [
+    "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-t44-review-20261113/jobs/01-build.sbatch"
+  ],
+  "current": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-t44-review-20261113/jobs/01-build.sbatch",
+  "job_id": "184225",
+  "hook_id": "184226",
+  "rounds": 1,
+  "rounds_submitted": 1,
+  "primary_best": null,
+  "cost_cny": 0.0,
+  "finalized": false,
+  "finalize_requested": true,
+  "started_at": "2026-11-13 09:07:25",
+  "started_epoch": 1794560845.9251926,
+  "history": [
+    {
+      "job": "01-build.sbatch",
+      "job_id": "184225",
+      "hook_id": "184226",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0,
+      "metric": {
+        "target": 128,
+        "actual": 128,
+        "gap": 0,
+        "historical_scenes": 192,
+        "eligible_scenes": 187,
+        "available_scenes_by_relation": {
+          "direction": 186,
+          "near": 185,
+          "surrounds": 1
+        },
+        "selected_by_relation": {
+          "surrounds": 1,
+          "near": 64,
+          "direction": 63
+        },
+        "selected_by_split": {
+          "report": 66,
+          "dev": 62
+        },
+        "approved": 0,
+        "review_status": "pending_review",
+        "api_calls": 0,
+        "cost_cny": 0
+      },
+      "metric_error": null,
+      "at": "2026-11-13 09:09:52"
+    }
+  ],
+  "driver": "dependency",
+  "recorded_current": true,
+  "submitted_at": "2026-11-13 09:07:27",
+  "last_advance_at": "2026-11-13 09:07:27",
+  "hook_attempts": 1,
+  "review_count": 1,
+  "review": {
+    "id": "event-0001",
+    "kind": "round_finished",
+    "error": null,
+    "at": "2026-11-13 09:09:52",
+    "job_id": "184225",
+    "hook_id": "184226",
+    "current": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-t44-review-20261113/jobs/01-build.sbatch",
+    "latest": {
+      "job": "01-build.sbatch",
+      "job_id": "184225",
+      "hook_id": "184226",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0,
+      "metric": {
+        "target": 128,
+        "actual": 128,
+        "gap": 0,
+        "historical_scenes": 192,
+        "eligible_scenes": 187,
+        "available_scenes_by_relation": {
+          "direction": 186,
+          "near": 185,
+          "surrounds": 1
+        },
+        "selected_by_relation": {
+          "surrounds": 1,
+          "near": 64,
+          "direction": 63
+        },
+        "selected_by_split": {
+          "report": 66,
+          "dev": 62
+        },
+        "approved": 0,
+        "review_status": "pending_review",
+        "api_calls": 0,
+        "cost_cny": 0
+      },
+      "metric_error": null,
+      "at": "2026-11-13 09:09:52"
+    },
+    "queued_jobs": [],
+    "cost_cny": 0.0,
+    "delivery": "accepted",
+    "delivered_at": "2026-11-13 09:09:53",
+    "delivery_turn_id": "01a1d41e-095a-7ff2-999b-1cbbd43435c2",
+    "delivery_via": "hook_http"
+  },
+  "decisions": [
+    {
+      "event_id": "event-0001",
+      "action": "finish",
+      "reason": "128 pending candidates constructed with 6 passing tests; near64/direction63/surrounds1, contained_by0. Preserve report66/dev62 source splits. Full QC and human approval remain in unified review workflow; no formal Agent evaluation.",
+      "at": "2026-11-13 09:12:30"
+    }
+  ],
+  "stop_reason": "128 pending candidates constructed with 6 passing tests; near64/direction63/surrounds1, contained_by0. Preserve report66/dev62 source splits. Full QC and human approval remain in unified review workflow; no formal Agent evaluation.",
+  "finished_at": "2026-11-13 09:12:30",
+  "elapsed_seconds": 304.6,
+  "finalize_attempts": 1
+}
