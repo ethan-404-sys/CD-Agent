@@ -2492,3 +2492,5 @@ P0v2三例逐步审查：verification_ids确实出现在实际API请求；三例
 P0v2余三例实际工具证据：val22 step11首次真实触发cached_verification，mask#8回显24条yes及bbox、results=[]、backend_seconds=0、无新句柄，随后正常提交。val32 step13/20分别set_answer(mask#3/#5)，均无新句柄/后端调用，用于采用候选核验而非回滚正确答案；23调用/¥.057156，比baseline8调用/¥.015650更多，最后仍靠主动submit(empty)得到F1=1。val47一次核验21组件后删15个no，不再先删后恢复；TP669不变，比baseline少183FP，F1 32.6262→34.1501，对应原ID7此次核验no。仍丢552TP，不能归因ID修复改善视觉核验。
 
 本轮配对结束后用analysis/archive_harness1020.py在CPU Slurm作业归档每条完整steps、input/final、verification、掩码与实例；原messages.jsonl及视图保留在共享原目录，archive_manifest.json记录可核查位置，不删除或改写原轨迹。归档阶段不调用API，不把累计费用再计一次。
+
+2026-11-13 P1v2双时相真实六例184658完成：6/6submit，mean F1 69.0442、pooled89.3020，calls74、错误1、无效重试0，费用¥.2271532；相对P0v2均值+2.131分、calls87→74。三个T1各实际调用segment_text_pair一次，仍是每次两期后端请求，不声称GPU计算减半。唯一错误val31 step9 to_mask参数非法JSON，正确拒绝后恢复，不是pair后端失败。最大涨分来自不调用pair的T5 val47（34.1501→46.442），因此不能把全组收益直接归因双时相批量。配对seed/model/GT全匹配；P2v2只用冻结T1三例，已事件接续，之后CPU归档。成本台账：2026-11-13 / P1v2六例 / 无预估拦截 / token计量¥.2271532；全部累计¥.982968。

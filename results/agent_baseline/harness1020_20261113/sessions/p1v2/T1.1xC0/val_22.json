@@ -1,0 +1,166 @@
+{
+  "config": "p1v2",
+  "task": "T1.1xC0",
+  "name": "val_22",
+  "cohort": "hard",
+  "session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/p1v2/T1.1xC0/val/val_22",
+  "final": {
+    "task_id": "T1.1xC0",
+    "final_handle": "mask#8",
+    "mask_path": "masks/mask_8.png",
+    "summary": "Final binary change mask showing 23 building changes between T1 and T2: newly constructed buildings (absent in T1, present in T2), demolished buildings (present in T1, absent in T2), and rebuilt structures. All 23 components were verified by the independent verifier as correct building changes (23 yes, 0 no). Removed 4 false positives (ids 2, 3, 22, 24) that were non-building areas or unchanged structures.",
+    "summary_source": "model",
+    "submitted_by": "model",
+    "termination_reason": "submit",
+    "fallback_kind": "none",
+    "change_component_count": 23,
+    "change_area_px": 29864,
+    "eval": {
+      "tp": 22462,
+      "fp": 7402,
+      "fn": 2020,
+      "f1": 0.8266293747469915,
+      "iou": 0.704491280893238
+    },
+    "initial_eval": null,
+    "objects": {
+      "gt_objects": 23,
+      "missed": 1,
+      "pred_objects": 23,
+      "false_alarms": 2
+    },
+    "initial_objects": null,
+    "precision": 0.7521430484839534,
+    "recall": 0.9174904011072726,
+    "planning_rounds": 10,
+    "api_attempts": 37,
+    "planner_api_attempts": 10,
+    "ask_api_attempts": 27,
+    "tool_calls": 10,
+    "tokens": {
+      "input": 107547,
+      "cached": 21888,
+      "output": 3022
+    },
+    "planner_tokens": {
+      "input": 81276,
+      "cached": 21888,
+      "output": 1536
+    },
+    "ask_tokens": {
+      "input": 26271,
+      "cached": 0,
+      "output": 1486
+    },
+    "cost_cny": 0.023927000000000004,
+    "planner_cost_cny": 0.017484000000000003,
+    "ask_cost_cny": 0.006443000000000002,
+    "planner_model": "qwen3.7-flash",
+    "elapsed_seconds": 36.031548872590065,
+    "identical_to_init": null,
+    "added_px": null,
+    "removed_px": null,
+    "view_calls": 1,
+    "ask_calls": 1,
+    "initial_images_present": true,
+    "final_delta": {
+      "tp": 22462,
+      "fp": 7402,
+      "fn": 2020,
+      "f1": 0.8266293747469915,
+      "iou": 0.704491280893238,
+      "delta_f1": 0.0
+    },
+    "error": null,
+    "backends": {
+      "ask": "api",
+      "review": false,
+      "status": true,
+      "verify_stage": true,
+      "plan": false,
+      "skills": [],
+      "ask_correspondence": true,
+      "ask_model": "qwen3.7-flash",
+      "sam3_worker": true,
+      "pixel_thr": 0.85,
+      "sam_prompt": "shared_cpu",
+      "sam_model": "SAM ViT-H",
+      "segment_pair": true,
+      "answer_state": true,
+      "gate3": true,
+      "gate2": true,
+      "big_box_share": 0.1
+    }
+  },
+  "error_codes": {},
+  "errors": [],
+  "tools": {
+    "segment_text_pair": 1,
+    "match_instances": 1,
+    "to_mask": 2,
+    "combine": 1,
+    "view": 1,
+    "ask": 1,
+    "remove_region": 1,
+    "submit": 2
+  },
+  "invalid_retries": [],
+  "segmentation_backend_invocations": 2,
+  "seed": 5804,
+  "model_parameters": {
+    "model": "qwen3.7-flash",
+    "temperature": 0,
+    "enable_thinking": false,
+    "parallel_tool_calls": true,
+    "max_tokens": 1500,
+    "seed": 5804
+  },
+  "backends": {
+    "ask": "api",
+    "review": false,
+    "status": true,
+    "verify_stage": true,
+    "plan": false,
+    "skills": [],
+    "ask_correspondence": true,
+    "ask_model": "qwen3.7-flash",
+    "sam3_worker": true,
+    "pixel_thr": 0.85,
+    "sam_prompt": "shared_cpu",
+    "sam_model": "SAM ViT-H",
+    "segment_pair": true,
+    "answer_state": true,
+    "gate3": true,
+    "gate2": true,
+    "big_box_share": 0.1
+  },
+  "gt_mask_path": "/guisongxia01/pangchao/wangyihan/datasets/LEVIR-CD/val_original/label/val_22.png",
+  "f1_drop_calls": [
+    {
+      "step": 8,
+      "tool": "remove_region",
+      "args": {
+        "mask": "mask#7",
+        "ids": [
+          2,
+          3,
+          22,
+          24
+        ],
+        "set_current": true
+      },
+      "before": "mask#7",
+      "after": "mask#8",
+      "eval": {
+        "tp": 22462,
+        "fp": 7402,
+        "fn": 2020,
+        "f1": 0.8266293747469915,
+        "iou": 0.704491280893238,
+        "delta_f1": -0.006478988732302238
+      }
+    }
+  ],
+  "successful_after_error": [],
+  "state_recovery": []
+}
