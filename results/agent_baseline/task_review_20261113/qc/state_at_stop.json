@@ -1,0 +1,304 @@
+{
+  "name": "cd-task-qc-20261113",
+  "status": "done",
+  "queue": [],
+  "done": [
+    "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-task-qc-20261113/jobs/01-tests.sbatch",
+    "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-task-qc-20261113/jobs/02-tests.sbatch",
+    "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-task-qc-20261113/jobs/03-real-t44.sbatch",
+    "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-task-qc-20261113/jobs/04-real-full.sbatch",
+    "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-task-qc-20261113/jobs/05-final-tests.sbatch"
+  ],
+  "current": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-task-qc-20261113/jobs/05-final-tests.sbatch",
+  "job_id": "184271",
+  "hook_id": "184272",
+  "rounds": 5,
+  "rounds_submitted": 5,
+  "primary_best": null,
+  "cost_cny": 0.0,
+  "finalized": false,
+  "finalize_requested": true,
+  "started_at": "2026-11-13 09:09:24",
+  "started_epoch": 1794560964.1966844,
+  "history": [
+    {
+      "job": "01-tests.sbatch",
+      "job_id": "184227",
+      "hook_id": "184228",
+      "state": "FAILED",
+      "exit": "1:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0,
+      "metric": {},
+      "metric_error": "metric failed: pathlib.py\", line 1134, in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors) as f:\n  File \"/usr/lib/python3.10/pathlib.py\", line 1119, in open\n    return self._accessor.open(self, mode, buffering, encoding, errors,\nFileNotFoundError: [Errno 2] No such file or directory: '/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/task_review_20261113/qc/metric.json'",
+      "at": "2026-11-13 09:09:30"
+    },
+    {
+      "job": "02-tests.sbatch",
+      "job_id": "184231",
+      "hook_id": "184232",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0,
+      "metric": {
+        "stage": "synthetic_tests",
+        "passed": true,
+        "cost_cny": 0
+      },
+      "metric_error": null,
+      "at": "2026-11-13 09:11:17"
+    },
+    {
+      "job": "03-real-t44.sbatch",
+      "job_id": "184239",
+      "hook_id": "184240",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0,
+      "metric": {
+        "total": 128,
+        "passed": 128,
+        "positive": 128,
+        "negative": 0,
+        "unknown_polarity": 0,
+        "candidate_total": 1379,
+        "retained_total": 431,
+        "filtered_total": 948,
+        "by_dataset": {
+          "SECOND": 128
+        },
+        "by_split": {
+          "report": 66,
+          "dev": 62
+        },
+        "by_task": {
+          "T4.4": 128
+        },
+        "by_target": {
+          "building": 128
+        },
+        "by_relation": {
+          "surrounds": 1,
+          "near": 64,
+          "direction": 63
+        },
+        "stage": "real_t44_qc",
+        "cost_cny": 0
+      },
+      "metric_error": null,
+      "at": "2026-11-13 09:22:21"
+    },
+    {
+      "job": "04-real-full.sbatch",
+      "job_id": "184266",
+      "hook_id": "184267",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0,
+      "metric": {
+        "total": 256,
+        "passed": 256,
+        "positive": 256,
+        "negative": 0,
+        "unknown_polarity": 0,
+        "candidate_total": 1379,
+        "retained_total": 431,
+        "filtered_total": 948,
+        "by_dataset": {
+          "SpaceNet8": 128,
+          "SECOND": 128
+        },
+        "by_split": {
+          "review_pool": 128,
+          "report": 66,
+          "dev": 62
+        },
+        "by_task": {
+          "T4.3": 128,
+          "T4.4": 128
+        },
+        "by_target": {
+          "road": 64,
+          "building": 192
+        },
+        "by_relation": {
+          "": 128,
+          "surrounds": 1,
+          "near": 64,
+          "direction": 63
+        },
+        "stage": "real_full_qc",
+        "cost_cny": 0
+      },
+      "metric_error": null,
+      "at": "2026-11-13 09:26:35"
+    },
+    {
+      "job": "05-final-tests.sbatch",
+      "job_id": "184271",
+      "hook_id": "184272",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0,
+      "metric": {
+        "total": 256,
+        "passed": 256,
+        "positive": 256,
+        "negative": 0,
+        "unknown_polarity": 0,
+        "candidate_total": 1379,
+        "retained_total": 431,
+        "filtered_total": 948,
+        "by_dataset": {
+          "SpaceNet8": 128,
+          "SECOND": 128
+        },
+        "by_split": {
+          "review_pool": 128,
+          "report": 66,
+          "dev": 62
+        },
+        "by_task": {
+          "T4.3": 128,
+          "T4.4": 128
+        },
+        "by_target": {
+          "road": 64,
+          "building": 192
+        },
+        "by_relation": {
+          "": 128,
+          "surrounds": 1,
+          "near": 64,
+          "direction": 63
+        },
+        "stage": "final_validation",
+        "cost_cny": 0,
+        "final_tests_passed": true
+      },
+      "metric_error": null,
+      "at": "2026-11-13 09:28:35"
+    }
+  ],
+  "driver": "dependency",
+  "recorded_current": true,
+  "submitted_at": "2026-11-13 09:27:35",
+  "last_advance_at": "2026-11-13 09:27:35",
+  "hook_attempts": 9,
+  "review_count": 5,
+  "review": {
+    "id": "event-0005",
+    "kind": "round_finished",
+    "error": null,
+    "at": "2026-11-13 09:28:35",
+    "job_id": "184271",
+    "hook_id": "184272",
+    "current": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-task-qc-20261113/jobs/05-final-tests.sbatch",
+    "latest": {
+      "job": "05-final-tests.sbatch",
+      "job_id": "184271",
+      "hook_id": "184272",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0,
+      "metric": {
+        "total": 256,
+        "passed": 256,
+        "positive": 256,
+        "negative": 0,
+        "unknown_polarity": 0,
+        "candidate_total": 1379,
+        "retained_total": 431,
+        "filtered_total": 948,
+        "by_dataset": {
+          "SpaceNet8": 128,
+          "SECOND": 128
+        },
+        "by_split": {
+          "review_pool": 128,
+          "report": 66,
+          "dev": 62
+        },
+        "by_task": {
+          "T4.3": 128,
+          "T4.4": 128
+        },
+        "by_target": {
+          "road": 64,
+          "building": 192
+        },
+        "by_relation": {
+          "": 128,
+          "surrounds": 1,
+          "near": 64,
+          "direction": 63
+        },
+        "stage": "final_validation",
+        "cost_cny": 0,
+        "final_tests_passed": true
+      },
+      "metric_error": null,
+      "at": "2026-11-13 09:28:35"
+    },
+    "queued_jobs": [],
+    "cost_cny": 0.0,
+    "delivery": "accepted",
+    "delivered_at": "2026-11-13 09:28:37",
+    "delivery_turn_id": "01a1d41e-095a-7ff2-999b-1cbbd43435c2",
+    "delivery_via": "hook_http"
+  },
+  "decisions": [
+    {
+      "event_id": "event-0001",
+      "action": "add",
+      "job": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-task-qc-20261113/jobs/02-tests.sbatch",
+      "reason": "Initial test lacked FastAPI in geo-only environment; use existing wellbeing environment with geo, FastAPI, HTTPX and uvicorn. No package installation.",
+      "at": "2026-11-13 09:11:06"
+    },
+    {
+      "event_id": "event-0002",
+      "action": "add",
+      "job": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-task-qc-20261113/jobs/03-real-t44.sbatch",
+      "reason": "18 UI regressions passed. Integrated isolated source modules; validate final 30 tests and independently recompute all 128 T4.4 candidates while T4.3 full construction continues. No approval/export.",
+      "at": "2026-11-13 09:14:25"
+    },
+    {
+      "event_id": "event-0003",
+      "action": "add",
+      "job": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-task-qc-20261113/jobs/04-real-full.sbatch",
+      "reason": "All 128 T4.4 tasks passed automated source/geometry QC and integrated regressions. T4.3 full128 is ready; build full256 review snapshot, reuse existing cached T4.4 previews, test backup change. All remain pending; no Agent experiment.",
+      "at": "2026-11-13 09:22:48"
+    },
+    {
+      "event_id": "event-0004",
+      "action": "add",
+      "job": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-task-qc-20261113/jobs/05-final-tests.sbatch",
+      "reason": "All256 passed QC; verify final test-module relocation mock target and optional geo-dependency behavior, plus durable review backup. No data regeneration or model calls.",
+      "at": "2026-11-13 09:27:18"
+    },
+    {
+      "event_id": "event-0005",
+      "action": "finish",
+      "reason": "All256 automated QC passed, all256 pending in existing review UI, approved export0 verified by HTTP; integrated31 regressions and final targeted checks passed. Human review and Harness proposal approval required before experiments.",
+      "at": "2026-11-13 09:29:54"
+    }
+  ],
+  "finalize_attempts": 1,
+  "git_committed": false,
+  "git_pushed": false,
+  "notified": false,
+  "stop_reason": "All256 automated QC passed, all256 pending in existing review UI, approved export0 verified by HTTP; integrated31 regressions and final targeted checks passed. Human review and Harness proposal approval required before experiments.",
+  "finished_at": "2026-11-13 09:29:54",
+  "elapsed_seconds": 1230.2
+}
