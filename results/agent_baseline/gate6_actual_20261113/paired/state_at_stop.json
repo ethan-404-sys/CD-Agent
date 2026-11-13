@@ -1,0 +1,153 @@
+{
+  "name": "cd-gate6-pair-20261113",
+  "status": "done",
+  "queue": [],
+  "done": [
+    "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-gate6-pair-20261113/jobs/01-select.sbatch",
+    "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-gate6-pair-20261113/jobs/03-paired.sbatch",
+    "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-gate6-pair-20261113/jobs/04-report.sbatch"
+  ],
+  "current": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-gate6-pair-20261113/jobs/04-report.sbatch",
+  "job_id": "184113",
+  "hook_id": "184114",
+  "rounds": 3,
+  "rounds_submitted": 3,
+  "primary_best": null,
+  "cost_cny": 1.400374,
+  "finalized": false,
+  "finalize_requested": true,
+  "started_at": "2026-11-13 04:52:47",
+  "started_epoch": 1794545567.1241426,
+  "history": [
+    {
+      "job": "01-select.sbatch",
+      "job_id": "184015",
+      "hook_id": "184016",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0,
+      "metric": {
+        "historical_dev_sessions": 40,
+        "selected_tasks": 10,
+        "cost_cny": 0
+      },
+      "metric_error": null,
+      "at": "2026-11-13 04:53:08"
+    },
+    {
+      "job": "03-paired.sbatch",
+      "job_id": "184018",
+      "hook_id": "184019",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 1.400374400000001,
+      "metric": {
+        "paired_tasks": 10,
+        "read_failures": 0,
+        "cost_cny": 1.400374400000001,
+        "ledger_cost_cny": 1.400374400000001,
+        "final_records_cost_cny": 1.4003744,
+        "cumulative": true,
+        "cumulative_cost_cny": 1.400374400000001
+      },
+      "metric_error": null,
+      "at": "2026-11-13 05:42:56"
+    },
+    {
+      "job": "04-report.sbatch",
+      "job_id": "184113",
+      "hook_id": "184114",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 4.000000008996807e-07,
+      "metric": {
+        "paired_tasks": 10,
+        "read_failures": 0,
+        "cost_cny": 4.000000008996807e-07,
+        "ledger_cost_cny": 1.400374400000001,
+        "final_records_cost_cny": 1.4003744,
+        "cumulative": true,
+        "cumulative_cost_cny": 1.400374400000001
+      },
+      "metric_error": null,
+      "at": "2026-11-13 05:44:19"
+    }
+  ],
+  "driver": "dependency",
+  "recorded_current": true,
+  "submitted_at": "2026-11-13 05:44:12",
+  "last_advance_at": "2026-11-13 05:44:12",
+  "hook_attempts": 5,
+  "review_count": 3,
+  "review": {
+    "id": "event-0003",
+    "kind": "round_finished",
+    "error": null,
+    "at": "2026-11-13 05:44:19",
+    "job_id": "184113",
+    "hook_id": "184114",
+    "current": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-gate6-pair-20261113/jobs/04-report.sbatch",
+    "latest": {
+      "job": "04-report.sbatch",
+      "job_id": "184113",
+      "hook_id": "184114",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 4.000000008996807e-07,
+      "metric": {
+        "paired_tasks": 10,
+        "read_failures": 0,
+        "cost_cny": 4.000000008996807e-07,
+        "ledger_cost_cny": 1.400374400000001,
+        "final_records_cost_cny": 1.4003744,
+        "cumulative": true,
+        "cumulative_cost_cny": 1.400374400000001
+      },
+      "metric_error": null,
+      "at": "2026-11-13 05:44:19"
+    },
+    "queued_jobs": [],
+    "cost_cny": 1.400374,
+    "delivery": "accepted",
+    "delivered_at": "2026-11-13 05:44:19",
+    "delivery_turn_id": "01a1d36e-323a-7f91-aa1f-4020b0b3657c",
+    "delivery_via": "hook_http"
+  },
+  "decisions": [
+    {
+      "event_id": "event-0001",
+      "action": "add",
+      "job": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-gate6-pair-20261113/jobs/03-paired.sbatch",
+      "reason": "独立筛选18秒完成；40个开发历史会话中2图有5次严格坐标越界，优先纳入并补足10图；6项回归通过。采用用户确认gpu42直连，提交同任务同seed开关配对，不等待全量扫描。",
+      "at": "2026-11-13 04:53:32"
+    },
+    {
+      "event_id": "event-0002",
+      "action": "add",
+      "job": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-gate6-pair-20261113/jobs/04-report.sbatch",
+      "reason": "逐步核查发现ask前置状态已修复后成功重试被误计；增加真实案例回归，离线重出paired_v2保留原结果，不重跑推理，费用按累计账本避免重复。",
+      "at": "2026-11-13 05:44:11"
+    },
+    {
+      "event_id": "event-0003",
+      "action": "finish",
+      "reason": "结果与具体案例核实并写入README最终结论；配对v2修正状态修复误报，轨迹20321会话读取失败0。Gate6越界0对0不能证明有效，保留负结果，不扩实验。研究阶段完成，提交推送并通知。",
+      "at": "2026-11-13 05:45:41"
+    }
+  ],
+  "finalize_attempts": 1,
+  "git_committed": false,
+  "git_pushed": false,
+  "notified": false,
+  "stop_reason": "结果与具体案例核实并写入README最终结论；配对v2修正状态修复误报，轨迹20321会话读取失败0。Gate6越界0对0不能证明有效，保留负结果，不扩实验。研究阶段完成，提交推送并通知。",
+  "finished_at": "2026-11-13 05:45:41",
+  "elapsed_seconds": 3173.9
+}
