@@ -1,0 +1,166 @@
+{
+  "name": "cd-harness1020-tests-20261113",
+  "status": "done",
+  "queue": [],
+  "done": [
+    "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-harness1020-tests-20261113/jobs/01-p0.sbatch",
+    "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-harness1020-tests-20261113/jobs/02-p1.sbatch",
+    "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-harness1020-tests-20261113/jobs/03-p2.sbatch",
+    "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-harness1020-tests-20261113/jobs/04-r1.sbatch"
+  ],
+  "current": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-harness1020-tests-20261113/jobs/04-r1.sbatch",
+  "job_id": "184588",
+  "hook_id": "184589",
+  "rounds": 4,
+  "rounds_submitted": 4,
+  "primary_best": null,
+  "cost_cny": 0.0,
+  "finalized": false,
+  "finalize_requested": true,
+  "started_at": "2026-11-13 16:24:03",
+  "started_epoch": 1794587043.6402237,
+  "history": [
+    {
+      "job": "01-p0.sbatch",
+      "job_id": "184562",
+      "hook_id": "184563",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0,
+      "metric": {
+        "stage": "p0",
+        "passed": true,
+        "cost_cny": 0
+      },
+      "metric_error": null,
+      "at": "2026-11-13 16:24:36"
+    },
+    {
+      "job": "02-p1.sbatch",
+      "job_id": "184579",
+      "hook_id": "184581",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0,
+      "metric": {
+        "stage": "p1",
+        "passed": true,
+        "cost_cny": 0
+      },
+      "metric_error": null,
+      "at": "2026-11-13 16:31:43"
+    },
+    {
+      "job": "03-p2.sbatch",
+      "job_id": "184585",
+      "hook_id": "184586",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0,
+      "metric": {
+        "stage": "p2",
+        "passed": true,
+        "cost_cny": 0
+      },
+      "metric_error": null,
+      "at": "2026-11-13 16:33:02"
+    },
+    {
+      "job": "04-r1.sbatch",
+      "job_id": "184588",
+      "hook_id": "184589",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0,
+      "metric": {
+        "stage": "r1",
+        "passed": true,
+        "cost_cny": 0
+      },
+      "metric_error": null,
+      "at": "2026-11-13 16:36:39"
+    }
+  ],
+  "driver": "dependency",
+  "recorded_current": true,
+  "submitted_at": "2026-11-13 16:35:56",
+  "last_advance_at": "2026-11-13 16:35:56",
+  "hook_attempts": 7,
+  "review_count": 4,
+  "review": {
+    "id": "event-0004",
+    "kind": "round_finished",
+    "error": null,
+    "at": "2026-11-13 16:36:39",
+    "job_id": "184588",
+    "hook_id": "184589",
+    "current": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-harness1020-tests-20261113/jobs/04-r1.sbatch",
+    "latest": {
+      "job": "04-r1.sbatch",
+      "job_id": "184588",
+      "hook_id": "184589",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0,
+      "metric": {
+        "stage": "r1",
+        "passed": true,
+        "cost_cny": 0
+      },
+      "metric_error": null,
+      "at": "2026-11-13 16:36:39"
+    },
+    "queued_jobs": [],
+    "cost_cny": 0.0,
+    "delivery": "accepted",
+    "delivered_at": "2026-11-13 16:36:39",
+    "delivery_turn_id": "01a1d5ac-a8a6-7823-8082-d6fc592fbdad",
+    "delivery_via": "hook_http"
+  },
+  "decisions": [
+    {
+      "event_id": "event-0001",
+      "action": "add",
+      "job": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-harness1020-tests-20261113/jobs/02-p1.sbatch",
+      "reason": "P0 66 tests passed; validate opt-in two-time segmentation and partial failure recovery.",
+      "at": "2026-11-13 16:31:23"
+    },
+    {
+      "event_id": "event-0002",
+      "action": "add",
+      "job": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-harness1020-tests-20261113/jobs/03-p2.sbatch",
+      "reason": "P1 69 tests passed; verify minimal staged schema disclosure before T1 frozen pilot.",
+      "at": "2026-11-13 16:32:40"
+    },
+    {
+      "event_id": "event-0003",
+      "action": "add",
+      "job": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-harness1020-tests-20261113/jobs/04-r1.sbatch",
+      "reason": "Review found view/handle side effects could bypass repeat suppression; narrow state exception to implicit ask and test all frozen arms plus incremental reporting.",
+      "at": "2026-11-13 16:35:54"
+    },
+    {
+      "event_id": "event-0004",
+      "action": "finish",
+      "reason": "All frozen r1 arms passed 68/71/74 tests, incremental report tests passed 2; source and logs integrated and pushed. Real Agent arms remain separate active experiment.",
+      "at": "2026-11-13 16:39:12"
+    }
+  ],
+  "finalize_attempts": 1,
+  "git_committed": false,
+  "git_pushed": false,
+  "notified": false,
+  "stop_reason": "All frozen r1 arms passed 68/71/74 tests, incremental report tests passed 2; source and logs integrated and pushed. Real Agent arms remain separate active experiment.",
+  "finished_at": "2026-11-13 16:39:12",
+  "elapsed_seconds": 908.6
+}
