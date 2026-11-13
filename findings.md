@@ -268,3 +268,7 @@ Harness P0的66项回归、P1的69项回归均通过；真实配对结果未出�
 审核入口：[17例真实影像审核](../../results/agent_baseline/data_revision_20261113/v2/index.html)，17页均为不同影像对，含WHU6例、T5六例、原异常5例；显示两期图、旧/新版GT、初始预测（适用时）、指令与修订依据。C1示例保留双向审计，展示冲突像素更多的appeared方向，不伪造官方方向GT。所有审核结论/候选仍待Ethan批准。原C4 case04与C2 case07按SECOND源标签及指令ROI重建，GT差异均0；被ROI切断的建筑不自动算标签错误。case08其实是T5.4旧地图任务，保持原任务语义；WHU case13/17旧GT与XOR吻合，但官方为空，须以新版官方口径读分。
 
 代码入口为`analysis/revise_whu_official.py`、`revise_t5_review_v3.py`（复用`revise_t5_review.py`）及`tools/run_data_revision_*_20261113.sh`。历史GT/预测/数值保留，全部新结果在`results/agent_baseline/data_revision_20261113/v2/`；日志在同研究目录`logs/`。未触碰T4审核库，未启动新版T5正式Agent实验。
+
+2026-11-13 页面验收修订：人工方式看图发现原review03/04官方正标签分别仅1/57像素，不宜充当正常正例。184599仅重绘页面，原17页保留，新版`results/agent_baseline/data_revision_20261113/v2/review_v2_19/index.html`含19个不同影像对：明确两例tiny_official_residual疑点，追加2个已有显著正变化。GT/候选/分数无修改、无重复评分。全部pending_review。成本台账：2026-11-13 / 19例审核页修订 / 预估API¥0 / 实际API¥0。
+
+19例最终看图补充：review18/train_250官方146444像素，旧新IoU .1010，但两期均有大型屋顶、主要是屋顶/附属结构变化，可能与旧building_rebuild_excluded范围冲突；不能把所有WHU差异都称作边缘噪声，已在页面及可复现生成代码标为任务定义待审。review19/train_1224官方52733像素、IoU1.0，图上为田地变新建筑。官方GT修订遵照本轮指令，但方向与scope尚不能宣称已解决。
