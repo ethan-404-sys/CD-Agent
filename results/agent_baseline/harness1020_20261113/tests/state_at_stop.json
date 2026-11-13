@@ -6,13 +6,14 @@
     "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-harness1020-tests-20261113/jobs/01-p0.sbatch",
     "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-harness1020-tests-20261113/jobs/02-p1.sbatch",
     "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-harness1020-tests-20261113/jobs/03-p2.sbatch",
-    "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-harness1020-tests-20261113/jobs/04-r1.sbatch"
+    "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-harness1020-tests-20261113/jobs/04-r1.sbatch",
+    "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-harness1020-tests-20261113/jobs/05-r2.sbatch"
   ],
-  "current": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-harness1020-tests-20261113/jobs/04-r1.sbatch",
-  "job_id": "184588",
-  "hook_id": "184589",
-  "rounds": 4,
-  "rounds_submitted": 4,
+  "current": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-harness1020-tests-20261113/jobs/05-r2.sbatch",
+  "job_id": "184627",
+  "hook_id": "184628",
+  "rounds": 5,
+  "rounds_submitted": 5,
   "primary_best": null,
   "cost_cny": 0.0,
   "finalized": false,
@@ -87,43 +88,60 @@
       },
       "metric_error": null,
       "at": "2026-11-13 16:36:39"
-    }
-  ],
-  "driver": "dependency",
-  "recorded_current": true,
-  "submitted_at": "2026-11-13 16:35:56",
-  "last_advance_at": "2026-11-13 16:35:56",
-  "hook_attempts": 7,
-  "review_count": 4,
-  "review": {
-    "id": "event-0004",
-    "kind": "round_finished",
-    "error": null,
-    "at": "2026-11-13 16:36:39",
-    "job_id": "184588",
-    "hook_id": "184589",
-    "current": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-harness1020-tests-20261113/jobs/04-r1.sbatch",
-    "latest": {
-      "job": "04-r1.sbatch",
-      "job_id": "184588",
-      "hook_id": "184589",
+    },
+    {
+      "job": "05-r2.sbatch",
+      "job_id": "184627",
+      "hook_id": "184628",
       "state": "COMPLETED",
       "exit": "0:0",
       "primary": null,
       "gain": null,
       "cost_cny": 0,
       "metric": {
-        "stage": "r1",
+        "stage": "r2",
         "passed": true,
         "cost_cny": 0
       },
       "metric_error": null,
-      "at": "2026-11-13 16:36:39"
+      "at": "2026-11-13 16:46:44"
+    }
+  ],
+  "driver": "dependency",
+  "recorded_current": true,
+  "submitted_at": "2026-11-13 16:45:22",
+  "last_advance_at": "2026-11-13 16:45:22",
+  "hook_attempts": 9,
+  "review_count": 5,
+  "review": {
+    "id": "event-0005",
+    "kind": "round_finished",
+    "error": null,
+    "at": "2026-11-13 16:46:44",
+    "job_id": "184627",
+    "hook_id": "184628",
+    "current": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-harness1020-tests-20261113/jobs/05-r2.sbatch",
+    "latest": {
+      "job": "05-r2.sbatch",
+      "job_id": "184627",
+      "hook_id": "184628",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0,
+      "metric": {
+        "stage": "r2",
+        "passed": true,
+        "cost_cny": 0
+      },
+      "metric_error": null,
+      "at": "2026-11-13 16:46:44"
     },
     "queued_jobs": [],
     "cost_cny": 0.0,
     "delivery": "accepted",
-    "delivered_at": "2026-11-13 16:36:39",
+    "delivered_at": "2026-11-13 16:46:44",
     "delivery_turn_id": "01a1d5ac-a8a6-7823-8082-d6fc592fbdad",
     "delivery_via": "hook_http"
   },
@@ -154,13 +172,20 @@
       "action": "finish",
       "reason": "All frozen r1 arms passed 68/71/74 tests, incremental report tests passed 2; source and logs integrated and pushed. Real Agent arms remain separate active experiment.",
       "at": "2026-11-13 16:39:12"
+    },
+    {
+      "event_id": "event-0005",
+      "action": "finish",
+      "reason": "Verified actual r2 logs: 68/71/74 tests and 2 report tests passed, including new side-effect repeat and answer-switch recovery tests. Earlier skipped patch documented, artifacts pushed; real Agent queue remains independently active.",
+      "at": "2026-11-13 16:47:51"
     }
   ],
   "finalize_attempts": 1,
   "git_committed": false,
   "git_pushed": false,
   "notified": false,
-  "stop_reason": "All frozen r1 arms passed 68/71/74 tests, incremental report tests passed 2; source and logs integrated and pushed. Real Agent arms remain separate active experiment.",
-  "finished_at": "2026-11-13 16:39:12",
-  "elapsed_seconds": 908.6
+  "elapsed_seconds": 1427.9,
+  "finalized_at": "2026-11-13 16:40:15",
+  "stop_reason": "Verified actual r2 logs: 68/71/74 tests and 2 report tests passed, including new side-effect repeat and answer-switch recovery tests. Earlier skipped patch documented, artifacts pushed; real Agent queue remains independently active.",
+  "finished_at": "2026-11-13 16:47:51"
 }
