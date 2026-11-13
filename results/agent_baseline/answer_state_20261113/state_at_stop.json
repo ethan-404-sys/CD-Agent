@@ -1,0 +1,114 @@
+{
+  "name": "cd-answer-state-20261113",
+  "status": "done",
+  "queue": [],
+  "done": [
+    "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-answer-state-20261113/jobs/01-prepare.sbatch",
+    "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-answer-state-20261113/jobs/02-select.sbatch"
+  ],
+  "current": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-answer-state-20261113/jobs/02-select.sbatch",
+  "job_id": "184215",
+  "hook_id": "184216",
+  "rounds": 2,
+  "rounds_submitted": 2,
+  "primary_best": null,
+  "cost_cny": 0.0,
+  "finalized": false,
+  "finalize_requested": true,
+  "started_at": "2026-11-13 08:44:06",
+  "started_epoch": 1794559446.760285,
+  "history": [
+    {
+      "job": "01-prepare.sbatch",
+      "job_id": "184179",
+      "hook_id": "184180",
+      "state": "FAILED",
+      "exit": "1:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0,
+      "metric": {},
+      "metric_error": "metric failed: 0/pathlib.py\", line 1134, in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors) as f:\n  File \"/usr/lib/python3.10/pathlib.py\", line 1119, in open\n    return self._accessor.open(self, mode, buffering, encoding, errors,\nFileNotFoundError: [Errno 2] No such file or directory: '/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/answer_state_20261113/metric.json'",
+      "at": "2026-11-13 08:46:13"
+    },
+    {
+      "job": "02-select.sbatch",
+      "job_id": "184215",
+      "hook_id": "184216",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0,
+      "metric": {
+        "score": 14,
+        "cost_cny": 0,
+        "frozen": 14,
+        "pilot": 6
+      },
+      "metric_error": null,
+      "at": "2026-11-13 09:00:43"
+    }
+  ],
+  "driver": "dependency",
+  "recorded_current": true,
+  "submitted_at": "2026-11-13 09:00:05",
+  "last_advance_at": "2026-11-13 09:00:05",
+  "hook_attempts": 13,
+  "review_count": 2,
+  "review": {
+    "id": "event-0002",
+    "kind": "round_finished",
+    "error": null,
+    "at": "2026-11-13 09:00:43",
+    "job_id": "184215",
+    "hook_id": "184216",
+    "current": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-answer-state-20261113/jobs/02-select.sbatch",
+    "latest": {
+      "job": "02-select.sbatch",
+      "job_id": "184215",
+      "hook_id": "184216",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0,
+      "metric": {
+        "score": 14,
+        "cost_cny": 0,
+        "frozen": 14,
+        "pilot": 6
+      },
+      "metric_error": null,
+      "at": "2026-11-13 09:00:43"
+    },
+    "queued_jobs": [],
+    "cost_cny": 0.0,
+    "delivery": "accepted",
+    "delivered_at": "2026-11-13 09:00:44",
+    "delivery_turn_id": "01a1d41e-095a-7ff2-999b-1cbbd43435c2",
+    "delivery_via": "hook_http"
+  },
+  "decisions": [
+    {
+      "event_id": "event-0001",
+      "action": "add",
+      "job": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-answer-state-20261113/jobs/02-select.sbatch",
+      "reason": "Only offline development cohort selection; 62 tests already passed. Core draft removed from active Harness pending user review; no inference authorized before approval.",
+      "at": "2026-11-13 08:49:47"
+    },
+    {
+      "event_id": "event-0002",
+      "action": "finish",
+      "reason": "Offline preparation complete: 14 frozen development cases (8 hard/6 simple), 6-case pilot. Core behavior draft removed from runtime; implementation/inference waits for explicit user approval. Archive preparation only.",
+      "at": "2026-11-13 09:08:31"
+    }
+  ],
+  "finalize_attempts": 1,
+  "git_committed": false,
+  "git_pushed": false,
+  "notified": false,
+  "stop_reason": "Offline preparation complete: 14 frozen development cases (8 hard/6 simple), 6-case pilot. Core behavior draft removed from runtime; implementation/inference waits for explicit user approval. Archive preparation only.",
+  "finished_at": "2026-11-13 09:08:31",
+  "elapsed_seconds": 1464.6
+}
