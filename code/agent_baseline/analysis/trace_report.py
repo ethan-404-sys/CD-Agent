@@ -28,7 +28,7 @@ def main():
         if detail.get('available'):
             detail['superseded_outlines']=detail.get('verified_outlines',0)-sum(detail.get('decisions',{}).values())
         else:
-            reason=detail.get('reason','spatial analysis not requested');gaps[reason]+=1;gap_examples.setdefault(reason,row['session'])
+            reason=detail.get('reason','missing final.json; final-mask comparison unavailable' if not row.get('complete') else 'spatial analysis not requested');gaps[reason]+=1;gap_examples.setdefault(reason,row['session'])
     groups=summarize(rows)
     for row in rows:
         categories=set()

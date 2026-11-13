@@ -82,7 +82,7 @@ def audit(item):
                         events.append(dict(step=row['step'],call=ordinal,line=line_number,tool=call['tool'],args=call.get('args'),unchanged_retry=repeated,**error))
                     last=signature if error else None
     final_path=directory/'final.json';final=json.loads(final_path.read_text()) if final_path.exists() else {}
-    return dict(session=str(directory),config=config,task=task,split=split,dataset=dataset,
+    return dict(coordinate_classifier_version=2,session=str(directory),config=config,task=task,split=split,dataset=dataset,
         name=Path((meta.get('source_images') or [directory.name])[0]).stem,
         harness=meta.get('backends',{}),shape=shape,coordinate_bad_args=len(events),other_bad_args=bad-len(events),
         unchanged_coordinate_retries=retry,events=events,complete=bool(final),
@@ -159,7 +159,7 @@ def main():
             if empty_session(item[3]):return None,dict(session=str(item[3]),excluded='initialization_only_no_metadata_or_steps')
             return audit(item),None
         except (OSError,ValueError,KeyError,TypeError) as error:return None,dict(session=str(item[3]),error=str(error))
-    pending=(iter((r['config'],r['task'],r['split'],Path(r['session'])) for r in rows if r['other_bad_args']) if args.recheck_other_errors else
+    pending=(iter((r['config'],r['task'],r['split'],Path(r['session'])) for r in rows if r['other_bad_args'] and r.get('coordinate_classifier_version',0)<2) if args.recheck_other_errors else
              (item for item in sessions(args.root,args.config,args.include_test_logs) if str(item[3]) not in done))
     with journal.open('a') as sink,ThreadPoolExecutor(max_workers=args.workers) as pool:
         while batch:=list(itertools.islice(pending,args.workers*4)):
