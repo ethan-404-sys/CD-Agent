@@ -1,0 +1,645 @@
+{
+  "groups": [
+    {
+      "config": "g5dev_t12_any_s1",
+      "task": "T1.2xC0",
+      "n": 10,
+      "normal_round_median": 24.5,
+      "contrasts": {
+        "excess_calls": {
+          "flagged": 4,
+          "unflagged": 6,
+          "mean_f1_difference": -0.027790264868943426,
+          "examples": [
+            {
+              "session": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/g5dev_t12_any_s1/T1.2xC0/val/train_1136",
+              "event": {
+                "kind": "view_only_run",
+                "category": "excess_calls",
+                "step": 17,
+                "length_at_least": 3
+              }
+            },
+            {
+              "session": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/g5dev_t12_any_s1/T1.2xC0/val/train_1377",
+              "event": {
+                "kind": "view_only_run",
+                "category": "excess_calls",
+                "step": 17,
+                "length_at_least": 3
+              }
+            },
+            {
+              "session": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/g5dev_t12_any_s1/T1.2xC0/val/train_1808",
+              "event": {
+                "kind": "view_only_run",
+                "category": "excess_calls",
+                "step": 19,
+                "length_at_least": 3
+              }
+            }
+          ]
+        },
+        "redundancy": {
+          "flagged": 0,
+          "unflagged": 10,
+          "mean_f1_difference": null,
+          "examples": []
+        },
+        "state_termination": {
+          "flagged": 2,
+          "unflagged": 8,
+          "mean_f1_difference": 0.16675840178823165,
+          "examples": [
+            {
+              "session": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/g5dev_t12_any_s1/T1.2xC0/val/train_2438",
+              "event": {
+                "kind": "answer_regression",
+                "category": "state_termination",
+                "step": 10,
+                "tool": "combine",
+                "before": "mask#5",
+                "after": "mask#6",
+                "delta_f1": -0.00425136939081161,
+                "attribution": "agent_edit_candidate_not_proven_bug"
+              }
+            },
+            {
+              "session": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/g5dev_t12_any_s1/T1.2xC0/val/train_2438",
+              "event": {
+                "kind": "answer_regression",
+                "category": "state_termination",
+                "step": 11,
+                "tool": "combine",
+                "before": "mask#6",
+                "after": "mask#7",
+                "delta_f1": -0.403849851240489,
+                "attribution": "agent_edit_candidate_not_proven_bug"
+              }
+            },
+            {
+              "session": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/g5dev_t12_any_s1/T1.2xC0/val/train_2438",
+              "event": {
+                "kind": "answer_regression",
+                "category": "state_termination",
+                "step": 15,
+                "tool": "combine",
+                "before": "mask#9",
+                "after": "mask#10",
+                "delta_f1": -0.05183256433597033,
+                "attribution": "agent_edit_candidate_not_proven_bug"
+              }
+            }
+          ]
+        },
+        "tool_failure": {
+          "flagged": 8,
+          "unflagged": 2,
+          "mean_f1_difference": -0.07831355740191037,
+          "examples": [
+            {
+              "session": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/g5dev_t12_any_s1/T1.2xC0/val/train_1136",
+              "event": {
+                "kind": "tool_error",
+                "category": "tool_failure",
+                "step": 11,
+                "tool": "to_mask",
+                "error_code": "bad_handle",
+                "args": {
+                  "sets": [
+                    "mask#4",
+                    "mask#5",
+                    "mask#6",
+                    "mask#7"
+                  ],
+                  "set_current": true
+                },
+                "result": "{\"ok\":false,\"error_code\":\"bad_handle\",\"message\":\"Expected a inst handle.\"}",
+                "attribution": "needs_context_review"
+              }
+            },
+            {
+              "session": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/g5dev_t12_any_s1/T1.2xC0/val/train_1377",
+              "event": {
+                "kind": "tool_error",
+                "category": "tool_failure",
+                "step": 11,
+                "tool": "to_mask",
+                "error_code": "bad_handle",
+                "args": {
+                  "sets": [
+                    "mask#4",
+                    "mask#5",
+                    "mask#6",
+                    "mask#7"
+                  ],
+                  "set_current": false
+                },
+                "result": "{\"ok\":false,\"error_code\":\"bad_handle\",\"message\":\"Expected a inst handle.\"}",
+                "attribution": "needs_context_review"
+              }
+            },
+            {
+              "session": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/g5dev_t12_any_s1/T1.2xC0/val/train_1808",
+              "event": {
+                "kind": "tool_error",
+                "category": "tool_failure",
+                "step": 11,
+                "tool": "to_mask",
+                "error_code": "bad_handle",
+                "args": {
+                  "sets": [
+                    "mask#4",
+                    "mask#5",
+                    "mask#6",
+                    "mask#7"
+                  ],
+                  "set_current": true
+                },
+                "result": "{\"ok\":false,\"error_code\":\"bad_handle\",\"message\":\"Expected a inst handle.\"}",
+                "attribution": "needs_context_review"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "config": "g5dev_t13_any_s1",
+      "task": "T1.3",
+      "n": 10,
+      "normal_round_median": 24.5,
+      "contrasts": {
+        "excess_calls": {
+          "flagged": 5,
+          "unflagged": 5,
+          "mean_f1_difference": 0.06386140079837704,
+          "examples": [
+            {
+              "session": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/g5dev_t13_any_s1/T1.3/val/train_1377",
+              "event": {
+                "kind": "view_only_run",
+                "category": "excess_calls",
+                "step": 19,
+                "length_at_least": 3
+              }
+            },
+            {
+              "session": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/g5dev_t13_any_s1/T1.3/val/train_1808",
+              "event": {
+                "kind": "view_only_run",
+                "category": "excess_calls",
+                "step": 8,
+                "length_at_least": 3
+              }
+            },
+            {
+              "session": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/g5dev_t13_any_s1/T1.3/val/train_1884",
+              "event": {
+                "kind": "view_only_run",
+                "category": "excess_calls",
+                "step": 18,
+                "length_at_least": 3
+              }
+            }
+          ]
+        },
+        "redundancy": {
+          "flagged": 0,
+          "unflagged": 10,
+          "mean_f1_difference": null,
+          "examples": []
+        },
+        "state_termination": {
+          "flagged": 5,
+          "unflagged": 5,
+          "mean_f1_difference": -0.07425289318433753,
+          "examples": [
+            {
+              "session": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/g5dev_t13_any_s1/T1.3/val/train_1377",
+              "event": {
+                "kind": "answer_regression",
+                "category": "state_termination",
+                "step": 25,
+                "tool": "remove_region",
+                "before": "mask#13",
+                "after": "mask#14",
+                "delta_f1": -0.0005420480714781184,
+                "attribution": "agent_edit_candidate_not_proven_bug"
+              }
+            },
+            {
+              "session": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/g5dev_t13_any_s1/T1.3/val/train_1884",
+              "event": {
+                "kind": "submit_without_current",
+                "category": "state_termination",
+                "step": 23,
+                "attribution": "valid_explicit_submit_possible"
+              }
+            },
+            {
+              "session": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/g5dev_t13_any_s1/T1.3/val/train_1884",
+              "event": {
+                "kind": "answer_regression",
+                "category": "state_termination",
+                "step": 30,
+                "tool": "submit",
+                "before": "mask#12",
+                "after": "mask#13",
+                "delta_f1": -0.36168172093899165,
+                "attribution": "agent_edit_candidate_not_proven_bug"
+              }
+            }
+          ]
+        },
+        "tool_failure": {
+          "flagged": 6,
+          "unflagged": 4,
+          "mean_f1_difference": -0.1572723744090465,
+          "examples": [
+            {
+              "session": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/g5dev_t13_any_s1/T1.3/val/train_1136",
+              "event": {
+                "kind": "tool_error",
+                "category": "tool_failure",
+                "step": 12,
+                "tool": "segment_prompt",
+                "error_code": "box_too_large",
+                "args": {
+                  "time": "t2",
+                  "box": [
+                    0,
+                    300,
+                    350,
+                    512
+                  ]
+                },
+                "result": "{\"ok\":false,\"error_code\":\"box_too_large\",\"message\":\"A box prompt segments one object. This box covers 28.31% of the image. For several objects or a whole area, use segment_text, then intersect with a region if needed.\"}",
+                "attribution": "needs_context_review"
+              }
+            },
+            {
+              "session": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/g5dev_t13_any_s1/T1.3/val/train_1177",
+              "event": {
+                "kind": "tool_error",
+                "category": "tool_failure",
+                "step": 15,
+                "tool": "segment_prompt",
+                "error_code": "box_too_large",
+                "args": {
+                  "time": "t1",
+                  "box": [
+                    100,
+                    0,
+                    380,
+                    130
+                  ]
+                },
+                "result": "{\"ok\":false,\"error_code\":\"box_too_large\",\"message\":\"A box prompt segments one object. This box covers 13.89% of the image. For several objects or a whole area, use segment_text, then intersect with a region if needed.\"}",
+                "attribution": "needs_context_review"
+              }
+            },
+            {
+              "session": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/g5dev_t13_any_s1/T1.3/val/train_1377",
+              "event": {
+                "kind": "tool_error",
+                "category": "tool_failure",
+                "step": 22,
+                "tool": "ask",
+                "error_code": "bad_args",
+                "args": {},
+                "result": "{\"ok\":false,\"error_code\":\"bad_args\",\"message\":\"There is no current answer; pass regions with a mask handle.\"}",
+                "attribution": "needs_context_review"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "config": "t3agent10_g3_any_s1",
+      "task": "T3.1",
+      "n": 10,
+      "normal_round_median": 26.5,
+      "contrasts": {
+        "excess_calls": {
+          "flagged": 9,
+          "unflagged": 1,
+          "mean_f1_difference": 0.3071054789286854,
+          "examples": [
+            {
+              "session": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/t3agent10_g3_any_s1/T3.1/val/train_1377_5to3",
+              "event": {
+                "kind": "view_only_run",
+                "category": "excess_calls",
+                "step": 3,
+                "length_at_least": 3
+              }
+            },
+            {
+              "session": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/t3agent10_g3_any_s1/T3.1/val/train_1377_5to3",
+              "event": {
+                "kind": "view_only_run",
+                "category": "excess_calls",
+                "step": 7,
+                "length_at_least": 3
+              }
+            },
+            {
+              "session": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/t3agent10_g3_any_s1/T3.1/val/train_1377_5to3",
+              "event": {
+                "kind": "view_only_run",
+                "category": "excess_calls",
+                "step": 11,
+                "length_at_least": 3
+              }
+            }
+          ]
+        },
+        "redundancy": {
+          "flagged": 3,
+          "unflagged": 7,
+          "mean_f1_difference": -0.20390107142465938,
+          "examples": [
+            {
+              "session": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/t3agent10_g3_any_s1/T3.1/val/train_1377_5to3",
+              "event": {
+                "kind": "blocked_calls",
+                "category": "redundancy",
+                "step": 4,
+                "count": 1,
+                "attribution": "harness_filter_candidate"
+              }
+            },
+            {
+              "session": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/t3agent10_g3_any_s1/T3.1/val/train_2438_5to1",
+              "event": {
+                "kind": "blocked_calls",
+                "category": "redundancy",
+                "step": 8,
+                "count": 1,
+                "attribution": "harness_filter_candidate"
+              }
+            },
+            {
+              "session": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/t3agent10_g3_any_s1/T3.1/val/train_2438_5to1",
+              "event": {
+                "kind": "blocked_calls",
+                "category": "redundancy",
+                "step": 9,
+                "count": 1,
+                "attribution": "harness_filter_candidate"
+              }
+            }
+          ]
+        },
+        "state_termination": {
+          "flagged": 4,
+          "unflagged": 6,
+          "mean_f1_difference": -0.32195915601117575,
+          "examples": [
+            {
+              "session": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/t3agent10_g3_any_s1/T3.1/val/train_1377_5to3",
+              "event": {
+                "kind": "submit_without_current",
+                "category": "state_termination",
+                "step": 19,
+                "attribution": "valid_explicit_submit_possible"
+              }
+            },
+            {
+              "session": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/t3agent10_g3_any_s1/T3.1/val/train_1808_2to1",
+              "event": {
+                "kind": "abnormal_end",
+                "category": "state_termination",
+                "step": 25,
+                "reason": "no_submit"
+              }
+            },
+            {
+              "session": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/t3agent10_g3_any_s1/T3.1/val/train_2043_2to3",
+              "event": {
+                "kind": "abnormal_end",
+                "category": "state_termination",
+                "step": 30,
+                "reason": "budget"
+              }
+            }
+          ]
+        },
+        "tool_failure": {
+          "flagged": 8,
+          "unflagged": 2,
+          "mean_f1_difference": 0.0909366148947841,
+          "examples": [
+            {
+              "session": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/t3agent10_g3_any_s1/T3.1/val/train_1377_5to3",
+              "event": {
+                "kind": "tool_error",
+                "category": "tool_failure",
+                "step": 3,
+                "tool": "view",
+                "error_code": "bad_args",
+                "args": {
+                  "region": [
+                    0,
+                    0,
+                    610,
+                    796
+                  ]
+                },
+                "result": "{\"ok\":false,\"error_code\":\"bad_args\",\"message\":\"region must be an ordered box inside the full image.\"}",
+                "attribution": "needs_context_review"
+              }
+            },
+            {
+              "session": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/t3agent10_g3_any_s1/T3.1/val/train_1377_5to3",
+              "event": {
+                "kind": "tool_error",
+                "category": "tool_failure",
+                "step": 6,
+                "tool": "view",
+                "error_code": "bad_args",
+                "args": {
+                  "region": [
+                    0,
+                    350,
+                    512,
+                    796
+                  ]
+                },
+                "result": "{\"ok\":false,\"error_code\":\"bad_args\",\"message\":\"region must be an ordered box inside the full image.\"}",
+                "attribution": "needs_context_review"
+              }
+            },
+            {
+              "session": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/t3agent10_g3_any_s1/T3.1/val/train_1377_5to3",
+              "event": {
+                "kind": "tool_error",
+                "category": "tool_failure",
+                "step": 16,
+                "tool": "segment_prompt",
+                "error_code": "box_too_large",
+                "args": {
+                  "time": "t2",
+                  "box": [
+                    0,
+                    400,
+                    300,
+                    512
+                  ]
+                },
+                "result": "{\"ok\":false,\"error_code\":\"box_too_large\",\"message\":\"A box prompt segments one object. This box covers 12.82% of the image. For several objects or a whole area, use segment_text, then intersect with a region if needed.\"}",
+                "attribution": "needs_context_review"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "config": "t41v3dev_g3_any_s1",
+      "task": "T4.1",
+      "n": 10,
+      "normal_round_median": 20,
+      "contrasts": {
+        "excess_calls": {
+          "flagged": 8,
+          "unflagged": 2,
+          "mean_f1_difference": -0.008491702676468815,
+          "examples": [
+            {
+              "session": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/t41v3dev_g3_any_s1/T4.1/val/train_195",
+              "event": {
+                "kind": "view_only_run",
+                "category": "excess_calls",
+                "step": 6,
+                "length_at_least": 3
+              }
+            },
+            {
+              "session": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/t41v3dev_g3_any_s1/T4.1/val/train_286",
+              "event": {
+                "kind": "view_only_run",
+                "category": "excess_calls",
+                "step": 15,
+                "length_at_least": 3
+              }
+            },
+            {
+              "session": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/t41v3dev_g3_any_s1/T4.1/val/train_293",
+              "event": {
+                "kind": "view_only_run",
+                "category": "excess_calls",
+                "step": 13,
+                "length_at_least": 3
+              }
+            }
+          ]
+        },
+        "redundancy": {
+          "flagged": 0,
+          "unflagged": 10,
+          "mean_f1_difference": null,
+          "examples": []
+        },
+        "state_termination": {
+          "flagged": 7,
+          "unflagged": 3,
+          "mean_f1_difference": -0.22756340116548202,
+          "examples": [
+            {
+              "session": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/t41v3dev_g3_any_s1/T4.1/val/train_195",
+              "event": {
+                "kind": "empty_submission",
+                "category": "state_termination",
+                "step": 28
+              }
+            },
+            {
+              "session": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/t41v3dev_g3_any_s1/T4.1/val/train_286",
+              "event": {
+                "kind": "answer_regression",
+                "category": "state_termination",
+                "step": 9,
+                "tool": "combine",
+                "before": "mask#5",
+                "after": "mask#7",
+                "delta_f1": -0.1461591227631665,
+                "attribution": "agent_edit_candidate_not_proven_bug"
+              }
+            },
+            {
+              "session": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/t41v3dev_g3_any_s1/T4.1/val/train_293",
+              "event": {
+                "kind": "answer_regression",
+                "category": "state_termination",
+                "step": 7,
+                "tool": "combine",
+                "before": "mask#5",
+                "after": "mask#7",
+                "delta_f1": -0.0020588841671345115,
+                "attribution": "agent_edit_candidate_not_proven_bug"
+              }
+            }
+          ]
+        },
+        "tool_failure": {
+          "flagged": 6,
+          "unflagged": 4,
+          "mean_f1_difference": 0.10002408244112015,
+          "examples": [
+            {
+              "session": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/t41v3dev_g3_any_s1/T4.1/val/train_286",
+              "event": {
+                "kind": "tool_error",
+                "category": "tool_failure",
+                "step": 4,
+                "tool": "inspect",
+                "error_code": "bad_args",
+                "args": {
+                  "mask": "inst#1",
+                  "limit": 60
+                },
+                "result": "{\"ok\":false,\"error_code\":\"bad_args\",\"message\":\"arguments.limit is outside the allowed range.\"}",
+                "attribution": "needs_context_review"
+              }
+            },
+            {
+              "session": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/t41v3dev_g3_any_s1/T4.1/val/train_286",
+              "event": {
+                "kind": "tool_error",
+                "category": "tool_failure",
+                "step": 10,
+                "tool": "inspect",
+                "error_code": "bad_args",
+                "args": {
+                  "mask": "mask#7",
+                  "limit": 53
+                },
+                "result": "{\"ok\":false,\"error_code\":\"bad_args\",\"message\":\"arguments.limit is outside the allowed range.\"}",
+                "attribution": "needs_context_review"
+              }
+            },
+            {
+              "session": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/t41v3dev_g3_any_s1/T4.1/val/train_300",
+              "event": {
+                "kind": "tool_error",
+                "category": "tool_failure",
+                "step": 16,
+                "tool": "ask",
+                "error_code": "bad_args",
+                "args": {},
+                "result": "{\"ok\":false,\"error_code\":\"bad_args\",\"message\":\"There is no current answer; pass regions with a mask handle.\"}",
+                "attribution": "needs_context_review"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "read_failures": [],
+  "excluded": "test paths; non-task directories; code snapshots",
+  "causal": false
+}

@@ -1,0 +1,113 @@
+{
+  "name": "cd-trace-behavior-20261113",
+  "status": "done",
+  "queue": [],
+  "done": [
+    "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-trace-behavior-20261113/jobs/01-dev.sbatch",
+    "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-trace-behavior-20261113/jobs/02-history.sbatch"
+  ],
+  "current": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-trace-behavior-20261113/jobs/02-history.sbatch",
+  "job_id": "183951",
+  "hook_id": "183952",
+  "rounds": 2,
+  "rounds_submitted": 2,
+  "primary_best": 19777,
+  "cost_cny": 0.0,
+  "no_gain": 0,
+  "finalized": false,
+  "finalize_requested": true,
+  "started_at": "2026-11-13 03:16:12",
+  "started_epoch": 1794539772.2159603,
+  "history": [
+    {
+      "job": "01-dev.sbatch",
+      "job_id": "183949",
+      "hook_id": "183950",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": 40,
+      "gain": null,
+      "cost_cny": 0,
+      "metric": {
+        "primary": 40,
+        "primary_name": "sessions_analyzed",
+        "cost_cny": 0,
+        "read_failures": 0,
+        "phase": "01-dev"
+      },
+      "metric_error": null,
+      "at": "2026-11-13 03:16:39"
+    },
+    {
+      "job": "02-history.sbatch",
+      "job_id": "183951",
+      "hook_id": "183952",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": 19777,
+      "gain": 19737,
+      "cost_cny": 0,
+      "metric": {
+        "primary": 19777,
+        "primary_name": "sessions_analyzed",
+        "cost_cny": 0,
+        "read_failures": 0,
+        "phase": "02-history"
+      },
+      "metric_error": null,
+      "at": "2026-11-13 05:02:41"
+    }
+  ],
+  "driver": "dependency",
+  "recorded_current": true,
+  "submitted_at": "2026-11-13 03:16:39",
+  "last_advance_at": "2026-11-13 03:16:39",
+  "hook_attempts": 2,
+  "review_count": 1,
+  "review": {
+    "id": "event-0001",
+    "kind": "round_finished",
+    "error": null,
+    "at": "2026-11-13 05:02:41",
+    "job_id": "183951",
+    "hook_id": "183952",
+    "current": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-trace-behavior-20261113/jobs/02-history.sbatch",
+    "latest": {
+      "job": "02-history.sbatch",
+      "job_id": "183951",
+      "hook_id": "183952",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": 19777,
+      "gain": 19737,
+      "cost_cny": 0,
+      "metric": {
+        "primary": 19777,
+        "primary_name": "sessions_analyzed",
+        "cost_cny": 0,
+        "read_failures": 0,
+        "phase": "02-history"
+      },
+      "metric_error": null,
+      "at": "2026-11-13 05:02:41"
+    },
+    "queued_jobs": [],
+    "cost_cny": 0.0,
+    "delivery": "accepted",
+    "delivered_at": "2026-11-13 05:02:41",
+    "delivery_turn_id": "01a1d349-576f-7813-9f21-c5ad6897dd20",
+    "delivery_via": "hook_http"
+  },
+  "decisions": [
+    {
+      "event_id": "event-0001",
+      "action": "finish",
+      "reason": "历史阶段19777会话、278任务配置组，读取失败0；逐会话journal及报告已核实。基础扫描完成不重跑，新增指标由独立扩展队列继续。",
+      "at": "2026-11-13 05:03:07"
+    }
+  ],
+  "stop_reason": "历史阶段19777会话、278任务配置组，读取失败0；逐会话journal及报告已核实。基础扫描完成不重跑，新增指标由独立扩展队列继续。",
+  "finished_at": "2026-11-13 05:03:07",
+  "elapsed_seconds": 6414.8,
+  "finalize_attempts": 1
+}
