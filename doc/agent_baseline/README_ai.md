@@ -87,7 +87,7 @@ cd /guisongxia01/pangchao/wangyihan/wyh/exp-loop
 /usr/bin/python3 loop.py status experiments/<本实验名>
 ```
 
-**实现核对，尚未解决（2026-11-13）**：读取现有 `exp-loop/loop.py` 与 `watchdog.sh` 后发现：`tick` 在无 hook 等分支会调用 `record` / `submit_round`；`record` 对任何正提升清零 no_gain，未用 min_gain 判断“小于1分”；`finalize` 在 Git 失败后或 QQ 返回失败时仍设置 finalized。这与上述目标约定有差异，不能宣称已满足“不推进／连续两轮不足1分停止／失败可重试收尾”。本轮仅记录，未修改共享 exp-loop，也未初始化新队列或检查其他实验作业；后续实运行前需解决这些差异。
+**2026-11-13 实现修复中**：用户已授权修改 exp-loop。版本化实现见 `tools/exp_loop/`；原入口保持不变。tick改为只补hook，min_gain用于连续不足1分判停，git/QQ失败不标记收尾完成；具体实现和验证见 [§10.17](#exp-loop)。不做下一轮预估费用拦截，额度不足让实际作业报错；保留累计实际费用停止条件。
 
 ## 1. 背景：为什么要做这个（先读）
 
@@ -1889,6 +1889,40 @@ compare_features 保留分数及实例，仅添加 score_quantiles（min/p10/p25
 实测回归：183281 定向62项通过；183284 全套401项通过，耗时12分04秒（含启动）。第一次183280因 unittest 缺 `-t code` 导入失败，修正提交命令后通过。
 轨迹首轮183282在1小时超时，无结果：初版对整个run根递归，并仅在全量结束写文件。现改为仅识别配置下T任务目录，每完成一个会话立即追加并flush，支持 `--config` 和 `--resume`。先小配置验证再扩展。新增在线实验仍未执行。
 续跑验证183878已通过：2项分析单测、10会话0读取失败，第二次resume仍10条；尚未宣称全量扫描完成。
+
+<a id="exp-loop"></a>
+
+## 10.17 exp-loop：事件驱动的多轮实验
+
+### 职责与可执行队列
+
+源代码 `tools/exp_loop/loop.py`、`watchdog.sh` 纳入本仓库；`install.py` 安装到工作区 `exp-loop` 的原入口，备份原入口，保留实验状态与 cron。无需每轮重新调用模型或由 agent 等待。
+
+agent 在 init 前准备同一个假设的必要实验、明确的评分脚本与停止条件，不能只排首轮后假设系统会凭空发明后续方法。已知的后续实验一次列入 jobs，新的路线通过 add 追加。每轮按“假设→方法→结果→失败证据→成本→下一步”留下可读产物；自动链只执行已准备的实验，不把脚本调度冒充自主科学判断。
+
+每个实验作业提交后立即保存 job_id，再提交 afterany hook 并保存 hook_id。hook 的 advance 读取本轮指标、记录实际成本并判停；继续则提交下一作业及其hook。状态文件加锁并原子保存；重复/过期事件不重复记账，已经记账但尚未提交下一轮的事件可恢复。
+
+cron 每分钟执行原 watchdog：tick只检查本实验记录的hook，hook缺失或已结束但链未前进时补挂hook；不读研究指标，不提交实验作业。Git/QQ收尾在管理节点由watchdog执行，不依赖计算节点的SSH代理。agent不调用tick/advance/finalize，不写轮询或sleep，不查询账号队列。
+
+### 停止与错误
+
+- primary越大越好，首轮建立基准（可用initial_primary提供已有开发基准）。随后本轮primary减此前最佳值作为gain；gain<min_gain计一次停滞，默认连续2次不足1分就停，即使每轮略有正提升也不清零。最佳值仍如实更新。
+- 只按实际累计cost_cny达到budget_cny停止；**不按下一轮预估费用拦截**。预算不足、API拒绝等由实验本身报错，保留日志，FAILED/TIMEOUT等直接进入失败收尾。
+- metric失败、缺少有效primary或费用字段非法，记录metric_error并失败收尾，不把缺失指标当成成功。
+- 队列跑完就正常收尾；随后add可通过start hook启动新增轮次。预算/停滞/失败导致停止时，add不暗中清零或绕过停止原因，先分析证据，再为有实质差异的新假设建立新队列；同一研究的费用仍须合并核算，不能拆队列规避用户预算。
+- init拒绝覆盖已有state；status只读state，不访问Slurm。auto_start=false的队列可用add已有首个脚本启动；已运行队列add仅追加。
+
+### 指标、产物与收尾
+
+metric命令从实验目录执行，最后一行JSON至少含primary，费用cost_cny是**本轮**用量而非累计。可读取环境变量 EXP_LOOP_JOB、EXP_LOOP_JOB_ID、EXP_LOOP_ROUND、EXP_LOOP_DIR 定位本轮产物，避免读上一轮的旧文件。单轮计算结果必须在作业结束前写好。
+
+Git配置必须明确repo/branch/paths；只提交这些实验路径，用户其他暂存改动不带入。可用git.state_export将停止时的状态快照写入仓库内指定路径（也应包含在paths中）。提交与推送分开记状态：推送失败重试时不会再次提交；工作树无新变化仍会尝试推送。分支不符、远端拒绝等保留错误，不强推。
+
+QQ仅在确认发送成功后标记notified；Git和通知均完成才置finalized。收尾失败由cron按间隔重试，默认60秒、最多5次；耗尽后finalized仍为false，status显式显示finalize_blocked与错误，并尝试发出收尾失败通知。发送服务本身不可用时不能声称已通知。dry_run不提交、不通知，也不标记真实收尾完成。
+
+### 验证记录
+
+首轮单元验证15项中14项通过，1项是测试中写死假hook编号错误，已改成核对实际记录编号；新一轮增加临时真实Git仓库验证，覆盖推送失败重试及保留其他暂存改动。验证均经exp-loop提交单CPU作业，不在管理节点运行测试。部署与三轮真实依赖链验证结果继续追加在本节。
 
 ## 11. 状态与变更记录（每个里程碑后追加，新的在上）
 

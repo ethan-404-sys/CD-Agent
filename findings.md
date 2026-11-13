@@ -108,3 +108,5 @@ T3 原 B 的 k16 F1 7.47、A 11.11，来源 `../exp6_staging/batch98_t3_routes/r
 
 最新约定取代前述“README_ai/index双份镜像＋专项README”：技术说明只维护 README_ai，流程三文件保留。T3、find_missed 与 Gate6 内容已合并，删除原专项文件；保留历史结果与轨迹。
 实读工作区 exp-loop：tick 会在无hook等分支提交下一轮；record 未使用 min_gain 判小幅正提升；finalize 即使推送或通知失败仍置 finalized。以上为当前代码事实，不是对已修复机制的确认。未修改该共享框架、未调用推进/收尾命令、未查询其他作业。
+
+exp-loop修复验证：16项测试通过；tick只补控制hook，不读指标或提交研究作业；min_gain真实参与停滞判断；add在队列耗尽后通过start hook恢复；收尾失败保持pending、可重试。用户要求取消预估费用拦截已落实，保留实际累计预算停止。真实Slurm链与自动推送/QQ验证另行记录，不以单测代替集群验证。

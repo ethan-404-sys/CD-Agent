@@ -71,3 +71,7 @@
 ## 2026-11-13 执行方式更新
 
 长实验只经 exp-loop init/add/status；禁止轮询、回合内 sleep 和共享账号队列查询。仅操作本实验 state.json 的 job_id/hook_id。T3/find_missed/Gate6 技术说明已并入主 README，旧文件删除。exp-loop 的实际行为差异见 README_ai §0.3；未修复前不宣称停机与收尾机制已验证，也未新建实验队列。
+
+### Phase 4: exp-loop事件驱动执行链
+**Status:** in_progress
+修正hook链、预算/停滞判断及失败收尾；测试只走本实验init/add/status。完成后用三轮无API的小队列验证自动衔接，再用同一机制推进已有开发数据研究。
