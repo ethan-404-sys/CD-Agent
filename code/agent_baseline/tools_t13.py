@@ -132,7 +132,12 @@ class ProposalTools:
         if (a.time, b.time) != ('t1','t2'):
             raise ToolError('bad_args', 'Features must be ordered T1 then T2.')
         scores = 1 - cosine(pooled(a,item.items), pooled(b,item.items))
-        return self._props([dict(r, score=float(s)) for r,s in zip(item.items,scores)], item.time, (props,feat_t1,feat_t2))
+        result = self._props([dict(r, score=float(s)) for r,s in zip(item.items,scores)], item.time, (props,feat_t1,feat_t2))
+        if self.gate6:
+            levels = (0, 10, 25, 50, 75, 90, 100)
+            result["score_quantiles"] = dict(zip(("min", "p10", "p25", "p50", "p75", "p90", "max"),
+                np.percentile(scores, levels).tolist() if len(scores) else [None] * 7))
+        return result
 
     def classify(self, props, time, classes):
         if any(not c.strip() or c.strip().lower() == 'background' for c in classes):

@@ -95,3 +95,10 @@ Ethan 2026-11-12 的既有完成/待办清单包含 Gate6（`view.original_size`
 协作约定：复用 `README_ai.md` 和 `index.html` 作为技术历史及展示的一对镜像；`task_system.html` 是任务定义；`README_t3_routes.md` 和 `README_missed_sources.md` 是专项细节；复用原有 `doc/agent_baseline/README_ai.md` §0.2 汇总新共识。Web GPT 与服务器 GPT 都维护 GitHub 文档，不另立两套冲突权威。
 
 **更正前文判断**：此前“应暂停 T3 和漏检工具、优先统一论文证据矩阵”的建议已被用户更高优先级的研究决定取代；现行计划以 `task_plan.md` 最新版为准。既有 F1、CI 不受本次研究决策改变。
+## 2026-11-12 服务器实物核对
+
+仓库没有 Gate6 或 trace_behavior.py；progress 原记录只有 Web 端计划，不能当执行记录。
+S1–S5 的服务器结果已生成，先前“没有结果”的说法已过时：WHU dev60 起点 F1 60.909，整组件 TP>FP 选择参照 S1 65.666、全来源 76.987；它不是实际验证器收益，也不是数学最优上限。来源 `../exp6_staging/batch99_find_missed_pre/results/missed_sources.md`。
+T3 原 B 的 k16 F1 7.47、A 11.11，来源 `../exp6_staging/batch98_t3_routes/results/t3_routes.md`。仍需做几何路线，不能重复原有 API 请求。
+
+2026-11-13核实：T3几何实验并非未运行，60任务成功；未交付导致用户看不到结果。目标类最佳18.06仍低于历史固定21.38。轨迹扫描无结果的直接原因是1小时时限和全量末尾落盘设计；不是Slurm控制面故障。首次测试失败属我提交命令缺少包根参数，修正后401项通过。

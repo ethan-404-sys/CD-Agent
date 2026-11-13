@@ -112,8 +112,12 @@ def latest_mask(session):
     return masks[-1] if masks else None
 
 
-def run_session(toolbox, planner, recorder, task='T1.1xC0', budget=30, prompt_version='v1', metadata=None, review=False, status=False, verify=False, plan=False, skills=(), gate2=False, gate3=False, gate4=False, tool_hints='off', gate5=False):
+def run_session(toolbox, planner, recorder, task='T1.1xC0', budget=30, prompt_version='v1', metadata=None, review=False, status=False, verify=False, plan=False, skills=(), gate2=False, gate3=False, gate4=False, tool_hints='off', gate5=False, gate6=False):
     session = toolbox.session
+    if gate6 or toolbox.gate6:
+        toolbox.gate6 = True
+        metadata = copy.deepcopy(metadata or {})
+        metadata.setdefault("backends", {})["gate6"] = True
     if gate5 or toolbox.gate5:
         gate5 = gate4 = True
         toolbox.gate5 = True
@@ -395,6 +399,7 @@ def main():
     parser.add_argument('--gate2', action='store_true', help='Close the gaps where verifier answers never reach the planner (G2). Needs --verify-stage.')
     parser.add_argument('--gate3', action='store_true', help='G3 box guard, constraint reports and feedback verification scope. Implies --gate2; requires --verify-stage.')
     parser.add_argument('--gate4', action='store_true', help='G4 current-answer reminders and region clipping at submission. Implies --gate3; requires --verify-stage.')
+    parser.add_argument('--gate6', action='store_true', help='Expose original image dimensions and feature score quantiles; independent of other gates.')
     parser.add_argument('--gate5', action='store_true', help='G4 plus optional region clipping for segment_text and segment_everything. Implies --gate4; requires --verify-stage.')
     parser.add_argument('--big-box-share', type=float, default=tool_module.BIG_BOX_SHARE)
     parser.add_argument('--ask-correspondence', action='store_true', help='Ask about the object across the dates.')
@@ -525,7 +530,7 @@ def main():
             map_input=args.map_input,
             big_box_share=args.big_box_share)
         try:
-            result = run_session(toolbox, planner, recorder, task, prompt_version=args.prompt_version, review=args.review, status=args.status, verify=args.verify_stage, plan=args.plan, skills=skills, gate2=args.gate2, gate3=args.gate3, gate4=args.gate4, tool_hints=args.tool_hints, gate5=args.gate5,
+            result = run_session(toolbox, planner, recorder, task, prompt_version=args.prompt_version, review=args.review, status=args.status, verify=args.verify_stage, plan=args.plan, skills=skills, gate2=args.gate2, gate3=args.gate3, gate4=args.gate4, tool_hints=args.tool_hints, gate5=args.gate5, gate6=args.gate6,
                 metadata=dict(**({'scope': session.scope} if session.scope else {}), session_id=stem, source_images=image_paths or source_images,
                     init_mask_path=str(init_path) if init is not None or needs_init(task) else None,
                     init_config=dict(route=args.init_name, text=session.target, tile=512, score_thr=.5,

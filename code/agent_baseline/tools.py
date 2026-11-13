@@ -246,7 +246,7 @@ def failure(code, message):
 
 
 class Toolbox(ProposalTools):
-    def __init__(self, rgb, directory, segment=None, prompt=None, ask=None, session=None, init_mask=None, python=False, tools_t13=False, vision=None, gate3=False, big_box_share=BIG_BOX_SHARE, gate4=False, map_input=False, gate5=False):
+    def __init__(self, rgb, directory, segment=None, prompt=None, ask=None, session=None, init_mask=None, python=False, tools_t13=False, vision=None, gate3=False, big_box_share=BIG_BOX_SHARE, gate4=False, map_input=False, gate5=False, gate6=False):
         self.rgb = tuple(np.array(im, copy=True) for im in rgb)
         self.session = session or Session(self.rgb[0].shape[:2], init_mask)
         if map_input:
@@ -270,6 +270,7 @@ class Toolbox(ProposalTools):
         self.gate3, self.big_box_share = gate3 or gate5, big_box_share
         self.gate4 = gate4 or gate5
         self.gate5 = gate5
+        self.gate6 = gate6
 
     def get(self, key, kind=None):
         return self.session.get(key, kind, self.allowed)
@@ -346,6 +347,9 @@ class Toolbox(ProposalTools):
         num = self.session.view_count
         info, paths = render_view(self.rgb, self.directory / 'images', num, region, item,
                                   overlay, label_components, ids)
+        if self.gate6:
+            h, w = self.session.shape
+            info.update(original_size=[w, h], coordinate_system="All coordinates are original-image pixels; image_size is the rendered image size.")
         self.session.view_count += 1
         return Result(dict(ok=True, **info), paths)
 
