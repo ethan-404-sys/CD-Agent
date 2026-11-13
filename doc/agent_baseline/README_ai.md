@@ -2490,3 +2490,5 @@ P0v2三例逐步审查：verification_ids确实出现在实际API请求；三例
 2026-11-13 P0v2完整六例参照已完成（184655补余三例，不重跑先前3例）：所有配对seed/model参数/GT一致，6/6submit、0工具错误/无效重试。baseline→P0v2均值F1 66.6592→66.9132，pooled88.6630→88.7142，calls94→87，费用¥.2776268→¥.242090；简单均值92.33465→92.33376基本持平，但简单调用19→20、费用¥.0649602→¥.0733578，存在用量增加。不得宣称普遍收益或本轮修复了未重现的历史类型/ID错误。原P0有1例no_submit，v2该例正常submit，但单seed不同路线不能独立归因。val31仍544FP/F1=0，视觉误报未解决。完整阶段快照rounds/04-p0v2-full保留，已事件接续P1v2同六例，P2v2三例随后。成本台账：2026-11-13 / P0v2余三例 / 无预估拦截 / 实际token计量¥.1278554；该版本六例¥.242090，全部累计¥.7558148。
 
 P0v2余三例实际工具证据：val22 step11首次真实触发cached_verification，mask#8回显24条yes及bbox、results=[]、backend_seconds=0、无新句柄，随后正常提交。val32 step13/20分别set_answer(mask#3/#5)，均无新句柄/后端调用，用于采用候选核验而非回滚正确答案；23调用/¥.057156，比baseline8调用/¥.015650更多，最后仍靠主动submit(empty)得到F1=1。val47一次核验21组件后删15个no，不再先删后恢复；TP669不变，比baseline少183FP，F1 32.6262→34.1501，对应原ID7此次核验no。仍丢552TP，不能归因ID修复改善视觉核验。
+
+本轮配对结束后用analysis/archive_harness1020.py在CPU Slurm作业归档每条完整steps、input/final、verification、掩码与实例；原messages.jsonl及视图保留在共享原目录，archive_manifest.json记录可核查位置，不删除或改写原轨迹。归档阶段不调用API，不把累计费用再计一次。
