@@ -1,0 +1,251 @@
+{
+  "name": "cd-data1020-20261113",
+  "status": "done",
+  "queue": [],
+  "done": [
+    "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-data1020-20261113/jobs/01-whu.sbatch",
+    "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-data1020-20261113/jobs/02-t5-v3.sbatch",
+    "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-data1020-20261113/jobs/03-review-19.sbatch"
+  ],
+  "current": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-data1020-20261113/jobs/03-review-19.sbatch",
+  "job_id": "184599",
+  "hook_id": "184600",
+  "rounds": 3,
+  "rounds_submitted": 3,
+  "primary_best": null,
+  "cost_cny": 0.0,
+  "finalized": false,
+  "finalize_requested": true,
+  "started_at": "2026-11-13 16:21:12",
+  "started_epoch": 1794586872.8573024,
+  "history": [
+    {
+      "job": "01-whu.sbatch",
+      "job_id": "184544",
+      "hook_id": "184545",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0,
+      "metric": {
+        "status": "pending_review",
+        "api_calls": 0,
+        "manifests": [
+          "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/data_revision_20261113/v2/whu/tasks/T1.1xC0_any.jsonl",
+          "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/data_revision_20261113/v2/whu/tasks/T1.1xC1_appeared.jsonl",
+          "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/data_revision_20261113/v2/whu/tasks/T1.1xC1_disappeared.jsonl",
+          "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/data_revision_20261113/v2/whu/tasks/T1.1xC0_any_dev.jsonl",
+          "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/data_revision_20261113/v2/whu/tasks/T1.1xC1_appeared_dev.jsonl",
+          "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/data_revision_20261113/v2/whu/tasks/T1.1xC1_disappeared_dev.jsonl"
+        ],
+        "population": {
+          "images": 1260,
+          "legacy_positive": 1046,
+          "official_positive": 604,
+          "official_positive_excluded_by_legacy": 0
+        },
+        "splits": {
+          "val": {
+            "images": 128,
+            "official_empty_old_nonempty": 56,
+            "old_vs_official": {
+              "tp": 1780947,
+              "fp": 790411,
+              "fn": 187166,
+              "f1": 0.7846495770101847,
+              "iou": 0.6456159163378676,
+              "precision": 0.6926095082831718,
+              "recall": 0.9049007856764322
+            },
+            "c1_components": {
+              "outside_official": 9242,
+              "partial_official": 107,
+              "inside_official": 226
+            },
+            "old_gt_mismatch": 0
+          },
+          "dev": {
+            "images": 60,
+            "official_empty_old_nonempty": 22,
+            "old_vs_official": {
+              "tp": 1212326,
+              "fp": 390833,
+              "fn": 23840,
+              "f1": 0.8539536685655922,
+              "iou": 0.7451301445176057,
+              "precision": 0.756210706486381,
+              "recall": 0.9807145642251931
+            },
+            "c1_components": {
+              "outside_official": 4179,
+              "partial_official": 64,
+              "inside_official": 126
+            },
+            "old_gt_mismatch": 0
+          }
+        },
+        "rescored_predictions": 1950,
+        "config_groups": 18,
+        "missing_predictions": 0,
+        "cost_cny": 0
+      },
+      "metric_error": null,
+      "at": "2026-11-13 16:29:31"
+    },
+    {
+      "job": "02-t5-v3.sbatch",
+      "job_id": "184582",
+      "hook_id": "184583",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0,
+      "metric": {
+        "status": "pending_review",
+        "api_calls": 0,
+        "source_images": 64,
+        "core_images": 52,
+        "candidates_per_task": {
+          "T5.2": 52,
+          "T5.3": 52
+        },
+        "excluded_images": 12,
+        "old_t53_no_feedback": 14,
+        "categories": {
+          "partial_shape_boundary": 52,
+          "mixed_omission_commission": 52,
+          "fragmented_objects": 21,
+          "merged_objects": 20
+        },
+        "feedback_provenance": "GT-simulated, fully reproducible, not collected human feedback",
+        "selection": "existing LEVIR validation 64 only; candidate pool pending human review, not a new formal test set",
+        "protocol": {
+          "min_error_region_px": 32,
+          "substantial_partial_error_px": 64,
+          "min_selected_error_px": 128,
+          "max_feedback_regions": 6,
+          "core": "at least one substantial partial-object error plus mixed FP/FN or multiple substantial partial errors",
+          "primary_evaluation": "full-mask quality F1/IoU, precision/recall; boundary/object measures are secondary; no strict local compliance emphasis",
+          "simple_edit_oracle_gate": "exclude best single whole-component delete/GT-add removes >=80% error or reaches F1>=.98; exclude arbitrary component deletion reaches F1>=.98; require >=128 residual error pixels after best one-edit",
+          "oracle_scope": "offline GT-assisted upper bound for specified edits, not inference; actual SAM and multi-step difficulty remains pending review"
+        },
+        "geometry_candidates_before_oracle": 53,
+        "selected_oracle_evidence": {
+          "n": 52,
+          "best_single_edit_f1_range": [
+            0.22075677059991036,
+            0.9506172839506173
+          ],
+          "maximum_single_edit_error_reduction": 0.6041780768327987,
+          "maximum_arbitrary_deletion_f1": 0.952633641197873
+        },
+        "revision": "v3_simple_edit_oracle_screen",
+        "cost_cny": 0
+      },
+      "metric_error": null,
+      "at": "2026-11-13 16:37:44"
+    },
+    {
+      "job": "03-review-19.sbatch",
+      "job_id": "184599",
+      "hook_id": "184600",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0,
+      "metric": {
+        "cases": 19,
+        "api_calls": 0,
+        "status": "pending_review",
+        "t4_store_touched": false,
+        "source_review": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/data_revision_20261113/v2/index.html",
+        "independent_image_pairs": 19,
+        "independent_t2_images": 19,
+        "annotation": "pages03/04 clarify tiny official residuals; pages18/19 add substantial official positives",
+        "source_gt_or_candidates_changed": false,
+        "new_scoring_runs": 0,
+        "cost_cny": 0
+      },
+      "metric_error": null,
+      "at": "2026-11-13 16:41:51"
+    }
+  ],
+  "driver": "dependency",
+  "recorded_current": true,
+  "submitted_at": "2026-11-13 16:41:39",
+  "last_advance_at": "2026-11-13 16:41:39",
+  "hook_attempts": 5,
+  "review_count": 3,
+  "review": {
+    "id": "event-0003",
+    "kind": "round_finished",
+    "error": null,
+    "at": "2026-11-13 16:41:51",
+    "job_id": "184599",
+    "hook_id": "184600",
+    "current": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-data1020-20261113/jobs/03-review-19.sbatch",
+    "latest": {
+      "job": "03-review-19.sbatch",
+      "job_id": "184599",
+      "hook_id": "184600",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0,
+      "metric": {
+        "cases": 19,
+        "api_calls": 0,
+        "status": "pending_review",
+        "t4_store_touched": false,
+        "source_review": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/data_revision_20261113/v2/index.html",
+        "independent_image_pairs": 19,
+        "independent_t2_images": 19,
+        "annotation": "pages03/04 clarify tiny official residuals; pages18/19 add substantial official positives",
+        "source_gt_or_candidates_changed": false,
+        "new_scoring_runs": 0,
+        "cost_cny": 0
+      },
+      "metric_error": null,
+      "at": "2026-11-13 16:41:51"
+    },
+    "queued_jobs": [],
+    "cost_cny": 0.0,
+    "delivery": "accepted",
+    "delivered_at": "2026-11-13 16:41:51",
+    "delivery_turn_id": "01a1d5ac-a8a6-7823-8082-d6fc592fbdad",
+    "delivery_via": "hook_http"
+  },
+  "decisions": [
+    {
+      "event_id": "event-0001",
+      "action": "add",
+      "job": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-data1020-20261113/jobs/02-t5-v3.sbatch",
+      "reason": "WHU completed: 650 official C0 rescoring and 1300 directional audits; proceed to nontrivial T5 candidates and real sample HTML review.",
+      "at": "2026-11-13 16:31:24"
+    },
+    {
+      "event_id": "event-0002",
+      "action": "add",
+      "job": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-data1020-20261113/jobs/03-review-19.sbatch",
+      "reason": "Visual review found two tiny official residual masks (1/57 pixels); explicitly label these doubts and add two substantial existing WHU positives. Preserve original 17 pages and all GT/candidates.",
+      "at": "2026-11-13 16:41:37"
+    },
+    {
+      "event_id": "event-0003",
+      "action": "finish",
+      "reason": "Completed official WHU rescore (650 C0 plus 1300 C1 audits), 104 pending T5 candidates, six tests, and 19 distinct-image review pages. Visual tiny-mask and scope conflicts disclosed; original GT/results and T4 store preserved. Source and artifacts pushed; no new Agent evaluation of pending candidates.",
+      "at": "2026-11-13 16:45:38"
+    }
+  ],
+  "finalize_attempts": 1,
+  "git_committed": false,
+  "git_pushed": false,
+  "notified": false,
+  "stop_reason": "Completed official WHU rescore (650 C0 plus 1300 C1 audits), 104 pending T5 candidates, six tests, and 19 distinct-image review pages. Visual tiny-mask and scope conflicts disclosed; original GT/results and T4 store preserved. Source and artifacts pushed; no new Agent evaluation of pending candidates.",
+  "finished_at": "2026-11-13 16:45:38",
+  "elapsed_seconds": 1465.8
+}
