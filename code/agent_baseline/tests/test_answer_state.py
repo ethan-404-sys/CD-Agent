@@ -125,3 +125,56 @@ class AnswerStateTests(unittest.TestCase):
             self.assertEqual(recorder.steps[1]['calls'][0]['tool'], 'ask')
             self.assertTrue(recorder.steps[1]['calls'][0]['ok'])
             self.assertIn(other, recorder.steps[1]['calls'][0]['result_text'])
+
+    def test_deleted_components_keep_cached_verification_identity_without_backend(self):
+        import copy
+        from unittest.mock import Mock
+        from agent_baseline.state import Mask
+        backend = Mock(return_value=([
+            dict(answer='no', type='no_change', reason='Unchanged.', p_yes=.1),
+            dict(answer='no', type='no_change', reason='Unchanged.', p_yes=.1),
+            dict(answer='yes', type='new_building', reason='New.', p_yes=.9)], {}))
+        with tempfile.TemporaryDirectory() as d:
+            initial = mask() | mask((20,4,26,10)) | mask((30,20,36,26))
+            box = Toolbox(rgb(), d, ask=backend, init_mask=initial, answer_state=True)
+            self.assertTrue(box.execute('ask', {}).public['ok'])
+            edited = box.execute('remove_region', {'mask': 'mask#0', 'ids': [2]}).public['mask']
+            item = box.session.get(edited, Mask)
+            handles_before = dict(box.session.handles)
+            records_before = copy.deepcopy(box.asked)
+            backend.side_effect = AssertionError('Cached echo must not call the verifier')
+            result = box.execute('ask', {})
+            self.assertTrue(result.public['ok'])
+            self.assertEqual(result.public['results'], [])
+            self.assertEqual(result.public['remaining_unverified'], 0)
+            cached = {r['id']: r for r in result.public['cached_verification']}
+            self.assertEqual({k: r['answer'] for k, r in cached.items()}, {1: 'no', 3: 'yes'})
+            self.assertEqual(cached[1]['bbox'], [3,4,9,10])
+            self.assertEqual(cached[3]['bbox'], [30,20,36,26])
+            self.assertTrue(all(r['mask'] == edited and r['cached'] for r in cached.values()))
+            current = next(r for r in box.state_summary()['handles'] if r['handle'] == edited)
+            self.assertEqual(current['verification_ids'], dict(yes=[3], no=[1], unparsed=[], none=[]))
+            self.assertFalse(current['verification_ids_truncated'])
+            self.assertEqual(backend.call_count, 1)
+            self.assertIs(box.session.get(edited), item)
+            self.assertEqual(box.session.handles, handles_before)
+            self.assertEqual({k: v['records'] for k, v in box.asked.items()},
+                             {k: v['records'] for k, v in records_before.items()})
+
+    def test_cached_echo_default_off_preserves_old_response(self):
+        from agent_baseline.tests.helpers import ask
+        with tempfile.TemporaryDirectory() as d:
+            box = Toolbox(rgb(), d, ask=ask, init_mask=mask())
+            box.execute('ask', {})
+            result = box.execute('ask', {})
+            self.assertEqual(result.public, dict(ok=True, results=[], remaining_unverified=0))
+
+    def test_verification_id_summary_is_bounded(self):
+        import numpy as np
+        with tempfile.TemporaryDirectory() as d:
+            data = np.zeros((32,48), dtype=bool)
+            data[::3, ::3] = True
+            box = Toolbox(rgb(), d, init_mask=data, answer_state=True)
+            row = box.state_summary()['handles'][0]
+            self.assertEqual(sum(map(len, row['verification_ids'].values())), 64)
+            self.assertTrue(row['verification_ids_truncated'])

@@ -74,7 +74,7 @@ def collect(run,selection,output,config,task=None):
         cost_cny=max(ledger,recorded),cumulative=True,groups=summary['groups']))
     pairs=[]
     for arm in sorted(set(arms)-{'baseline'}):
-        for reference in ['baseline']+(['p0'] if arm=='p1' else ['p1'] if arm=='p2' else []):
+        for reference in ['baseline']+{'p1':['p0'],'p2':['p1'],'p0v2':['p0'],'p1v2':['p0v2'],'p2v2':['p1v2']}.get(arm,[]):
             lookup={(r['task'],r['name']):r for r in arms[arm]['rows']}
             for old in arms.get(reference,{}).get('rows',[]):
                 new=lookup.get((old['task'],old['name']))
@@ -85,7 +85,7 @@ def collect(run,selection,output,config,task=None):
                         delta_f1=100*(new['final']['eval']['f1']-old['final']['eval']['f1']),
                         old_session=old['session'],new_session=new['session']))
     write(output/'comparison.json',dict(arms={k:v['groups'] for k,v in arms.items()},pairs=pairs,
-        caveat='Frozen purposive development cases, one seed. P2 uses only frozen T1 cases: compare their matched rows, never all-six versus three aggregate. F1 changes are observations, not causal proof or test results.'))
+        caveat='Frozen purposive development cases, one seed. Staged pilots can contain fewer cases: compare matched rows and their cohort counts, never all-six versus three aggregate. F1 changes are observations, not causal proof or test results.'))
     print(json.dumps(dict(stage=config,groups=summary['groups'],missing=len(missing)),ensure_ascii=False))
     if missing:raise SystemExit('Incomplete arm; successful sessions and metered spending preserved')
 

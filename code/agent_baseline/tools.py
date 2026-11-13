@@ -357,7 +357,12 @@ class Toolbox(ProposalTools):
                 row.update(component_ids=[c['id'] for c in item.components][:64],
                            component_count=len(item.components))
                 if key == self.session.current_mask:
-                    row['verification'] = {k: len(v) for k, v in self.records(item).items()}
+                    verified = self.records(item)
+                    visible = set(row['component_ids'])
+                    row['verification'] = {k: len(v) for k, v in verified.items()}
+                    row['verification_ids'] = {k: [c['id'] for c in v if c['id'] in visible]
+                                               for k, v in verified.items()}
+                    row['verification_ids_truncated'] = len(item.components) > len(visible)
             rows.append(row)
         return dict(current_mask=self.session.current_mask, handles=rows,
                     omitted_handles=max(0, len(handles)-len(selected)),
@@ -522,7 +527,24 @@ class Toolbox(ProposalTools):
         if len(expanded) > MAX_ASK:
             raise ToolError('bad_args', f'regions expands to more than {MAX_ASK} components.')
         if not expanded:
-            return dict(results=[], remaining_unverified=left)
+            result = dict(results=[], remaining_unverified=left)
+            if self.answer_state:
+                cached = []
+                for region in regions:
+                    item = self.get(region['mask'], Mask)
+                    for answer, comps in self.records(item).items():
+                        if answer == 'none':
+                            continue
+                        for c in comps:
+                            if region.get('ids') is not None and c['id'] not in region['ids']:
+                                continue
+                            cached.append(dict(mask=region['mask'], id=c['id'], bbox=list(c['bbox']),
+                                               answer=answer if answer in ('yes', 'no') else None,
+                                               status='unparsed' if answer == 'unparsed' else 'parsed', cached=True))
+                result.update(cached_verification=cached[:MAX_ASK],
+                              cached_verification_total=len(cached),
+                              cached_verification_truncated=len(cached) > MAX_ASK)
+            return result
         return dict(results=self.verify(expanded, 'ask'), remaining_unverified=left)
 
     def verify(self, expanded, source):
