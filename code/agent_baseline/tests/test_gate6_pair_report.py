@@ -16,6 +16,15 @@ class PairReportTests(unittest.TestCase):
             result=retries(root)
             self.assertEqual(len(result),1);self.assertTrue(result[0]['filtered_by_harness']);self.assertTrue(result[0]['prior_failure']['coordinate'])
 
+    def test_ask_after_current_answer_repair_is_not_invalid_retry(self):
+        with tempfile.TemporaryDirectory() as d:
+            root=Path(d);(root/'input.json').write_text(json.dumps(dict(image_shape=[512,512])))
+            rows=[dict(step=14,current_mask=None,calls=[dict(tool='ask',args={},ok=False,error_code='bad_args',current_before=None)]),
+                  dict(step=15,current_mask='mask#9',calls=[dict(tool='select',args={},ok=True,current_before=None,current_after='mask#9')]),
+                  dict(step=16,current_mask='mask#9',calls=[dict(tool='ask',args={},ok=True,current_before='mask#9')])]
+            (root/'steps.jsonl').write_text(''.join(json.dumps(r)+'\n' for r in rows))
+            self.assertEqual(retries(root),[])
+
     def test_failed_arm_still_preserves_budget_ledger(self):
         with tempfile.TemporaryDirectory() as d:
             root=Path(d);ledger=root/'budget/gate6_actual';ledger.mkdir(parents=True)

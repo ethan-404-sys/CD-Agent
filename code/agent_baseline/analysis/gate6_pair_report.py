@@ -8,7 +8,10 @@ from .coordinate_audit import audit,coordinate_error,write_json
 
 
 def retries(directory):
-    meta=json.loads((directory/'input.json').read_text());failed={};events=[]
+    meta=json.loads((directory/'input.json').read_text());failed={};events=[];current=None
+    def signature(name,args,answer):
+        context=answer if name=='ask' and not (args or {}).get('regions') else None
+        return name,json.dumps(args,sort_keys=True),context
     for line in (directory/'steps.jsonl').read_text().splitlines():
         row=json.loads(line);raw=(row.get('planner') or {}).get('raw') or {}
         choices=raw.get('choices',[]) if isinstance(raw,dict) else []
@@ -21,14 +24,15 @@ def retries(directory):
             requested.append((function.get('name'),args))
         if not native:requested=[(c['tool'],c.get('args')) for c in calls]
         for name,args in requested:
-            signature=(name,json.dumps(args,sort_keys=True))
-            if signature in failed:
-                events.append(dict(step=row['step'],tool=name,args=args,prior_failure=failed[signature],
+            key=signature(name,args,current)
+            if key in failed:
+                events.append(dict(step=row['step'],tool=name,args=args,prior_failure=failed[key],
                     filtered_by_harness=not bool(calls)))
         for call in calls:
-            signature=(call['tool'],json.dumps(call.get('args'),sort_keys=True))
-            if not call.get('ok',True):failed[signature]=dict(step=row['step'],error_code=call.get('error_code'),coordinate=bool(coordinate_error(call,meta.get('image_shape'))))
-            else:failed.pop(signature,None)
+            key=signature(call['tool'],call.get('args'),call.get('current_before',current))
+            if not call.get('ok',True):failed[key]=dict(step=row['step'],error_code=call.get('error_code'),coordinate=bool(coordinate_error(call,meta.get('image_shape'))))
+            else:failed.pop(key,None)
+        current=row.get('current_mask',current)
     return events
 
 
@@ -69,7 +73,7 @@ def report(run,manifest,output):
     output.mkdir(parents=True,exist_ok=True)
     value=dict(expected_tasks=len(tasks),arms=arms,on_minus_off=delta,pairs=pairs,errors=errors,
         scope='Same development tasks, seed and settings; one paired run. Gate6 includes coordinate metadata plus feature quantiles; not a coordinate-only causal ablation.',
-        invalid_retry_definition='Request repeats identical tool/arguments after an unresolved failure, including requests filtered by the harness.')
+        invalid_retry_definition='Request repeats identical tool/arguments after an unresolved failure, including requests filtered by the harness; implicit ask uses the same current-answer state.')
     write_json(output/'paired_results.json',value)
     ledger=sum(float(p.read_text()) for p in (run/'budget/gate6_actual').glob('*.txt'))
     recorded=sum(a['cost_cny'] for a in arms.values())
