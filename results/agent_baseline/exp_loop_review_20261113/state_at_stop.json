@@ -1,0 +1,137 @@
+{
+  "name": "cd-loop-review-20261113",
+  "status": "done",
+  "queue": [],
+  "done": [
+    "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-loop-review-20261113/jobs/01-tests.sbatch",
+    "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-loop-review-20261113/jobs/02-evidence.sbatch",
+    "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-loop-review-20261113/jobs/03-direct-event.sbatch"
+  ],
+  "current": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-loop-review-20261113/jobs/03-direct-event.sbatch",
+  "job_id": "183974",
+  "hook_id": "183975",
+  "rounds": 3,
+  "rounds_submitted": 3,
+  "primary_best": null,
+  "cost_cny": 0.0,
+  "finalized": false,
+  "finalize_requested": true,
+  "started_at": "2026-11-13 03:33:41",
+  "started_epoch": 1794540821.2644267,
+  "history": [
+    {
+      "job": "01-tests.sbatch",
+      "job_id": "183966",
+      "hook_id": "183967",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0,
+      "metric": {
+        "tests_passed": true,
+        "cost_cny": 0
+      },
+      "metric_error": null,
+      "at": "2026-11-13 03:33:45"
+    },
+    {
+      "job": "02-evidence.sbatch",
+      "job_id": "183970",
+      "hook_id": "183971",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0,
+      "metric": {
+        "transport_probe": true,
+        "cost_cny": 0
+      },
+      "metric_error": null,
+      "at": "2026-11-13 03:35:42"
+    },
+    {
+      "job": "03-direct-event.sbatch",
+      "job_id": "183974",
+      "hook_id": "183975",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0,
+      "metric": {
+        "transport_probe": true,
+        "cost_cny": 0
+      },
+      "metric_error": null,
+      "at": "2026-11-13 03:37:00"
+    }
+  ],
+  "driver": "dependency",
+  "recorded_current": true,
+  "submitted_at": "2026-11-13 03:36:55",
+  "last_advance_at": "2026-11-13 03:36:55",
+  "hook_attempts": 5,
+  "review_count": 3,
+  "review": {
+    "id": "event-0003",
+    "kind": "round_finished",
+    "error": null,
+    "at": "2026-11-13 03:37:00",
+    "job_id": "183974",
+    "hook_id": "183975",
+    "current": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-loop-review-20261113/jobs/03-direct-event.sbatch",
+    "latest": {
+      "job": "03-direct-event.sbatch",
+      "job_id": "183974",
+      "hook_id": "183975",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0,
+      "metric": {
+        "transport_probe": true,
+        "cost_cny": 0
+      },
+      "metric_error": null,
+      "at": "2026-11-13 03:37:00"
+    },
+    "queued_jobs": [],
+    "cost_cny": 0.0,
+    "delivery": "accepted",
+    "delivered_at": "2026-11-13 03:37:01",
+    "delivery_turn_id": "01a1d2ed-c7e9-7a70-bca1-5f5cb7c41d99",
+    "delivery_via": "hook_http"
+  },
+  "decisions": [
+    {
+      "event_id": "event-0001",
+      "action": "continue",
+      "job": null,
+      "reason": "21项回归通过，首个作业结果已进入当前模型；继续第二阶段验证模型决定后重新提交作业与hook。",
+      "at": "2026-11-13 03:35:36"
+    },
+    {
+      "event_id": "event-0002",
+      "action": "add",
+      "job": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-loop-review-20261113/jobs/03-direct-event.sbatch",
+      "reason": "前两次事件由cron补送；已定位主机名优先解析127.0.1.1并修复为明确内网地址，追加验证hook直接回传而非依赖兜底。",
+      "at": "2026-11-13 03:36:54"
+    },
+    {
+      "event_id": "event-0003",
+      "action": "finish",
+      "reason": "21项回归通过，模型收到三次作业事件并自主决定继续、修复回环绑定、追加验证；event-0003确认hook_http直接送达。基础设施验证完成，研究轨迹队列继续。",
+      "at": "2026-11-13 03:38:00"
+    }
+  ],
+  "finalize_attempts": 1,
+  "git_committed": false,
+  "git_pushed": false,
+  "notified": false,
+  "stop_reason": "21项回归通过，模型收到三次作业事件并自主决定继续、修复回环绑定、追加验证；event-0003确认hook_http直接送达。基础设施验证完成，研究轨迹队列继续。",
+  "finished_at": "2026-11-13 03:38:00",
+  "elapsed_seconds": 259.5
+}

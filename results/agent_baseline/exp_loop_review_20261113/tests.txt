@@ -1,0 +1,26 @@
+test_delivery_error_stays_pending_for_fallback (test_bridge.DeliveryTests) ... ok
+test_receipt_is_persisted_and_duplicate_not_injected (test_bridge.DeliveryTests) ... ok
+test_push_retry_preserves_unrelated_staged_file (test_loop.GitFinalizationTests) ... ok
+test_actual_budget_stops (test_loop.QueueTests) ... ok
+test_add_after_queue_drained_uses_start_hook (test_loop.QueueTests) ... ok
+test_add_does_not_bypass_budget (test_loop.QueueTests) ... ok
+test_diagnostic_does_not_require_scalar_score (test_loop.QueueTests) ... ok
+test_duplicate_hook_and_reinit_do_not_duplicate_jobs (test_loop.QueueTests) ... ok
+test_estimate_does_not_block_submission (test_loop.QueueTests) ... ok
+test_failed_parent_preserves_cost_and_allows_repair_retry (test_loop.QueueTests) ... ok
+test_invalid_metric_requests_review (test_loop.QueueTests) ... ok
+test_missing_binding_is_not_reported_as_delivered (test_loop.QueueTests) ... ok
+test_push_failure_is_retryable_without_recommit (test_loop.QueueTests) ... ok
+test_qq_failure_remains_pending_then_retries (test_loop.QueueTests) ... ok
+test_recorded_event_recovery_does_not_double_bill (test_loop.QueueTests) ... ok
+test_retry_limit_reports_unfinished (test_loop.QueueTests) ... ok
+test_running_hook_untouched (test_loop.QueueTests) ... ok
+test_small_gains_and_declines_do_not_stop_research (test_loop.QueueTests) ... ok
+test_status_never_contacts_slurm (test_loop.QueueTests) ... ok
+test_submit_failure_is_reviewable_and_retryable (test_loop.QueueTests) ... ok
+test_tick_repairs_missing_or_failed_hook_without_experiment (test_loop.QueueTests) ... ok
+
+----------------------------------------------------------------------
+Ran 21 tests in 0.145s
+
+OK

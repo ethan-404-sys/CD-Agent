@@ -1,0 +1,55 @@
+{
+  "experiment": "cd-loop-review-20261113",
+  "tests_passed": 21,
+  "research_metric": false,
+  "rounds_completed": 3,
+  "actual_api_cost_cny": 0,
+  "latest_delivery": {
+    "id": "event-0003",
+    "kind": "round_finished",
+    "error": null,
+    "at": "2026-11-13 03:37:00",
+    "job_id": "183974",
+    "hook_id": "183975",
+    "current": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-loop-review-20261113/jobs/03-direct-event.sbatch",
+    "latest": {
+      "job": "03-direct-event.sbatch",
+      "job_id": "183974",
+      "hook_id": "183975",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0,
+      "metric": {
+        "transport_probe": true,
+        "cost_cny": 0
+      },
+      "metric_error": null,
+      "at": "2026-11-13 03:37:00"
+    },
+    "queued_jobs": [],
+    "cost_cny": 0.0,
+    "delivery": "accepted",
+    "delivered_at": "2026-11-13 03:37:01",
+    "delivery_turn_id": "01a1d2ed-c7e9-7a70-bca1-5f5cb7c41d99",
+    "delivery_via": "hook_http"
+  },
+  "failure_diagnosis": "The management hostname resolved first to 127.0.1.1. First two events were delivered by cron fallback; bind now chooses the explicit LAN interface.",
+  "decisions": [
+    {
+      "event_id": "event-0001",
+      "action": "continue",
+      "job": null,
+      "reason": "21项回归通过，首个作业结果已进入当前模型；继续第二阶段验证模型决定后重新提交作业与hook。",
+      "at": "2026-11-13 03:35:36"
+    },
+    {
+      "event_id": "event-0002",
+      "action": "add",
+      "job": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-loop-review-20261113/jobs/03-direct-event.sbatch",
+      "reason": "前两次事件由cron补送；已定位主机名优先解析127.0.1.1并修复为明确内网地址，追加验证hook直接回传而非依赖兜底。",
+      "at": "2026-11-13 03:36:54"
+    }
+  ]
+}
