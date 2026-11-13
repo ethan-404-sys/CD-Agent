@@ -1,0 +1,168 @@
+{
+  "config": "baseline",
+  "task": "T5.1",
+  "name": "val_36",
+  "cohort": "simple",
+  "session": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/harness1020-20261113/online/baseline/T5.1/val/val_36",
+  "final": {
+    "task_id": "T5.1",
+    "final_handle": "mask#1",
+    "mask_path": "masks/mask_1.png",
+    "summary": "Final binary change mask with 43 components representing newly constructed buildings between T1 and T2: 1 large warehouse and ~42 residential houses in a new subdivision. Removed 3 false positives (components #18, #46, #24) that were verified as not being actual changes - these were either existing consistent buildings or bare ground areas. All remaining 43 components confirmed by verifier as new_building changes.",
+    "summary_source": "model",
+    "submitted_by": "model",
+    "termination_reason": "submit",
+    "fallback_kind": "none",
+    "change_component_count": 43,
+    "change_area_px": 32391,
+    "eval": {
+      "tp": 30304,
+      "fp": 2087,
+      "fn": 2981,
+      "f1": 0.9228333028808088,
+      "iou": 0.8567228316182292
+    },
+    "initial_eval": {
+      "tp": 31297,
+      "fp": 2182,
+      "fn": 1988,
+      "f1": 0.9375411898628003,
+      "iou": 0.8824259170496518
+    },
+    "objects": {
+      "gt_objects": 45,
+      "missed": 4,
+      "pred_objects": 43,
+      "false_alarms": 0
+    },
+    "initial_objects": {
+      "gt_objects": 45,
+      "missed": 2,
+      "pred_objects": 46,
+      "false_alarms": 0
+    },
+    "precision": 0.9355685221174537,
+    "recall": 0.9104401381976552,
+    "planning_rounds": 11,
+    "api_attempts": 57,
+    "planner_api_attempts": 11,
+    "ask_api_attempts": 46,
+    "tool_calls": 11,
+    "tokens": {
+      "input": 185743,
+      "cached": 72576,
+      "output": 4925
+    },
+    "planner_tokens": {
+      "input": 140985,
+      "cached": 72576,
+      "output": 2647
+    },
+    "ask_tokens": {
+      "input": 44758,
+      "cached": 0,
+      "output": 2278
+    },
+    "cost_cny": 0.0410886,
+    "planner_cost_cny": 0.030314600000000004,
+    "ask_cost_cny": 0.010774,
+    "planner_model": "qwen3.7-flash",
+    "elapsed_seconds": 65.84044288098812,
+    "identical_to_init": false,
+    "added_px": 0,
+    "removed_px": 1088,
+    "view_calls": 5,
+    "ask_calls": 2,
+    "initial_images_present": true,
+    "final_delta": {
+      "tp": 30304,
+      "fp": 2087,
+      "fn": 2981,
+      "f1": 0.9228333028808088,
+      "iou": 0.8567228316182292,
+      "delta_f1": 0.0
+    },
+    "error": null,
+    "backends": {
+      "ask": "api",
+      "review": false,
+      "status": true,
+      "verify_stage": true,
+      "plan": false,
+      "skills": [],
+      "ask_correspondence": true,
+      "ask_model": "qwen3.7-flash",
+      "sam3_worker": true,
+      "pixel_thr": 0.85,
+      "sam_prompt": "shared_cpu",
+      "sam_model": "SAM ViT-H",
+      "gate3": true,
+      "gate2": true,
+      "big_box_share": 0.1
+    }
+  },
+  "error_codes": {},
+  "errors": [],
+  "tools": {
+    "view": 5,
+    "inspect": 1,
+    "ask": 2,
+    "remove_region": 1,
+    "submit": 2
+  },
+  "invalid_retries": [],
+  "segmentation_backend_invocations": 0,
+  "seed": 5833,
+  "model_parameters": {
+    "model": "qwen3.7-flash",
+    "temperature": 0,
+    "enable_thinking": false,
+    "parallel_tool_calls": true,
+    "max_tokens": 1500,
+    "seed": 5833
+  },
+  "backends": {
+    "ask": "api",
+    "review": false,
+    "status": true,
+    "verify_stage": true,
+    "plan": false,
+    "skills": [],
+    "ask_correspondence": true,
+    "ask_model": "qwen3.7-flash",
+    "sam3_worker": true,
+    "pixel_thr": 0.85,
+    "sam_prompt": "shared_cpu",
+    "sam_model": "SAM ViT-H",
+    "gate3": true,
+    "gate2": true,
+    "big_box_share": 0.1
+  },
+  "gt_mask_path": "/guisongxia01/pangchao/wangyihan/datasets/LEVIR-CD/val_original/label/val_36.png",
+  "f1_drop_calls": [
+    {
+      "step": 8,
+      "tool": "remove_region",
+      "args": {
+        "mask": "mask#0",
+        "ids": [
+          18,
+          46,
+          24
+        ]
+      },
+      "before": "mask#0",
+      "after": "mask#1",
+      "eval": {
+        "tp": 30304,
+        "fp": 2087,
+        "fn": 2981,
+        "f1": 0.9228333028808088,
+        "iou": 0.8567228316182292,
+        "delta_f1": -0.014707886981991547
+      }
+    }
+  ],
+  "successful_after_error": [],
+  "state_recovery": []
+}
