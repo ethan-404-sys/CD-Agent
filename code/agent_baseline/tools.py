@@ -96,7 +96,11 @@ PLAN_SCHEMA = schema('plan', 'Write or replace your own short to-do list for thi
 SKILL_SCHEMA = schema('load_skill', 'Read the full text of one skill from the index in the system prompt.', dict(name=S), ['name'])
 PYTHON_SCHEMA = schema('python', 'Run array calculations in an isolated Python subprocess with np and ndi. Inputs: masks[handle] (H,W bool), instances[handle] (N,H,W bool, only for handles written out in the code), images["t1"/"t2"] (H,W,3 uint8), all read-only. Call save_mask(array) for each output mask. No filesystem, network or submission access. New handles become usable in the next reply; submit them with submit. ' + CURRENT,
     dict(code=S, set_current=SET_CURRENT), ['code'])
-SCHEMA_BY_NAME = {s['function']['name']: s['function']['parameters'] for s in [*SCHEMAS, PLAN_SCHEMA, SKILL_SCHEMA, PYTHON_SCHEMA, *tool_schemas()]}
+ANSWER_SCHEMA = schema('set_answer', 'Make an existing mask#k your current answer, including restoring an earlier candidate. Does not edit pixels or component IDs, verify, or submit. Use inspect/ask to evaluate it and submit when ready.', dict(mask=M), ['mask'])
+PAIR_SCHEMA = schema('segment_text_pair', 'Segment the same named class at both T1 and T2 in one planner tool call. Returns separate inst handles for each time; does not change current answer. Runs two backend requests sequentially, reusing their existing caches; this does not imply less GPU computation.',
+    dict(text=S, tile=arg('integer', enum=[0, 512], default=512),
+         score_thr=arg('number', minimum=0, maximum=1, default=0.5)), ['text'])
+SCHEMA_BY_NAME = {s['function']['name']: s['function']['parameters'] for s in [*SCHEMAS, ANSWER_SCHEMA, PAIR_SCHEMA, PLAN_SCHEMA, SKILL_SCHEMA, PYTHON_SCHEMA, *tool_schemas()]}
 
 
 def area_select_schema(function):
@@ -112,9 +116,13 @@ def area_select_schema(function):
     return function
 
 
-def session_schemas(session, python=False, tools_t13=False, tool_hints='off', gate5=False):
+def session_schemas(session, python=False, tools_t13=False, tool_hints='off', gate5=False, answer_state=False, segment_pair=False):
     import copy
     schemas = copy.deepcopy(SCHEMAS)
+    if answer_state:
+        schemas.append(copy.deepcopy(ANSWER_SCHEMA))
+    if segment_pair:
+        schemas.append(copy.deepcopy(PAIR_SCHEMA))
     if session.area_min_px is not None:
         area_select_schema(next(s['function'] for s in schemas if s['function']['name'] == 'select'))
     if (session.target, session.change_direction) != ('building', 'any'):
@@ -142,6 +150,14 @@ def session_schemas(session, python=False, tools_t13=False, tool_hints='off', ga
         from .map_input import schemas_for_map
         schemas = schemas_for_map(schemas)
     return schemas
+def disclosed_schemas(schemas, session):
+    """Delay mask-edit schemas only until a usable mask exists; core stays visible."""
+    if any(isinstance(item, Mask) for item in session.handles.values()):
+        return schemas
+    edits = {'combine', 'morph', 'remove_region', 'add_region', 'refine_region'}
+    return [s for s in schemas if s['function']['name'] not in edits]
+
+
 SKILLS = Path(__file__).parent / 'skills'
 
 
@@ -246,7 +262,7 @@ def failure(code, message):
 
 
 class Toolbox(ProposalTools):
-    def __init__(self, rgb, directory, segment=None, prompt=None, ask=None, session=None, init_mask=None, python=False, tools_t13=False, vision=None, gate3=False, big_box_share=BIG_BOX_SHARE, gate4=False, map_input=False, gate5=False, gate6=False):
+    def __init__(self, rgb, directory, segment=None, prompt=None, ask=None, session=None, init_mask=None, python=False, tools_t13=False, vision=None, gate3=False, big_box_share=BIG_BOX_SHARE, gate4=False, map_input=False, gate5=False, gate6=False, answer_state=False, segment_pair=False):
         self.rgb = tuple(np.array(im, copy=True) for im in rgb)
         self.session = session or Session(self.rgb[0].shape[:2], init_mask)
         if map_input:
@@ -271,6 +287,10 @@ class Toolbox(ProposalTools):
         self.gate4 = gate4 or gate5
         self.gate5 = gate5
         self.gate6 = gate6
+        self.answer_state = answer_state
+        self.segment_pair = segment_pair
+        self.recent_calls = []
+        self.observed_views = []
 
     def get(self, key, kind=None):
         return self.session.get(key, kind, self.allowed)
@@ -282,7 +302,7 @@ class Toolbox(ProposalTools):
         started_at = clock.time()
         self.allowed, self.meta = allowed, {}
         try:
-            if name not in SCHEMA_BY_NAME or (name == 'python' and not self.python_enabled) or (name in T13_NAMES and name not in self.tools_t13):
+            if (name == 'segment_text_pair' and not self.segment_pair) or (name == 'set_answer' and not self.answer_state) or name not in SCHEMA_BY_NAME or (name == 'python' and not self.python_enabled) or (name in T13_NAMES and name not in self.tools_t13):
                 raise ToolError('bad_args', 'Unknown tool name.')
             from .examples_t3x import external_spec
             spec = external_spec(self.session, name, SCHEMA_BY_NAME[name])
@@ -309,11 +329,48 @@ class Toolbox(ProposalTools):
             self.meta['traceback'] = traceback.format_exc()
         finally:
             self.allowed = None
+        if name == 'segment_text_pair' and not result.public['ok']:
+            result.public['completed_results'] = self.meta.get('completed_results', {})
         result.internal.update(self.meta)
         result.internal.update(current_before=before, current_after=self.session.current_mask,
             handles_created=[k for k in self.session.handles if k not in keys],
             seconds=clock.monotonic() - start, started_at=started_at, finished_at=clock.time())
+        if self.answer_state:
+            self.recent_calls.append(dict(tool=name, ok=result.public['ok'], current=self.session.current_mask))
+            self.recent_calls = self.recent_calls[-6:]
+            if not result.public['ok'] and result.public.get('error_code') in ('bad_args', 'bad_handle', 'bad_id'):
+                result.public['recovery_state'] = self.state_summary()
         return result
+
+    def state_summary(self):
+        """Bounded task-local index, never image pixels, GT, or the full trace."""
+        handles = list(self.session.handles)
+        selected = handles[-12:]
+        if self.session.current_mask and self.session.current_mask not in selected:
+            selected.insert(0, self.session.current_mask)
+        rows = []
+        for key in selected:
+            item = self.session.handles[key]
+            row = dict(handle=key, type=key.split('#', 1)[0], value_type=type(item).__name__,
+                       created_order=handles.index(key), time=getattr(item, 'time', None))
+            if isinstance(item, Mask):
+                row.update(component_ids=[c['id'] for c in item.components][:64],
+                           component_count=len(item.components))
+                if key == self.session.current_mask:
+                    row['verification'] = {k: len(v) for k, v in self.records(item).items()}
+            rows.append(row)
+        return dict(current_mask=self.session.current_mask, handles=rows,
+                    omitted_handles=max(0, len(handles)-len(selected)),
+                    recent_calls=self.recent_calls, observed_views=self.observed_views[-8:],
+                    total_views=self.session.view_count)
+
+    def set_answer(self, mask):
+        self.get(mask, Mask)
+        if not mask.startswith('mask#'):
+            raise ToolError('bad_handle', 'Expected an answer mask#k handle.')
+        previous = self.session.current_mask
+        self.session.current_mask = mask
+        return dict(mask=mask, current_mask=mask, previous_mask=previous)
 
     def _backend(self, backend, *args, **kwargs):
         if backend is None:
@@ -328,6 +385,10 @@ class Toolbox(ProposalTools):
         key = self.session.add_mask(data, parents, labeled)
         item = self.session.get(key, Mask)
         out = dict(mask=key, area=int(item.data.sum()), component_count=len(item.components), **extra)
+        if self.answer_state:
+            out.update(valid_component_ids=[c['id'] for c in item.components][:64],
+                       ids_truncated=len(item.components) > 64,
+                       component_identity='preserved' if labeled is not None else 'renumbered; use IDs on this mask')
         if previous is not None:
             out.update(added_px=int((item.data & ~previous).sum()), removed_px=int((previous & ~item.data).sum()))
         if set_current:
@@ -351,6 +412,8 @@ class Toolbox(ProposalTools):
             h, w = self.session.shape
             info.update(original_size=[w, h], coordinate_system="All coordinates are original-image pixels; image_size is the rendered image size.")
         self.session.view_count += 1
+        if self.answer_state:
+            self.observed_views.append(dict(index=num, region=region, overlay=overlay))
         return Result(dict(ok=True, **info), paths)
 
     def inspect(self, mask, offset=0, limit=50):
@@ -376,6 +439,23 @@ class Toolbox(ProposalTools):
         result = dict(inst=key, n=len(rows), area=int(instances.to_mask(rows, self.session.shape).sum()),
                     score=dict(min=float(min(scores)), median=float(np.median(scores)), max=float(max(scores))) if scores else None)
         return clip_result(self, result, stats) if region is not None else result
+
+    def segment_text_pair(self, text, tile=512, score_thr=0.5):
+        # SAM3 worker serializes mutable processor state. Reuse the existing
+        # per-time adapter/cache without introducing unsafe shared-model threads.
+        results, provenance = {}, {}
+        try:
+            for time in ('t1', 't2'):
+                self.meta = {}
+                try:
+                    results[time] = self.segment_text(time, text, tile, score_thr)
+                finally:
+                    provenance[time] = dict(self.meta)
+        finally:
+            self.meta = dict(temporal_backends=provenance, completed_times=list(results), completed_results=results,
+                             backend_seconds=sum(m.get('backend_seconds', 0.) for m in provenance.values()),
+                             cache_hit=len(provenance) == 2 and all(m.get('cache_hit', False) for m in provenance.values()))
+        return dict(results=results, backend_invocations=2, execution='sequential', current_unchanged=True)
 
     def _prompt(self, time, box=None, points=None, point_labels=None):
         if (box is None) == (points is None):
@@ -425,7 +505,7 @@ class Toolbox(ProposalTools):
     def ask(self, regions=None):
         if regions is None:
             if self.session.current_mask is None:
-                raise ToolError('bad_args', 'There is no current answer; pass regions with a mask handle.')
+                raise ToolError('bad_args', 'There is no current answer. Call ask(regions=[{"mask":"mask#k"}]) with an existing mask; inst handles need to_mask first. Repeating ask() without setting current cannot work.')
             regions = [dict(mask=self.session.current_mask)]
         expanded, left = [], 0
         for entry in regions:

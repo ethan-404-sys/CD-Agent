@@ -103,7 +103,11 @@ class Session:
             raise ToolError('bad_handle', 'Unknown handle; wait until the next reply to use a newly created handle.')
         value = self.handles[key]
         if kind is not None and not isinstance(value, kind):
-            raise ToolError('bad_handle', f'Expected a {"mask" if kind is Mask else "inst"} handle.')
+            expected = {Mask: 'mask', Instances: 'inst'}.get(kind, kind.__name__)
+            actual = key.split('#', 1)[0]
+            hint = (' Convert instances with to_mask(sets=[inst_handle]).' if kind is Mask and isinstance(value, Instances)
+                    else ' An existing mask can be passed directly to ask/submit.' if isinstance(value, Mask) else '')
+            raise ToolError('bad_handle', f'{key} is a {actual} handle ({type(value).__name__}); expected {expected}.{hint}')
         return value
 
 
@@ -114,5 +118,5 @@ def chosen_ids(rows, ids):
     if not isinstance(ids, list) or any(type(i) is not int for i in ids):
         raise ToolError('bad_args', 'ids must be a list of integers.')
     if not set(ids) <= valid:
-        raise ToolError('bad_id', f'IDs {sorted(set(ids) - valid)[:10]} do not exist on this handle ({len(valid)} valid IDs). remove_region keeps the IDs of the remaining components; any other edit renumbers them, so inspect the new handle first.')
+        raise ToolError('bad_id', f'IDs {sorted(set(ids) - valid)[:10]} do not exist on this handle (valid IDs: {sorted(valid)[:64]}; total {len(valid)}). remove_region keeps the IDs of the remaining components; any other edit renumbers them, so inspect the new handle first.')
     return set(ids)

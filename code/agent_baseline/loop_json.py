@@ -112,8 +112,19 @@ def latest_mask(session):
     return masks[-1] if masks else None
 
 
-def run_session(toolbox, planner, recorder, task='T1.1xC0', budget=30, prompt_version='v1', metadata=None, review=False, status=False, verify=False, plan=False, skills=(), gate2=False, gate3=False, gate4=False, tool_hints='off', gate5=False, gate6=False):
+def run_session(toolbox, planner, recorder, task='T1.1xC0', budget=30, prompt_version='v1', metadata=None, review=False, status=False, verify=False, plan=False, skills=(), gate2=False, gate3=False, gate4=False, tool_hints='off', gate5=False, gate6=False, answer_state=False, segment_pair=False, progressive_tools=False):
     session = toolbox.session
+    if progressive_tools:
+        metadata = copy.deepcopy(metadata or {})
+        metadata.setdefault('backends', {})['progressive_tools'] = True
+    if segment_pair or toolbox.segment_pair:
+        toolbox.segment_pair = True
+        metadata = copy.deepcopy(metadata or {})
+        metadata.setdefault('backends', {})['segment_pair'] = True
+    if answer_state or toolbox.answer_state:
+        toolbox.answer_state = True
+        metadata = copy.deepcopy(metadata or {})
+        metadata.setdefault('backends', {})['answer_state'] = True
     if gate6 or toolbox.gate6:
         toolbox.gate6 = True
         metadata = copy.deepcopy(metadata or {})
@@ -143,13 +154,15 @@ def run_session(toolbox, planner, recorder, task='T1.1xC0', budget=30, prompt_ve
     previous_calls = None
     reason, error = 'budget', None
     reviewed = not (review or verify)
-    schemas = [*tool_module.session_schemas(session, toolbox.python_enabled, toolbox.tools_t13, tool_hints, gate5=gate5), *([PLAN_SCHEMA] if plan else []), *([SKILL_SCHEMA] if skills else [])]
+    schemas = [*tool_module.session_schemas(session, toolbox.python_enabled, toolbox.tools_t13, tool_hints, gate5=gate5, answer_state=toolbox.answer_state, segment_pair=toolbox.segment_pair), *([PLAN_SCHEMA] if plan else []), *([SKILL_SCHEMA] if skills else [])]
     generated_calls = []
     toolbox.skills = tuple(skills)
     messages = []
     planner.record = recorder.request
     try:
         path, template, system = system_prompt(prompt_version, budget, session)
+        if progressive_tools:
+            system += '\nMask-edit tools become visible automatically once an existing mask is available. Core and task-specific tools remain available; no extra skill-loading step is needed.'
         if toolbox.tools_t13:
             system += '\nAdditional handles: props#k proposal sets and feat#k patch features. Proposal sets work with select and to_mask. On compared proposals score is 1-cos temporal difference; on matched proposals it is exemplar cosine similarity. Classification probabilities are reported by ID.'
         if skills:
@@ -181,7 +194,8 @@ def run_session(toolbox, planner, recorder, task='T1.1xC0', budget=30, prompt_ve
         recorder.start(session, dict(metadata or {}, task_id=task, instruction=instruction,
             target=session.target, change_direction=session.change_direction, python=toolbox.python_enabled,
             image_shape=list(session.shape), system_prompt_version=prompt_version, system_prompt_path=str(path),
-            system_prompt_template=template, system_prompt=system, tool_schema_version='v2', schemas=schemas,
+            system_prompt_template=template, system_prompt=system, tool_schema_version='v2',
+            schemas=tool_module.disclosed_schemas(schemas, session) if progressive_tools else schemas,
             model_parameters=planner.parameters, seed=planner.parameters['seed'], seed_acceptance='not_reported',
             budget=budget, max_calls_per_reply=8, total_attempt_limit=planner.max_attempts,
             initial_view=initial.public, initial_handle=session.initial_mask))
@@ -192,7 +206,12 @@ def run_session(toolbox, planner, recorder, task='T1.1xC0', budget=30, prompt_ve
             number += 1
             # Default auto keeps the model's one-line reasons (required returns empty content); after a
             # reply without a function call, the next request forces one and changes the seed.
-            response = planner.complete(messages, schemas, number, 'required' if no_tools else None, no_tools)
+            if toolbox.answer_state:
+                # Replace a single compact summary; do not grow another trajectory.
+                messages[:] = [m for m in messages if not (m.get('role') == 'user' and isinstance(m.get('content'), str) and m['content'].startswith('Session state index: '))]
+                messages.append(dict(role='user', content='Session state index: ' + json.dumps(toolbox.state_summary())))
+            visible_schemas = tool_module.disclosed_schemas(schemas, session) if progressive_tools else schemas
+            response = planner.complete(messages, visible_schemas, number, 'required' if no_tools else None, no_tools)
             rounds += 1
             original = response['message']
             assistant = {k: copy.deepcopy(original[k]) for k in ('role', 'content', 'tool_calls') if k in original}
@@ -201,6 +220,10 @@ def run_session(toolbox, planner, recorder, task='T1.1xC0', budget=30, prompt_ve
             calls = original.get('tool_calls') or []
             # The provider rejects a history with the same call in consecutive rounds, and rerunning it teaches nothing.
             signature = [(c.get('function') or {}).get('name') for c in calls], [(c.get('function') or {}).get('arguments') for c in calls]
+            if toolbox.answer_state:
+                # Same arguments are useful after current/handles/verification change.
+                signature = (signature, session.current_mask, tuple(session.handles),
+                             sum(len(v['records']) for v in toolbox.asked.values()), session.view_count)
             repeated = bool(calls) and signature == previous_calls
             if repeated:
                 calls = []
@@ -399,6 +422,9 @@ def main():
     parser.add_argument('--gate2', action='store_true', help='Close the gaps where verifier answers never reach the planner (G2). Needs --verify-stage.')
     parser.add_argument('--gate3', action='store_true', help='G3 box guard, constraint reports and feedback verification scope. Implies --gate2; requires --verify-stage.')
     parser.add_argument('--gate4', action='store_true', help='G4 current-answer reminders and region clipping at submission. Implies --gate3; requires --verify-stage.')
+    parser.add_argument('--progressive-tools', action='store_true', help='Reveal mask-edit schemas after a mask exists; core and task-specific tools stay visible.')
+    parser.add_argument('--segment-pair', action='store_true', help='Offer paired T1/T2 text segmentation; two sequential cached backend requests.')
+    parser.add_argument('--answer-state', action='store_true', help='Offer explicit set_answer for selecting an existing answer mask; default off.')
     parser.add_argument('--gate6', action='store_true', help='Expose original image dimensions and feature score quantiles; independent of other gates.')
     parser.add_argument('--gate5', action='store_true', help='G4 plus optional region clipping for segment_text and segment_everything. Implies --gate4; requires --verify-stage.')
     parser.add_argument('--big-box-share', type=float, default=tool_module.BIG_BOX_SHARE)
@@ -530,7 +556,7 @@ def main():
             map_input=args.map_input,
             big_box_share=args.big_box_share)
         try:
-            result = run_session(toolbox, planner, recorder, task, prompt_version=args.prompt_version, review=args.review, status=args.status, verify=args.verify_stage, plan=args.plan, skills=skills, gate2=args.gate2, gate3=args.gate3, gate4=args.gate4, tool_hints=args.tool_hints, gate5=args.gate5, gate6=args.gate6,
+            result = run_session(toolbox, planner, recorder, task, prompt_version=args.prompt_version, review=args.review, status=args.status, verify=args.verify_stage, plan=args.plan, skills=skills, gate2=args.gate2, gate3=args.gate3, gate4=args.gate4, tool_hints=args.tool_hints, gate5=args.gate5, gate6=args.gate6, answer_state=args.answer_state, segment_pair=args.segment_pair, progressive_tools=args.progressive_tools,
                 metadata=dict(**({'scope': session.scope} if session.scope else {}), session_id=stem, source_images=image_paths or source_images,
                     init_mask_path=str(init_path) if init is not None or needs_init(task) else None,
                     init_config=dict(route=args.init_name, text=session.target, tile=512, score_thr=.5,
