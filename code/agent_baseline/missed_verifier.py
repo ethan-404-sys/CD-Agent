@@ -5,10 +5,11 @@ explicitly selected. Calls are serial; source candidates and labels never enter
 its prompts. All decisions remain advisory to the Agent.
 """
 from pathlib import Path
+import os
 from .analysis.missed_verifier_study import marked_images, parse_response, MODEL
 from .analysis.io_retry import write_json
 from .scope_t13 import session_prompts
-from .planner import Planner
+from .planner import Planner, RunStopped
 
 
 class MissedVerifier:
@@ -18,12 +19,19 @@ class MissedVerifier:
         if variant not in ('four','som','structured'): raise ValueError('Unknown verifier variant')
         self.directory=Path(directory);self.variant=variant;self.session=session
         self.client,self.guard,self.seed=client,guard,seed
-        self.pending=[];self.number=0
+        self.pending=[];self.number=0;self.halted=False
 
     def render(self,rgb,region,bbox):
         return marked_images(rgb,region,bbox,self.variant)
 
     def __call__(self,pairs,question,level='L1'):
+        if self.halted:
+            raise RunStopped('Verifier session halted after a configuration or quota error')
+        if self.guard is not None:
+            self.guard.check()
+        shared_stop=os.environ.get('AGENT_STOP_FILE')
+        if shared_stop and Path(shared_stop).exists():
+            raise RunStopped('Shared verifier stop exists; resolve recorded error before resuming')
         settings=session_prompts(self.session)
         question=settings['CORRESPONDENCE']
         if self.variant!='four':
@@ -43,8 +51,26 @@ class MissedVerifier:
             content.append(dict(type='text',text=question))
             messages=[dict(role='system',content=settings['SYSTEM']),dict(role='user',content=content)]
             def record(event):
-                safe={k:v for k,v in event.items() if k not in ('request','error_body')}
+                safe={k:v for k,v in event.items() if k != 'request'}
+                if safe.get('error_body'):
+                    secret=os.environ.get('DASHSCOPE_API_KEY')
+                    if secret: safe['error_body']=safe['error_body'].replace(secret,'[credential omitted]')
                 events.append(safe);write_json(folder/'response.json',safe)
+                code=event.get('http_status')
+                body=(event.get('error_body') or '').lower()
+                fatal=code in (401,402,403,404) or event.get('quota_error') or any(
+                    word in body for word in ('insufficient balance','payment required','arrearage','欠费'))
+                if event.get('error_type') and fatal:
+                    self.halted=True
+                    halt=dict(reason=f'Verifier configuration/quota error: HTTP {code}',
+                              http_status=code,response_path=str(folder/'response.json'))
+                    if self.session is not None: self.session.verifier_halted=halt
+                    write_json(self.directory/'HALT.json',halt)
+                    if self.guard is not None:
+                        self.guard.trip(halt['reason'])
+                    elif shared_stop:
+                        write_json(Path(shared_stop),halt)
+                    raise RunStopped(halt['reason'])
                 if event.get('error_type'): raise RuntimeError('Verifier request failed; no automatic retry')
             planner=Planner(seed=self.seed+self.number,client=self.client,guard=self.guard,record=record,max_attempts=1,
                 parameters=dict(model=MODEL,temperature=0,enable_thinking=False,max_tokens=256,
@@ -54,7 +80,7 @@ class MissedVerifier:
                 result=planner.complete(messages,[],self.number)
             except Exception as exc:
                 exc.backend_meta=dict(backend='missed_verifier',model=MODEL,variant=self.variant,
-                    attempts=events,tokens={k:total[k]+planner.tokens[k] for k in total},cost_cny=cost+planner.cost)
+                    attempts=events,tokens={k:total[k]+planner.tokens[k] for k in total},cost_cny=cost+planner.cost,halted=self.halted)
                 raise
             parsed=parse_response(result['raw'])
             answers.append(dict(answer=parsed['answer'],type=parsed['parsed'].get('type'),reason=parsed['parsed'].get('reason'),
