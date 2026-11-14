@@ -29,11 +29,15 @@ PY=$ROOT/conda_envs/exp5-env/bin/python
 report() {
     status=$?
     trap - EXIT
-    "$PY" -B -m agent_baseline.analysis.t3_bridge_online_metrics --output "$OUT" --tasks "$TASKS" || true
+    set +e
+    "$PY" -B -m agent_baseline.analysis.t3_bridge_online_metrics --output "$OUT" --tasks "$TASKS" --expect-config "${arm}_s${seed}"
+    reported=$?
+    if [[ "$status" == 0 ]]; then status=$reported; fi
     exit "$status"
 }
 trap report EXIT
 "$PY" -B -m unittest agent_baseline.tests.test_t3_semantic_bridge
+"$PY" -B -m agent_baseline.analysis.t3_bridge_online_metrics --output "$OUT" --tasks "$TASKS" --prepare-config "${arm}_s${seed}"
 extra=()
 if [[ "$arm" == bridge ]]; then extra+=(--t3-semantic-bridge); fi
 bash "$REPO/code/agent_baseline/run_agent.sbatch" \
