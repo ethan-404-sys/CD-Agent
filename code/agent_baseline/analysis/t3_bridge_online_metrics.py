@@ -86,6 +86,9 @@ def main():
                     calls = [c for step in steps for c in step.get('calls',[])]
                     record.update(counts=pixel_counts(pred,truth,ex), submitted_by=final.get('submitted_by'),
                         termination_reason=final.get('termination_reason'),
+                        tool_calls=len(calls),
+                        tool_errors=[dict(tool=c.get('tool'), code=c.get('error_code'))
+                            for c in calls if not c.get('ok', True)],
                         semantic_calls={tool:sum(c.get('tool')==tool for c in calls) for tool in
                             ('interpret_exemplar','rank_semantic_transition','match_exemplar','classify','segment_semantic')})
                 records.append(record)

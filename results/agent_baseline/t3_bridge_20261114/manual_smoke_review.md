@@ -82,3 +82,21 @@ DINO前4为8/33/57/42，覆盖那3个GT像素中的1个；前8覆盖全部3个�
 独立研究分支已修复上述在线脚本/指标问题：汇总失败向上传播；结束、真实submit、error、fallback与缺final分开统计；当前arm/seed必须10个真实submit才通过完成检查。费用从消息中的响应标识去重，新增语义请求以原attempt文件为唯一来源，包含缺final的已记录usage。重启前仅归档无final的中断目录，防止Recorder初始化清空旧轨迹；已有final会话保持原样并由既有harness跳过。没有响应usage的请求无法凭空补计，账本报告实际已记录费用及截断消息行数。主Agent集成与计算节点回归后才能称修复已验证。
 
 另已将DINO对照改为复用历史top32原始提议下标；计算节点先核对旧packed masks与当前SAM提议逐像素一致。所有k≤32比较沿用历史排序，无需重新计算DINO区域池化特征；桥接仍使用全部原SAM提议。该改动不修改冻结smoke产物。
+
+## 在线上线前复查与新机制风险（2026-11-14，已有产物单次检查）
+
+历史agent10的10行均为T3.1，均有可读的两期影像、exemplar和GT路径，指令仅要求“same transition as the marked example”，不含真实转换类别。既有诊断记录中，移除示例后剩余GT像素依次为0、70577、386、13025、7641、62、887、0、43900、0；即3/10为空，7/10有剩余支持。清单不因这些数值更换。新增Slurm preflight将重新核对图像/掩码尺寸和支持量，并验证清单与既有固定抽样完全相同。
+
+最小上线前置检查：冻结源码须包含`agent_baseline`以及`ovcd_v0`的common/prompts/render/mllm/sam_tools模块；或显式设置`T3_OVCD_CODE`指向配套冻结副本，不能默认缺失目录仍继续。SAM3解释器、sam3.pt、BPE文件、DynamicEarth/SegEarth/SAM/DINO/CLIP/SimFeatUp路径在管理节点检查可读，但实际计算节点加载仍未由本静态审查证明。脚本先执行无API的preflight及小回归，再启动现有真实worker和任务；不另做公共endpoint探测。CSV仅检查可读性，不读取/归档其内容。两臂应使用同一个显式`T3_CODE`快照。
+
+通道合同已阅读实际代码确认：`DynamicBackend.semantic`把background放在传入classes之前，因此六个公共类对应输出通道1至6，0是background；既有classify工具同样使用len(classes)+1通道。rank工具原有索引不是off-by-one。已补7通道形状检查，以及按score降序、ID稳定破平局的`ranked_ids`，schema明确通过`select(set=返回props, ids=自选列表)`取top候选；不会替Agent选择k或更改current answer。新增回归覆盖第6类、真实select/to_mask链及实际run_session第一请求工具schema可见、私有任务ID/GT元信息不进入规划payload，尚待Slurm执行。
+
+### 新发现：train_1496_2to1掩码孔洞的区域指向歧义
+
+主Agent指出后，本审查进一步对照了原exemplar二值掩码和已发送的T2近景。二值掩码白色支持区域主要是楼间空地；成排屋顶对应掩码中的黑色孔洞。当前红色边界同时描出孔洞边缘，视觉上很像逐个圈选屋顶。VLM原始回答称“轮廓内密集矩形亮色屋顶”，分类building，其描述事实上落到了被排除的孔洞区域。
+
+这是有直接输入证据的**掩码孔洞极性/区域grounding失败风险**，应与1129的“水体标签与可见影像不易对应”区分。不能仅称标签歧义，也不能认定只是类别识别器对建筑外观不认识。当前online语义工具复用同一红轮廓表示，因而会继承此风险；即使工具被正确发现、调用与计费，功能可执行也不代表区域语义可靠。
+
+证据：[实际发送T2近景](dev60/tasks/train_1496_2to1/interpretation/t2/00.png)、[T2原始回答](dev60/tasks/train_1496_2to1/interpretation/t2/answer.json)、[原始二值示例掩码](/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/results/agent_baseline/data/t3_tasks_dev_0of1/train_1496_2to1_exemplar.png)。当前dev60输入与全局显示不修改。下一轮若验证显式掩码支持的单时相解析，应另立配对输入表示对照，保持任务、模型与其它条件一致，避免把grounding改进与排名、核验改问法混为同一个改进。
+
+另在一次读取到的dev60前13个完成记录中，类别对标签一致率为4/13，9例移除示例后为空；这只是处理中间状态，不是最终dev60结论，也不用于改选任务或调参数。
