@@ -1,6 +1,8 @@
 """Focused semantic bridge regression, executed in the smoke Slurm allocation."""
 import unittest
 import tempfile
+import json
+from pathlib import Path
 from unittest.mock import patch
 import numpy as np
 from agent_baseline.analysis.t3_semantic_bridge import (
@@ -8,6 +10,33 @@ from agent_baseline.analysis.t3_semantic_bridge import (
 
 
 class BridgeTests(unittest.TestCase):
+    def test_partial_cost_deduplicates_and_archive_preserves_success(self):
+        from agent_baseline.analysis.t3_bridge_online_metrics import session_cost, archive_incomplete, completion
+        from agent_baseline.planner import request_cost, usage_tokens
+        usage = dict(prompt_tokens=1000,completion_tokens=100)
+        event = dict(request_id='response-1',usage=usage,request=dict(model='qwen3.7-flash'))
+        semantic = dict(requested_model='qwen3.7-flash',usage=usage,attempt=1)
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory); session=root/'bridge_s1016/T3.1/val/partial'
+            session.mkdir(parents=True)
+            (session/'messages.jsonl').write_text('\n'.join(json.dumps(e) for e in (event,event,semantic)))
+            attempts=session/'semantic_bridge/mask_0/t1'; attempts.mkdir(parents=True)
+            (attempts/'attempt_001.json').write_text(json.dumps(semantic))
+            bill=session_cost(session)
+            self.assertEqual(bill['known_requests'],2)
+            self.assertAlmostEqual(bill['cost_cny'],2*request_cost('qwen3.7-flash',usage_tokens(usage)))
+            success=root/'bridge_s1016/T3.1/val/success'; success.mkdir(parents=True)
+            (success/'final.json').write_text('{}')
+            archive_incomplete(root,'bridge_s1016',[dict(id='partial'),dict(id='success')])
+            self.assertTrue((success/'final.json').exists())
+            archived=root/'interrupted_attempts/bridge_s1016/partial/attempt_000'
+            self.assertTrue((archived/'messages.jsonl').exists())
+            self.assertAlmostEqual(session_cost(archived)['cost_cny'],bill['cost_cny'])
+        self.assertEqual(completion(None),'missing_final')
+        self.assertEqual(completion(dict(submitted_by='model',termination_reason='submit')),'successful_submit')
+        self.assertEqual(completion(dict(submitted_by='error',termination_reason='error')),'error')
+        self.assertEqual(completion(dict(submitted_by='budget',termination_reason='budget')),'fallback')
+
     def test_historical_dino_identity_and_order(self):
         masks = np.array([[[1,0],[0,0]], [[0,1],[0,0]], [[0,0],[1,0]]],bool)
         indices = np.array([2,0,1])
