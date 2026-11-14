@@ -15,6 +15,8 @@ R=$ROOT/wyh/exp6_staging/agent_baseline_run
 PY=$ROOT/conda_envs/exp5-env/bin/python
 variant=${1:-B0}
 split=${2:-all}
+extra=()
+if [[ ${3:-} == prepare ]]; then extra+=(--prepare-only); fi
 export OVCD_CODE=${T3_OVCD_CODE:-$REPO/code/ovcd_v0}
 export PYTHONPATH=$REPO/code:$OVCD_CODE
 export PYTHONNOUSERSITE=1 PYTHONDONTWRITEBYTECODE=1
@@ -33,4 +35,4 @@ finish() {
 trap finish EXIT
 "$PY" -B -m unittest agent_baseline.tests.test_night_t3_retrieval
 "$PY" "$ROOT/Chang-Agent/tools/run_with_bailian_csv.py" "$ROOT/wyh/默认业务空间-apiKey-6214720.csv" \
-  "$PY" -B -m agent_baseline.analysis.night_t3_retrieval --run "$R" --night "$OUT" --parse-variant "$variant" --split "$split" --verify-k 8
+  "$PY" -B -m agent_baseline.analysis.night_t3_retrieval --run "$R" --night "$OUT" --parse-variant "$variant" --split "$split" --verify-k 8 "${extra[@]}"

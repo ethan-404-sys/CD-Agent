@@ -91,6 +91,7 @@ def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--run',type=Path,required=True);p.add_argument('--night',type=Path,required=True)
     p.add_argument('--parse-variant',choices=['B0','B1','B2'],default='B0');p.add_argument('--split',choices=['tune','confirm','all'],default='all')
+    p.add_argument('--prepare-only',action='store_true',help='Prepare GPU proposals/ranks without verification API or completed scores')
     p.add_argument('--verify-k',type=int,default=8,choices=[0,4,8,16]);a=p.parse_args()
     if not os.environ.get('SLURM_JOB_ID'):raise RuntimeError('Run in a Slurm GPU allocation')
     source=json.loads(read_text(a.night/a.parse_variant/'summary.json'))
@@ -108,11 +109,11 @@ def main():
         code=str(Path(__file__).resolve()))
     if exists(out/'settings.json') and json.loads(read_text(out/'settings.json'))!=settings:raise ValueError('Existing retrieval settings differ')
     write_json(out/'settings.json',settings)
-    cache=CachedVision(a.run/'t3_diag/cache/vision');text=TextProposals(a.run,a.night);records=[]
+    cache=CachedVision(a.run/'t3_diag/cache/vision');text=TextProposals(a.run,a.night);records=[];prepared_ids=[]
     try:
         for row in rows:
             folder=out/'tasks'/row['id'];result=folder/'metrics.json'
-            if exists(result):records.append(json.loads(read_text(result)));continue
+            if exists(result) and not a.prepare_only:records.append(json.loads(read_text(result)));continue
             ex=read_image(row['exemplar_mask'])>0;images=[read_image(row[k],rgb=True) for k in ('image_t1','image_t2')]
             backend=cache.for_row(row);features=[Features(backend('extract_features',time=t),ex.shape,t) for t in ('t1','t2')]
             prepared=folder/'prepared.npz'
@@ -130,6 +131,12 @@ def main():
                 write_npz(prepared,r1=r1,r2=r2,order1=np.asarray(order1,dtype=int),order3=np.asarray(order3,dtype=int))
                 write_json(folder/'provenance.json',dict(predicted_pair=pair,text_cache_reused=text.reused))
                 text.reused=[]
+            if a.prepare_only:
+                prepared_ids.append(row['id'])
+                write_json(out/f'prepare_progress_{a.split}.json',dict(stage='prepare_only',tasks=len(prepared_ids),ids=prepared_ids,
+                    scoring_complete=False,verification_api_requests=0,new_api_cost_cny=0,prepared_root=str(out/'tasks')))
+                print('prepared',len(prepared_ids),row['id'],flush=True)
+                continue
             pair=parses[row['id']]['interpretation']['pair'];answers={}
             if a.verify_k and order3:
                 before,after=[CLASSES[c] for c in pair]
@@ -155,6 +162,7 @@ def main():
             write_json(out/f'summary_{a.split}.json',dict(tasks=len(records),records=records,summary=summaries(records),cost_cny=sum(r['cost_cny'] for r in records)))
             print('retrieval',len(records),row['id'],flush=True)
     finally:text.pool.close()
+    if a.prepare_only:return
     write_json(out/f'summary_{a.split}.json',dict(tasks=len(records),records=records,summary=summaries(records),cost_cny=sum(r['cost_cny'] for r in records)))
 
 
