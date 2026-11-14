@@ -1,0 +1,38 @@
+{
+  "uid": "second_appeared:train_1136:4",
+  "answer": "yes",
+  "parsed": {
+    "t1_state": "The area marked by the contour in T1 appears to be bare ground or dirt, part of an open field with a dirt road nearby.",
+    "t2_state": "The area marked by the contour in T2 shows the corner of a large, new industrial building with a structured roof, situated within a developed complex of similar buildings.",
+    "same_object": false,
+    "appearance_only": false,
+    "change": "yes",
+    "type": "new_building",
+    "reason": "The location was bare ground in T1 and contains a newly constructed building in T2, fitting the definition of a building newly constructed (absent in T1, present in T2)."
+  },
+  "raw": "{\n\"t1_state\": \"The area marked by the contour in T1 appears to be bare ground or dirt, part of an open field with a dirt road nearby.\",\n\"t2_state\": \"The area marked by the contour in T2 shows the corner of a large, new industrial building with a structured roof, situated within a developed complex of similar buildings.\",\n\"same_object\": false,\n\"appearance_only\": false,\n\"change\": \"yes\",\n\"type\": \"new_building\",\n\"reason\": \"The location was bare ground in T1 and contains a newly constructed building in T2, fitting the definition of a building newly constructed (absent in T1, present in T2).\"\n}",
+  "finish_reason": "stop",
+  "parse_failure": false,
+  "unknown": false,
+  "usage": {
+    "prompt_tokens": 1121,
+    "total_tokens": 1271,
+    "completion_tokens": 150,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 537
+    },
+    "completion_tokens_details": {
+      "text_tokens": 150
+    }
+  },
+  "tokens": {
+    "input": 1121,
+    "cached": 0,
+    "output": 150
+  },
+  "cost_cny": 0.00034420000000000007,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/second_appeared__train_1136__4"
+}

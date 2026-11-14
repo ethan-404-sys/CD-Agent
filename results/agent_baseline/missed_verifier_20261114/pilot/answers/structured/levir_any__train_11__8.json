@@ -1,0 +1,38 @@
+{
+  "uid": "levir_any:train_11:8",
+  "answer": "yes",
+  "parsed": {
+    "t1_state": "The object inside the contour at T1 appears as a small, light-colored, somewhat indistinct patch on bare ground near a dirt track, lacking clear roof structure or walls.",
+    "t2_state": "The object at T2 is clearly a small, rectangular building with a defined light-colored roof and distinct edges, situated next to a paved road and surrounded by grass and other houses.",
+    "same_object": "No",
+    "appearance_only": "No",
+    "change": "yes",
+    "type": "new_building",
+    "reason": "The region was unstructured ground or a very faint feature in T1 but contains a clearly constructed building with a defined roof in T2, indicating new construction."
+  },
+  "raw": "{\n\"t1_state\": \"The object inside the contour at T1 appears as a small, light-colored, somewhat indistinct patch on bare ground near a dirt track, lacking clear roof structure or walls.\",\n\"t2_state\": \"The object at T2 is clearly a small, rectangular building with a defined light-colored roof and distinct edges, situated next to a paved road and surrounded by grass and other houses.\",\n\"same_object\": \"No\",\n\"appearance_only\": \"No\",\n\"change\": \"yes\",\n\"type\": \"new_building\",\n\"reason\": \"The region was unstructured ground or a very faint feature in T1 but contains a clearly constructed building with a defined roof in T2, indicating new construction.\"\n}",
+  "finish_reason": "stop",
+  "parse_failure": false,
+  "unknown": false,
+  "usage": {
+    "prompt_tokens": 1081,
+    "total_tokens": 1238,
+    "completion_tokens": 157,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 497
+    },
+    "completion_tokens_details": {
+      "text_tokens": 157
+    }
+  },
+  "tokens": {
+    "input": 1081,
+    "cached": 0,
+    "output": 157
+  },
+  "cost_cny": 0.0003418,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/levir_any__train_11__8"
+}

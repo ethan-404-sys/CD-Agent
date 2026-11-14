@@ -1,0 +1,38 @@
+{
+  "uid": "second_disappeared:train_1136:11",
+  "answer": "yes",
+  "parsed": {
+    "t1_state": "In T1, the object within the contour is a small building with a blue roof, located adjacent to a larger blue-roofed structure and near a dirt path.",
+    "t2_state": "In T2, the same location shows no building; instead, there is green vegetation (likely grass) and a paved road or path running nearby, indicating the area has been redeveloped or cleared.",
+    "same_object": "No, the building present in T1 is not visible in T2 at the same location.",
+    "appearance_only": "No, this is not an appearance-only change such as shadow or color difference; the physical structure is absent in T2.",
+    "change": "yes",
+    "type": "demolished",
+    "reason": "The building identified in T1 is completely absent in T2, replaced by vegetation and pavement, which qualifies as a demolished building per the scope card."
+  },
+  "raw": "{\n\"t1_state\": \"In T1, the object within the contour is a small building with a blue roof, located adjacent to a larger blue-roofed structure and near a dirt path.\",\n\"t2_state\": \"In T2, the same location shows no building; instead, there is green vegetation (likely grass) and a paved road or path running nearby, indicating the area has been redeveloped or cleared.\",\n\"same_object\": \"No, the building present in T1 is not visible in T2 at the same location.\",\n\"appearance_only\": \"No, this is not an appearance-only change such as shadow or color difference; the physical structure is absent in T2.\",\n\"change\": \"yes\",\n\"type\": \"demolished\",\n\"reason\": \"The building identified in T1 is completely absent in T2, replaced by vegetation and pavement, which qualifies as a demolished building per the scope card.\"\n}",
+  "finish_reason": "stop",
+  "parse_failure": false,
+  "unknown": false,
+  "usage": {
+    "prompt_tokens": 1119,
+    "total_tokens": 1318,
+    "completion_tokens": 199,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 535
+    },
+    "completion_tokens_details": {
+      "text_tokens": 199
+    }
+  },
+  "tokens": {
+    "input": 1119,
+    "cached": 0,
+    "output": 199
+  },
+  "cost_cny": 0.000383,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/second_disappeared__train_1136__11"
+}

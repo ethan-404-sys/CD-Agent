@@ -1,0 +1,38 @@
+{
+  "uid": "second_appeared:train_1136:14",
+  "answer": "no",
+  "parsed": {
+    "t1_state": "The object inside the red contour appears as a small, dark, somewhat indistinct structure adjacent to a larger building with a blue roof.",
+    "t2_state": "The object at the same location appears as a small, dark, rectangular structure, maintaining its position relative to the larger blue-roofed building and the road.",
+    "same_object": true,
+    "appearance_only": false,
+    "change": "no",
+    "type": "no_change",
+    "reason": "The object persists in the same location with consistent shape and relationship to neighboring fixed objects, showing no evidence of new construction or demolition."
+  },
+  "raw": "{\n\"t1_state\": \"The object inside the red contour appears as a small, dark, somewhat indistinct structure adjacent to a larger building with a blue roof.\",\n\"t2_state\": \"The object at the same location appears as a small, dark, rectangular structure, maintaining its position relative to the larger blue-roofed building and the road.\",\n\"same_object\": true,\n\"appearance_only\": false,\n\"change\": \"no\",\n\"type\": \"no_change\",\n\"reason\": \"The object persists in the same location with consistent shape and relationship to neighboring fixed objects, showing no evidence of new construction or demolition.\"\n}",
+  "finish_reason": "stop",
+  "parse_failure": false,
+  "unknown": false,
+  "usage": {
+    "prompt_tokens": 1121,
+    "total_tokens": 1258,
+    "completion_tokens": 137,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 537
+    },
+    "completion_tokens_details": {
+      "text_tokens": 137
+    }
+  },
+  "tokens": {
+    "input": 1121,
+    "cached": 0,
+    "output": 137
+  },
+  "cost_cny": 0.00033380000000000004,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/second_appeared__train_1136__14"
+}

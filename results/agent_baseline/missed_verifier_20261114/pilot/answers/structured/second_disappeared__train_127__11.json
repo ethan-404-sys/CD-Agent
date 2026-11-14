@@ -1,0 +1,38 @@
+{
+  "uid": "second_disappeared:train_127:11",
+  "answer": "no",
+  "parsed": {
+    "t1_state": "The object inside the red contour is a U-shaped building with a dark roof, situated adjacent to rows of residential houses with red roofs.",
+    "t2_state": "The same U-shaped building is present in the same location with the same footprint and roof structure visible in T2.",
+    "same_object": true,
+    "appearance_only": "There are minor differences in lighting and shadowing between the two dates, but the physical structure remains intact.",
+    "change": "no",
+    "type": "no_change",
+    "reason": "The building present in T1 persists in T2 with the same outline and structure, indicating no demolition or new construction occurred."
+  },
+  "raw": "{\n\"t1_state\": \"The object inside the red contour is a U-shaped building with a dark roof, situated adjacent to rows of residential houses with red roofs.\",\n\"t2_state\": \"The same U-shaped building is present in the same location with the same footprint and roof structure visible in T2.\",\n\"same_object\": true,\n\"appearance_only\": \"There are minor differences in lighting and shadowing between the two dates, but the physical structure remains intact.\",\n\"change\": \"no\",\n\"type\": \"no_change\",\n\"reason\": \"The building present in T1 persists in T2 with the same outline and structure, indicating no demolition or new construction occurred.\"\n}",
+  "finish_reason": "stop",
+  "parse_failure": false,
+  "unknown": false,
+  "usage": {
+    "prompt_tokens": 1119,
+    "total_tokens": 1265,
+    "completion_tokens": 146,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 535
+    },
+    "completion_tokens_details": {
+      "text_tokens": 146
+    }
+  },
+  "tokens": {
+    "input": 1119,
+    "cached": 0,
+    "output": 146
+  },
+  "cost_cny": 0.00034060000000000004,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/second_disappeared__train_127__11"
+}

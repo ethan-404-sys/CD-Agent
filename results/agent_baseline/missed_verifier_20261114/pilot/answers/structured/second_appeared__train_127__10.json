@@ -1,0 +1,38 @@
+{
+  "uid": "second_appeared:train_127:10",
+  "answer": "yes",
+  "parsed": {
+    "t1_state": "The object inside the contour is a small, light-grey rectangular structure with a flat roof, situated next to a row of darker, older buildings.",
+    "t2_state": "The object is a larger, brighter white rectangular building with a flat roof, appearing more modern and distinct from the surrounding older structures.",
+    "same_object": false,
+    "appearance_only": false,
+    "change": "yes",
+    "type": "new_building",
+    "reason": "The footprint has expanded significantly and the roof material appears completely different (brighter white vs. grey), indicating new construction rather than just a change in appearance or shadow of the original structure."
+  },
+  "raw": "{\n\"t1_state\": \"The object inside the contour is a small, light-grey rectangular structure with a flat roof, situated next to a row of darker, older buildings.\",\n\"t2_state\": \"The object is a larger, brighter white rectangular building with a flat roof, appearing more modern and distinct from the surrounding older structures.\",\n\"same_object\": false,\n\"appearance_only\": false,\n\"change\": \"yes\",\n\"type\": \"new_building\",\n\"reason\": \"The footprint has expanded significantly and the roof material appears completely different (brighter white vs. grey), indicating new construction rather than just a change in appearance or shadow of the original structure.\"\n}",
+  "finish_reason": "stop",
+  "parse_failure": false,
+  "unknown": false,
+  "usage": {
+    "prompt_tokens": 1121,
+    "total_tokens": 1264,
+    "completion_tokens": 143,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 537
+    },
+    "completion_tokens_details": {
+      "text_tokens": 143
+    }
+  },
+  "tokens": {
+    "input": 1121,
+    "cached": 0,
+    "output": 143
+  },
+  "cost_cny": 0.00033860000000000004,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/second_appeared__train_127__10"
+}

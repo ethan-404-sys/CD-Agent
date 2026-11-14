@@ -1,0 +1,38 @@
+{
+  "uid": "levir_any:train_116:13",
+  "answer": "yes",
+  "parsed": {
+    "t1_state": "The area within the red contour in T1 is covered by dense green vegetation and trees, with no visible building structures.",
+    "t2_state": "The area within the red contour in T2 contains a newly constructed building with a light-colored roof and an adjacent blue swimming pool, situated in a developed residential neighborhood.",
+    "same_object": false,
+    "appearance_only": false,
+    "change": "yes",
+    "type": "new_building",
+    "reason": "A building was not present in the vegetated area in T1 but has been newly constructed in the same location in T2."
+  },
+  "raw": "{\n\"t1_state\": \"The area within the red contour in T1 is covered by dense green vegetation and trees, with no visible building structures.\",\n\"t2_state\": \"The area within the red contour in T2 contains a newly constructed building with a light-colored roof and an adjacent blue swimming pool, situated in a developed residential neighborhood.\",\n\"same_object\": false,\n\"appearance_only\": false,\n\"change\": \"yes\",\n\"type\": \"new_building\",\n\"reason\": \"A building was not present in the vegetated area in T1 but has been newly constructed in the same location in T2.\"\n}",
+  "finish_reason": "stop",
+  "parse_failure": false,
+  "unknown": false,
+  "usage": {
+    "prompt_tokens": 1081,
+    "total_tokens": 1215,
+    "completion_tokens": 134,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 497
+    },
+    "completion_tokens_details": {
+      "text_tokens": 134
+    }
+  },
+  "tokens": {
+    "input": 1081,
+    "cached": 0,
+    "output": 134
+  },
+  "cost_cny": 0.00032340000000000005,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/levir_any__train_116__13"
+}

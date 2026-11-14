@@ -1,0 +1,38 @@
+{
+  "uid": "levir_any:train_118:5",
+  "answer": "yes",
+  "parsed": {
+    "t1_state": "The object inside the contour at T1 is not visible as a building; it appears to be a small patch of vegetation or bare ground within a forested area.",
+    "t2_state": "The object inside the contour at T2 is clearly part of a newly constructed residential building, specifically near the entrance or porch area, surrounded by a new driveway and landscaping.",
+    "same_object": "No",
+    "appearance_only": "No",
+    "change": "yes",
+    "type": "new_building",
+    "reason": "The location was undeveloped vegetation in T1 and contains a new building structure in T2, indicating new construction."
+  },
+  "raw": "{\n\"t1_state\": \"The object inside the contour at T1 is not visible as a building; it appears to be a small patch of vegetation or bare ground within a forested area.\",\n\"t2_state\": \"The object inside the contour at T2 is clearly part of a newly constructed residential building, specifically near the entrance or porch area, surrounded by a new driveway and landscaping.\",\n\"same_object\": \"No\",\n\"appearance_only\": \"No\",\n\"change\": \"yes\",\n\"type\": \"new_building\",\n\"reason\": \"The location was undeveloped vegetation in T1 and contains a new building structure in T2, indicating new construction.\"\n}",
+  "finish_reason": "stop",
+  "parse_failure": false,
+  "unknown": false,
+  "usage": {
+    "prompt_tokens": 1081,
+    "total_tokens": 1225,
+    "completion_tokens": 144,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 497
+    },
+    "completion_tokens_details": {
+      "text_tokens": 144
+    }
+  },
+  "tokens": {
+    "input": 1081,
+    "cached": 0,
+    "output": 144
+  },
+  "cost_cny": 0.00033140000000000003,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/levir_any__train_118__5"
+}

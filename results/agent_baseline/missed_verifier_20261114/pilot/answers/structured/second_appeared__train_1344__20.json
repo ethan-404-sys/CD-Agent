@@ -1,0 +1,38 @@
+{
+  "uid": "second_appeared:train_1344:20",
+  "answer": "yes",
+  "parsed": {
+    "t1_state": "The area inside the red contour at T1 appears to be bare ground or a very low-profile structure with no distinct roof, surrounded by dirt and sparse vegetation.",
+    "t2_state": "The same area at T2 contains a distinct, dark blue rectangular building with a clear roof structure, situated next to a larger blue industrial building.",
+    "same_object": false,
+    "appearance_only": false,
+    "change": "yes",
+    "type": "new_building",
+    "reason": "The location was previously non-building land (bare ground) in T1 and now contains a new building structure in T2, which fits the definition of new construction rather than replacement."
+  },
+  "raw": "{\n\"t1_state\": \"The area inside the red contour at T1 appears to be bare ground or a very low-profile structure with no distinct roof, surrounded by dirt and sparse vegetation.\",\n\"t2_state\": \"The same area at T2 contains a distinct, dark blue rectangular building with a clear roof structure, situated next to a larger blue industrial building.\",\n\"same_object\": false,\n\"appearance_only\": false,\n\"change\": \"yes\",\n\"type\": \"new_building\",\n\"reason\": \"The location was previously non-building land (bare ground) in T1 and now contains a new building structure in T2, which fits the definition of new construction rather than replacement.\"\n}",
+  "finish_reason": "stop",
+  "parse_failure": false,
+  "unknown": false,
+  "usage": {
+    "prompt_tokens": 1121,
+    "total_tokens": 1269,
+    "completion_tokens": 148,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 537
+    },
+    "completion_tokens_details": {
+      "text_tokens": 148
+    }
+  },
+  "tokens": {
+    "input": 1121,
+    "cached": 0,
+    "output": 148
+  },
+  "cost_cny": 0.00034260000000000003,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/second_appeared__train_1344__20"
+}

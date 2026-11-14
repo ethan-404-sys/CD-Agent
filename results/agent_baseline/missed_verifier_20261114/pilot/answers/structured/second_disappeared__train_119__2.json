@@ -1,0 +1,38 @@
+{
+  "uid": "second_disappeared:train_119:2",
+  "answer": "yes",
+  "parsed": {
+    "t1_state": "In T1, the object inside the red contour is a long, rectangular building with a light-colored roof, situated within a larger industrial complex featuring several parallel blue-roofed buildings.",
+    "t2_state": "In T2, the area inside the red contour shows dark water or wet ground, consistent with the surrounding aquaculture ponds or fields. The building and the entire industrial complex visible in T1 are completely absent.",
+    "same_object": "No, the object is not the same. A built structure in T1 has been replaced by open land/water in T2.",
+    "appearance_only": "No, this is not an appearance-only change like shadow or color difference. The physical structure present in T1 has disappeared entirely in T2, and the context (industrial site vs. ponds) has changed fundamentally.",
+    "change": "yes",
+    "type": "demolished",
+    "reason": "A building present in T1 within the marked contour is completely absent in T2, where the location is now occupied by open ground/water, fitting the definition of a demolished building."
+  },
+  "raw": "{\n\"t1_state\": \"In T1, the object inside the red contour is a long, rectangular building with a light-colored roof, situated within a larger industrial complex featuring several parallel blue-roofed buildings.\",\n\"t2_state\": \"In T2, the area inside the red contour shows dark water or wet ground, consistent with the surrounding aquaculture ponds or fields. The building and the entire industrial complex visible in T1 are completely absent.\",\n\"same_object\": \"No, the object is not the same. A built structure in T1 has been replaced by open land/water in T2.\",\n\"appearance_only\": \"No, this is not an appearance-only change like shadow or color difference. The physical structure present in T1 has disappeared entirely in T2, and the context (industrial site vs. ponds) has changed fundamentally.\",\n\"change\": \"yes\",\n\"type\": \"demolished\",\n\"reason\": \"A building present in T1 within the marked contour is completely absent in T2, where the location is now occupied by open ground/water, fitting the definition of a demolished building.\"\n}",
+  "finish_reason": "stop",
+  "parse_failure": false,
+  "unknown": false,
+  "usage": {
+    "prompt_tokens": 1119,
+    "total_tokens": 1357,
+    "completion_tokens": 238,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 535
+    },
+    "completion_tokens_details": {
+      "text_tokens": 238
+    }
+  },
+  "tokens": {
+    "input": 1119,
+    "cached": 0,
+    "output": 238
+  },
+  "cost_cny": 0.00041420000000000004,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/second_disappeared__train_119__2"
+}

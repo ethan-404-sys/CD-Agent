@@ -1,0 +1,38 @@
+{
+  "uid": "second_appeared:train_1177:8",
+  "answer": "yes",
+  "parsed": {
+    "t1_state": "The object inside the red contour is a small building with a visible roof structure, situated next to a wall and adjacent to a larger courtyard area.",
+    "t2_state": "The same location shows a significant change where the original small building appears to be covered or replaced by a large, uniform grey/blue surface, possibly a new roof or a temporary covering like a tarp, extending beyond the original footprint slightly.",
+    "same_object": "No, the specific architectural features of the building in T1 are not clearly visible in T2; instead, a large new surface dominates the area.",
+    "appearance_only": "The change is too substantial to be attributed merely to shadow, seasonal color variation, or misregistration. The texture and extent of the feature have changed significantly.",
+    "change": "yes",
+    "type": "new_building",
+    "reason": "The original building structure visible in T1 has been obscured or replaced by a large, distinctively colored surface in T2 that suggests new construction or a major addition not present previously."
+  },
+  "raw": "{\n\"t1_state\": \"The object inside the red contour is a small building with a visible roof structure, situated next to a wall and adjacent to a larger courtyard area.\",\n\"t2_state\": \"The same location shows a significant change where the original small building appears to be covered or replaced by a large, uniform grey/blue surface, possibly a new roof or a temporary covering like a tarp, extending beyond the original footprint slightly.\",\n\"same_object\": \"No, the specific architectural features of the building in T1 are not clearly visible in T2; instead, a large new surface dominates the area.\",\n\"appearance_only\": \"The change is too substantial to be attributed merely to shadow, seasonal color variation, or misregistration. The texture and extent of the feature have changed significantly.\",\n\"change\": \"yes\",\n\"type\": \"new_building\",\n\"reason\": \"The original building structure visible in T1 has been obscured or replaced by a large, distinctively colored surface in T2 that suggests new construction or a major addition not present previously.\"\n}",
+  "finish_reason": "stop",
+  "parse_failure": false,
+  "unknown": false,
+  "usage": {
+    "prompt_tokens": 1121,
+    "total_tokens": 1342,
+    "completion_tokens": 221,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 537
+    },
+    "completion_tokens_details": {
+      "text_tokens": 221
+    }
+  },
+  "tokens": {
+    "input": 1121,
+    "cached": 0,
+    "output": 221
+  },
+  "cost_cny": 0.000401,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/second_appeared__train_1177__8"
+}

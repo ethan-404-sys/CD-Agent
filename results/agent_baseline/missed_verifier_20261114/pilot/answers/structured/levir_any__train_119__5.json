@@ -1,0 +1,30 @@
+{
+  "uid": "levir_any:train_119:5",
+  "answer": "unknown",
+  "parsed": {},
+  "raw": "{\n\"t1_state\": \"The object inside the contour at T1 is a small, dark, linear feature located at the edge of a dense forest area, adjacent to a large sandy or bare soil patch. It appears to be a small structure, possibly a shed or a small building, partially obscured by shadows or vegetation.\",\n\"t2_state\": \"In T2, the same location shows a more developed residential area with multiple houses and paved roads. The specific feature within the red contour now appears as part of a larger roof structure or a new building element associated with the nearby housing development. The surrounding context has changed significantly from open sandy land to built-up residential lots.\",\n\"same_object\": \"No, the object does not appear to be the same persisting structure. While the location is consistent, the T1 object looks like a small isolated feature in a natural/semi-natural setting, whereas T2 shows it integrated into a new residential construction context.\",\n\"appearance_only\": \"No, this is not merely an appearance change (like shadow or color) of the same building. The surrounding environment changed from bare soil/forest edge to a full neighborhood, indicating new construction activity.\",\n\"change\": \"yes\",\n\"type\": \"new_building",
+  "finish_reason": "length",
+  "parse_failure": true,
+  "unknown": true,
+  "usage": {
+    "prompt_tokens": 1081,
+    "total_tokens": 1337,
+    "completion_tokens": 256,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 497
+    },
+    "completion_tokens_details": {
+      "text_tokens": 256
+    }
+  },
+  "tokens": {
+    "input": 1081,
+    "cached": 0,
+    "output": 256
+  },
+  "cost_cny": 0.000421,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/levir_any__train_119__5"
+}

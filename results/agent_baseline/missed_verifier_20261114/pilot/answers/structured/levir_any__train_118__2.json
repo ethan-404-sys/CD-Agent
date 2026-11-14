@@ -1,0 +1,38 @@
+{
+  "uid": "levir_any:train_118:2",
+  "answer": "yes",
+  "parsed": {
+    "t1_state": "The object inside the contour at T1 is not clearly visible as a building; it appears as a small, dark, indistinct spot within a vegetated or bare soil area, possibly a very small structure or shadow.",
+    "t2_state": "The object inside the contour at T2 is clearly a residential building with a dark, multi-gabled roof, situated in a developed neighborhood with paved roads and manicured lawns.",
+    "same_object": "No, the object at T2 is a fully constructed house that was not present or identifiable as such at T1.",
+    "appearance_only": "No, the change represents a fundamental difference in land cover from undeveloped/vegetated to a built structure, not just a change in color or shadow of an existing building.",
+    "change": "yes",
+    "type": "new_building",
+    "reason": "The wider view shows the site was undeveloped vegetation/soil in T1 and contains a newly constructed residential house in T2."
+  },
+  "raw": "{\n\"t1_state\": \"The object inside the contour at T1 is not clearly visible as a building; it appears as a small, dark, indistinct spot within a vegetated or bare soil area, possibly a very small structure or shadow.\",\n\"t2_state\": \"The object inside the contour at T2 is clearly a residential building with a dark, multi-gabled roof, situated in a developed neighborhood with paved roads and manicured lawns.\",\n\"same_object\": \"No, the object at T2 is a fully constructed house that was not present or identifiable as such at T1.\",\n\"appearance_only\": \"No, the change represents a fundamental difference in land cover from undeveloped/vegetated to a built structure, not just a change in color or shadow of an existing building.\",\n\"change\": \"yes\",\n\"type\": \"new_building\",\n\"reason\": \"The wider view shows the site was undeveloped vegetation/soil in T1 and contains a newly constructed residential house in T2.\"\n}",
+  "finish_reason": "stop",
+  "parse_failure": false,
+  "unknown": false,
+  "usage": {
+    "prompt_tokens": 1081,
+    "total_tokens": 1299,
+    "completion_tokens": 218,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 497
+    },
+    "completion_tokens_details": {
+      "text_tokens": 218
+    }
+  },
+  "tokens": {
+    "input": 1081,
+    "cached": 0,
+    "output": 218
+  },
+  "cost_cny": 0.0003906,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/levir_any__train_118__2"
+}

@@ -1,0 +1,40 @@
+{
+  "uid": "second_appeared:train_1065:17",
+  "answer": "yes",
+  "parsed": {
+    "t1_state": "In the T1 images, the area within the red contour shows bare ground and some sparse vegetation, located adjacent to a road and near large industrial buildings.",
+    "t2_state": "In the T2 images, a large building with a dark roof has been constructed in the exact location of the red contour, extending from the road towards the left.",
+    "same_object": false,
+    "appearance_only": false,
+    "change": "yes",
+    "type": "new_building",
+    "reason": "The site was undeveloped land in T1 and contains a newly constructed building in T2, fitting the definition of a building newly constructed (absent in T1, present in T2)."
+  },
+  "raw": "{\n\"t1_state\": \"In the T1 images, the area within the red contour shows bare ground and some sparse vegetation, located adjacent to a road and near large industrial buildings.\",\n\"t2_state\": \"In the T2 images, a large building with a dark roof has been constructed in the exact location of the red contour, extending from the road towards the left.\",\n\"same_object\": false,\n\"appearance_only\": false,\n\"change\": \"yes\",\n\"type\": \"new_building\",\n\"reason\": \"The site was undeveloped land in T1 and contains a newly constructed building in T2, fitting the definition of a building newly constructed (absent in T1, present in T2).\"\n}",
+  "usage": {
+    "prompt_tokens": 1121,
+    "total_tokens": 1276,
+    "completion_tokens": 155,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 537
+    },
+    "completion_tokens_details": {
+      "text_tokens": 155
+    }
+  },
+  "tokens": {
+    "input": 1121,
+    "cached": 0,
+    "output": 155
+  },
+  "cost_cny": 0.0,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/smoke/answers/structured/inputs/second_appeared__train_1065__17",
+  "finish_reason": "stop",
+  "parse_failure": false,
+  "unknown": false,
+  "reused_from": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/smoke/answers/structured/second_appeared__train_1065__17.json",
+  "original_cost_cny": 0.00034820000000000006
+}

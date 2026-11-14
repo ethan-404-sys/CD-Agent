@@ -1,0 +1,38 @@
+{
+  "uid": "second_disappeared:train_1177:9",
+  "answer": "no",
+  "parsed": {
+    "t1_state": "A light-colored, roughly rectangular building footprint is visible within the red contour in both the close-up and wider views.",
+    "t2_state": "The same light-colored, roughly rectangular building footprint persists in the exact same location with a similar shape and size in the T2 images.",
+    "same_object": true,
+    "appearance_only": "The primary difference is a change in color tone (appearing slightly brighter or more yellowish in T2) and potentially slight variations in shadowing or illumination, but the structural outline and position relative to fixed neighbors remain constant.",
+    "change": "no",
+    "type": "seasonal_or_color",
+    "reason": "The object at the same location in both dates appears to be the same building with only color/illumination differences, not evidence of demolition or new construction."
+  },
+  "raw": "{\n\"t1_state\": \"A light-colored, roughly rectangular building footprint is visible within the red contour in both the close-up and wider views.\",\n\"t2_state\": \"The same light-colored, roughly rectangular building footprint persists in the exact same location with a similar shape and size in the T2 images.\",\n\"same_object\": true,\n\"appearance_only\": \"The primary difference is a change in color tone (appearing slightly brighter or more yellowish in T2) and potentially slight variations in shadowing or illumination, but the structural outline and position relative to fixed neighbors remain constant.\",\n\"change\": \"no\",\n\"type\": \"seasonal_or_color\",\n\"reason\": \"The object at the same location in both dates appears to be the same building with only color/illumination differences, not evidence of demolition or new construction.\"\n}",
+  "finish_reason": "stop",
+  "parse_failure": false,
+  "unknown": false,
+  "usage": {
+    "prompt_tokens": 1119,
+    "total_tokens": 1297,
+    "completion_tokens": 178,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 535
+    },
+    "completion_tokens_details": {
+      "text_tokens": 178
+    }
+  },
+  "tokens": {
+    "input": 1119,
+    "cached": 0,
+    "output": 178
+  },
+  "cost_cny": 0.00036620000000000006,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/second_disappeared__train_1177__9"
+}

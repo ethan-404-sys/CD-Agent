@@ -1,0 +1,38 @@
+{
+  "uid": "levir_any:train_122:3",
+  "answer": "yes",
+  "parsed": {
+    "t1_state": "The object at the yellow mark in T1 is a small, light-colored structure (likely a temporary building or shed) situated within a cleared area surrounded by vegetation.",
+    "t2_state": "The corresponding location in T2 shows bare earth and construction activity; the specific small structure seen in T1 is no longer present, having been replaced by graded land as part of a larger development.",
+    "same_object": false,
+    "appearance_only": false,
+    "change": "yes",
+    "type": "demolished",
+    "reason": "The building identified in T1 is absent in T2, where the site has been cleared for construction, fitting the definition of a building demolished."
+  },
+  "raw": "{\n\"t1_state\": \"The object at the yellow mark in T1 is a small, light-colored structure (likely a temporary building or shed) situated within a cleared area surrounded by vegetation.\",\n\"t2_state\": \"The corresponding location in T2 shows bare earth and construction activity; the specific small structure seen in T1 is no longer present, having been replaced by graded land as part of a larger development.\",\n\"same_object\": false,\n\"appearance_only\": false,\n\"change\": \"yes\",\n\"type\": \"demolished\",\n\"reason\": \"The building identified in T1 is absent in T2, where the site has been cleared for construction, fitting the definition of a building demolished.\"\n}",
+  "finish_reason": "stop",
+  "parse_failure": false,
+  "unknown": false,
+  "usage": {
+    "prompt_tokens": 1081,
+    "total_tokens": 1234,
+    "completion_tokens": 153,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 497
+    },
+    "completion_tokens_details": {
+      "text_tokens": 153
+    }
+  },
+  "tokens": {
+    "input": 1081,
+    "cached": 0,
+    "output": 153
+  },
+  "cost_cny": 0.00033860000000000004,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/levir_any__train_122__3"
+}

@@ -1,0 +1,38 @@
+{
+  "uid": "second_appeared:train_1136:15",
+  "answer": "yes",
+  "parsed": {
+    "t1_state": "The area marked by the contour in T1 is bare ground or dirt, located near a road and some blue buildings further away.",
+    "t2_state": "The area marked by the contour in T2 contains a large, new industrial building with a light-colored roof, part of a larger complex.",
+    "same_object": false,
+    "appearance_only": false,
+    "change": "yes",
+    "type": "new_building",
+    "reason": "The location was undeveloped land in T1 and has a newly constructed building in T2, fitting the definition of a building newly constructed (absent in T1, present in T2)."
+  },
+  "raw": "{\n\"t1_state\": \"The area marked by the contour in T1 is bare ground or dirt, located near a road and some blue buildings further away.\",\n\"t2_state\": \"The area marked by the contour in T2 contains a large, new industrial building with a light-colored roof, part of a larger complex.\",\n\"same_object\": false,\n\"appearance_only\": false,\n\"change\": \"yes\",\n\"type\": \"new_building\",\n\"reason\": \"The location was undeveloped land in T1 and has a newly constructed building in T2, fitting the definition of a building newly constructed (absent in T1, present in T2).\"\n}",
+  "finish_reason": "stop",
+  "parse_failure": false,
+  "unknown": false,
+  "usage": {
+    "prompt_tokens": 1121,
+    "total_tokens": 1266,
+    "completion_tokens": 145,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 537
+    },
+    "completion_tokens_details": {
+      "text_tokens": 145
+    }
+  },
+  "tokens": {
+    "input": 1121,
+    "cached": 0,
+    "output": 145
+  },
+  "cost_cny": 0.00034020000000000003,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/second_appeared__train_1136__15"
+}

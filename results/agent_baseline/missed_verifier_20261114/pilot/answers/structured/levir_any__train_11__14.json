@@ -1,0 +1,38 @@
+{
+  "uid": "levir_any:train_11:14",
+  "answer": "yes",
+  "parsed": {
+    "t1_state": "In the T1 images, the area within the red contour is covered by dense green vegetation (trees/forest), with no visible building structure.",
+    "t2_state": "In the T2 images, a new building with a grey roof has been constructed in the exact same location, surrounded by cleared land and construction debris.",
+    "same_object": "No, there is no persisting building; the object changed from vegetation to a building.",
+    "appearance_only": "No, this is not a change in color or shadow of the same object; it is a completely new physical structure appearing on previously vegetated ground.",
+    "change": "yes",
+    "type": "new_building",
+    "reason": "A building is newly constructed in T2 where only vegetation existed in T1, which counts as a building change per the scope card."
+  },
+  "raw": "{\n\"t1_state\": \"In the T1 images, the area within the red contour is covered by dense green vegetation (trees/forest), with no visible building structure.\",\n\"t2_state\": \"In the T2 images, a new building with a grey roof has been constructed in the exact same location, surrounded by cleared land and construction debris.\",\n\"same_object\": \"No, there is no persisting building; the object changed from vegetation to a building.\",\n\"appearance_only\": \"No, this is not a change in color or shadow of the same object; it is a completely new physical structure appearing on previously vegetated ground.\",\n\"change\": \"yes\",\n\"type\": \"new_building\",\n\"reason\": \"A building is newly constructed in T2 where only vegetation existed in T1, which counts as a building change per the scope card.\"\n}",
+  "finish_reason": "stop",
+  "parse_failure": false,
+  "unknown": false,
+  "usage": {
+    "prompt_tokens": 1081,
+    "total_tokens": 1264,
+    "completion_tokens": 183,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 497
+    },
+    "completion_tokens_details": {
+      "text_tokens": 183
+    }
+  },
+  "tokens": {
+    "input": 1081,
+    "cached": 0,
+    "output": 183
+  },
+  "cost_cny": 0.00036260000000000003,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/levir_any__train_11__14"
+}

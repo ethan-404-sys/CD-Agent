@@ -1,0 +1,38 @@
+{
+  "uid": "second_disappeared:train_1344:16",
+  "answer": "no",
+  "parsed": {
+    "t1_state": "The object inside the red contour in T1 appears to be a small, low-profile structure or pile of materials with a somewhat irregular, light-colored roof or surface, situated next to a large brown building.",
+    "t2_state": "In T2, the same location shows a similar small structure with a comparable footprint and general shape, though the tonal contrast and shadowing differ slightly due to illumination or seasonal changes.",
+    "same_object": true,
+    "appearance_only": true,
+    "change": "no",
+    "type": "no_change",
+    "reason": "The building's outline and position relative to fixed neighbors remain consistent; observed differences are attributable to lighting or seasonal tone variations rather than demolition or construction."
+  },
+  "raw": "{\n\"t1_state\": \"The object inside the red contour in T1 appears to be a small, low-profile structure or pile of materials with a somewhat irregular, light-colored roof or surface, situated next to a large brown building.\",\n\"t2_state\": \"In T2, the same location shows a similar small structure with a comparable footprint and general shape, though the tonal contrast and shadowing differ slightly due to illumination or seasonal changes.\",\n\"same_object\": true,\n\"appearance_only\": true,\n\"change\": \"no\",\n\"type\": \"no_change\",\n\"reason\": \"The building's outline and position relative to fixed neighbors remain consistent; observed differences are attributable to lighting or seasonal tone variations rather than demolition or construction.\"\n}",
+  "finish_reason": "stop",
+  "parse_failure": false,
+  "unknown": false,
+  "usage": {
+    "prompt_tokens": 1119,
+    "total_tokens": 1277,
+    "completion_tokens": 158,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 535
+    },
+    "completion_tokens_details": {
+      "text_tokens": 158
+    }
+  },
+  "tokens": {
+    "input": 1119,
+    "cached": 0,
+    "output": 158
+  },
+  "cost_cny": 0.00035020000000000006,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/second_disappeared__train_1344__16"
+}

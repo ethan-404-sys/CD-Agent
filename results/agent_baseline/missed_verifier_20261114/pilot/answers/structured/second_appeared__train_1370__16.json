@@ -1,0 +1,38 @@
+{
+  "uid": "second_appeared:train_1370:16",
+  "answer": "no",
+  "parsed": {
+    "t1_state": "The object inside the red contour at T1 is a long, light-colored industrial building roof with a visible ridge line running along its length.",
+    "t2_state": "At T2, the object in the same location retains the exact same shape, size, and structural features (the ridge line), appearing as the same light-colored industrial roof.",
+    "same_object": true,
+    "appearance_only": false,
+    "change": "no",
+    "type": "no_change",
+    "reason": "The building's outline, roof structure, and position relative to fixed neighbors are identical in both dates, indicating it is the same persisting structure."
+  },
+  "raw": "{\n\"t1_state\": \"The object inside the red contour at T1 is a long, light-colored industrial building roof with a visible ridge line running along its length.\",\n\"t2_state\": \"At T2, the object in the same location retains the exact same shape, size, and structural features (the ridge line), appearing as the same light-colored industrial roof.\",\n\"same_object\": true,\n\"appearance_only\": false,\n\"change\": \"no\",\n\"type\": \"no_change\",\n\"reason\": \"The building's outline, roof structure, and position relative to fixed neighbors are identical in both dates, indicating it is the same persisting structure.\"\n}",
+  "finish_reason": "stop",
+  "parse_failure": false,
+  "unknown": false,
+  "usage": {
+    "prompt_tokens": 1121,
+    "total_tokens": 1264,
+    "completion_tokens": 143,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 537
+    },
+    "completion_tokens_details": {
+      "text_tokens": 143
+    }
+  },
+  "tokens": {
+    "input": 1121,
+    "cached": 0,
+    "output": 143
+  },
+  "cost_cny": 0.00033860000000000004,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/second_appeared__train_1370__16"
+}

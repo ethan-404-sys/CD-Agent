@@ -1,0 +1,38 @@
+{
+  "uid": "second_disappeared:train_1370:3",
+  "answer": "no",
+  "parsed": {
+    "t1_state": "In T1, the object within the contour appears as a small, dark, vertical linear feature, possibly a thin structure or shadow cast by a small object on a larger roof surface.",
+    "t2_state": "In T2, the same location shows a similar dark vertical linear feature in the exact same position relative to the surrounding roof patterns and edges.",
+    "same_object": "Yes, the feature maintains its precise geometric position and orientation relative to the fixed background structures across both dates.",
+    "appearance_only": "The slight differences in tone and clarity are consistent with illumination or resolution variations; there is no evidence of removal or new construction.",
+    "change": "no",
+    "type": "no_change",
+    "reason": "The object persists in the exact same location with identical shape and orientation, indicating it is the same feature visible in both dates."
+  },
+  "raw": "{\n\"t1_state\": \"In T1, the object within the contour appears as a small, dark, vertical linear feature, possibly a thin structure or shadow cast by a small object on a larger roof surface.\",\n\"t2_state\": \"In T2, the same location shows a similar dark vertical linear feature in the exact same position relative to the surrounding roof patterns and edges.\",\n\"same_object\": \"Yes, the feature maintains its precise geometric position and orientation relative to the fixed background structures across both dates.\",\n\"appearance_only\": \"The slight differences in tone and clarity are consistent with illumination or resolution variations; there is no evidence of removal or new construction.\",\n\"change\": \"no\",\n\"type\": \"no_change\",\n\"reason\": \"The object persists in the exact same location with identical shape and orientation, indicating it is the same feature visible in both dates.\"\n}",
+  "finish_reason": "stop",
+  "parse_failure": false,
+  "unknown": false,
+  "usage": {
+    "prompt_tokens": 1119,
+    "total_tokens": 1304,
+    "completion_tokens": 185,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 535
+    },
+    "completion_tokens_details": {
+      "text_tokens": 185
+    }
+  },
+  "tokens": {
+    "input": 1119,
+    "cached": 0,
+    "output": 185
+  },
+  "cost_cny": 0.00037180000000000004,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/second_disappeared__train_1370__3"
+}

@@ -1,0 +1,40 @@
+{
+  "uid": "second_disappeared:train_1065:2",
+  "answer": "yes",
+  "parsed": {
+    "t1_state": "In the T1 images, the object within the red contour appears as a small, light-colored structure with a distinct angular shape, situated near a dirt path and adjacent to a larger building complex.",
+    "t2_state": "In the T2 images, the object in the same location is no longer visible as a distinct building; instead, the area appears to be covered by vegetation or shadow, consistent with the surrounding ground cover, and a circular feature (possibly a planter or well) has appeared nearby.",
+    "same_object": "No, the distinct building structure seen in T1 is not present in T2.",
+    "appearance_only": "The change is not due to shadows, color differences, or misregistration; the physical footprint of the building has disappeared and been replaced by non-building land cover (vegetation/ground).",
+    "change": "yes",
+    "type": "demolished",
+    "reason": "A building present in T1 is absent in T2, and the site now shows non-building land cover (vegetation/soil), indicating demolition rather than replacement or temporary removal."
+  },
+  "raw": "{\n\"t1_state\": \"In the T1 images, the object within the red contour appears as a small, light-colored structure with a distinct angular shape, situated near a dirt path and adjacent to a larger building complex.\",\n\"t2_state\": \"In the T2 images, the object in the same location is no longer visible as a distinct building; instead, the area appears to be covered by vegetation or shadow, consistent with the surrounding ground cover, and a circular feature (possibly a planter or well) has appeared nearby.\",\n\"same_object\": \"No, the distinct building structure seen in T1 is not present in T2.\",\n\"appearance_only\": \"The change is not due to shadows, color differences, or misregistration; the physical footprint of the building has disappeared and been replaced by non-building land cover (vegetation/ground).\",\n\"change\": \"yes\",\n\"type\": \"demolished\",\n\"reason\": \"A building present in T1 is absent in T2, and the site now shows non-building land cover (vegetation/soil), indicating demolition rather than replacement or temporary removal.\"\n}",
+  "usage": {
+    "prompt_tokens": 1119,
+    "total_tokens": 1357,
+    "completion_tokens": 238,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 535
+    },
+    "completion_tokens_details": {
+      "text_tokens": 238
+    }
+  },
+  "tokens": {
+    "input": 1119,
+    "cached": 0,
+    "output": 238
+  },
+  "cost_cny": 0.0,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/smoke/answers/structured/inputs/second_disappeared__train_1065__2",
+  "finish_reason": "stop",
+  "parse_failure": false,
+  "unknown": false,
+  "reused_from": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/smoke/answers/structured/second_disappeared__train_1065__2.json",
+  "original_cost_cny": 0.00041420000000000004
+}

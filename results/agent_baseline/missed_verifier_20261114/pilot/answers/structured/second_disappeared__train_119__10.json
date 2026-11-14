@@ -1,0 +1,38 @@
+{
+  "uid": "second_disappeared:train_119:10",
+  "answer": "yes",
+  "parsed": {
+    "t1_state": "In T1, the object inside the red contour is a long, rectangular building with a blue roof, part of a larger industrial complex.",
+    "t2_state": "In T2, the area within the red contour shows dark water or wet ground, indicating the building and the entire industrial complex are gone.",
+    "same_object": "No, the object in T2 is not the same as in T1; the built structure has been removed.",
+    "appearance_only": "No, this is not an appearance-only change like shadow or color difference. The physical structure present in T1 is completely absent in T2, and the surrounding context (other buildings, paved yards) has also disappeared, replaced by what appears to be aquaculture ponds or fields.",
+    "change": "yes",
+    "type": "demolished",
+    "reason": "The building identified in T1 is completely absent in T2, and the site has been converted to non-building land cover (likely ponds), fitting the definition of a demolished building."
+  },
+  "raw": "{\n\"t1_state\": \"In T1, the object inside the red contour is a long, rectangular building with a blue roof, part of a larger industrial complex.\",\n\"t2_state\": \"In T2, the area within the red contour shows dark water or wet ground, indicating the building and the entire industrial complex are gone.\",\n\"same_object\": \"No, the object in T2 is not the same as in T1; the built structure has been removed.\",\n\"appearance_only\": \"No, this is not an appearance-only change like shadow or color difference. The physical structure present in T1 is completely absent in T2, and the surrounding context (other buildings, paved yards) has also disappeared, replaced by what appears to be aquaculture ponds or fields.\",\n\"change\": \"yes\",\n\"type\": \"demolished\",\n\"reason\": \"The building identified in T1 is completely absent in T2, and the site has been converted to non-building land cover (likely ponds), fitting the definition of a demolished building.\"\n}",
+  "finish_reason": "stop",
+  "parse_failure": false,
+  "unknown": false,
+  "usage": {
+    "prompt_tokens": 1119,
+    "total_tokens": 1341,
+    "completion_tokens": 222,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 535
+    },
+    "completion_tokens_details": {
+      "text_tokens": 222
+    }
+  },
+  "tokens": {
+    "input": 1119,
+    "cached": 0,
+    "output": 222
+  },
+  "cost_cny": 0.00040140000000000005,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/second_disappeared__train_119__10"
+}

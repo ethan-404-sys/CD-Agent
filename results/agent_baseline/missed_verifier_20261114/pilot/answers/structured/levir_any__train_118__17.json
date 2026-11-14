@@ -1,0 +1,38 @@
+{
+  "uid": "levir_any:train_118:17",
+  "answer": "yes",
+  "parsed": {
+    "t1_state": "The object at the marked location in T1 is not visible as a building; it appears to be vegetated or bare ground within a forested area.",
+    "t2_state": "In T2, a distinct building with a dark roof is clearly present at the exact same location, surrounded by other residential structures and cleared land.",
+    "same_object": "No, there is no persisting building from T1 to T2 at this specific location.",
+    "appearance_only": "No, the change represents a physical addition of a structure, not just a difference in lighting, shadow, or seasonal color.",
+    "change": "yes",
+    "type": "new_building",
+    "reason": "A building is newly constructed at this location, as the site was undeveloped/vegetated in T1 and contains a house in T2."
+  },
+  "raw": "{\n\"t1_state\": \"The object at the marked location in T1 is not visible as a building; it appears to be vegetated or bare ground within a forested area.\",\n\"t2_state\": \"In T2, a distinct building with a dark roof is clearly present at the exact same location, surrounded by other residential structures and cleared land.\",\n\"same_object\": \"No, there is no persisting building from T1 to T2 at this specific location.\",\n\"appearance_only\": \"No, the change represents a physical addition of a structure, not just a difference in lighting, shadow, or seasonal color.\",\n\"change\": \"yes\",\n\"type\": \"new_building\",\n\"reason\": \"A building is newly constructed at this location, as the site was undeveloped/vegetated in T1 and contains a house in T2.\"\n}",
+  "finish_reason": "stop",
+  "parse_failure": false,
+  "unknown": false,
+  "usage": {
+    "prompt_tokens": 1081,
+    "total_tokens": 1264,
+    "completion_tokens": 183,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 497
+    },
+    "completion_tokens_details": {
+      "text_tokens": 183
+    }
+  },
+  "tokens": {
+    "input": 1081,
+    "cached": 0,
+    "output": 183
+  },
+  "cost_cny": 0.00036260000000000003,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/levir_any__train_118__17"
+}

@@ -1,0 +1,38 @@
+{
+  "uid": "second_disappeared:train_1166:2",
+  "answer": "yes",
+  "parsed": {
+    "t1_state": "In T1, the area marked by the red contour shows a small, light-colored rectangular structure (likely a small building or shed) situated on bare ground north of a large blue-roofed complex.",
+    "t2_state": "In T2, the same location shows a distinct, dark blue rectangular roof that matches the style of the adjacent large buildings, indicating a new structure has been built there.",
+    "same_object": false,
+    "appearance_only": false,
+    "change": "yes",
+    "type": "new_building",
+    "reason": "A building is absent in T1 and clearly present in T2 at the same location, which fits the definition of new construction rather than replacement."
+  },
+  "raw": "{\n\"t1_state\": \"In T1, the area marked by the red contour shows a small, light-colored rectangular structure (likely a small building or shed) situated on bare ground north of a large blue-roofed complex.\",\n\"t2_state\": \"In T2, the same location shows a distinct, dark blue rectangular roof that matches the style of the adjacent large buildings, indicating a new structure has been built there.\",\n\"same_object\": false,\n\"appearance_only\": false,\n\"change\": \"yes\",\n\"type\": \"new_building\",\n\"reason\": \"A building is absent in T1 and clearly present in T2 at the same location, which fits the definition of new construction rather than replacement.\"\n}",
+  "finish_reason": "stop",
+  "parse_failure": false,
+  "unknown": false,
+  "usage": {
+    "prompt_tokens": 1119,
+    "total_tokens": 1274,
+    "completion_tokens": 155,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 535
+    },
+    "completion_tokens_details": {
+      "text_tokens": 155
+    }
+  },
+  "tokens": {
+    "input": 1119,
+    "cached": 0,
+    "output": 155
+  },
+  "cost_cny": 0.0003478,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/second_disappeared__train_1166__2"
+}

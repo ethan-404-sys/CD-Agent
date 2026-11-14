@@ -1,0 +1,38 @@
+{
+  "uid": "second_appeared:train_1322:9",
+  "answer": "yes",
+  "parsed": {
+    "t1_state": "In T1, the area within the red contour shows faint rectangular outlines on bare ground, suggesting foundations or the footprint of a structure that is not clearly visible as a built roof.",
+    "t2_state": "In T2, a distinct building with a light-colored, segmented roof is clearly present in the exact same location.",
+    "same_object": "No, the object in T2 is a fully constructed building, whereas T1 shows only ground features consistent with a site prior to construction or very low-profile remains.",
+    "appearance_only": "No, the difference represents a physical change from an empty/foundation state to a completed building, not just a change in color, shadow, or visibility.",
+    "change": "yes",
+    "type": "new_building",
+    "reason": "A building is newly constructed in the marked area, appearing in T2 where only ground traces were visible in T1."
+  },
+  "raw": "{\n\"t1_state\": \"In T1, the area within the red contour shows faint rectangular outlines on bare ground, suggesting foundations or the footprint of a structure that is not clearly visible as a built roof.\",\n\"t2_state\": \"In T2, a distinct building with a light-colored, segmented roof is clearly present in the exact same location.\",\n\"same_object\": \"No, the object in T2 is a fully constructed building, whereas T1 shows only ground features consistent with a site prior to construction or very low-profile remains.\",\n\"appearance_only\": \"No, the difference represents a physical change from an empty/foundation state to a completed building, not just a change in color, shadow, or visibility.\",\n\"change\": \"yes\",\n\"type\": \"new_building\",\n\"reason\": \"A building is newly constructed in the marked area, appearing in T2 where only ground traces were visible in T1.\"\n}",
+  "finish_reason": "stop",
+  "parse_failure": false,
+  "unknown": false,
+  "usage": {
+    "prompt_tokens": 1121,
+    "total_tokens": 1317,
+    "completion_tokens": 196,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 537
+    },
+    "completion_tokens_details": {
+      "text_tokens": 196
+    }
+  },
+  "tokens": {
+    "input": 1121,
+    "cached": 0,
+    "output": 196
+  },
+  "cost_cny": 0.000381,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/second_appeared__train_1322__9"
+}

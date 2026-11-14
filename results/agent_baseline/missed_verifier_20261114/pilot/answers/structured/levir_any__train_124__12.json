@@ -1,0 +1,30 @@
+{
+  "uid": "levir_any:train_124:12",
+  "answer": "unknown",
+  "parsed": {},
+  "raw": "{\n\"t1_state\": \"The object at the yellow mark 1 in T1 is a small building with a light-colored roof, situated within a red contour that covers a cluster of structures on a cleared patch of land surrounded by trees.\",\n\"t2_state\": \"In T2, the same location shows significant development; the original building appears to be gone or obscured, replaced by a dense residential neighborhood with many new houses and paved streets. The specific structure at mark 1 is no longer distinct or present in the same form.\",\n\"same_object\": \"No, the specific building identified at mark 1 in T1 is not clearly persisting as the same object in T2. While the red contour remains fixed, the underlying reality has changed from a sparse set of structures to a fully developed residential area.\",\n\"appearance_only\": \"No, this is not merely an appearance change like shadow or color. The surrounding context has transformed from empty land/scrub to a built-up neighborhood, indicating physical construction and demolition/replacement.\",\n\"change\": \"yes\",\n\"type\": \"rebuilt\",\n\"reason\": \"The building at the marked location in T1 is absent in T2, where the area is now part of a dense residential",
+  "finish_reason": "length",
+  "parse_failure": true,
+  "unknown": true,
+  "usage": {
+    "prompt_tokens": 1081,
+    "total_tokens": 1337,
+    "completion_tokens": 256,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 497
+    },
+    "completion_tokens_details": {
+      "text_tokens": 256
+    }
+  },
+  "tokens": {
+    "input": 1081,
+    "cached": 0,
+    "output": 256
+  },
+  "cost_cny": 0.000421,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/levir_any__train_124__12"
+}

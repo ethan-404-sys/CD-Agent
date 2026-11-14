@@ -1,0 +1,38 @@
+{
+  "uid": "second_appeared:train_1136:6",
+  "answer": "no",
+  "parsed": {
+    "t1_state": "A long, narrow building structure with a grey roof is visible along the edge of the industrial complex.",
+    "t2_state": "The same long, narrow building structure with a grey roof is present in the identical location.",
+    "same_object": true,
+    "appearance_only": false,
+    "change": "no",
+    "type": "no_change",
+    "reason": "The building inside the contour is identical in shape, size, and position across both dates, indicating it is the same persisting object."
+  },
+  "raw": "{\n\"t1_state\": \"A long, narrow building structure with a grey roof is visible along the edge of the industrial complex.\",\n\"t2_state\": \"The same long, narrow building structure with a grey roof is present in the identical location.\",\n\"same_object\": true,\n\"appearance_only\": false,\n\"change\": \"no\",\n\"type\": \"no_change\",\n\"reason\": \"The building inside the contour is identical in shape, size, and position across both dates, indicating it is the same persisting object.\"\n}",
+  "finish_reason": "stop",
+  "parse_failure": false,
+  "unknown": false,
+  "usage": {
+    "prompt_tokens": 1121,
+    "total_tokens": 1237,
+    "completion_tokens": 116,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 537
+    },
+    "completion_tokens_details": {
+      "text_tokens": 116
+    }
+  },
+  "tokens": {
+    "input": 1121,
+    "cached": 0,
+    "output": 116
+  },
+  "cost_cny": 0.000317,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/second_appeared__train_1136__6"
+}

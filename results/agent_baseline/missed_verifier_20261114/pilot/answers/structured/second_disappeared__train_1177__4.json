@@ -1,0 +1,38 @@
+{
+  "uid": "second_disappeared:train_1177:4",
+  "answer": "no",
+  "parsed": {
+    "t1_state": "The object inside the red contour is a dark, irregularly shaped structure, likely a building with a dark roof or in deep shadow.",
+    "t2_state": "The object at the same location retains the same dark, irregular shape and footprint, appearing structurally identical to T1.",
+    "same_object": true,
+    "appearance_only": "The visual appearance is consistent across both dates; there are no signs of new construction, demolition, or replacement. Any minor tonal differences are likely due to illumination or seasonal variations.",
+    "change": "no",
+    "type": "no_change",
+    "reason": "The building's outline and position remain unchanged between T1 and T2, indicating it is the same persisting structure."
+  },
+  "raw": "{\n\"t1_state\": \"The object inside the red contour is a dark, irregularly shaped structure, likely a building with a dark roof or in deep shadow.\",\n\"t2_state\": \"The object at the same location retains the same dark, irregular shape and footprint, appearing structurally identical to T1.\",\n\"same_object\": true,\n\"appearance_only\": \"The visual appearance is consistent across both dates; there are no signs of new construction, demolition, or replacement. Any minor tonal differences are likely due to illumination or seasonal variations.\",\n\"change\": \"no\",\n\"type\": \"no_change\",\n\"reason\": \"The building's outline and position remain unchanged between T1 and T2, indicating it is the same persisting structure.\"\n}",
+  "finish_reason": "stop",
+  "parse_failure": false,
+  "unknown": false,
+  "usage": {
+    "prompt_tokens": 1119,
+    "total_tokens": 1280,
+    "completion_tokens": 161,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 535
+    },
+    "completion_tokens_details": {
+      "text_tokens": 161
+    }
+  },
+  "tokens": {
+    "input": 1119,
+    "cached": 0,
+    "output": 161
+  },
+  "cost_cny": 0.0003526,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/second_disappeared__train_1177__4"
+}

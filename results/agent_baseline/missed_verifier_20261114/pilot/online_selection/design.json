@@ -1,0 +1,31 @@
+{
+  "selection_seed": 1016,
+  "seed_offsets": [
+    1016,
+    2027,
+    3038
+  ],
+  "selected": {
+    "second_appeared": [
+      "train_1884.png",
+      "train_368.png"
+    ],
+    "second_disappeared": [
+      "train_1884.png",
+      "train_368.png"
+    ],
+    "levir_any": [
+      "train_293",
+      "train_78"
+    ]
+  },
+  "arms": [
+    "frozen_baseline",
+    "find_missed_opt_in"
+  ],
+  "sessions": 36,
+  "status": "proposed_not_launched_pending_offline_evidence",
+  "gt_role": "recorder_scoring_only",
+  "protocol": "T5.1 correction from matched historical base masks; candidates already exclude that base; not from-scratch discovery",
+  "baseline": "freeze full planner/tool/harness settings before any Agent launch"
+}

@@ -1,0 +1,38 @@
+{
+  "uid": "second_disappeared:train_1136:20",
+  "answer": "yes",
+  "parsed": {
+    "t1_state": "In the T1 images, a small structure with a blue roof is visible at the location marked by contour 1, situated near a larger building complex.",
+    "t2_state": "In the T2 images, the specific blue-roofed structure seen in T1 is no longer present at that exact location; the area appears to be empty ground or vegetation.",
+    "same_object": false,
+    "appearance_only": false,
+    "change": "yes",
+    "type": "demolished",
+    "reason": "The building present in T1 is absent in T2, indicating it was demolished, as per the scope card definition of a building present in T1 and absent in T2."
+  },
+  "raw": "{\n\"t1_state\": \"In the T1 images, a small structure with a blue roof is visible at the location marked by contour 1, situated near a larger building complex.\",\n\"t2_state\": \"In the T2 images, the specific blue-roofed structure seen in T1 is no longer present at that exact location; the area appears to be empty ground or vegetation.\",\n\"same_object\": false,\n\"appearance_only\": false,\n\"change\": \"yes\",\n\"type\": \"demolished\",\n\"reason\": \"The building present in T1 is absent in T2, indicating it was demolished, as per the scope card definition of a building present in T1 and absent in T2.\"\n}",
+  "finish_reason": "stop",
+  "parse_failure": false,
+  "unknown": false,
+  "usage": {
+    "prompt_tokens": 1119,
+    "total_tokens": 1274,
+    "completion_tokens": 155,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 535
+    },
+    "completion_tokens_details": {
+      "text_tokens": 155
+    }
+  },
+  "tokens": {
+    "input": 1119,
+    "cached": 0,
+    "output": 155
+  },
+  "cost_cny": 0.0003478,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/second_disappeared__train_1136__20"
+}

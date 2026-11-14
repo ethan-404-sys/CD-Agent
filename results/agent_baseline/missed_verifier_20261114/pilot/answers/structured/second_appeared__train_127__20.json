@@ -1,0 +1,38 @@
+{
+  "uid": "second_appeared:train_127:20",
+  "answer": "yes",
+  "parsed": {
+    "t1_state": "The object inside the contour at T1 appears as a small, low-profile structure with a brownish/reddish roof, situated adjacent to a row of trees and near existing residential buildings.",
+    "t2_state": "The object at T2 is significantly larger, brighter (white/light grey), and appears to have a more substantial roof structure, suggesting a new or expanded building.",
+    "same_object": false,
+    "appearance_only": false,
+    "change": "yes",
+    "type": "new_building",
+    "reason": "The area shows a clear transition from a small/absent structure in T1 to a distinct, bright white building in T2, indicating new construction rather than just a change in appearance of the same object."
+  },
+  "raw": "{\n\"t1_state\": \"The object inside the contour at T1 appears as a small, low-profile structure with a brownish/reddish roof, situated adjacent to a row of trees and near existing residential buildings.\",\n\"t2_state\": \"The object at T2 is significantly larger, brighter (white/light grey), and appears to have a more substantial roof structure, suggesting a new or expanded building.\",\n\"same_object\": false,\n\"appearance_only\": false,\n\"change\": \"yes\",\n\"type\": \"new_building\",\n\"reason\": \"The area shows a clear transition from a small/absent structure in T1 to a distinct, bright white building in T2, indicating new construction rather than just a change in appearance of the same object.\"\n}",
+  "finish_reason": "stop",
+  "parse_failure": false,
+  "unknown": false,
+  "usage": {
+    "prompt_tokens": 1121,
+    "total_tokens": 1284,
+    "completion_tokens": 163,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 537
+    },
+    "completion_tokens_details": {
+      "text_tokens": 163
+    }
+  },
+  "tokens": {
+    "input": 1121,
+    "cached": 0,
+    "output": 163
+  },
+  "cost_cny": 0.0003546,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/second_appeared__train_127__20"
+}

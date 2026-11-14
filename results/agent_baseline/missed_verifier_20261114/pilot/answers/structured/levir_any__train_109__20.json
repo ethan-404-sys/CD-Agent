@@ -1,0 +1,38 @@
+{
+  "uid": "levir_any:train_109:20",
+  "answer": "yes",
+  "parsed": {
+    "t1_state": "In the T1 close-up and wider view, the area within the red contour shows dark, irregular patches consistent with tree canopy or vegetation shadows in a wooded area near a road cul-de-sac.",
+    "t2_state": "In the T2 close-up and wider view, the same location is occupied by a distinct building structure with a defined roof shape, surrounded by cleared land and new construction activity typical of a residential development.",
+    "same_object": false,
+    "appearance_only": false,
+    "change": "yes",
+    "type": "new_building",
+    "reason": "The object changed from vegetated/wooded ground cover in T1 to a constructed building with a roof in T2, indicating new construction as the area was developed."
+  },
+  "raw": "{\n\"t1_state\": \"In the T1 close-up and wider view, the area within the red contour shows dark, irregular patches consistent with tree canopy or vegetation shadows in a wooded area near a road cul-de-sac.\",\n\"t2_state\": \"In the T2 close-up and wider view, the same location is occupied by a distinct building structure with a defined roof shape, surrounded by cleared land and new construction activity typical of a residential development.\",\n\"same_object\": false,\n\"appearance_only\": false,\n\"change\": \"yes\",\n\"type\": \"new_building\",\n\"reason\": \"The object changed from vegetated/wooded ground cover in T1 to a constructed building with a roof in T2, indicating new construction as the area was developed.\"\n}",
+  "finish_reason": "stop",
+  "parse_failure": false,
+  "unknown": false,
+  "usage": {
+    "prompt_tokens": 1081,
+    "total_tokens": 1246,
+    "completion_tokens": 165,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 497
+    },
+    "completion_tokens_details": {
+      "text_tokens": 165
+    }
+  },
+  "tokens": {
+    "input": 1081,
+    "cached": 0,
+    "output": 165
+  },
+  "cost_cny": 0.00034820000000000006,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/levir_any__train_109__20"
+}

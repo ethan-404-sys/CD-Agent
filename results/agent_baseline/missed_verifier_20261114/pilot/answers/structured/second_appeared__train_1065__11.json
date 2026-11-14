@@ -1,0 +1,40 @@
+{
+  "uid": "second_appeared:train_1065:11",
+  "answer": "yes",
+  "parsed": {
+    "t1_state": "The object inside the red contour in T1 appears as a dark, elongated linear structure, likely a row of parked vehicles or temporary materials given its texture and lack of a solid roof footprint.",
+    "t2_state": "In T2, the same location shows a distinct building with a visible roof structure and solid walls, indicating a permanent construction.",
+    "same_object": false,
+    "appearance_only": false,
+    "change": "yes",
+    "type": "new_building",
+    "reason": "The area transitions from an absence of a building (likely vehicles or empty ground) in T1 to a clearly constructed building with a roof in T2, fitting the definition of newly constructed."
+  },
+  "raw": "{\n\"t1_state\": \"The object inside the red contour in T1 appears as a dark, elongated linear structure, likely a row of parked vehicles or temporary materials given its texture and lack of a solid roof footprint.\",\n\"t2_state\": \"In T2, the same location shows a distinct building with a visible roof structure and solid walls, indicating a permanent construction.\",\n\"same_object\": false,\n\"appearance_only\": false,\n\"change\": \"yes\",\n\"type\": \"new_building\",\n\"reason\": \"The area transitions from an absence of a building (likely vehicles or empty ground) in T1 to a clearly constructed building with a roof in T2, fitting the definition of newly constructed.\"\n}",
+  "usage": {
+    "prompt_tokens": 1121,
+    "total_tokens": 1274,
+    "completion_tokens": 153,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 537
+    },
+    "completion_tokens_details": {
+      "text_tokens": 153
+    }
+  },
+  "tokens": {
+    "input": 1121,
+    "cached": 0,
+    "output": 153
+  },
+  "cost_cny": 0.0,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/smoke/answers/structured/inputs/second_appeared__train_1065__11",
+  "finish_reason": "stop",
+  "parse_failure": false,
+  "unknown": false,
+  "reused_from": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/smoke/answers/structured/second_appeared__train_1065__11.json",
+  "original_cost_cny": 0.0003466
+}

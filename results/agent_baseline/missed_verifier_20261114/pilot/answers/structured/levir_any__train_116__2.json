@@ -1,0 +1,38 @@
+{
+  "uid": "levir_any:train_116:2",
+  "answer": "yes",
+  "parsed": {
+    "t1_state": "The area within the red contour in T1 is covered by dense forest/vegetation, with no visible building structure.",
+    "t2_state": "The area within the red contour in T2 contains a residential building with a pool, surrounded by manicured lawn and situated near a street cul-de-sac.",
+    "same_object": "No, there is no persisting building object; the location was undeveloped forest in T1 and contains a new structure in T2.",
+    "appearance_only": "No, the change represents a physical construction of a new object rather than a difference in lighting, shadow, or temporary occlusion.",
+    "change": "yes",
+    "type": "new_building",
+    "reason": "The scope card counts a building newly constructed (absent in T1, present in T2) as a change, and the imagery shows a house appearing in a previously wooded area."
+  },
+  "raw": "{\n\"t1_state\": \"The area within the red contour in T1 is covered by dense forest/vegetation, with no visible building structure.\",\n\"t2_state\": \"The area within the red contour in T2 contains a residential building with a pool, surrounded by manicured lawn and situated near a street cul-de-sac.\",\n\"same_object\": \"No, there is no persisting building object; the location was undeveloped forest in T1 and contains a new structure in T2.\",\n\"appearance_only\": \"No, the change represents a physical construction of a new object rather than a difference in lighting, shadow, or temporary occlusion.\",\n\"change\": \"yes\",\n\"type\": \"new_building\",\n\"reason\": \"The scope card counts a building newly constructed (absent in T1, present in T2) as a change, and the imagery shows a house appearing in a previously wooded area.\"\n}",
+  "finish_reason": "stop",
+  "parse_failure": false,
+  "unknown": false,
+  "usage": {
+    "prompt_tokens": 1081,
+    "total_tokens": 1278,
+    "completion_tokens": 197,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 497
+    },
+    "completion_tokens_details": {
+      "text_tokens": 197
+    }
+  },
+  "tokens": {
+    "input": 1081,
+    "cached": 0,
+    "output": 197
+  },
+  "cost_cny": 0.0003738000000000001,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/levir_any__train_116__2"
+}

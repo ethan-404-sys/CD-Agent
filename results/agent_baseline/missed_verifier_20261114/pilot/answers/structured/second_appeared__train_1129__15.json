@@ -1,0 +1,38 @@
+{
+  "uid": "second_appeared:train_1129:15",
+  "answer": "yes",
+  "parsed": {
+    "t1_state": "The area marked by the red contour in T1 is undeveloped land, consisting of dark vegetation and patches of bare soil, with no building present.",
+    "t2_state": "In T2, a long, rectangular industrial building with a grey roof has been constructed within the same red contour.",
+    "same_object": "No, there is no persisting object; the location was empty land in T1 and contains a new structure in T2.",
+    "appearance_only": "No, this is not an appearance-only change like shadow or color shift; it is the physical addition of a new structure.",
+    "change": "yes",
+    "type": "new_building",
+    "reason": "A building is absent in T1 (where there is only vegetation/soil) and clearly present in T2, fitting the definition of newly constructed."
+  },
+  "raw": "{\n\"t1_state\": \"The area marked by the red contour in T1 is undeveloped land, consisting of dark vegetation and patches of bare soil, with no building present.\",\n\"t2_state\": \"In T2, a long, rectangular industrial building with a grey roof has been constructed within the same red contour.\",\n\"same_object\": \"No, there is no persisting object; the location was empty land in T1 and contains a new structure in T2.\",\n\"appearance_only\": \"No, this is not an appearance-only change like shadow or color shift; it is the physical addition of a new structure.\",\n\"change\": \"yes\",\n\"type\": \"new_building\",\n\"reason\": \"A building is absent in T1 (where there is only vegetation/soil) and clearly present in T2, fitting the definition of newly constructed.\"\n}",
+  "finish_reason": "stop",
+  "parse_failure": false,
+  "unknown": false,
+  "usage": {
+    "prompt_tokens": 1121,
+    "total_tokens": 1306,
+    "completion_tokens": 185,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 537
+    },
+    "completion_tokens_details": {
+      "text_tokens": 185
+    }
+  },
+  "tokens": {
+    "input": 1121,
+    "cached": 0,
+    "output": 185
+  },
+  "cost_cny": 0.00037220000000000005,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/second_appeared__train_1129__15"
+}

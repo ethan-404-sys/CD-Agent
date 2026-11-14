@@ -1,0 +1,30 @@
+{
+  "uid": "levir_any:train_119:2",
+  "answer": "unknown",
+  "parsed": {},
+  "raw": "{\n\"t1_state\": \"In T1, the object within the red contour is a small, indistinct dark patch surrounded by dense vegetation and trees, with no clear building structure visible.\",\n\"t2_state\": \"In T2, the same location shows a dark, shadowed area adjacent to a newly constructed paved road and cleared land, but still lacks any visible roof or building structure.\",\n\"same_object\": \"No, there is no evidence of the same persisting building; T1 shows vegetation/ground cover while T2 shows a shadowed depression or feature near new infrastructure.\",\n\"appearance_only\": \"The difference is not merely color or shadow of a existing building; rather, the context has changed from natural vegetation to a construction site with a road, and the specific feature in the contour appears to be a non-building element (like a shadowed pit or remaining vegetation clump) rather than a constructed edifice.\",\n\"change\": \"no\",\n\"type\": \"non_building_change\",\n\"reason\": \"The area contains vegetation or ground features in T1 and a shadowed/non-structural feature near a new road in T2, with no evidence of a building being constructed, demolished, or rebuilt as per the scope card",
+  "finish_reason": "length",
+  "parse_failure": true,
+  "unknown": true,
+  "usage": {
+    "prompt_tokens": 1081,
+    "total_tokens": 1337,
+    "completion_tokens": 256,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 497
+    },
+    "completion_tokens_details": {
+      "text_tokens": 256
+    }
+  },
+  "tokens": {
+    "input": 1081,
+    "cached": 0,
+    "output": 256
+  },
+  "cost_cny": 0.000421,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/levir_any__train_119__2"
+}

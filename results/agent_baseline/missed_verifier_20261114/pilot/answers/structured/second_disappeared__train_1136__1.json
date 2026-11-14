@@ -1,0 +1,38 @@
+{
+  "uid": "second_disappeared:train_1136:1",
+  "answer": "no",
+  "parsed": {
+    "t1_state": "The object inside the contour is a building with a blue roof and an irregular shape, situated next to a dirt road.",
+    "t2_state": "The object inside the contour is a building with a similar irregular shape and blue roof, now located adjacent to a large paved industrial complex.",
+    "same_object": true,
+    "appearance_only": false,
+    "change": "no",
+    "type": "no_change",
+    "reason": "The building within the red contour maintains the same outline, structure, and blue roof color across both dates, indicating it is the same persisting object despite changes in the surrounding land cover."
+  },
+  "raw": "{\n\"t1_state\": \"The object inside the contour is a building with a blue roof and an irregular shape, situated next to a dirt road.\",\n\"t2_state\": \"The object inside the contour is a building with a similar irregular shape and blue roof, now located adjacent to a large paved industrial complex.\",\n\"same_object\": true,\n\"appearance_only\": false,\n\"change\": \"no\",\n\"type\": \"no_change\",\n\"reason\": \"The building within the red contour maintains the same outline, structure, and blue roof color across both dates, indicating it is the same persisting object despite changes in the surrounding land cover.\"\n}",
+  "finish_reason": "stop",
+  "parse_failure": false,
+  "unknown": false,
+  "usage": {
+    "prompt_tokens": 1119,
+    "total_tokens": 1258,
+    "completion_tokens": 139,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 535
+    },
+    "completion_tokens_details": {
+      "text_tokens": 139
+    }
+  },
+  "tokens": {
+    "input": 1119,
+    "cached": 0,
+    "output": 139
+  },
+  "cost_cny": 0.000335,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/second_disappeared__train_1136__1"
+}

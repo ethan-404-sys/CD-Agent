@@ -1,0 +1,377 @@
+{
+  "group": "second_disappeared",
+  "stem": "train_127",
+  "baseline": {
+    "tp": 0,
+    "fp": 575,
+    "fn": 0,
+    "f1": 0.0,
+    "precision": 0.0,
+    "recall": 0
+  },
+  "sources": {
+    "S1_02": {
+      "total_tp": 0,
+      "total_fp": 8892,
+      "unique_vs_all_tp": 0,
+      "unique_vs_all_fp": 7821,
+      "beyond_s1_tp": 0,
+      "beyond_s1_fp": 0,
+      "recall": {
+        "pixels": 0,
+        "missing_pixels": 0,
+        "pixel_recall": null,
+        "components_hit": 0,
+        "components": 0
+      }
+    },
+    "S2": {
+      "total_tp": 0,
+      "total_fp": 13843,
+      "unique_vs_all_tp": 0,
+      "unique_vs_all_fp": 2854,
+      "beyond_s1_tp": 0,
+      "beyond_s1_fp": 13038,
+      "recall": {
+        "pixels": 0,
+        "missing_pixels": 0,
+        "pixel_recall": null,
+        "components_hit": 0,
+        "components": 0
+      }
+    },
+    "S3": {
+      "total_tp": 0,
+      "total_fp": 0,
+      "unique_vs_all_tp": 0,
+      "unique_vs_all_fp": 0,
+      "beyond_s1_tp": 0,
+      "beyond_s1_fp": 0,
+      "recall": {
+        "pixels": 0,
+        "missing_pixels": 0,
+        "pixel_recall": null,
+        "components_hit": 0,
+        "components": 0
+      }
+    },
+    "S4": {
+      "total_tp": 0,
+      "total_fp": 0,
+      "unique_vs_all_tp": 0,
+      "unique_vs_all_fp": 0,
+      "beyond_s1_tp": 0,
+      "beyond_s1_fp": 0,
+      "recall": {
+        "pixels": 0,
+        "missing_pixels": 0,
+        "pixel_recall": null,
+        "components_hit": 0,
+        "components": 0
+      }
+    },
+    "S5": {
+      "total_tp": 0,
+      "total_fp": 11452,
+      "unique_vs_all_tp": 0,
+      "unique_vs_all_fp": 1002,
+      "beyond_s1_tp": 0,
+      "beyond_s1_fp": 11186,
+      "recall": {
+        "pixels": 0,
+        "missing_pixels": 0,
+        "pixel_recall": null,
+        "components_hit": 0,
+        "components": 0
+      }
+    }
+  },
+  "full_source_recall": {
+    "pixels": 0,
+    "missing_pixels": 0,
+    "pixel_recall": null,
+    "components_hit": 0,
+    "components": 0
+  },
+  "budgets": {
+    "5": {
+      "candidate_recall": {
+        "pixels": 0,
+        "missing_pixels": 0,
+        "pixel_recall": null,
+        "components_hit": 0,
+        "components": 0
+      },
+      "unverified_add_all": {
+        "tp": 0,
+        "fp": 5885,
+        "fn": 0,
+        "f1": 0.0,
+        "precision": 0.0,
+        "recall": 0
+      },
+      "variants": {
+        "four": {
+          "answered": 5,
+          "expected": 5,
+          "unknown": 0,
+          "complete": true,
+          "truncated": 0,
+          "parse_failures": 0,
+          "verifier_errors": {
+            "tp_fp_proxy_false_accept": 1,
+            "tp_fp_proxy_false_reject": 0
+          },
+          "metrics": {
+            "tp": 0,
+            "fp": 1848,
+            "fn": 0,
+            "f1": 0.0,
+            "precision": 0.0,
+            "recall": 0
+          }
+        },
+        "som": {
+          "answered": 5,
+          "expected": 5,
+          "unknown": 0,
+          "complete": true,
+          "truncated": 0,
+          "parse_failures": 0,
+          "verifier_errors": {
+            "tp_fp_proxy_false_accept": 0,
+            "tp_fp_proxy_false_reject": 0
+          },
+          "metrics": {
+            "tp": 0,
+            "fp": 575,
+            "fn": 0,
+            "f1": 0.0,
+            "precision": 0.0,
+            "recall": 0
+          }
+        },
+        "structured": {
+          "answered": 5,
+          "expected": 5,
+          "unknown": 0,
+          "complete": true,
+          "truncated": 0,
+          "parse_failures": 0,
+          "verifier_errors": {
+            "tp_fp_proxy_false_accept": 0,
+            "tp_fp_proxy_false_reject": 0
+          },
+          "metrics": {
+            "tp": 0,
+            "fp": 575,
+            "fn": 0,
+            "f1": 0.0,
+            "precision": 0.0,
+            "recall": 0
+          }
+        }
+      }
+    },
+    "10": {
+      "candidate_recall": {
+        "pixels": 0,
+        "missing_pixels": 0,
+        "pixel_recall": null,
+        "components_hit": 0,
+        "components": 0
+      },
+      "unverified_add_all": {
+        "tp": 0,
+        "fp": 7440,
+        "fn": 0,
+        "f1": 0.0,
+        "precision": 0.0,
+        "recall": 0
+      },
+      "variants": {
+        "four": {
+          "answered": 10,
+          "expected": 10,
+          "unknown": 0,
+          "complete": true,
+          "truncated": 0,
+          "parse_failures": 0,
+          "verifier_errors": {
+            "tp_fp_proxy_false_accept": 1,
+            "tp_fp_proxy_false_reject": 0
+          },
+          "metrics": {
+            "tp": 0,
+            "fp": 1848,
+            "fn": 0,
+            "f1": 0.0,
+            "precision": 0.0,
+            "recall": 0
+          }
+        },
+        "som": {
+          "answered": 10,
+          "expected": 10,
+          "unknown": 0,
+          "complete": true,
+          "truncated": 0,
+          "parse_failures": 0,
+          "verifier_errors": {
+            "tp_fp_proxy_false_accept": 0,
+            "tp_fp_proxy_false_reject": 0
+          },
+          "metrics": {
+            "tp": 0,
+            "fp": 575,
+            "fn": 0,
+            "f1": 0.0,
+            "precision": 0.0,
+            "recall": 0
+          }
+        },
+        "structured": {
+          "answered": 10,
+          "expected": 10,
+          "unknown": 0,
+          "complete": true,
+          "truncated": 0,
+          "parse_failures": 0,
+          "verifier_errors": {
+            "tp_fp_proxy_false_accept": 0,
+            "tp_fp_proxy_false_reject": 0
+          },
+          "metrics": {
+            "tp": 0,
+            "fp": 575,
+            "fn": 0,
+            "f1": 0.0,
+            "precision": 0.0,
+            "recall": 0
+          }
+        }
+      }
+    },
+    "20": {
+      "candidate_recall": {
+        "pixels": 0,
+        "missing_pixels": 0,
+        "pixel_recall": null,
+        "components_hit": 0,
+        "components": 0
+      },
+      "unverified_add_all": {
+        "tp": 0,
+        "fp": 11991,
+        "fn": 0,
+        "f1": 0.0,
+        "precision": 0.0,
+        "recall": 0
+      },
+      "variants": {
+        "four": {
+          "answered": 20,
+          "expected": 20,
+          "unknown": 0,
+          "complete": true,
+          "truncated": 0,
+          "parse_failures": 0,
+          "verifier_errors": {
+            "tp_fp_proxy_false_accept": 2,
+            "tp_fp_proxy_false_reject": 0
+          },
+          "metrics": {
+            "tp": 0,
+            "fp": 2412,
+            "fn": 0,
+            "f1": 0.0,
+            "precision": 0.0,
+            "recall": 0
+          }
+        },
+        "som": {
+          "answered": 20,
+          "expected": 20,
+          "unknown": 0,
+          "complete": true,
+          "truncated": 0,
+          "parse_failures": 0,
+          "verifier_errors": {
+            "tp_fp_proxy_false_accept": 1,
+            "tp_fp_proxy_false_reject": 0
+          },
+          "metrics": {
+            "tp": 0,
+            "fp": 1139,
+            "fn": 0,
+            "f1": 0.0,
+            "precision": 0.0,
+            "recall": 0
+          }
+        },
+        "structured": {
+          "answered": 20,
+          "expected": 20,
+          "unknown": 0,
+          "complete": true,
+          "truncated": 0,
+          "parse_failures": 0,
+          "verifier_errors": {
+            "tp_fp_proxy_false_accept": 1,
+            "tp_fp_proxy_false_reject": 0
+          },
+          "metrics": {
+            "tp": 0,
+            "fp": 1139,
+            "fn": 0,
+            "f1": 0.0,
+            "precision": 0.0,
+            "recall": 0
+          }
+        }
+      }
+    }
+  },
+  "failures": [
+    {
+      "uid": "second_disappeared:train_127:3",
+      "variant": "four",
+      "error": "tp_fp_proxy_false_accept",
+      "tp": 0,
+      "fp": 1273,
+      "criterion": "candidate TP>FP pixel-benefit proxy, not a semantic change label",
+      "semantic_error": "requires_visual_review",
+      "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/four/inputs/second_disappeared__train_127__3"
+    },
+    {
+      "uid": "second_disappeared:train_127:13",
+      "variant": "four",
+      "error": "tp_fp_proxy_false_accept",
+      "tp": 0,
+      "fp": 564,
+      "criterion": "candidate TP>FP pixel-benefit proxy, not a semantic change label",
+      "semantic_error": "requires_visual_review",
+      "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/four/inputs/second_disappeared__train_127__13"
+    },
+    {
+      "uid": "second_disappeared:train_127:13",
+      "variant": "som",
+      "error": "tp_fp_proxy_false_accept",
+      "tp": 0,
+      "fp": 564,
+      "criterion": "candidate TP>FP pixel-benefit proxy, not a semantic change label",
+      "semantic_error": "requires_visual_review",
+      "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/som/inputs/second_disappeared__train_127__13"
+    },
+    {
+      "uid": "second_disappeared:train_127:13",
+      "variant": "structured",
+      "error": "tp_fp_proxy_false_accept",
+      "tp": 0,
+      "fp": 564,
+      "criterion": "candidate TP>FP pixel-benefit proxy, not a semantic change label",
+      "semantic_error": "requires_visual_review",
+      "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/second_disappeared__train_127__13"
+    }
+  ]
+}

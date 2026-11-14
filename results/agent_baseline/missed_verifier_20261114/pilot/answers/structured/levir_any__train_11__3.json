@@ -1,0 +1,38 @@
+{
+  "uid": "levir_any:train_11:3",
+  "answer": "yes",
+  "parsed": {
+    "t1_state": "The object at the yellow mark in T1 is a small, light-colored rectangular building situated within a red-contoured area that appears to be an active construction or demolition site with bare soil and debris.",
+    "t2_state": "In T2, the specific small building identified in T1 is no longer present; the location is now part of the surrounding cleared land or vegetation within the same red contour, while the area outside has been developed into a residential neighborhood.",
+    "same_object": false,
+    "appearance_only": false,
+    "change": "yes",
+    "type": "demolished",
+    "reason": "A building present in T1 within the red contour is absent in T2, indicating it was demolished as the surrounding area transitioned from a construction site to a finished residential neighborhood."
+  },
+  "raw": "{\n\"t1_state\": \"The object at the yellow mark in T1 is a small, light-colored rectangular building situated within a red-contoured area that appears to be an active construction or demolition site with bare soil and debris.\",\n\"t2_state\": \"In T2, the specific small building identified in T1 is no longer present; the location is now part of the surrounding cleared land or vegetation within the same red contour, while the area outside has been developed into a residential neighborhood.\",\n\"same_object\": false,\n\"appearance_only\": false,\n\"change\": \"yes\",\n\"type\": \"demolished\",\n\"reason\": \"A building present in T1 within the red contour is absent in T2, indicating it was demolished as the surrounding area transitioned from a construction site to a finished residential neighborhood.\"\n}",
+  "finish_reason": "stop",
+  "parse_failure": false,
+  "unknown": false,
+  "usage": {
+    "prompt_tokens": 1081,
+    "total_tokens": 1256,
+    "completion_tokens": 175,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 497
+    },
+    "completion_tokens_details": {
+      "text_tokens": 175
+    }
+  },
+  "tokens": {
+    "input": 1081,
+    "cached": 0,
+    "output": 175
+  },
+  "cost_cny": 0.00035620000000000004,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/levir_any__train_11__3"
+}

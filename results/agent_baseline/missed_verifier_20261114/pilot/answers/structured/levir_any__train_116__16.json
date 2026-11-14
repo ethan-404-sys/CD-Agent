@@ -1,0 +1,38 @@
+{
+  "uid": "levir_any:train_116:16",
+  "answer": "yes",
+  "parsed": {
+    "t1_state": "The area inside the red contour in T1 is covered by dense forest/vegetation with no visible building structures.",
+    "t2_state": "The area inside the red contour in T2 shows cleared land with exposed soil and construction activity, indicating a new building is being constructed, surrounded by a developed residential neighborhood.",
+    "same_object": "No, there is no persisting building object. T1 shows vegetation while T2 shows a construction site for a new structure.",
+    "appearance_only": "No, the change represents a physical transformation of the land cover from forest to a construction site, not just a difference in lighting or shadow.",
+    "change": "yes",
+    "type": "new_building",
+    "reason": "The location was forested in T1 but shows active construction and cleared ground for a new structure in T2."
+  },
+  "raw": "{\n\"t1_state\": \"The area inside the red contour in T1 is covered by dense forest/vegetation with no visible building structures.\",\n\"t2_state\": \"The area inside the red contour in T2 shows cleared land with exposed soil and construction activity, indicating a new building is being constructed, surrounded by a developed residential neighborhood.\",\n\"same_object\": \"No, there is no persisting building object. T1 shows vegetation while T2 shows a construction site for a new structure.\",\n\"appearance_only\": \"No, the change represents a physical transformation of the land cover from forest to a construction site, not just a difference in lighting or shadow.\",\n\"change\": \"yes\",\n\"type\": \"new_building\",\n\"reason\": \"The location was forested in T1 but shows active construction and cleared ground for a new structure in T2.\"\n}",
+  "finish_reason": "stop",
+  "parse_failure": false,
+  "unknown": false,
+  "usage": {
+    "prompt_tokens": 1081,
+    "total_tokens": 1264,
+    "completion_tokens": 183,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 497
+    },
+    "completion_tokens_details": {
+      "text_tokens": 183
+    }
+  },
+  "tokens": {
+    "input": 1081,
+    "cached": 0,
+    "output": 183
+  },
+  "cost_cny": 0.00036260000000000003,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/levir_any__train_116__16"
+}

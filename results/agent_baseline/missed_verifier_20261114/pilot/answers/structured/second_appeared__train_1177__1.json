@@ -1,0 +1,38 @@
+{
+  "uid": "second_appeared:train_1177:1",
+  "answer": "no",
+  "parsed": {
+    "t1_state": "The object inside the red contour at T1 is a dark, irregular patch of ground or vegetation located to the southwest of a large white-roofed building. It appears to be non-building land cover, possibly bare soil or dense shrubbery.",
+    "t2_state": "At T2, the same location shows a very similar dark, irregular patch with comparable shape and position relative to the surrounding trees and the white building. There is no evidence of a roof structure or building footprint appearing in this specific spot.",
+    "same_object": true,
+    "appearance_only": true,
+    "change": "no",
+    "type": "no_change",
+    "reason": "The feature within the contour is non-building land cover (vegetation/soil) that persists from T1 to T2 without any new construction; scope card excludes changes in non-building land cover."
+  },
+  "raw": "{\n\"t1_state\": \"The object inside the red contour at T1 is a dark, irregular patch of ground or vegetation located to the southwest of a large white-roofed building. It appears to be non-building land cover, possibly bare soil or dense shrubbery.\",\n\"t2_state\": \"At T2, the same location shows a very similar dark, irregular patch with comparable shape and position relative to the surrounding trees and the white building. There is no evidence of a roof structure or building footprint appearing in this specific spot.\",\n\"same_object\": true,\n\"appearance_only\": true,\n\"change\": \"no\",\n\"type\": \"no_change\",\n\"reason\": \"The feature within the contour is non-building land cover (vegetation/soil) that persists from T1 to T2 without any new construction; scope card excludes changes in non-building land cover.\"\n}",
+  "finish_reason": "stop",
+  "parse_failure": false,
+  "unknown": false,
+  "usage": {
+    "prompt_tokens": 1121,
+    "total_tokens": 1309,
+    "completion_tokens": 188,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 537
+    },
+    "completion_tokens_details": {
+      "text_tokens": 188
+    }
+  },
+  "tokens": {
+    "input": 1121,
+    "cached": 0,
+    "output": 188
+  },
+  "cost_cny": 0.0003746,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/second_appeared__train_1177__1"
+}

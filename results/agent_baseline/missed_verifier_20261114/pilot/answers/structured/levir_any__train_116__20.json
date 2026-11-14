@@ -1,0 +1,38 @@
+{
+  "uid": "levir_any:train_116:20",
+  "answer": "yes",
+  "parsed": {
+    "t1_state": "In T1, the area within the contour is covered by dense green vegetation (trees/forest) with no visible building structure.",
+    "t2_state": "In T2, the area shows a cleared construction site with exposed soil and foundation work, located adjacent to a new road and existing houses.",
+    "same_object": "No, there is no persisting building object. The location changed from undeveloped forest to a construction site.",
+    "appearance_only": "No, this is not a change in appearance of the same object; it is a fundamental change in land cover from vegetation to construction.",
+    "change": "yes",
+    "type": "new_building",
+    "reason": "The site was forest in T1 and has been cleared for new construction (exposed earth/foundations) in T2, indicating a newly constructed building."
+  },
+  "raw": "{\n\"t1_state\": \"In T1, the area within the contour is covered by dense green vegetation (trees/forest) with no visible building structure.\",\n\"t2_state\": \"In T2, the area shows a cleared construction site with exposed soil and foundation work, located adjacent to a new road and existing houses.\",\n\"same_object\": \"No, there is no persisting building object. The location changed from undeveloped forest to a construction site.\",\n\"appearance_only\": \"No, this is not a change in appearance of the same object; it is a fundamental change in land cover from vegetation to construction.\",\n\"change\": \"yes\",\n\"type\": \"new_building\",\n\"reason\": \"The site was forest in T1 and has been cleared for new construction (exposed earth/foundations) in T2, indicating a newly constructed building.\"\n}",
+  "finish_reason": "stop",
+  "parse_failure": false,
+  "unknown": false,
+  "usage": {
+    "prompt_tokens": 1081,
+    "total_tokens": 1266,
+    "completion_tokens": 185,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 497
+    },
+    "completion_tokens_details": {
+      "text_tokens": 185
+    }
+  },
+  "tokens": {
+    "input": 1081,
+    "cached": 0,
+    "output": 185
+  },
+  "cost_cny": 0.00036420000000000007,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/levir_any__train_116__20"
+}

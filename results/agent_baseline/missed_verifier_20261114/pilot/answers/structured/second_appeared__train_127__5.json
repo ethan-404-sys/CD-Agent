@@ -1,0 +1,38 @@
+{
+  "uid": "second_appeared:train_127:5",
+  "answer": "yes",
+  "parsed": {
+    "t1_state": "The area inside the red contour at T1 shows a patch of bare ground with some sparse vegetation and trees, with no building structure present.",
+    "t2_state": "The area inside the red contour at T2 contains a new building complex with distinct white and blue roofs.",
+    "same_object": false,
+    "appearance_only": false,
+    "change": "yes",
+    "type": "new_building",
+    "reason": "The scope card states that 'a building newly constructed (absent in T1, present in T2)' counts as a building change; here, land without a building in T1 has been replaced by a building in T2."
+  },
+  "raw": "{\n\"t1_state\": \"The area inside the red contour at T1 shows a patch of bare ground with some sparse vegetation and trees, with no building structure present.\",\n\"t2_state\": \"The area inside the red contour at T2 contains a new building complex with distinct white and blue roofs.\",\n\"same_object\": false,\n\"appearance_only\": false,\n\"change\": \"yes\",\n\"type\": \"new_building\",\n\"reason\": \"The scope card states that 'a building newly constructed (absent in T1, present in T2)' counts as a building change; here, land without a building in T1 has been replaced by a building in T2.\"\n}",
+  "finish_reason": "stop",
+  "parse_failure": false,
+  "unknown": false,
+  "usage": {
+    "prompt_tokens": 1121,
+    "total_tokens": 1268,
+    "completion_tokens": 147,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 537
+    },
+    "completion_tokens_details": {
+      "text_tokens": 147
+    }
+  },
+  "tokens": {
+    "input": 1121,
+    "cached": 0,
+    "output": 147
+  },
+  "cost_cny": 0.0003418,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/second_appeared__train_127__5"
+}

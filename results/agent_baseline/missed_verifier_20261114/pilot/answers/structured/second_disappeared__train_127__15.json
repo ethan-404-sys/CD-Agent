@@ -1,0 +1,38 @@
+{
+  "uid": "second_disappeared:train_127:15",
+  "answer": "no",
+  "parsed": {
+    "t1_state": "A long, rectangular building with a reddish-brown roof is present within the red contour.",
+    "t2_state": "The same long, rectangular building with a reddish-brown roof is present in the identical location.",
+    "same_object": true,
+    "appearance_only": "The object appears consistent across both dates; minor differences in tone or shadow are likely due to illumination or seasonal factors, but the structure itself has not changed.",
+    "change": "no",
+    "type": "no_change",
+    "reason": "The building identified at T1 is clearly still present at T2 with the same outline and roof structure, indicating no demolition or new construction occurred."
+  },
+  "raw": "{\n\"t1_state\": \"A long, rectangular building with a reddish-brown roof is present within the red contour.\",\n\"t2_state\": \"The same long, rectangular building with a reddish-brown roof is present in the identical location.\",\n\"same_object\": true,\n\"appearance_only\": \"The object appears consistent across both dates; minor differences in tone or shadow are likely due to illumination or seasonal factors, but the structure itself has not changed.\",\n\"change\": \"no\",\n\"type\": \"no_change\",\n\"reason\": \"The building identified at T1 is clearly still present at T2 with the same outline and roof structure, indicating no demolition or new construction occurred.\"\n}",
+  "finish_reason": "stop",
+  "parse_failure": false,
+  "unknown": false,
+  "usage": {
+    "prompt_tokens": 1119,
+    "total_tokens": 1268,
+    "completion_tokens": 149,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 535
+    },
+    "completion_tokens_details": {
+      "text_tokens": 149
+    }
+  },
+  "tokens": {
+    "input": 1119,
+    "cached": 0,
+    "output": 149
+  },
+  "cost_cny": 0.000343,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/second_disappeared__train_127__15"
+}

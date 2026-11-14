@@ -1,0 +1,155 @@
+{
+  "name": "cd-missed-verifier-20261114",
+  "status": "done",
+  "queue": [],
+  "done": [
+    "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-missed-verifier-20261114/jobs/01-smoke.sbatch",
+    "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-missed-verifier-20261114/jobs/02-sources-pilot.sbatch",
+    "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-missed-verifier-20261114/jobs/03-report.sbatch"
+  ],
+  "current": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-missed-verifier-20261114/jobs/03-report.sbatch",
+  "job_id": "186428",
+  "hook_id": "186429",
+  "rounds": 3,
+  "rounds_submitted": 3,
+  "primary_best": null,
+  "cost_cny": 0.446025,
+  "finalized": false,
+  "finalize_requested": true,
+  "started_at": "2026-11-14 21:19:29",
+  "started_epoch": 1794662369.2858276,
+  "history": [
+    {
+      "job": "01-smoke.sbatch",
+      "job_id": "185327",
+      "hook_id": "185328",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0.040715,
+      "metric": {
+        "stage": "scored",
+        "cost_cny": 0.04071520000000001,
+        "cumulative": true,
+        "completed": 3,
+        "failures": 0,
+        "result_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/smoke",
+        "model": "qwen3.7-flash"
+      },
+      "metric_error": null,
+      "at": "2026-11-14 21:25:41"
+    },
+    {
+      "job": "02-sources-pilot.sbatch",
+      "job_id": "185351",
+      "hook_id": "185352",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0.40531,
+      "metric": {
+        "stage": "scored",
+        "cost_cny": 0.4460252,
+        "cumulative": true,
+        "completed": 30,
+        "failures": 0,
+        "result_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot",
+        "model": "qwen3.7-flash"
+      },
+      "metric_error": null,
+      "at": "2026-11-14 23:06:31"
+    },
+    {
+      "job": "03-report.sbatch",
+      "job_id": "186428",
+      "hook_id": "186429",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0.0,
+      "metric": {
+        "stage": "scored",
+        "cost_cny": 0.4460252,
+        "cumulative": true,
+        "completed": 30,
+        "failures": 0,
+        "result_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot",
+        "model": "qwen3.7-flash"
+      },
+      "metric_error": null,
+      "at": "2026-11-14 23:16:11"
+    }
+  ],
+  "driver": "dependency",
+  "recorded_current": true,
+  "submitted_at": "2026-11-14 23:16:07",
+  "last_advance_at": "2026-11-14 23:16:07",
+  "hook_attempts": 5,
+  "review_count": 3,
+  "review": {
+    "id": "event-0003",
+    "kind": "round_finished",
+    "error": null,
+    "at": "2026-11-14 23:16:11",
+    "job_id": "186428",
+    "hook_id": "186429",
+    "current": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-missed-verifier-20261114/jobs/03-report.sbatch",
+    "latest": {
+      "job": "03-report.sbatch",
+      "job_id": "186428",
+      "hook_id": "186429",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0.0,
+      "metric": {
+        "stage": "scored",
+        "cost_cny": 0.4460252,
+        "cumulative": true,
+        "completed": 30,
+        "failures": 0,
+        "result_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot",
+        "model": "qwen3.7-flash"
+      },
+      "metric_error": null,
+      "at": "2026-11-14 23:16:11"
+    },
+    "queued_jobs": [],
+    "cost_cny": 0.446025,
+    "delivery": "pending",
+    "delivery_error": "thread/resume: {'code': -32600, 'message': 'thread 01a1d014-9f29-76a1-8fce-cdbd93601af4 already has an active writer'}"
+  },
+  "decisions": [
+    {
+      "event_id": "event-0001",
+      "action": "add",
+      "job": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-missed-verifier-20261114/jobs/02-sources-pilot.sbatch",
+      "reason": "Smoke185327 completed paired three variants. SECOND appeared improves but LEVIR adds FP; investigate full source complementarity320 images then fixed pilot10/group, sameTop20 and reused smoke answers; no premature source pruning. Delivery mismatch documented.",
+      "at": "2026-11-14 21:40:49"
+    },
+    {
+      "event_id": "event-0002",
+      "action": "add",
+      "job": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-missed-verifier-20261114/jobs/03-report.sbatch",
+      "reason": "185351 completed all30 images,526 common candidates,3 arms; archived raw logs. SECOND gains contrast with LEVIR harm; produce readable grouped report, then close original study while independent night experiment continues.",
+      "at": "2026-11-14 23:16:06"
+    },
+    {
+      "event_id": "event-0003",
+      "action": "finish",
+      "reason": "Original source320-group-image audit and fixed30-image/526-candidate three-arm verifier completed and readable report archived. Cost.4460252. SECOND gains are concentrated; LEVIR harmed. New independent night study remains active and reuses original raw evidence; no online promotion claim.",
+      "at": "2026-11-14 23:26:01"
+    }
+  ],
+  "finalize_attempts": 1,
+  "git_committed": false,
+  "git_pushed": false,
+  "notified": false,
+  "stop_reason": "Original source320-group-image audit and fixed30-image/526-candidate three-arm verifier completed and readable report archived. Cost.4460252. SECOND gains are concentrated; LEVIR harmed. New independent night study remains active and reuses original raw evidence; no online promotion claim.",
+  "finished_at": "2026-11-14 23:26:01",
+  "elapsed_seconds": 7592.6
+}

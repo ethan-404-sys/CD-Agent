@@ -1,0 +1,38 @@
+{
+  "uid": "levir_any:train_118:16",
+  "answer": "no",
+  "parsed": {
+    "t1_state": "The area inside the red contour in T1 shows natural ground cover, likely sparse vegetation or bare soil, with no visible building structure.",
+    "t2_state": "The area inside the red contour in T2 shows a cleared patch of light-colored bare earth or gravel adjacent to a road, but still lacks any distinct building roof or walls.",
+    "same_object": "No building is present in either image to be considered the same object; the location transitions from vegetated land to cleared land.",
+    "appearance_only": "The change represents a transformation of the land surface itself (clearing of vegetation) rather than a change to a built structure.",
+    "change": "no",
+    "type": "non_building_change",
+    "reason": "The scope card states that changes of non-building land cover (roads, vegetation, bare soil) do not count as building changes, and no building structure is visible in either date."
+  },
+  "raw": "{\n\"t1_state\": \"The area inside the red contour in T1 shows natural ground cover, likely sparse vegetation or bare soil, with no visible building structure.\",\n\"t2_state\": \"The area inside the red contour in T2 shows a cleared patch of light-colored bare earth or gravel adjacent to a road, but still lacks any distinct building roof or walls.\",\n\"same_object\": \"No building is present in either image to be considered the same object; the location transitions from vegetated land to cleared land.\",\n\"appearance_only\": \"The change represents a transformation of the land surface itself (clearing of vegetation) rather than a change to a built structure.\",\n\"change\": \"no\",\n\"type\": \"non_building_change\",\n\"reason\": \"The scope card states that changes of non-building land cover (roads, vegetation, bare soil) do not count as building changes, and no building structure is visible in either date.\"\n}",
+  "finish_reason": "stop",
+  "parse_failure": false,
+  "unknown": false,
+  "usage": {
+    "prompt_tokens": 1081,
+    "total_tokens": 1279,
+    "completion_tokens": 198,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 497
+    },
+    "completion_tokens_details": {
+      "text_tokens": 198
+    }
+  },
+  "tokens": {
+    "input": 1081,
+    "cached": 0,
+    "output": 198
+  },
+  "cost_cny": 0.0003746,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/levir_any__train_118__16"
+}

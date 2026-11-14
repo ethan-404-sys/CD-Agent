@@ -1,0 +1,38 @@
+{
+  "uid": "levir_any:train_121:8",
+  "answer": "yes",
+  "parsed": {
+    "t1_state": "The area inside the red contour in T1 shows bare ground or dirt, with no visible building structure.",
+    "t2_state": "The area inside the red contour in T2 contains a small building with a light-colored roof and walls, situated next to a larger house.",
+    "same_object": false,
+    "appearance_only": false,
+    "change": "yes",
+    "type": "new_building",
+    "reason": "A building is absent in T1 (where only bare ground is visible) but clearly present in T2, indicating new construction."
+  },
+  "raw": "{\n\"t1_state\": \"The area inside the red contour in T1 shows bare ground or dirt, with no visible building structure.\",\n\"t2_state\": \"The area inside the red contour in T2 contains a small building with a light-colored roof and walls, situated next to a larger house.\",\n\"same_object\": false,\n\"appearance_only\": false,\n\"change\": \"yes\",\n\"type\": \"new_building\",\n\"reason\": \"A building is absent in T1 (where only bare ground is visible) but clearly present in T2, indicating new construction.\"\n}",
+  "finish_reason": "stop",
+  "parse_failure": false,
+  "unknown": false,
+  "usage": {
+    "prompt_tokens": 1081,
+    "total_tokens": 1207,
+    "completion_tokens": 126,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 497
+    },
+    "completion_tokens_details": {
+      "text_tokens": 126
+    }
+  },
+  "tokens": {
+    "input": 1081,
+    "cached": 0,
+    "output": 126
+  },
+  "cost_cny": 0.000317,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/levir_any__train_121__8"
+}

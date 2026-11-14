@@ -1,0 +1,38 @@
+{
+  "uid": "second_disappeared:train_1370:12",
+  "answer": "no",
+  "parsed": {
+    "t1_state": "The object inside the red contour at T1 is a section of paved road with white lane markings and several vehicles (cars/buses) driving on it.",
+    "t2_state": "The object inside the red contour at T2 is the same section of paved road with similar lane markings, though the specific vehicles present have changed.",
+    "same_object": true,
+    "appearance_only": true,
+    "change": "no",
+    "type": "no_change",
+    "reason": "The feature is a road with moving vehicles in both dates; changes in vehicle position are excluded from building change definitions."
+  },
+  "raw": "{\n\"t1_state\": \"The object inside the red contour at T1 is a section of paved road with white lane markings and several vehicles (cars/buses) driving on it.\",\n\"t2_state\": \"The object inside the red contour at T2 is the same section of paved road with similar lane markings, though the specific vehicles present have changed.\",\n\"same_object\": true,\n\"appearance_only\": true,\n\"change\": \"no\",\n\"type\": \"no_change\",\n\"reason\": \"The feature is a road with moving vehicles in both dates; changes in vehicle position are excluded from building change definitions.\"\n}",
+  "finish_reason": "stop",
+  "parse_failure": false,
+  "unknown": false,
+  "usage": {
+    "prompt_tokens": 1119,
+    "total_tokens": 1253,
+    "completion_tokens": 134,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 535
+    },
+    "completion_tokens_details": {
+      "text_tokens": 134
+    }
+  },
+  "tokens": {
+    "input": 1119,
+    "cached": 0,
+    "output": 134
+  },
+  "cost_cny": 0.000331,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/second_disappeared__train_1370__12"
+}

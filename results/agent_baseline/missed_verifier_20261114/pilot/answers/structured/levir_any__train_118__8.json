@@ -1,0 +1,38 @@
+{
+  "uid": "levir_any:train_118:8",
+  "answer": "yes",
+  "parsed": {
+    "t1_state": "The object at the marked location in T1 is not clearly visible as a building; it appears to be part of the bare ground or a very low-profile feature on a sandy slope.",
+    "t2_state": "In T2, a distinct rectangular structure with a dark, grid-patterned roof (resembling solar panels or a industrial roof) is clearly present at the same location.",
+    "same_object": "No, there is no evidence of a persisting building from T1 to T2.",
+    "appearance_only": "The change is not due to shadow or color variation of the same object; rather, a substantial structure has appeared where none was visible before.",
+    "change": "yes",
+    "type": "new_building",
+    "reason": "A building with a dark, gridded roof is clearly visible in T2 but absent in T1, indicating new construction."
+  },
+  "raw": "{\n\"t1_state\": \"The object at the marked location in T1 is not clearly visible as a building; it appears to be part of the bare ground or a very low-profile feature on a sandy slope.\",\n\"t2_state\": \"In T2, a distinct rectangular structure with a dark, grid-patterned roof (resembling solar panels or a industrial roof) is clearly present at the same location.\",\n\"same_object\": \"No, there is no evidence of a persisting building from T1 to T2.\",\n\"appearance_only\": \"The change is not due to shadow or color variation of the same object; rather, a substantial structure has appeared where none was visible before.\",\n\"change\": \"yes\",\n\"type\": \"new_building\",\n\"reason\": \"A building with a dark, gridded roof is clearly visible in T2 but absent in T1, indicating new construction.\"\n}",
+  "finish_reason": "stop",
+  "parse_failure": false,
+  "unknown": false,
+  "usage": {
+    "prompt_tokens": 1081,
+    "total_tokens": 1273,
+    "completion_tokens": 192,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 497
+    },
+    "completion_tokens_details": {
+      "text_tokens": 192
+    }
+  },
+  "tokens": {
+    "input": 1081,
+    "cached": 0,
+    "output": 192
+  },
+  "cost_cny": 0.00036980000000000004,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/levir_any__train_118__8"
+}

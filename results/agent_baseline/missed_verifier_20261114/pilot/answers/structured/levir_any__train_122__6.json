@@ -1,0 +1,38 @@
+{
+  "uid": "levir_any:train_122:6",
+  "answer": "yes",
+  "parsed": {
+    "t1_state": "The area inside the red contour in T1 is covered by dense vegetation and trees, with no visible building structure.",
+    "t2_state": "The area inside the red contour in T2 has been completely cleared of vegetation and appears to be bare earth or a construction site, with no completed building visible yet.",
+    "same_object": "No",
+    "appearance_only": "No",
+    "change": "yes",
+    "type": "new_building",
+    "reason": "The site was vegetated in T1 and cleared for development in T2, indicating new construction activity (land clearing/early stage) which counts as a building change under the 'newly constructed' scope."
+  },
+  "raw": "{\n\"t1_state\": \"The area inside the red contour in T1 is covered by dense vegetation and trees, with no visible building structure.\",\n\"t2_state\": \"The area inside the red contour in T2 has been completely cleared of vegetation and appears to be bare earth or a construction site, with no completed building visible yet.\",\n\"same_object\": \"No\",\n\"appearance_only\": \"No\",\n\"change\": \"yes\",\n\"type\": \"new_building\",\n\"reason\": \"The site was vegetated in T1 and cleared for development in T2, indicating new construction activity (land clearing/early stage) which counts as a building change under the 'newly constructed' scope.\"\n}",
+  "finish_reason": "stop",
+  "parse_failure": false,
+  "unknown": false,
+  "usage": {
+    "prompt_tokens": 1081,
+    "total_tokens": 1232,
+    "completion_tokens": 151,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 497
+    },
+    "completion_tokens_details": {
+      "text_tokens": 151
+    }
+  },
+  "tokens": {
+    "input": 1081,
+    "cached": 0,
+    "output": 151
+  },
+  "cost_cny": 0.000337,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/levir_any__train_122__6"
+}

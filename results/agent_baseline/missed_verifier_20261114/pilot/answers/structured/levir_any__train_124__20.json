@@ -1,0 +1,38 @@
+{
+  "uid": "levir_any:train_124:20",
+  "answer": "yes",
+  "parsed": {
+    "t1_state": "In T1, the area within the red contour shows a small, indistinct dark spot surrounded by dense trees and vegetation, with no clear building structure visible in either the close-up or wider view.",
+    "t2_state": "In T2, the same location clearly contains a constructed building with a defined roof structure, situated within a developed residential neighborhood with roads and other houses nearby.",
+    "same_object": "No, the object is not the same; T1 shows natural ground/vegetation while T2 shows a man-made structure.",
+    "appearance_only": "No, the difference is not due to shadow, color, or visibility; it represents a fundamental change from non-building to building cover.",
+    "change": "yes",
+    "type": "new_building",
+    "reason": "The site was covered by vegetation in T1 but contains a clearly constructed building with a roof in T2, indicating new construction."
+  },
+  "raw": "{\n\"t1_state\": \"In T1, the area within the red contour shows a small, indistinct dark spot surrounded by dense trees and vegetation, with no clear building structure visible in either the close-up or wider view.\",\n\"t2_state\": \"In T2, the same location clearly contains a constructed building with a defined roof structure, situated within a developed residential neighborhood with roads and other houses nearby.\",\n\"same_object\": \"No, the object is not the same; T1 shows natural ground/vegetation while T2 shows a man-made structure.\",\n\"appearance_only\": \"No, the difference is not due to shadow, color, or visibility; it represents a fundamental change from non-building to building cover.\",\n\"change\": \"yes\",\n\"type\": \"new_building\",\n\"reason\": \"The site was covered by vegetation in T1 but contains a clearly constructed building with a roof in T2, indicating new construction.\"\n}",
+  "finish_reason": "stop",
+  "parse_failure": false,
+  "unknown": false,
+  "usage": {
+    "prompt_tokens": 1081,
+    "total_tokens": 1281,
+    "completion_tokens": 200,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 497
+    },
+    "completion_tokens_details": {
+      "text_tokens": 200
+    }
+  },
+  "tokens": {
+    "input": 1081,
+    "cached": 0,
+    "output": 200
+  },
+  "cost_cny": 0.00037620000000000004,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/levir_any__train_124__20"
+}

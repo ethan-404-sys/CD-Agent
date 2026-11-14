@@ -1,0 +1,34 @@
+{
+  "uid": "second_disappeared:train_1136:16",
+  "answer": "no",
+  "parsed": {
+    "change": "no",
+    "type": "non_building_change",
+    "reason": "The object marked in T1 is a small structure adjacent to a larger blue building, which is absent in T2; however, the surrounding area has been completely redeveloped into paved lots and green space, indicating the change is due to non-building land cover alteration or demolition of minor structures not qualifying as a primary building change under strict scope."
+  },
+  "raw": "{\n\"change\": \"no\",\n\"type\": \"non_building_change\",\n\"reason\": \"The object marked in T1 is a small structure adjacent to a larger blue building, which is absent in T2; however, the surrounding area has been completely redeveloped into paved lots and green space, indicating the change is due to non-building land cover alteration or demolition of minor structures not qualifying as a primary building change under strict scope.\"\n}",
+  "finish_reason": "stop",
+  "parse_failure": false,
+  "unknown": false,
+  "usage": {
+    "prompt_tokens": 1039,
+    "total_tokens": 1132,
+    "completion_tokens": 93,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 455
+    },
+    "completion_tokens_details": {
+      "text_tokens": 93
+    }
+  },
+  "tokens": {
+    "input": 1039,
+    "cached": 0,
+    "output": 93
+  },
+  "cost_cny": 0.00028220000000000003,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/som/inputs/second_disappeared__train_1136__16"
+}

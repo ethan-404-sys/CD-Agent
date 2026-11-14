@@ -1,0 +1,38 @@
+{
+  "uid": "levir_any:train_109:16",
+  "answer": "yes",
+  "parsed": {
+    "t1_state": "The object at T1 is a small, light-colored structure with a simple footprint, situated in a sparsely developed area with dirt ground and scattered trees.",
+    "t2_state": "The object at T2 is a larger, dark-roofed building with a more complex shape, located in a fully developed residential neighborhood with paved roads and manicured landscaping.",
+    "same_object": false,
+    "appearance_only": false,
+    "change": "yes",
+    "type": "rebuilt",
+    "reason": "The original small structure present in T1 has been replaced by a significantly different, larger building with a distinct roof and style in T2, indicating the old building was demolished and a new one constructed on the same site."
+  },
+  "raw": "{\n\"t1_state\": \"The object at T1 is a small, light-colored structure with a simple footprint, situated in a sparsely developed area with dirt ground and scattered trees.\",\n\"t2_state\": \"The object at T2 is a larger, dark-roofed building with a more complex shape, located in a fully developed residential neighborhood with paved roads and manicured landscaping.\",\n\"same_object\": false,\n\"appearance_only\": false,\n\"change\": \"yes\",\n\"type\": \"rebuilt\",\n\"reason\": \"The original small structure present in T1 has been replaced by a significantly different, larger building with a distinct roof and style in T2, indicating the old building was demolished and a new one constructed on the same site.\"\n}",
+  "finish_reason": "stop",
+  "parse_failure": false,
+  "unknown": false,
+  "usage": {
+    "prompt_tokens": 1081,
+    "total_tokens": 1243,
+    "completion_tokens": 162,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 497
+    },
+    "completion_tokens_details": {
+      "text_tokens": 162
+    }
+  },
+  "tokens": {
+    "input": 1081,
+    "cached": 0,
+    "output": 162
+  },
+  "cost_cny": 0.0003458,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/levir_any__train_109__16"
+}

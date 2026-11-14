@@ -1,0 +1,38 @@
+{
+  "uid": "second_appeared:train_1370:14",
+  "answer": "no",
+  "parsed": {
+    "t1_state": "The object inside the red contour is a small, rectangular building with a dark blue roof, situated adjacent to a larger blue-roofed structure.",
+    "t2_state": "The object at the same location retains its rectangular shape and dark blue roof, appearing structurally identical to T1.",
+    "same_object": true,
+    "appearance_only": false,
+    "change": "no",
+    "type": "no_change",
+    "reason": "The building within the contour shows consistent outline, roof structure, and position relative to fixed neighbors in both dates, indicating it is the same persisting object."
+  },
+  "raw": "{\n\"t1_state\": \"The object inside the red contour is a small, rectangular building with a dark blue roof, situated adjacent to a larger blue-roofed structure.\",\n\"t2_state\": \"The object at the same location retains its rectangular shape and dark blue roof, appearing structurally identical to T1.\",\n\"same_object\": true,\n\"appearance_only\": false,\n\"change\": \"no\",\n\"type\": \"no_change\",\n\"reason\": \"The building within the contour shows consistent outline, roof structure, and position relative to fixed neighbors in both dates, indicating it is the same persisting object.\"\n}",
+  "finish_reason": "stop",
+  "parse_failure": false,
+  "unknown": false,
+  "usage": {
+    "prompt_tokens": 1121,
+    "total_tokens": 1255,
+    "completion_tokens": 134,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 537
+    },
+    "completion_tokens_details": {
+      "text_tokens": 134
+    }
+  },
+  "tokens": {
+    "input": 1121,
+    "cached": 0,
+    "output": 134
+  },
+  "cost_cny": 0.00033140000000000003,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/second_appeared__train_1370__14"
+}

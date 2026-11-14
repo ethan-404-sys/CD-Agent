@@ -1,0 +1,30 @@
+{
+  "uid": "levir_any:train_119:12",
+  "answer": "unknown",
+  "parsed": {},
+  "raw": "{\n\"t1_state\": \"In the T1 image, the area marked by the red contour and yellow label 1 consists of a dirt road or path running through a forested and cleared landscape. There are no buildings visible in this specific location.\",\n\"t2_state\": \"In the T2 image, the same geographic location (indicated by the red contour) is now part of a developed residential area. The dirt path has been replaced or is adjacent to paved roads and newly constructed houses. Specifically, at the exact spot of label 1, there appears to be a row of new house foundations or structures under construction along a new road.\",\n\"same_object\": \"No, there is no persisting building object. The feature at T1 is a dirt path/road in a natural setting, while the feature at T2 is a set of new residential buildings/infrastructure.\",\n\"appearance_only\": \"No, this is not an appearance-only change like a shadow or color shift. The land cover has fundamentally changed from a dirt track to built environment.\",\n\"change\": \"yes\",\n\"type\": \"new_building\",\n\"reason\": \"The area contained a dirt path in T1 but shows newly constructed residential buildings and infrastructure in T",
+  "finish_reason": "length",
+  "parse_failure": true,
+  "unknown": true,
+  "usage": {
+    "prompt_tokens": 1081,
+    "total_tokens": 1337,
+    "completion_tokens": 256,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 497
+    },
+    "completion_tokens_details": {
+      "text_tokens": 256
+    }
+  },
+  "tokens": {
+    "input": 1081,
+    "cached": 0,
+    "output": 256
+  },
+  "cost_cny": 0.000421,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/levir_any__train_119__12"
+}

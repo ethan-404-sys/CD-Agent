@@ -1,0 +1,38 @@
+{
+  "uid": "levir_any:train_122:8",
+  "answer": "yes",
+  "parsed": {
+    "t1_state": "In the T1 images (both close-up and wider view), the area within the red contour shows natural terrain with sparse vegetation and dirt, with no visible building structure.",
+    "t2_state": "In the T2 images, the same area contains a distinct new building with a white roof, surrounded by construction activity and cleared land.",
+    "same_object": "No, there is no evidence of the same persisting object; the location was undeveloped in T1 and contains a structure in T2.",
+    "appearance_only": "No, the difference is not due to shadows, color, or visibility but represents a physical addition of a structure.",
+    "change": "yes",
+    "type": "new_building",
+    "reason": "The site was empty of structures in T1 but contains a clearly newly constructed building in T2."
+  },
+  "raw": "{\n\"t1_state\": \"In the T1 images (both close-up and wider view), the area within the red contour shows natural terrain with sparse vegetation and dirt, with no visible building structure.\",\n\"t2_state\": \"In the T2 images, the same area contains a distinct new building with a white roof, surrounded by construction activity and cleared land.\",\n\"same_object\": \"No, there is no evidence of the same persisting object; the location was undeveloped in T1 and contains a structure in T2.\",\n\"appearance_only\": \"No, the difference is not due to shadows, color, or visibility but represents a physical addition of a structure.\",\n\"change\": \"yes\",\n\"type\": \"new_building\",\n\"reason\": \"The site was empty of structures in T1 but contains a clearly newly constructed building in T2.\"\n}",
+  "finish_reason": "stop",
+  "parse_failure": false,
+  "unknown": false,
+  "usage": {
+    "prompt_tokens": 1081,
+    "total_tokens": 1264,
+    "completion_tokens": 183,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 497
+    },
+    "completion_tokens_details": {
+      "text_tokens": 183
+    }
+  },
+  "tokens": {
+    "input": 1081,
+    "cached": 0,
+    "output": 183
+  },
+  "cost_cny": 0.00036260000000000003,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/levir_any__train_122__8"
+}

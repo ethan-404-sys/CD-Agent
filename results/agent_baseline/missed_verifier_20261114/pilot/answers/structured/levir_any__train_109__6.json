@@ -1,0 +1,38 @@
+{
+  "uid": "levir_any:train_109:6",
+  "answer": "yes",
+  "parsed": {
+    "t1_state": "The area within the red contour at T1 appears to be undeveloped land, consisting of trees and vegetation, with no distinct building structure visible at the location of the yellow mark 1.",
+    "t2_state": "The area within the red contour at T2 shows significant development, with multiple new residential buildings constructed on the previously vegetated land.",
+    "same_object": false,
+    "appearance_only": false,
+    "change": "yes",
+    "type": "new_building",
+    "reason": "The site was vacant or covered in vegetation in T1 but contains newly constructed buildings in T2."
+  },
+  "raw": "{\n\"t1_state\": \"The area within the red contour at T1 appears to be undeveloped land, consisting of trees and vegetation, with no distinct building structure visible at the location of the yellow mark 1.\",\n\"t2_state\": \"The area within the red contour at T2 shows significant development, with multiple new residential buildings constructed on the previously vegetated land.\",\n\"same_object\": false,\n\"appearance_only\": false,\n\"change\": \"yes\",\n\"type\": \"new_building\",\n\"reason\": \"The site was vacant or covered in vegetation in T1 but contains newly constructed buildings in T2.\"\n}",
+  "finish_reason": "stop",
+  "parse_failure": false,
+  "unknown": false,
+  "usage": {
+    "prompt_tokens": 1081,
+    "total_tokens": 1217,
+    "completion_tokens": 136,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 497
+    },
+    "completion_tokens_details": {
+      "text_tokens": 136
+    }
+  },
+  "tokens": {
+    "input": 1081,
+    "cached": 0,
+    "output": 136
+  },
+  "cost_cny": 0.000325,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/levir_any__train_109__6"
+}

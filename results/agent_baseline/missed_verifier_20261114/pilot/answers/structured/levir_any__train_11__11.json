@@ -1,0 +1,38 @@
+{
+  "uid": "levir_any:train_11:11",
+  "answer": "yes",
+  "parsed": {
+    "t1_state": "The object inside the red contour in T1 is a small, dark structure with an irregular shape, situated among trees and bare ground.",
+    "t2_state": "In T2, the object within the same red contour appears as a brighter, greyish structure with a more defined, possibly rectangular roof shape, surrounded by similar vegetation but showing signs of nearby residential development in the wider view.",
+    "same_object": "No",
+    "appearance_only": "No",
+    "change": "yes",
+    "type": "new_building",
+    "reason": "The object was absent or not identifiable as a building in T1 (appearing as dark shadow or foliage) but is clearly a newly constructed building with a visible roof in T2."
+  },
+  "raw": "{\n\"t1_state\": \"The object inside the red contour in T1 is a small, dark structure with an irregular shape, situated among trees and bare ground.\",\n\"t2_state\": \"In T2, the object within the same red contour appears as a brighter, greyish structure with a more defined, possibly rectangular roof shape, surrounded by similar vegetation but showing signs of nearby residential development in the wider view.\",\n\"same_object\": \"No\",\n\"appearance_only\": \"No\",\n\"change\": \"yes\",\n\"type\": \"new_building\",\n\"reason\": \"The object was absent or not identifiable as a building in T1 (appearing as dark shadow or foliage) but is clearly a newly constructed building with a visible roof in T2.\"\n}",
+  "finish_reason": "stop",
+  "parse_failure": false,
+  "unknown": false,
+  "usage": {
+    "prompt_tokens": 1081,
+    "total_tokens": 1243,
+    "completion_tokens": 162,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 497
+    },
+    "completion_tokens_details": {
+      "text_tokens": 162
+    }
+  },
+  "tokens": {
+    "input": 1081,
+    "cached": 0,
+    "output": 162
+  },
+  "cost_cny": 0.0003458,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/levir_any__train_11__11"
+}

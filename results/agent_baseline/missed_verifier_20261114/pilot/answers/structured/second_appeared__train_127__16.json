@@ -1,0 +1,38 @@
+{
+  "uid": "second_appeared:train_127:16",
+  "answer": "yes",
+  "parsed": {
+    "t1_state": "The area within the red contour in T1 shows bare ground or very low-profile structures, appearing as an empty lot adjacent to a canal and existing buildings.",
+    "t2_state": "In T2, a distinct building with a white roof (and possibly an adjacent blue-roofed structure) has appeared in the exact same location within the red contour.",
+    "same_object": false,
+    "appearance_only": false,
+    "change": "yes",
+    "type": "new_building",
+    "reason": "The scope card states that 'Land, soil or vegetation in T1 with a building in T2 is new construction'; since the site was undeveloped in T1 and contains a building in T2, it counts as a newly constructed building."
+  },
+  "raw": "{\n\"t1_state\": \"The area within the red contour in T1 shows bare ground or very low-profile structures, appearing as an empty lot adjacent to a canal and existing buildings.\",\n\"t2_state\": \"In T2, a distinct building with a white roof (and possibly an adjacent blue-roofed structure) has appeared in the exact same location within the red contour.\",\n\"same_object\": false,\n\"appearance_only\": false,\n\"change\": \"yes\",\n\"type\": \"new_building\",\n\"reason\": \"The scope card states that 'Land, soil or vegetation in T1 with a building in T2 is new construction'; since the site was undeveloped in T1 and contains a building in T2, it counts as a newly constructed building.\"\n}",
+  "finish_reason": "stop",
+  "parse_failure": false,
+  "unknown": false,
+  "usage": {
+    "prompt_tokens": 1121,
+    "total_tokens": 1287,
+    "completion_tokens": 166,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 537
+    },
+    "completion_tokens_details": {
+      "text_tokens": 166
+    }
+  },
+  "tokens": {
+    "input": 1121,
+    "cached": 0,
+    "output": 166
+  },
+  "cost_cny": 0.000357,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/second_appeared__train_127__16"
+}

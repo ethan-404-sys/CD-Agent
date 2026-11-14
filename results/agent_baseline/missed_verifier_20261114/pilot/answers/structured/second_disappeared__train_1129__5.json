@@ -1,0 +1,38 @@
+{
+  "uid": "second_disappeared:train_1129:5",
+  "answer": "no",
+  "parsed": {
+    "t1_state": "The object in the T1 wider view is a large building with a blue roof, situated next to an area of bare soil.",
+    "t2_state": "In the T2 wider view, the same large blue-roofed building is present in the identical location. Newer, smaller white buildings have been constructed on the bare soil adjacent to it.",
+    "same_object": true,
+    "appearance_only": false,
+    "change": "no",
+    "type": "no_change",
+    "reason": "The primary building identified in the contour is present and unchanged in both dates; new construction nearby does not constitute a change to the existing building itself."
+  },
+  "raw": "{\n\"t1_state\": \"The object in the T1 wider view is a large building with a blue roof, situated next to an area of bare soil.\",\n\"t2_state\": \"In the T2 wider view, the same large blue-roofed building is present in the identical location. Newer, smaller white buildings have been constructed on the bare soil adjacent to it.\",\n\"same_object\": true,\n\"appearance_only\": false,\n\"change\": \"no\",\n\"type\": \"no_change\",\n\"reason\": \"The primary building identified in the contour is present and unchanged in both dates; new construction nearby does not constitute a change to the existing building itself.\"\n}",
+  "finish_reason": "stop",
+  "parse_failure": false,
+  "unknown": false,
+  "usage": {
+    "prompt_tokens": 1119,
+    "total_tokens": 1264,
+    "completion_tokens": 145,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 535
+    },
+    "completion_tokens_details": {
+      "text_tokens": 145
+    }
+  },
+  "tokens": {
+    "input": 1119,
+    "cached": 0,
+    "output": 145
+  },
+  "cost_cny": 0.0003398,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/second_disappeared__train_1129__5"
+}

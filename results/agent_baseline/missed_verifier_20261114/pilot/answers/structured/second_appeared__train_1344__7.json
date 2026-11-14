@@ -1,0 +1,30 @@
+{
+  "uid": "second_appeared:train_1344:7",
+  "answer": "unknown",
+  "parsed": {},
+  "raw": "{\n\"t1_state\": \"In the T1 close-up and wider view, the area inside the red contour appears as a dark, shadowed patch or void within a larger built-up complex, likely an open courtyard, alley, or deep shadow cast by surrounding structures.\",\n\"t2_state\": \"In the T2 close-up and wider view, the same location is filled with a bright, uniform surface that matches the tone of adjacent rooftops or paved areas, suggesting the space has been covered or filled in.\",\n\"same_object\": \"No, the object is not the same; T1 shows an absence of a roof/structure (dark/shadowed) while T2 shows a presence of a structure/surface (bright).\",\n\"appearance_only\": \"No, the change represents a physical transformation from an open/dark space to a filled/built surface, not merely a difference in lighting or color of a persisting building.\",\n\"change\": \"yes\",\n\"type\": \"new_building\",\n\"reason\": \"The area transitions from a dark, empty-looking space in T1 to a bright, solid surface in T2, indicating new construction filling a previously open or shadowed gap, consistent with 'Land, soil or vegetation in",
+  "finish_reason": "length",
+  "parse_failure": true,
+  "unknown": true,
+  "usage": {
+    "prompt_tokens": 1121,
+    "total_tokens": 1377,
+    "completion_tokens": 256,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 537
+    },
+    "completion_tokens_details": {
+      "text_tokens": 256
+    }
+  },
+  "tokens": {
+    "input": 1121,
+    "cached": 0,
+    "output": 256
+  },
+  "cost_cny": 0.000429,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/second_appeared__train_1344__7"
+}

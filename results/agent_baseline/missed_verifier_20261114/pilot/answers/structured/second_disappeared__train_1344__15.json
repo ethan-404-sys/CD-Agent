@@ -1,0 +1,38 @@
+{
+  "uid": "second_disappeared:train_1344:15",
+  "answer": "no",
+  "parsed": {
+    "t1_state": "The object inside the red contour is a small, low-rise building with a greyish roof, situated next to a large brown industrial building.",
+    "t2_state": "The object in the same location appears to be the same small, low-rise structure. Although there are some differences in texture and shadowing likely due to image quality or lighting, the footprint and general form remain consistent.",
+    "same_object": true,
+    "appearance_only": true,
+    "change": "no",
+    "type": "no_change",
+    "reason": "The building present in T1 persists in T2 at the same location with a consistent footprint; observed differences are attributable to image quality and lighting rather than demolition or construction."
+  },
+  "raw": "{\n\"t1_state\": \"The object inside the red contour is a small, low-rise building with a greyish roof, situated next to a large brown industrial building.\",\n\"t2_state\": \"The object in the same location appears to be the same small, low-rise structure. Although there are some differences in texture and shadowing likely due to image quality or lighting, the footprint and general form remain consistent.\",\n\"same_object\": true,\n\"appearance_only\": true,\n\"change\": \"no\",\n\"type\": \"no_change\",\n\"reason\": \"The building present in T1 persists in T2 at the same location with a consistent footprint; observed differences are attributable to image quality and lighting rather than demolition or construction.\"\n}",
+  "finish_reason": "stop",
+  "parse_failure": false,
+  "unknown": false,
+  "usage": {
+    "prompt_tokens": 1119,
+    "total_tokens": 1275,
+    "completion_tokens": 156,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 535
+    },
+    "completion_tokens_details": {
+      "text_tokens": 156
+    }
+  },
+  "tokens": {
+    "input": 1119,
+    "cached": 0,
+    "output": 156
+  },
+  "cost_cny": 0.0003486,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/second_disappeared__train_1344__15"
+}

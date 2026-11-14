@@ -1,0 +1,30 @@
+{
+  "uid": "second_disappeared:train_1177:1",
+  "answer": "unknown",
+  "parsed": {},
+  "raw": "{\n\"t1_state\": \"The object inside the red contour is a multi-story building with a visible roof structure and windows, located adjacent to a large white-roofed building.\",\n\"t2_state\": \"The object in the same location appears as a dark, flat surface, likely a roof or ground, but lacks the distinct vertical structure and window patterns seen in T1; however, surrounding vegetation has grown significantly.\",\n\"same_object\": \"Yes, it is the same geographic location, but the building's appearance has changed drastically.\",\n\"appearance_only\": \"No, the structural integrity seems altered; T1 shows a clear building while T2 shows a much flatter, darker feature that could be demolition or severe degradation, but given the scope card says 'Do not read poor visibility as demolition', and considering the heavy shadowing and possible reconstruction (rebuilt is excluded if land was bare), we must look closer. Actually, looking at the wider view, the area next to the white building (which is now clearly visible in T2) corresponds to where the building was in T1. In T2, that spot looks like open ground or a very low structure covered in shadow/vegetation. However, the prompt warns against reading poor visibility as",
+  "finish_reason": "length",
+  "parse_failure": true,
+  "unknown": true,
+  "usage": {
+    "prompt_tokens": 1119,
+    "total_tokens": 1375,
+    "completion_tokens": 256,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 535
+    },
+    "completion_tokens_details": {
+      "text_tokens": 256
+    }
+  },
+  "tokens": {
+    "input": 1119,
+    "cached": 0,
+    "output": 256
+  },
+  "cost_cny": 0.0004286,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/second_disappeared__train_1177__1"
+}

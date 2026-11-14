@@ -1,0 +1,38 @@
+{
+  "uid": "second_appeared:train_1129:9",
+  "answer": "yes",
+  "parsed": {
+    "t1_state": "The object inside the red contour at T1 is a small, partially visible structure with a reddish roof, located adjacent to a larger white building.",
+    "t2_state": "The object at the same location in T2 appears to be the corner of a new, larger building with a grey roof, situated next to the same white building but extending further into the frame.",
+    "same_object": false,
+    "appearance_only": false,
+    "change": "yes",
+    "type": "new_building",
+    "reason": "A new building structure has appeared in the T2 image at a location that was previously occupied by a different, smaller structure or open ground in T1, indicating new construction rather than simple replacement or demolition."
+  },
+  "raw": "{\n\"t1_state\": \"The object inside the red contour at T1 is a small, partially visible structure with a reddish roof, located adjacent to a larger white building.\",\n\"t2_state\": \"The object at the same location in T2 appears to be the corner of a new, larger building with a grey roof, situated next to the same white building but extending further into the frame.\",\n\"same_object\": false,\n\"appearance_only\": false,\n\"change\": \"yes\",\n\"type\": \"new_building\",\n\"reason\": \"A new building structure has appeared in the T2 image at a location that was previously occupied by a different, smaller structure or open ground in T1, indicating new construction rather than simple replacement or demolition.\"\n}",
+  "finish_reason": "stop",
+  "parse_failure": false,
+  "unknown": false,
+  "usage": {
+    "prompt_tokens": 1121,
+    "total_tokens": 1282,
+    "completion_tokens": 161,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 537
+    },
+    "completion_tokens_details": {
+      "text_tokens": 161
+    }
+  },
+  "tokens": {
+    "input": 1121,
+    "cached": 0,
+    "output": 161
+  },
+  "cost_cny": 0.000353,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/second_appeared__train_1129__9"
+}

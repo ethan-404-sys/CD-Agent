@@ -1,0 +1,38 @@
+{
+  "uid": "levir_any:train_121:1",
+  "answer": "yes",
+  "parsed": {
+    "t1_state": "The area marked by the red contour and yellow label in T1 is covered by dense green vegetation (trees/shrubs) with no visible building structure.",
+    "t2_state": "In T2, the same location shows a cleared plot of land with a paved circular driveway or cul-de-sac, surrounded by newly constructed residential houses.",
+    "same_object": "No, there is no persisting building object. The feature at T1 is natural vegetation, while the feature at T2 is infrastructure (pavement) associated with new construction.",
+    "appearance_only": "No, this is not an appearance-only change like shadow or color shift; it represents a fundamental transformation of the land cover from natural to built environment.",
+    "change": "yes",
+    "type": "new_building",
+    "reason": "The site was vegetated in T1 and has been cleared for a new paved road/cul-de-sac and surrounding residential construction in T2, which counts as a newly constructed building/infrastructure."
+  },
+  "raw": "{\n\"t1_state\": \"The area marked by the red contour and yellow label in T1 is covered by dense green vegetation (trees/shrubs) with no visible building structure.\",\n\"t2_state\": \"In T2, the same location shows a cleared plot of land with a paved circular driveway or cul-de-sac, surrounded by newly constructed residential houses.\",\n\"same_object\": \"No, there is no persisting building object. The feature at T1 is natural vegetation, while the feature at T2 is infrastructure (pavement) associated with new construction.\",\n\"appearance_only\": \"No, this is not an appearance-only change like shadow or color shift; it represents a fundamental transformation of the land cover from natural to built environment.\",\n\"change\": \"yes\",\n\"type\": \"new_building\",\n\"reason\": \"The site was vegetated in T1 and has been cleared for a new paved road/cul-de-sac and surrounding residential construction in T2, which counts as a newly constructed building/infrastructure.\"\n}",
+  "finish_reason": "stop",
+  "parse_failure": false,
+  "unknown": false,
+  "usage": {
+    "prompt_tokens": 1081,
+    "total_tokens": 1300,
+    "completion_tokens": 219,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 497
+    },
+    "completion_tokens_details": {
+      "text_tokens": 219
+    }
+  },
+  "tokens": {
+    "input": 1081,
+    "cached": 0,
+    "output": 219
+  },
+  "cost_cny": 0.0003914,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/levir_any__train_121__1"
+}

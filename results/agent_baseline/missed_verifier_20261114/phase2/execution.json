@@ -1,0 +1,49 @@
+{
+  "name": "cd-missed-verifier-20261114",
+  "history": [
+    {
+      "job": "01-smoke.sbatch",
+      "job_id": "185327",
+      "hook_id": "185328",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0.040715,
+      "metric": {
+        "stage": "scored",
+        "cost_cny": 0.04071520000000001,
+        "cumulative": true,
+        "completed": 3,
+        "failures": 0,
+        "result_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/smoke",
+        "model": "qwen3.7-flash"
+      },
+      "metric_error": null,
+      "at": "2026-11-14 21:25:41"
+    },
+    {
+      "job": "02-sources-pilot.sbatch",
+      "job_id": "185351",
+      "hook_id": "185352",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0.40531,
+      "metric": {
+        "stage": "scored",
+        "cost_cny": 0.4460252,
+        "cumulative": true,
+        "completed": 30,
+        "failures": 0,
+        "result_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot",
+        "model": "qwen3.7-flash"
+      },
+      "metric_error": null,
+      "at": "2026-11-14 23:06:31"
+    }
+  ],
+  "job_id": "185351",
+  "hook_id": "185352"
+}

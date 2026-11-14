@@ -1,0 +1,38 @@
+{
+  "uid": "levir_any:train_122:20",
+  "answer": "yes",
+  "parsed": {
+    "t1_state": "The area inside the red contour in T1 is covered by dense green vegetation and trees, with no visible building structure.",
+    "t2_state": "The area inside the red contour in T2 contains a residential building with a grey roof, situated within a developed housing estate.",
+    "same_object": "No, the object is not the same. T1 shows natural ground cover (vegetation), while T2 shows a man-made structure (building).",
+    "appearance_only": "No, this is not an appearance-only change like shadow or color shift; it is a fundamental change in land cover from vegetation to a built structure.",
+    "change": "yes",
+    "type": "new_building",
+    "reason": "A building is newly constructed in the T2 image at a location that was previously occupied by vegetation in T1."
+  },
+  "raw": "{\n\"t1_state\": \"The area inside the red contour in T1 is covered by dense green vegetation and trees, with no visible building structure.\",\n\"t2_state\": \"The area inside the red contour in T2 contains a residential building with a grey roof, situated within a developed housing estate.\",\n\"same_object\": \"No, the object is not the same. T1 shows natural ground cover (vegetation), while T2 shows a man-made structure (building).\",\n\"appearance_only\": \"No, this is not an appearance-only change like shadow or color shift; it is a fundamental change in land cover from vegetation to a built structure.\",\n\"change\": \"yes\",\n\"type\": \"new_building\",\n\"reason\": \"A building is newly constructed in the T2 image at a location that was previously occupied by vegetation in T1.\"\n}",
+  "finish_reason": "stop",
+  "parse_failure": false,
+  "unknown": false,
+  "usage": {
+    "prompt_tokens": 1081,
+    "total_tokens": 1263,
+    "completion_tokens": 182,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 497
+    },
+    "completion_tokens_details": {
+      "text_tokens": 182
+    }
+  },
+  "tokens": {
+    "input": 1081,
+    "cached": 0,
+    "output": 182
+  },
+  "cost_cny": 0.0003618,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/levir_any__train_122__20"
+}

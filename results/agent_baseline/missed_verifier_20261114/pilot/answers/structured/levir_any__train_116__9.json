@@ -1,0 +1,38 @@
+{
+  "uid": "levir_any:train_116:9",
+  "answer": "yes",
+  "parsed": {
+    "t1_state": "The area within the red contour in T1 shows a dirt clearing or road edge adjacent to a forest, with no visible building structures.",
+    "t2_state": "The same area in T2 contains a newly constructed building with a light-colored roof and associated paved driveway/landscaping.",
+    "same_object": "No",
+    "appearance_only": "No",
+    "change": "yes",
+    "type": "new_building",
+    "reason": "A building is absent in T1 but clearly present in T2 within the marked region, indicating new construction."
+  },
+  "raw": "{\n\"t1_state\": \"The area within the red contour in T1 shows a dirt clearing or road edge adjacent to a forest, with no visible building structures.\",\n\"t2_state\": \"The same area in T2 contains a newly constructed building with a light-colored roof and associated paved driveway/landscaping.\",\n\"same_object\": \"No\",\n\"appearance_only\": \"No\",\n\"change\": \"yes\",\n\"type\": \"new_building\",\n\"reason\": \"A building is absent in T1 but clearly present in T2 within the marked region, indicating new construction.\"\n}",
+  "finish_reason": "stop",
+  "parse_failure": false,
+  "unknown": false,
+  "usage": {
+    "prompt_tokens": 1081,
+    "total_tokens": 1208,
+    "completion_tokens": 127,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 497
+    },
+    "completion_tokens_details": {
+      "text_tokens": 127
+    }
+  },
+  "tokens": {
+    "input": 1081,
+    "cached": 0,
+    "output": 127
+  },
+  "cost_cny": 0.0003178,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/levir_any__train_116__9"
+}

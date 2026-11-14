@@ -1,0 +1,38 @@
+{
+  "uid": "levir_any:train_118:20",
+  "answer": "yes",
+  "parsed": {
+    "t1_state": "The object at the marked location in T1 is not clearly visible as a building; it appears as a dark, indistinct patch within a vegetated or shadowed area.",
+    "t2_state": "In T2, the same location clearly shows a constructed building with a defined roof structure and walls, situated next to a road and other houses.",
+    "same_object": "No, there is no evidence of a persisting building from T1 to T2. The feature in T1 is too ambiguous to be identified as the specific building seen in T2.",
+    "appearance_only": "No, the change represents a physical addition of a structure rather than just a difference in lighting or shadow on an existing object.",
+    "change": "yes",
+    "type": "new_building",
+    "reason": "A building is present in T2 but absent (or at least not identifiable as a building) in T1, indicating new construction."
+  },
+  "raw": "{\n\"t1_state\": \"The object at the marked location in T1 is not clearly visible as a building; it appears as a dark, indistinct patch within a vegetated or shadowed area.\",\n\"t2_state\": \"In T2, the same location clearly shows a constructed building with a defined roof structure and walls, situated next to a road and other houses.\",\n\"same_object\": \"No, there is no evidence of a persisting building from T1 to T2. The feature in T1 is too ambiguous to be identified as the specific building seen in T2.\",\n\"appearance_only\": \"No, the change represents a physical addition of a structure rather than just a difference in lighting or shadow on an existing object.\",\n\"change\": \"yes\",\n\"type\": \"new_building\",\n\"reason\": \"A building is present in T2 but absent (or at least not identifiable as a building) in T1, indicating new construction.\"\n}",
+  "finish_reason": "stop",
+  "parse_failure": false,
+  "unknown": false,
+  "usage": {
+    "prompt_tokens": 1081,
+    "total_tokens": 1285,
+    "completion_tokens": 204,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 497
+    },
+    "completion_tokens_details": {
+      "text_tokens": 204
+    }
+  },
+  "tokens": {
+    "input": 1081,
+    "cached": 0,
+    "output": 204
+  },
+  "cost_cny": 0.00037940000000000006,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/pilot/answers/structured/inputs/levir_any__train_118__20"
+}
