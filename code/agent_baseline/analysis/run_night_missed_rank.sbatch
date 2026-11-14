@@ -19,11 +19,14 @@ COMMON=(--views "$BASE" --gates "$BASE/candidate_gates_pilot" --pilot "$ROOT/CD-
 MODE=${1:-prepare}
 shift || true
 if [[ "$MODE" == prepare ]]; then
-  "$PY" -B -m unittest agent_baseline.tests.test_night_missed_rank
+  "$PY" -B -m unittest agent_baseline.tests.test_night_missed_rank agent_baseline.tests.test_night_missed_rank_inventory
 fi
 if [[ "$MODE" == verify ]]; then
   : "${BAILIAN_CSV:?Existing workspace credential export}"
   "$PY" -B -m agent_baseline.run_with_key "$BAILIAN_CSV" "$PY" -B -m agent_baseline.analysis.night_missed_rank "$MODE" "${COMMON[@]}" "$@"
 else
   "$PY" -B -m agent_baseline.analysis.night_missed_rank "$MODE" "${COMMON[@]}" "$@"
+fi
+if [[ "$MODE" == prepare || "$MODE" == verify ]]; then
+  "$PY" -B -m agent_baseline.analysis.night_missed_rank_inventory --out "$BASE/rank_$NIGHT_VERIFIER"
 fi
