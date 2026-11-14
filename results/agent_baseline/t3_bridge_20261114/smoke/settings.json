@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "task_ids": [
+    "train_1065_2to5",
+    "train_1129_4to5",
+    "train_1136_5to1"
+  ],
+  "model": "qwen3.7-flash",
+  "seed": 1016,
+  "verify_k": 4,
+  "classes": [
+    "low vegetation",
+    "non-vegetated ground",
+    "tree",
+    "water",
+    "building",
+    "playground",
+    "unknown"
+  ],
+  "ranking": "mean region product of predicted source/target probability",
+  "verification": "shared original eight-image transition question; no class predictions supplied",
+  "unknown": "empty bridge ranking and dense prediction; no GT correction",
+  "run": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run",
+  "historical": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/batch98_t3_routes/results"
+}

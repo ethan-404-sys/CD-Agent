@@ -1,0 +1,35 @@
+{
+  "uid": "levir_any:train_106:9",
+  "answer": "yes",
+  "parsed": {
+    "t1_state": "The area within the red contour in T1 shows bare ground and dirt tracks with no building structure present.",
+    "t2_state": "The same area in T2 contains a new, dark-roofed building structure that was not previously there.",
+    "same_object": false,
+    "appearance_only": false,
+    "change": "yes",
+    "type": "new_building",
+    "reason": "A building is newly constructed in the T2 image within a region that was vacant (bare ground) in the T1 image."
+  },
+  "raw": "{\n\"t1_state\": \"The area within the red contour in T1 shows bare ground and dirt tracks with no building structure present.\",\n\"t2_state\": \"The same area in T2 contains a new, dark-roofed building structure that was not previously there.\",\n\"same_object\": false,\n\"appearance_only\": false,\n\"change\": \"yes\",\n\"type\": \"new_building\",\n\"reason\": \"A building is newly constructed in the T2 image within a region that was vacant (bare ground) in the T1 image.\"\n}",
+  "usage": {
+    "prompt_tokens": 1081,
+    "total_tokens": 1201,
+    "completion_tokens": 120,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 497
+    },
+    "completion_tokens_details": {
+      "text_tokens": 120
+    }
+  },
+  "tokens": {
+    "input": 1081,
+    "cached": 0,
+    "output": 120
+  },
+  "cost_cny": 0.00031220000000000005,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/smoke/answers/structured/inputs/levir_any__train_106__9"
+}

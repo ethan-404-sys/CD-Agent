@@ -1,0 +1,35 @@
+{
+  "uid": "levir_any:train_106:10",
+  "answer": "no",
+  "parsed": {
+    "t1_state": "The object inside the red contour at T1 is a light-grey, flat, rectangular paved area or concrete pad with no visible roof structure or walls.",
+    "t2_state": "The object inside the red contour at T2 is the same light-grey, flat, rectangular paved area with identical dimensions and position relative to the road and power lines.",
+    "same_object": true,
+    "appearance_only": true,
+    "change": "no",
+    "type": "no_change",
+    "reason": "The footprint, shape, and location of the paved surface are identical in both dates, indicating it is the same non-building feature (likely a parking lot or storage yard) with no construction or demolition having occurred."
+  },
+  "raw": "{\n\"t1_state\": \"The object inside the red contour at T1 is a light-grey, flat, rectangular paved area or concrete pad with no visible roof structure or walls.\",\n\"t2_state\": \"The object inside the red contour at T2 is the same light-grey, flat, rectangular paved area with identical dimensions and position relative to the road and power lines.\",\n\"same_object\": true,\n\"appearance_only\": true,\n\"change\": \"no\",\n\"type\": \"no_change\",\n\"reason\": \"The footprint, shape, and location of the paved surface are identical in both dates, indicating it is the same non-building feature (likely a parking lot or storage yard) with no construction or demolition having occurred.\"\n}",
+  "usage": {
+    "prompt_tokens": 1081,
+    "total_tokens": 1237,
+    "completion_tokens": 156,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 497
+    },
+    "completion_tokens_details": {
+      "text_tokens": 156
+    }
+  },
+  "tokens": {
+    "input": 1081,
+    "cached": 0,
+    "output": 156
+  },
+  "cost_cny": 0.000341,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/smoke/answers/structured/inputs/levir_any__train_106__10"
+}

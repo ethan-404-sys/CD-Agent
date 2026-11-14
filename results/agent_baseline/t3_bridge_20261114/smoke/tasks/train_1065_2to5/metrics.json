@@ -1,0 +1,533 @@
+{
+  "id": "train_1065_2to5",
+  "group": "目标类",
+  "interpretation": {
+    "classes": [
+      "non-vegetated ground",
+      "building"
+    ],
+    "pair": [
+      2,
+      5
+    ],
+    "evidence": [
+      "The area within the red contour displays a uniform brownish-tan color consistent with exposed soil or dirt. The texture appears relatively smooth and bare, lacking the distinct patterns of vegetation, the geometric shapes of buildings, or the dark signature of water. Context from the wide view confirms this location is an unpaved strip of land adjacent to a road and large industrial buildings, typical of graded earth or a construction access path.",
+      "The object within the red contour is rectangular with a uniform, light gray roof, distinct from the surrounding soil and vegetation. In the wide view, it is located adjacent to a road and near large industrial warehouses, consistent with the scale and appearance of a small utility building or shed."
+    ],
+    "cost_cny": 0.0003020000000000001
+  },
+  "true_pair": [
+    2,
+    5
+  ],
+  "before_correct": true,
+  "after_correct": true,
+  "pair_correct": true,
+  "proposal_upper": {
+    "gt_instances": 0,
+    "aligned_instances": 0,
+    "truth_pixels": 0,
+    "covered_pixels": 0,
+    "proposals": 192,
+    "instance_recall_upper": null,
+    "pixel_coverage_upper": null,
+    "pixel_f1_upper": null
+  },
+  "records": [
+    {
+      "method": "dino",
+      "k": 4,
+      "counts": [
+        0,
+        7151,
+        0
+      ],
+      "candidates": [
+        106,
+        107,
+        92,
+        7
+      ],
+      "recall": {
+        "gt_instances": 0,
+        "aligned_instances": 0,
+        "truth_pixels": 0,
+        "covered_pixels": 0,
+        "proposals": 4,
+        "instance_recall_upper": null,
+        "pixel_coverage_upper": null,
+        "pixel_f1_upper": null
+      }
+    },
+    {
+      "method": "dino",
+      "k": 8,
+      "counts": [
+        0,
+        7152,
+        0
+      ],
+      "candidates": [
+        106,
+        107,
+        92,
+        7,
+        69,
+        17,
+        138,
+        99
+      ],
+      "recall": {
+        "gt_instances": 0,
+        "aligned_instances": 0,
+        "truth_pixels": 0,
+        "covered_pixels": 0,
+        "proposals": 8,
+        "instance_recall_upper": null,
+        "pixel_coverage_upper": null,
+        "pixel_f1_upper": null
+      }
+    },
+    {
+      "method": "dino",
+      "k": 16,
+      "counts": [
+        0,
+        32241,
+        0
+      ],
+      "candidates": [
+        106,
+        107,
+        92,
+        7,
+        69,
+        17,
+        138,
+        99,
+        100,
+        95,
+        176,
+        155,
+        67,
+        178,
+        64,
+        93
+      ],
+      "recall": {
+        "gt_instances": 0,
+        "aligned_instances": 0,
+        "truth_pixels": 0,
+        "covered_pixels": 0,
+        "proposals": 16,
+        "instance_recall_upper": null,
+        "pixel_coverage_upper": null,
+        "pixel_f1_upper": null
+      }
+    },
+    {
+      "method": "dino",
+      "k": 32,
+      "counts": [
+        0,
+        39740,
+        0
+      ],
+      "candidates": [
+        106,
+        107,
+        92,
+        7,
+        69,
+        17,
+        138,
+        99,
+        100,
+        95,
+        176,
+        155,
+        67,
+        178,
+        64,
+        93,
+        154,
+        104,
+        189,
+        73,
+        11,
+        45,
+        121,
+        181,
+        81,
+        174,
+        187,
+        168,
+        72,
+        166,
+        157,
+        87
+      ],
+      "recall": {
+        "gt_instances": 0,
+        "aligned_instances": 0,
+        "truth_pixels": 0,
+        "covered_pixels": 0,
+        "proposals": 32,
+        "instance_recall_upper": null,
+        "pixel_coverage_upper": null,
+        "pixel_f1_upper": null
+      }
+    },
+    {
+      "method": "dino_verified",
+      "k": 4,
+      "counts": [
+        0,
+        7151,
+        0
+      ],
+      "candidates": [
+        106,
+        107,
+        92,
+        7
+      ],
+      "recall": {
+        "gt_instances": 0,
+        "aligned_instances": 0,
+        "truth_pixels": 0,
+        "covered_pixels": 0,
+        "proposals": 4,
+        "instance_recall_upper": null,
+        "pixel_coverage_upper": null,
+        "pixel_f1_upper": null
+      }
+    },
+    {
+      "method": "bridge",
+      "k": 4,
+      "counts": [
+        0,
+        4132,
+        0
+      ],
+      "candidates": [
+        138,
+        99,
+        69,
+        176
+      ],
+      "recall": {
+        "gt_instances": 0,
+        "aligned_instances": 0,
+        "truth_pixels": 0,
+        "covered_pixels": 0,
+        "proposals": 4,
+        "instance_recall_upper": null,
+        "pixel_coverage_upper": null,
+        "pixel_f1_upper": null
+      }
+    },
+    {
+      "method": "bridge",
+      "k": 8,
+      "counts": [
+        0,
+        7022,
+        0
+      ],
+      "candidates": [
+        138,
+        99,
+        69,
+        176,
+        17,
+        174,
+        95,
+        7
+      ],
+      "recall": {
+        "gt_instances": 0,
+        "aligned_instances": 0,
+        "truth_pixels": 0,
+        "covered_pixels": 0,
+        "proposals": 8,
+        "instance_recall_upper": null,
+        "pixel_coverage_upper": null,
+        "pixel_f1_upper": null
+      }
+    },
+    {
+      "method": "bridge",
+      "k": 16,
+      "counts": [
+        0,
+        13729,
+        0
+      ],
+      "candidates": [
+        138,
+        99,
+        69,
+        176,
+        17,
+        174,
+        95,
+        7,
+        67,
+        122,
+        187,
+        155,
+        125,
+        157,
+        58,
+        72
+      ],
+      "recall": {
+        "gt_instances": 0,
+        "aligned_instances": 0,
+        "truth_pixels": 0,
+        "covered_pixels": 0,
+        "proposals": 16,
+        "instance_recall_upper": null,
+        "pixel_coverage_upper": null,
+        "pixel_f1_upper": null
+      }
+    },
+    {
+      "method": "bridge",
+      "k": 32,
+      "counts": [
+        0,
+        35751,
+        0
+      ],
+      "candidates": [
+        138,
+        99,
+        69,
+        176,
+        17,
+        174,
+        95,
+        7,
+        67,
+        122,
+        187,
+        155,
+        125,
+        157,
+        58,
+        72,
+        123,
+        182,
+        154,
+        93,
+        64,
+        73,
+        108,
+        38,
+        66,
+        68,
+        45,
+        14,
+        128,
+        140,
+        167,
+        94
+      ],
+      "recall": {
+        "gt_instances": 0,
+        "aligned_instances": 0,
+        "truth_pixels": 0,
+        "covered_pixels": 0,
+        "proposals": 32,
+        "instance_recall_upper": null,
+        "pixel_coverage_upper": null,
+        "pixel_f1_upper": null
+      }
+    },
+    {
+      "method": "bridge_verified",
+      "k": 4,
+      "counts": [
+        0,
+        4132,
+        0
+      ],
+      "candidates": [
+        138,
+        99,
+        69,
+        176
+      ],
+      "recall": {
+        "gt_instances": 0,
+        "aligned_instances": 0,
+        "truth_pixels": 0,
+        "covered_pixels": 0,
+        "proposals": 4,
+        "instance_recall_upper": null,
+        "pixel_coverage_upper": null,
+        "pixel_f1_upper": null
+      }
+    },
+    {
+      "method": "oracle_class_diagnostic",
+      "k": 4,
+      "counts": [
+        0,
+        4132,
+        0
+      ],
+      "candidates": [
+        138,
+        99,
+        69,
+        176
+      ],
+      "recall": {
+        "gt_instances": 0,
+        "aligned_instances": 0,
+        "truth_pixels": 0,
+        "covered_pixels": 0,
+        "proposals": 4,
+        "instance_recall_upper": null,
+        "pixel_coverage_upper": null,
+        "pixel_f1_upper": null
+      }
+    },
+    {
+      "method": "oracle_class_diagnostic",
+      "k": 8,
+      "counts": [
+        0,
+        7022,
+        0
+      ],
+      "candidates": [
+        138,
+        99,
+        69,
+        176,
+        17,
+        174,
+        95,
+        7
+      ],
+      "recall": {
+        "gt_instances": 0,
+        "aligned_instances": 0,
+        "truth_pixels": 0,
+        "covered_pixels": 0,
+        "proposals": 8,
+        "instance_recall_upper": null,
+        "pixel_coverage_upper": null,
+        "pixel_f1_upper": null
+      }
+    },
+    {
+      "method": "oracle_class_diagnostic",
+      "k": 16,
+      "counts": [
+        0,
+        13729,
+        0
+      ],
+      "candidates": [
+        138,
+        99,
+        69,
+        176,
+        17,
+        174,
+        95,
+        7,
+        67,
+        122,
+        187,
+        155,
+        125,
+        157,
+        58,
+        72
+      ],
+      "recall": {
+        "gt_instances": 0,
+        "aligned_instances": 0,
+        "truth_pixels": 0,
+        "covered_pixels": 0,
+        "proposals": 16,
+        "instance_recall_upper": null,
+        "pixel_coverage_upper": null,
+        "pixel_f1_upper": null
+      }
+    },
+    {
+      "method": "oracle_class_diagnostic",
+      "k": 32,
+      "counts": [
+        0,
+        35751,
+        0
+      ],
+      "candidates": [
+        138,
+        99,
+        69,
+        176,
+        17,
+        174,
+        95,
+        7,
+        67,
+        122,
+        187,
+        155,
+        125,
+        157,
+        58,
+        72,
+        123,
+        182,
+        154,
+        93,
+        64,
+        73,
+        108,
+        38,
+        66,
+        68,
+        45,
+        14,
+        128,
+        140,
+        167,
+        94
+      ],
+      "recall": {
+        "gt_instances": 0,
+        "aligned_instances": 0,
+        "truth_pixels": 0,
+        "covered_pixels": 0,
+        "proposals": 32,
+        "instance_recall_upper": null,
+        "pixel_coverage_upper": null,
+        "pixel_f1_upper": null
+      }
+    },
+    {
+      "method": "bridge_dense",
+      "k": 0,
+      "counts": [
+        0,
+        37434,
+        0
+      ]
+    }
+  ],
+  "verification_requests": 8,
+  "verification_unparsed": 0,
+  "cost_cny": 0.0030716000000000003,
+  "failures": []
+}

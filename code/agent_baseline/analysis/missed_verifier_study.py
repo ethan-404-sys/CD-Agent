@@ -92,7 +92,39 @@ def prepare(args):
     write_json(args.out/'manifest.json',manifest)
     write_json(args.out/'prepare_summary.json',dict(images=len(manifest), candidates=sum(len(r['candidates']) for r in manifest),
         requests_three_arms=3*sum(len(r['candidates']) for r in manifest), status='complete'))
+    reuse_smoke_answers(args,manifest)
     progress(args,'prepared',len(manifest))
+
+
+def reuse_smoke_answers(args, manifest):
+    """Same frozen candidates and requests: reuse paid smoke responses once."""
+    if args.out.name != 'pilot': return
+    source=args.out.parent/'smoke'
+    if not (source/'manifest.json').exists(): return
+    old_settings=load_json(source/'settings.json');new_settings=load_json(args.out/'settings.json')
+    for key in ('version','ranking','top','model','source_work','run'):
+        if old_settings[key]!=new_settings[key]:raise ValueError('Smoke request policy differs')
+    old={(r['group'],r['stem']):r for r in load_json(source/'manifest.json')}
+    reused=[]
+    for item in manifest:
+        prior=old.get((item['group'],item['stem']))
+        if prior is None:continue
+        for field in ('candidates','image_t1','image_t2','direction','scope'):
+            if item[field]!=prior[field]:raise ValueError('Smoke candidates or inference inputs differ')
+        for candidate in item['candidates']:
+            name=candidate['uid'].replace(':','__')+'.json'
+            for variant in VARIANTS:
+                origin=source/'answers'/variant/name;dest=args.out/'answers'/variant/name
+                if not origin.exists():continue
+                if not dest.exists():
+                    response=load_json(origin);event_path=origin.parent/'usage'/name
+                    if event_path.exists() and load_json(event_path).get('raw'):
+                        response.update(parse_response(load_json(event_path)['raw']))
+                    response.update(reused_from=str(origin),original_cost_cny=response.get('cost_cny',0),cost_cny=0.)
+                    write_json(dest,response)
+                reused.append(str(dest))
+    write_json(args.out/'reuse_smoke.json',dict(reused_requests=len(reused),responses=reused,
+        billing='No new requests; original usage remains charged once in smoke'))
 
 
 def marked_images(rgb, mask, bbox, variant):

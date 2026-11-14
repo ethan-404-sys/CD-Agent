@@ -1,0 +1,29 @@
+{
+  "history": [
+    {
+      "job": "01-smoke.sbatch",
+      "job_id": "185325",
+      "hook_id": "185326",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0.008628,
+      "metric": {
+        "stage": "smoke",
+        "completed": 3,
+        "failed": 0,
+        "failed_tasks": 0,
+        "cost_cny": 0.008627600000000001,
+        "cumulative": true,
+        "result_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/smoke/summary.json"
+      },
+      "metric_error": null,
+      "at": "2026-11-14 21:21:04"
+    }
+  ],
+  "delivery_issue": "Old local control server cannot resume thread with active writer; front-end delivery unconfirmed. Main reviewed persisted experiment status.",
+  "model": "qwen3.7-flash",
+  "stage": "smoke_completed",
+  "full_study_complete": false
+}
