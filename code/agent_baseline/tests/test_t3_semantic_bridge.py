@@ -4,10 +4,21 @@ import tempfile
 from unittest.mock import patch
 import numpy as np
 from agent_baseline.analysis.t3_semantic_bridge import (
-    canonical, bridge_scores, rank, single_date_views, PARSE_QUESTION, union)
+    canonical, bridge_scores, rank, single_date_views, PARSE_QUESTION, union, cached_dino_ranking)
 
 
 class BridgeTests(unittest.TestCase):
+    def test_historical_dino_identity_and_order(self):
+        masks = np.array([[[1,0],[0,0]], [[0,1],[0,0]], [[0,0],[1,0]]],bool)
+        indices = np.array([2,0,1])
+        saved = dict(indices=indices, shape=np.array([2,2]), scores=np.array([.9,.7,.1]),
+            masks=np.packbits(masks[indices].reshape(3,-1),axis=1))
+        with patch('agent_baseline.analysis.t3_semantic_bridge.read_npz',return_value=saved):
+            self.assertEqual(cached_dino_ranking('unused',masks),[2,0,1])
+            changed = masks.copy(); changed[0,1,1] = True
+            with self.assertRaisesRegex(ValueError,'masks differ'):
+                cached_dino_ranking('unused',changed)
+
     def test_online_opt_in_and_current_unchanged(self):
         from agent_baseline.tools import Toolbox, session_schemas
         from agent_baseline import instances
