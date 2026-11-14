@@ -46,3 +46,41 @@ class VerificationContractTests(unittest.TestCase):
         from agent_baseline.analysis.night_t3_retrieval import verification_stats
         result=verification_stats({0:dict(answer='yes'),1:dict(answer='no'),2:dict(answer='unparsed')})
         self.assertEqual((result['requests'],result['yes'],result['no'],result['unparsed']),(3,1,1,1))
+
+
+class PrepareOnlyTests(unittest.TestCase):
+    def test_cached_prepare_never_verifies_or_scores(self):
+        import json
+        import tempfile
+        from pathlib import Path
+        from unittest.mock import patch,MagicMock
+        from contextlib import ExitStack
+        from agent_baseline.analysis import night_t3_retrieval as module
+        with tempfile.TemporaryDirectory() as directory:
+            night=Path(directory);(night/'B0').mkdir()
+            (night/'B0/summary.json').write_text(json.dumps(dict(tasks=60,records=[dict(id='case',interpretation=dict(pair=[1,2]))])))
+            (night/'audit.json').write_text(json.dumps(dict(split={'case':'tune'})))
+            folder=night/'retrieval/B0/tasks/case';folder.mkdir(parents=True);(folder/'prepared.npz').touch()
+            row=dict(id='case',exemplar_mask='support',image_t1='first',image_t2='second',gt_mask='truth')
+            masks=np.ones((1,8,8),bool)
+            def image(path,**kwargs):
+                self.assertNotEqual(path,'truth')
+                return np.ones((8,8,3),np.uint8) if kwargs.get('rgb') else masks[0]
+            with ExitStack() as stack:
+                stack.enter_context(patch.dict('os.environ',{'SLURM_JOB_ID':'test'}))
+                stack.enter_context(patch('sys.argv',['prepare','--run',directory,'--night',directory,'--parse-variant','B0','--split','tune','--prepare-only']))
+                stack.enter_context(patch.object(module,'load_dev',return_value=[row]))
+                stack.enter_context(patch.object(module,'read_image',side_effect=image))
+                stack.enter_context(patch.object(module,'read_npz',return_value=dict(r1=masks,r2=masks,order1=np.array([0]),order3=np.array([0]))))
+                for name in ('CachedVision','TextProposals','Features'):
+                    stack.enter_context(patch.object(module,name,MagicMock()))
+                api=stack.enter_context(patch.object(module,'request',side_effect=AssertionError('No API during preparation')))
+                scoring=stack.enter_context(patch.object(module,'score',side_effect=AssertionError('No completed scores during preparation')))
+                module.main();api.assert_not_called();scoring.assert_not_called()
+            self.assertFalse((night/'retrieval/B0/summary_tune.json').exists())
+            progress=json.loads((night/'retrieval/B0/prepare_progress_tune.json').read_text())
+            self.assertEqual(progress['tasks'],1)
+            self.assertFalse(progress['scoring_complete'])
+            settings=json.loads((night/'retrieval/B0/settings.json').read_text())
+            self.assertEqual(settings['verify_k'],8)
+            self.assertNotIn('prepare_only',settings)
