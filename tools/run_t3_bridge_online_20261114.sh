@@ -18,7 +18,7 @@ REPO=${T3_CODE:-$ROOT/wyh/cd-t3-bridge}
 OUT=$ROOT/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114
 TASKS=$ROOT/wyh/exp6_staging/batch98_t3_routes/results/agent10_tasks.jsonl
 export AGENT_RUN=$OUT/online AGENT_CODE=$REPO/code/agent_baseline
-export OVCD_CODE=$REPO/code/ovcd_v0
+export OVCD_CODE=${T3_OVCD_CODE:-$REPO/code/ovcd_v0}
 export PYTHONPATH=$REPO/code:$OVCD_CODE
 export BAILIAN_CSV=$ROOT/wyh/默认业务空间-apiKey-6214720.csv
 export AGENT_STOP_FILE=$OUT/online/STOP.json
@@ -36,6 +36,7 @@ report() {
     exit "$status"
 }
 trap report EXIT
+"$PY" -B -m agent_baseline.analysis.t3_bridge_preflight --repo "$REPO" --tasks "$TASKS" --output "$OUT/preflight_${arm}_s${seed}.json"
 "$PY" -B -m unittest agent_baseline.tests.test_t3_semantic_bridge
 "$PY" -B -m agent_baseline.analysis.t3_bridge_online_metrics --output "$OUT" --tasks "$TASKS" --prepare-config "${arm}_s${seed}"
 extra=()

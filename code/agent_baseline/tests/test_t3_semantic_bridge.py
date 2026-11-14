@@ -10,6 +10,58 @@ from agent_baseline.analysis.t3_semantic_bridge import (
 
 
 class BridgeTests(unittest.TestCase):
+    def test_real_loop_advertises_tools_without_task_metadata(self):
+        from agent_baseline.loop_json import run_session
+        from agent_baseline.tools import Toolbox
+        from agent_baseline.state import Session
+        from agent_baseline.recorder import Recorder
+        from agent_baseline.planner import Planner
+        from .helpers import ScriptClient, response, call, rgb, mask
+        with tempfile.TemporaryDirectory() as folder:
+            session=Session(mask().shape,target='any change',instruction='Find the same transition as the visual example.')
+            session.exemplar_handle=session.add_mask(mask())
+            toolbox=Toolbox(rgb(),folder,session=session,tools_t13=True)
+            client=ScriptClient([response([call('submit',dict(mask='empty',summary='No other region.'))])])
+            planner=Planner(client=client,parameters=dict(model='qwen3.7-flash'))
+            recorder=Recorder(folder,'synthetic','example.png',gt=mask())
+            run_session(toolbox,planner,recorder,task='T3.1',t3_semantic_bridge=True,
+                metadata=dict(session_id='private_task_6to3',task_meta=dict(transition='private_label')))
+            names={s['function']['name'] for s in client.requests[0]['tools']}
+            self.assertTrue({'interpret_exemplar','rank_semantic_transition'} <= names)
+            payload=json.dumps(client.requests[0])
+            self.assertNotIn('private_task_6to3',payload)
+            self.assertNotIn('private_label',payload)
+            self.assertNotIn('gt_mask',payload)
+
+    def test_class6_background_contract_and_ranked_selection(self):
+        from agent_baseline.tools import Toolbox
+        from agent_baseline import instances
+        from agent_baseline.state import Mask
+        from agent_baseline.exemplar_semantics import CLASSES
+        rgb=np.zeros((2,2,3),np.uint8)
+        a,b=np.zeros((7,2,2)),np.zeros((7,2,2))
+        a[0]=1; b[0]=1  # Background must not be used as a requested class.
+        a[6]=[[.2,.9],[.1,.1]]; b[3]=[[.8,.9],[.1,.1]]
+        masks=np.array([[[1,0],[0,0]],[[0,1],[0,0]]],bool)
+        calls=[]
+        def backend(operation,**kwargs):
+            calls.append((operation,kwargs))
+            self.assertEqual(kwargs['classes'],list(CLASSES.values()))
+            return a if kwargs['time']=='t1' else b
+        with tempfile.TemporaryDirectory() as folder:
+            toolbox=Toolbox([rgb,rgb],folder,vision=backend); toolbox.t3_semantic_bridge=True
+            current=toolbox.session.add_mask(np.eye(2,dtype=bool)); toolbox.session.current_mask=current
+            props=toolbox._props(instances.from_dense(masks,np.ones(2)),'t1')['props']
+            result=toolbox.execute('rank_semantic_transition',dict(props=props,before='playground',after='tree'))
+            self.assertTrue(result.public['ok'],result.public)
+            self.assertEqual(result.public['ranked_ids'],[2,1])
+            self.assertAlmostEqual(result.public['scores'][1]['score'],.81)
+            selected=toolbox.execute('select',dict(set=result.public['props'],ids=result.public['ranked_ids'][:1]))
+            made=toolbox.execute('to_mask',dict(sets=[selected.public['props']],set_current=False))
+            self.assertTrue(np.array_equal(toolbox.session.get(made.public['mask'],Mask).data,masks[1]))
+            self.assertEqual(toolbox.session.current_mask,current)
+            self.assertEqual(len(calls),2)
+
     def test_partial_cost_deduplicates_and_archive_preserves_success(self):
         from agent_baseline.analysis.t3_bridge_online_metrics import session_cost, archive_incomplete, completion
         from agent_baseline.planner import request_cost, usage_tokens
