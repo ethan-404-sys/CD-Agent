@@ -100,7 +100,7 @@ def evaluate_task(row, run, historical, out, verify_k, seed):
         dense = (probabilities[0].argmax(axis=0) == pair[0]) & (probabilities[1].argmax(axis=0) == pair[1])
     records.append(dict(method='bridge_dense', k=0, counts=pixel_counts(dense, truth, ex)))
     failures = []
-    if pair != list(actual_pair): failures.append('exemplar_semantic_error')
+    if pair != list(actual_pair): failures.append('exemplar_gt_class_disagreement_requires_review')
     if None in pair: failures.append('unknown_exemplar_class')
     if any(a['answer'] == 'unparsed' for a in answers.values()): failures.append('unparsed_verification')
     if any(a['answer']=='no' and a['counts'][0] for a in verification_audit): failures.append('verification_removed_true_pixels')
@@ -112,6 +112,9 @@ def evaluate_task(row, run, historical, out, verify_k, seed):
     record = dict(id=row['id'], group=group(row), interpretation=interpretation,
         true_pair=list(actual_pair), before_correct=pair[0] == actual_pair[0],
         after_correct=pair[1] == actual_pair[1], pair_correct=pair == list(actual_pair),
+        semantic_review_required=pair != list(actual_pair),
+        semantic_review_note=('GT class agreement is not an adjudicated visual-understanding accuracy; '
+            'review both dates for exemplar recognizability, class ambiguity and label discrepancy before assigning a model error.'),
         proposal_upper=upper, records=records,
         verification_requests=len(answers), verification_unparsed=sum(a['answer']=='unparsed' for a in answers.values()),
         verification_audit=verification_audit,
@@ -138,7 +141,9 @@ def summarize(tasks):
             metrics[f'{method}@{k}'] = score
         output[name] = dict(tasks=len(selected), semantic={key: sum(t[key] for t in selected)/len(selected)
             if selected else None for key in ('before_correct','after_correct','pair_correct')}, metrics=metrics)
-    return dict(tasks=len(tasks), groups=output, cost_cny=sum(t['cost_cny'] for t in tasks),
+    return dict(tasks=len(tasks), groups=output,
+        semantic_metric='agreement with provided SECOND class labels; mismatches require visual/label review, not automatic model-error attribution',
+        cost_cny=sum(t['cost_cny'] for t in tasks),
         verification_requests=sum(t['verification_requests'] for t in tasks), per_task=tasks)
 
 
