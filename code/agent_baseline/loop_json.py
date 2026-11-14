@@ -112,8 +112,13 @@ def latest_mask(session):
     return masks[-1] if masks else None
 
 
-def run_session(toolbox, planner, recorder, task='T1.1xC0', budget=30, prompt_version='v1', metadata=None, review=False, status=False, verify=False, plan=False, skills=(), gate2=False, gate3=False, gate4=False, tool_hints='off', gate5=False, gate6=False, answer_state=False, segment_pair=False, progressive_tools=False):
+def run_session(toolbox, planner, recorder, task='T1.1xC0', budget=30, prompt_version='v1', metadata=None, review=False, status=False, verify=False, plan=False, skills=(), gate2=False, gate3=False, gate4=False, tool_hints='off', gate5=False, gate6=False, answer_state=False, segment_pair=False, progressive_tools=False, t3_semantic_bridge=False):
     session = toolbox.session
+    if t3_semantic_bridge:
+        toolbox.t3_semantic_bridge = True
+        toolbox.bridge_seed = planner.parameters.get('seed', 0)
+        metadata = copy.deepcopy(metadata or {})
+        metadata.setdefault('backends', {})['t3_semantic_bridge'] = True
     if progressive_tools:
         metadata = copy.deepcopy(metadata or {})
         metadata.setdefault('backends', {})['progressive_tools'] = True
@@ -154,7 +159,7 @@ def run_session(toolbox, planner, recorder, task='T1.1xC0', budget=30, prompt_ve
     previous_calls = None
     reason, error = 'budget', None
     reviewed = not (review or verify)
-    schemas = [*tool_module.session_schemas(session, toolbox.python_enabled, toolbox.tools_t13, tool_hints, gate5=gate5, answer_state=toolbox.answer_state, segment_pair=toolbox.segment_pair), *([PLAN_SCHEMA] if plan else []), *([SKILL_SCHEMA] if skills else [])]
+    schemas = [*tool_module.session_schemas(session, toolbox.python_enabled, toolbox.tools_t13, tool_hints, gate5=gate5, answer_state=toolbox.answer_state, segment_pair=toolbox.segment_pair, t3_semantic_bridge=toolbox.t3_semantic_bridge), *([PLAN_SCHEMA] if plan else []), *([SKILL_SCHEMA] if skills else [])]
     generated_calls = []
     toolbox.skills = tuple(skills)
     messages = []
@@ -413,6 +418,7 @@ def main():
     parser.add_argument('--tasks', help='Task manifest JSONL; optionally filter by --task.')
     parser.add_argument('--map-ask-variant', choices=['t2_state'], help='Opt-in T2-only building-state verifier; requires --map-input and API ask.')
     parser.add_argument('--map-input', action='store_true', help='Enable T5.4 old building map as T1; requires a T5.4 manifest.')
+    parser.add_argument('--t3-semantic-bridge', action='store_true', help='Offer independent visual exemplar interpretation and semantic proposal scoring. Default off.')
     parser.add_argument('--tools-t13', nargs='?', const='all', default='', help='Enable all new vision tools, or comma-separated tool names. Default off.')
     parser.add_argument('--tool-hints', choices=['off', 'a', 'b'], default='off', help='Append purpose hints to enabled T1.3 tool descriptions only.')
     parser.add_argument('--external-examples', action='store_true', help='Load external example crops from --tasks. Requires match_exemplar in --tools-t13. Default off.')
@@ -467,7 +473,7 @@ def main():
     if not 0 < args.big_box_share <= 1:
         parser.error('--big-box-share must be in (0, 1]')
     vision = None
-    if args.tools_t13:
+    if args.tools_t13 or args.t3_semantic_bridge:
         from .backends_t13 import WorkerPool
         if not args.vision_config:
             parser.error('--tools-t13 requires --vision-config')
@@ -569,7 +575,7 @@ def main():
             map_input=args.map_input,
             big_box_share=args.big_box_share)
         try:
-            result = run_session(toolbox, planner, recorder, task, prompt_version=args.prompt_version, review=args.review, status=args.status, verify=args.verify_stage, plan=args.plan, skills=skills, gate2=args.gate2, gate3=args.gate3, gate4=args.gate4, tool_hints=args.tool_hints, gate5=args.gate5, gate6=args.gate6, answer_state=args.answer_state, segment_pair=args.segment_pair, progressive_tools=args.progressive_tools,
+            result = run_session(toolbox, planner, recorder, task, prompt_version=args.prompt_version, review=args.review, status=args.status, verify=args.verify_stage, plan=args.plan, skills=skills, gate2=args.gate2, gate3=args.gate3, gate4=args.gate4, tool_hints=args.tool_hints, gate5=args.gate5, gate6=args.gate6, answer_state=args.answer_state, segment_pair=args.segment_pair, progressive_tools=args.progressive_tools, t3_semantic_bridge=args.t3_semantic_bridge,
                 metadata=dict(**({'scope': session.scope} if session.scope else {}), session_id=stem, source_images=image_paths or source_images,
                     init_mask_path=str(init_path) if init is not None or needs_init(task) else None,
                     init_config=dict(route=args.init_name, text=session.target, tile=512, score_thr=.5,

@@ -20,6 +20,7 @@ from scipy import ndimage as ndi
 from prompts import VERIFY
 from .scope_t13 import verifier_prompts, session_prompts, session_card
 from .tools_t13 import ProposalTools, tool_schemas, enabled_names, extend_schemas, NAMES as T13_NAMES
+from .semantic_bridge_tools import SemanticBridgeTools, schemas as bridge_schemas, NAMES as BRIDGE_NAMES
 from . import instances
 from common import components
 from .state import Session, Mask, Instances, ToolError, chosen_ids
@@ -101,6 +102,7 @@ PAIR_SCHEMA = schema('segment_text_pair', 'Segment the same named class at both 
     dict(text=S, tile=arg('integer', enum=[0, 512], default=512),
          score_thr=arg('number', minimum=0, maximum=1, default=0.5)), ['text'])
 SCHEMA_BY_NAME = {s['function']['name']: s['function']['parameters'] for s in [*SCHEMAS, ANSWER_SCHEMA, PAIR_SCHEMA, PLAN_SCHEMA, SKILL_SCHEMA, PYTHON_SCHEMA, *tool_schemas()]}
+SCHEMA_BY_NAME.update({s['function']['name']:s['function']['parameters'] for s in bridge_schemas()})
 
 
 def area_select_schema(function):
@@ -116,9 +118,11 @@ def area_select_schema(function):
     return function
 
 
-def session_schemas(session, python=False, tools_t13=False, tool_hints='off', gate5=False, answer_state=False, segment_pair=False):
+def session_schemas(session, python=False, tools_t13=False, tool_hints='off', gate5=False, answer_state=False, segment_pair=False, t3_semantic_bridge=False):
     import copy
     schemas = copy.deepcopy(SCHEMAS)
+    if t3_semantic_bridge:
+        schemas.extend(bridge_schemas())
     if answer_state:
         schemas.append(copy.deepcopy(ANSWER_SCHEMA))
     if segment_pair:
@@ -261,7 +265,7 @@ def failure(code, message):
     return Result(dict(ok=False, error_code=code, message=message))
 
 
-class Toolbox(ProposalTools):
+class Toolbox(ProposalTools, SemanticBridgeTools):
     def __init__(self, rgb, directory, segment=None, prompt=None, ask=None, session=None, init_mask=None, python=False, tools_t13=False, vision=None, gate3=False, big_box_share=BIG_BOX_SHARE, gate4=False, map_input=False, gate5=False, gate6=False, answer_state=False, segment_pair=False):
         self.rgb = tuple(np.array(im, copy=True) for im in rgb)
         self.session = session or Session(self.rgb[0].shape[:2], init_mask)
@@ -289,6 +293,8 @@ class Toolbox(ProposalTools):
         self.gate6 = gate6
         self.answer_state = answer_state
         self.segment_pair = segment_pair
+        self.t3_semantic_bridge = False
+        self.bridge_seed = 1016
         self.recent_calls = []
         self.observed_views = []
 
@@ -302,6 +308,8 @@ class Toolbox(ProposalTools):
         started_at = clock.time()
         self.allowed, self.meta = allowed, {}
         try:
+            if name in BRIDGE_NAMES and not self.t3_semantic_bridge:
+                raise ToolError('bad_args', 'Unknown tool name.')
             if (name == 'segment_text_pair' and not self.segment_pair) or (name == 'set_answer' and not self.answer_state) or name not in SCHEMA_BY_NAME or (name == 'python' and not self.python_enabled) or (name in T13_NAMES and name not in self.tools_t13):
                 raise ToolError('bad_args', 'Unknown tool name.')
             from .examples_t3x import external_spec
