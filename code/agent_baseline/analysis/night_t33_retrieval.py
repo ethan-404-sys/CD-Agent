@@ -12,7 +12,7 @@ from .t3_routes import load_dev,group,GRID
 from .t3_routes_cache import CachedVision,read_npz,write_npz
 from .t3_diag import directed_proposals,proposal_metrics
 from .t3_geometry import descriptor
-from .night_t3_retrieval import TextProposals,local_views,score,summaries
+from .night_t3_retrieval import TextProposals,local_views,score,summaries,verification_stats
 from .night_t3_grounding import API_SEED
 
 
@@ -53,6 +53,8 @@ def main():
         query_cache=str(a.run/'t3_diag/cache/vision'),reference_cache=str(a.run/'vision_t13'),
         scoring='external exemplar coordinates never subtracted from query truth',
         R1='external change vector plus same area/aspect/colour gates',
+        native_order='SAM query order filtered, source candidates then target; not confidence rank or random',
+        unparsed_policy='historical keep-unparsed; parsed-yes-only diagnostic reported separately',
         R2='parsed directed text proposals',R3='same text pool, external DINO ranking, local support-prompt verification',
         code=str(Path(__file__).resolve())))
     try:
@@ -94,10 +96,11 @@ def main():
                 scores.extend([score(r1,order1[:k],truth,zero,'R1_geometry_dino',k),
                     score(r2,list(range(min(k,len(r2)))),truth,zero,'R2_native_order',k),score(r2,order3[:k],truth,zero,'R3_dino_noverify',k)])
             scores.extend([score(r2,list(range(len(r2))),truth,zero,'R2_all',0),
-                score(r2,[i for i in order3[:8] if answers[i]['answer']!='no'],truth,zero,'R3_verified',8)])
+                score(r2,[i for i in order3[:8] if answers[i]['answer']!='no'],truth,zero,'R3_verified',8),
+                score(r2,[i for i in order3[:8] if answers[i]['answer']=='yes'],truth,zero,'R3_drop_unparsed_diagnostic',8)])
             record=dict(id=row['id'],split=audit['split'][row['id']],group=group(row),remaining_gt_pixels=int(truth.sum()),
                 scores=scores,text_proposal_upper=proposal_metrics(r2,truth,zero),geometry_proposal_upper=proposal_metrics(r1,truth,zero),
-                verification=answers,cost_cny=sum(v['cost_cny'] for v in answers.values()))
+                verification=answers,verification_stats=verification_stats(answers),cost_cny=sum(v['cost_cny'] for v in answers.values()))
             write_json(final,record);records.append(record)
             write_json(out/'summary.json',dict(tasks=len(records),records=records,summary=summaries(records),cost_cny=sum(r['cost_cny'] for r in records)))
             print('T3.3 retrieval',len(records),row['id'],flush=True)

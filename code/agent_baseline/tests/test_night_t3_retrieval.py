@@ -39,3 +39,10 @@ class RetrievalTests(unittest.TestCase):
 
 
 if __name__=='__main__':unittest.main()
+
+
+class VerificationContractTests(unittest.TestCase):
+    def test_unparsed_is_reported_separately(self):
+        from agent_baseline.analysis.night_t3_retrieval import verification_stats
+        result=verification_stats({0:dict(answer='yes'),1:dict(answer='no'),2:dict(answer='unparsed')})
+        self.assertEqual((result['requests'],result['yes'],result['no'],result['unparsed']),(3,1,1,1))
