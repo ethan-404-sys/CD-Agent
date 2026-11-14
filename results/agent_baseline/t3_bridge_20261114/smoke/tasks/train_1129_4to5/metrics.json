@@ -1,0 +1,535 @@
+{
+  "id": "train_1129_4to5",
+  "group": "目标类",
+  "interpretation": {
+    "classes": [
+      "non-vegetated ground",
+      "building"
+    ],
+    "pair": [
+      2,
+      5
+    ],
+    "evidence": [
+      "The area inside the red contour displays a light tan or beige color, which contrasts sharply with the surrounding dark brown soil and patches of dark green vegetation. The texture appears bare and dusty, consistent with exposed earth, sand, or a dirt track, lacking the canopy structure of trees or the uniformity of low vegetation.",
+      "The red contour encloses a long, rectangular structure with a flat, light-gray roof, consistent with the adjacent industrial or warehouse buildings. The shape and alignment match the surrounding built environment, and there is no visible vegetation, water, or ground texture within the contour—only a uniform rooftop surface."
+    ],
+    "cost_cny": 0.0002884
+  },
+  "true_pair": [
+    4,
+    5
+  ],
+  "before_correct": false,
+  "after_correct": true,
+  "pair_correct": false,
+  "proposal_upper": {
+    "gt_instances": 0,
+    "aligned_instances": 0,
+    "truth_pixels": 0,
+    "covered_pixels": 0,
+    "proposals": 147,
+    "instance_recall_upper": null,
+    "pixel_coverage_upper": null,
+    "pixel_f1_upper": null
+  },
+  "records": [
+    {
+      "method": "dino",
+      "k": 4,
+      "counts": [
+        0,
+        11793,
+        0
+      ],
+      "candidates": [
+        35,
+        71,
+        65,
+        110
+      ],
+      "recall": {
+        "gt_instances": 0,
+        "aligned_instances": 0,
+        "truth_pixels": 0,
+        "covered_pixels": 0,
+        "proposals": 4,
+        "instance_recall_upper": null,
+        "pixel_coverage_upper": null,
+        "pixel_f1_upper": null
+      }
+    },
+    {
+      "method": "dino",
+      "k": 8,
+      "counts": [
+        0,
+        18620,
+        0
+      ],
+      "candidates": [
+        35,
+        71,
+        65,
+        110,
+        58,
+        26,
+        126,
+        39
+      ],
+      "recall": {
+        "gt_instances": 0,
+        "aligned_instances": 0,
+        "truth_pixels": 0,
+        "covered_pixels": 0,
+        "proposals": 8,
+        "instance_recall_upper": null,
+        "pixel_coverage_upper": null,
+        "pixel_f1_upper": null
+      }
+    },
+    {
+      "method": "dino",
+      "k": 16,
+      "counts": [
+        0,
+        26648,
+        0
+      ],
+      "candidates": [
+        35,
+        71,
+        65,
+        110,
+        58,
+        26,
+        126,
+        39,
+        56,
+        75,
+        73,
+        40,
+        17,
+        87,
+        47,
+        78
+      ],
+      "recall": {
+        "gt_instances": 0,
+        "aligned_instances": 0,
+        "truth_pixels": 0,
+        "covered_pixels": 0,
+        "proposals": 16,
+        "instance_recall_upper": null,
+        "pixel_coverage_upper": null,
+        "pixel_f1_upper": null
+      }
+    },
+    {
+      "method": "dino",
+      "k": 32,
+      "counts": [
+        0,
+        161644,
+        0
+      ],
+      "candidates": [
+        35,
+        71,
+        65,
+        110,
+        58,
+        26,
+        126,
+        39,
+        56,
+        75,
+        73,
+        40,
+        17,
+        87,
+        47,
+        78,
+        15,
+        43,
+        44,
+        72,
+        2,
+        90,
+        21,
+        117,
+        82,
+        138,
+        129,
+        118,
+        22,
+        36,
+        122,
+        41
+      ],
+      "recall": {
+        "gt_instances": 0,
+        "aligned_instances": 0,
+        "truth_pixels": 0,
+        "covered_pixels": 0,
+        "proposals": 32,
+        "instance_recall_upper": null,
+        "pixel_coverage_upper": null,
+        "pixel_f1_upper": null
+      }
+    },
+    {
+      "method": "dino_verified",
+      "k": 4,
+      "counts": [
+        0,
+        11793,
+        0
+      ],
+      "candidates": [
+        35,
+        71,
+        65,
+        110
+      ],
+      "recall": {
+        "gt_instances": 0,
+        "aligned_instances": 0,
+        "truth_pixels": 0,
+        "covered_pixels": 0,
+        "proposals": 4,
+        "instance_recall_upper": null,
+        "pixel_coverage_upper": null,
+        "pixel_f1_upper": null
+      }
+    },
+    {
+      "method": "bridge",
+      "k": 4,
+      "counts": [
+        0,
+        3762,
+        0
+      ],
+      "candidates": [
+        48,
+        90,
+        75,
+        140
+      ],
+      "recall": {
+        "gt_instances": 0,
+        "aligned_instances": 0,
+        "truth_pixels": 0,
+        "covered_pixels": 0,
+        "proposals": 4,
+        "instance_recall_upper": null,
+        "pixel_coverage_upper": null,
+        "pixel_f1_upper": null
+      }
+    },
+    {
+      "method": "bridge",
+      "k": 8,
+      "counts": [
+        0,
+        11282,
+        0
+      ],
+      "candidates": [
+        48,
+        90,
+        75,
+        140,
+        102,
+        109,
+        21,
+        107
+      ],
+      "recall": {
+        "gt_instances": 0,
+        "aligned_instances": 0,
+        "truth_pixels": 0,
+        "covered_pixels": 0,
+        "proposals": 8,
+        "instance_recall_upper": null,
+        "pixel_coverage_upper": null,
+        "pixel_f1_upper": null
+      }
+    },
+    {
+      "method": "bridge",
+      "k": 16,
+      "counts": [
+        0,
+        22383,
+        0
+      ],
+      "candidates": [
+        48,
+        90,
+        75,
+        140,
+        102,
+        109,
+        21,
+        107,
+        88,
+        17,
+        85,
+        49,
+        41,
+        61,
+        40,
+        26
+      ],
+      "recall": {
+        "gt_instances": 0,
+        "aligned_instances": 0,
+        "truth_pixels": 0,
+        "covered_pixels": 0,
+        "proposals": 16,
+        "instance_recall_upper": null,
+        "pixel_coverage_upper": null,
+        "pixel_f1_upper": null
+      }
+    },
+    {
+      "method": "bridge",
+      "k": 32,
+      "counts": [
+        0,
+        46720,
+        0
+      ],
+      "candidates": [
+        48,
+        90,
+        75,
+        140,
+        102,
+        109,
+        21,
+        107,
+        88,
+        17,
+        85,
+        49,
+        41,
+        61,
+        40,
+        26,
+        87,
+        93,
+        71,
+        76,
+        132,
+        92,
+        103,
+        19,
+        126,
+        32,
+        138,
+        129,
+        110,
+        43,
+        77,
+        65
+      ],
+      "recall": {
+        "gt_instances": 0,
+        "aligned_instances": 0,
+        "truth_pixels": 0,
+        "covered_pixels": 0,
+        "proposals": 32,
+        "instance_recall_upper": null,
+        "pixel_coverage_upper": null,
+        "pixel_f1_upper": null
+      }
+    },
+    {
+      "method": "bridge_verified",
+      "k": 4,
+      "counts": [
+        0,
+        3762,
+        0
+      ],
+      "candidates": [
+        48,
+        90,
+        75,
+        140
+      ],
+      "recall": {
+        "gt_instances": 0,
+        "aligned_instances": 0,
+        "truth_pixels": 0,
+        "covered_pixels": 0,
+        "proposals": 4,
+        "instance_recall_upper": null,
+        "pixel_coverage_upper": null,
+        "pixel_f1_upper": null
+      }
+    },
+    {
+      "method": "oracle_class_diagnostic",
+      "k": 4,
+      "counts": [
+        0,
+        1291,
+        0
+      ],
+      "candidates": [
+        35,
+        15,
+        52,
+        39
+      ],
+      "recall": {
+        "gt_instances": 0,
+        "aligned_instances": 0,
+        "truth_pixels": 0,
+        "covered_pixels": 0,
+        "proposals": 4,
+        "instance_recall_upper": null,
+        "pixel_coverage_upper": null,
+        "pixel_f1_upper": null
+      }
+    },
+    {
+      "method": "oracle_class_diagnostic",
+      "k": 8,
+      "counts": [
+        0,
+        12088,
+        0
+      ],
+      "candidates": [
+        35,
+        15,
+        52,
+        39,
+        86,
+        10,
+        110,
+        115
+      ],
+      "recall": {
+        "gt_instances": 0,
+        "aligned_instances": 0,
+        "truth_pixels": 0,
+        "covered_pixels": 0,
+        "proposals": 8,
+        "instance_recall_upper": null,
+        "pixel_coverage_upper": null,
+        "pixel_f1_upper": null
+      }
+    },
+    {
+      "method": "oracle_class_diagnostic",
+      "k": 16,
+      "counts": [
+        0,
+        24602,
+        0
+      ],
+      "candidates": [
+        35,
+        15,
+        52,
+        39,
+        86,
+        10,
+        110,
+        115,
+        58,
+        72,
+        65,
+        118,
+        144,
+        101,
+        120,
+        74
+      ],
+      "recall": {
+        "gt_instances": 0,
+        "aligned_instances": 0,
+        "truth_pixels": 0,
+        "covered_pixels": 0,
+        "proposals": 16,
+        "instance_recall_upper": null,
+        "pixel_coverage_upper": null,
+        "pixel_f1_upper": null
+      }
+    },
+    {
+      "method": "oracle_class_diagnostic",
+      "k": 32,
+      "counts": [
+        0,
+        74941,
+        0
+      ],
+      "candidates": [
+        35,
+        15,
+        52,
+        39,
+        86,
+        10,
+        110,
+        115,
+        58,
+        72,
+        65,
+        118,
+        144,
+        101,
+        120,
+        74,
+        142,
+        106,
+        94,
+        143,
+        96,
+        66,
+        73,
+        1,
+        16,
+        29,
+        9,
+        75,
+        139,
+        56,
+        123,
+        4
+      ],
+      "recall": {
+        "gt_instances": 0,
+        "aligned_instances": 0,
+        "truth_pixels": 0,
+        "covered_pixels": 0,
+        "proposals": 32,
+        "instance_recall_upper": null,
+        "pixel_coverage_upper": null,
+        "pixel_f1_upper": null
+      }
+    },
+    {
+      "method": "bridge_dense",
+      "k": 0,
+      "counts": [
+        0,
+        81054,
+        0
+      ]
+    }
+  ],
+  "verification_requests": 8,
+  "verification_unparsed": 0,
+  "cost_cny": 0.0030724000000000003,
+  "failures": [
+    "exemplar_semantic_error"
+  ]
+}

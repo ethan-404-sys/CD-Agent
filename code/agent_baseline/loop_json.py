@@ -159,7 +159,7 @@ def run_session(toolbox, planner, recorder, task='T1.1xC0', budget=30, prompt_ve
     previous_calls = None
     reason, error = 'budget', None
     reviewed = not (review or verify)
-    schemas = [*tool_module.session_schemas(session, toolbox.python_enabled, toolbox.tools_t13, tool_hints, gate5=gate5, answer_state=toolbox.answer_state, segment_pair=toolbox.segment_pair, t3_semantic_bridge=toolbox.t3_semantic_bridge), *([PLAN_SCHEMA] if plan else []), *([SKILL_SCHEMA] if skills else [])]
+    schemas = [*tool_module.session_schemas(session, toolbox.python_enabled, toolbox.tools_t13, tool_hints, gate5=gate5, answer_state=toolbox.answer_state, segment_pair=toolbox.segment_pair, t3_semantic_bridge=toolbox.t3_semantic_bridge, missed_candidates=toolbox.missed_provider is not None), *([PLAN_SCHEMA] if plan else []), *([SKILL_SCHEMA] if skills else [])]
     generated_calls = []
     toolbox.skills = tuple(skills)
     messages = []
@@ -418,6 +418,8 @@ def main():
     parser.add_argument('--tasks', help='Task manifest JSONL; optionally filter by --task.')
     parser.add_argument('--map-ask-variant', choices=['t2_state'], help='Opt-in T2-only building-state verifier; requires --map-input and API ask.')
     parser.add_argument('--map-input', action='store_true', help='Enable T5.4 old building map as T1; requires a T5.4 manifest.')
+    parser.add_argument('--missed-candidates-root', type=Path, help='Opt-in frozen SECOND/LEVIR development candidate cache; returns proposals only.')
+    parser.add_argument('--missed-verifier-variant', choices=['four','som','structured'], help='Opt-in serial flash verifier with controlled position marks/question.')
     parser.add_argument('--t3-semantic-bridge', action='store_true', help='Offer independent visual exemplar interpretation and semantic proposal scoring. Default off.')
     parser.add_argument('--tools-t13', nargs='?', const='all', default='', help='Enable all new vision tools, or comma-separated tool names. Default off.')
     parser.add_argument('--tool-hints', choices=['off', 'a', 'b'], default='off', help='Append purpose hints to enabled T1.3 tool descriptions only.')
@@ -499,6 +501,10 @@ def main():
         parser.error('--map-input requires a nonempty T5.4 manifest')
     if (args.task == 'T5.4' or (args.tasks and any(r['task_type'] == 'T5.4' for r in todo))) and not args.map_input:
         parser.error('T5.4 requires --map-input')
+    if args.missed_candidates_root and (not args.tasks or any((r.get('meta') or {}).get('group') not in ('second_appeared','second_disappeared','levir_any') for r in todo)):
+        parser.error('--missed-candidates-root requires the frozen development group manifests')
+    if args.missed_verifier_variant and (args.ask_backend != 'api' or args.ask_model != 'qwen3.7-flash'):
+        parser.error('--missed-verifier-variant requires API qwen3.7-flash')
     if args.limit is not None:
         todo = todo[:args.limit]
     if args.tasks:
@@ -560,6 +566,9 @@ def main():
             from .examples_t3x import attach_examples, load_examples
             attach_examples(session, load_examples(row['examples'], vision))
         ask = LocalAsk(args.ask_worker) if args.ask_backend == 'local' else ApiAsk(guard=guard, model=args.ask_model, correspondence=args.ask_correspondence, session=session) if args.ask_backend == 'api' else None
+        if args.missed_verifier_variant:
+            from .missed_verifier import MissedVerifier
+            ask = MissedVerifier(directory/'missed_verifier', args.missed_verifier_variant, session=session, guard=guard, seed=seed_for(name,args.seed_offset))
         source_images = [str(WORKSPACE / 'datasets' / 'LEVIR-CD' / f'{args.split}_original' / part / name) for part in ('A','B')]
         custom_images = row is not None and [row['image_t1'], row['image_t2']] != source_images
         if task in ('T5.2', 'T5.3'):
@@ -574,6 +583,9 @@ def main():
             vision=vision.for_pair(image_paths or source_images) if vision else None,
             map_input=args.map_input,
             big_box_share=args.big_box_share)
+        if args.missed_candidates_root:
+            from .find_missed import CachedMissedCandidates
+            toolbox.missed_provider = CachedMissedCandidates(args.missed_candidates_root, row['meta']['group'], Path(row['id']).stem, session.shape)
         try:
             result = run_session(toolbox, planner, recorder, task, prompt_version=args.prompt_version, review=args.review, status=args.status, verify=args.verify_stage, plan=args.plan, skills=skills, gate2=args.gate2, gate3=args.gate3, gate4=args.gate4, tool_hints=args.tool_hints, gate5=args.gate5, gate6=args.gate6, answer_state=args.answer_state, segment_pair=args.segment_pair, progressive_tools=args.progressive_tools, t3_semantic_bridge=args.t3_semantic_bridge,
                 metadata=dict(**({'scope': session.scope} if session.scope else {}), session_id=stem, source_images=image_paths or source_images,
@@ -582,6 +594,7 @@ def main():
                         overlap_thr=.25, match_basis=tool_module.MATCH_BASIS) if needs_init(task) else None,
                     backends=dict(**({'gate2': True} if args.gate2 else {}), ask=args.ask_backend, review=args.review, status=args.status, verify_stage=args.verify_stage,
                         plan=args.plan, skills=skills, ask_correspondence=args.ask_correspondence,
+                        missed_candidates=bool(args.missed_candidates_root), missed_verifier_variant=args.missed_verifier_variant,
                         ask_model=args.ask_model if args.ask_backend == 'api' else 'Qwen3.5-4B' if args.ask_backend == 'local' else None,
                         sam3_worker=bool(args.sam3_worker), pixel_thr=args.pixel_thr, sam_prompt='worker' if args.sam_prompt_worker else 'shared_' + args.sam_prompt_device, sam_model='SAM ViT-H'),
                     task_meta=row['meta'] if row else {}, init_error=init_error))

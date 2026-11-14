@@ -1,0 +1,35 @@
+{
+  "uid": "levir_any:train_106:14",
+  "answer": "no",
+  "parsed": {
+    "t1_state": "The object inside the contour is a circular structure with a bright green roof, located next to a white rectangular building and a dark fence line.",
+    "t2_state": "The object at the same location appears as a dark grey or black circular structure, likely the same tank or small building but with a different roof color or under heavy shadow.",
+    "same_object": true,
+    "appearance_only": true,
+    "change": "no",
+    "type": "seasonal_or_color",
+    "reason": "The object corresponds in shape and position to the T1 feature, but its appearance has changed from bright green to dark grey/black, which aligns with scope card exclusions for color/tone differences of the same building."
+  },
+  "raw": "{\n\"t1_state\": \"The object inside the contour is a circular structure with a bright green roof, located next to a white rectangular building and a dark fence line.\",\n\"t2_state\": \"The object at the same location appears as a dark grey or black circular structure, likely the same tank or small building but with a different roof color or under heavy shadow.\",\n\"same_object\": true,\n\"appearance_only\": true,\n\"change\": \"no\",\n\"type\": \"seasonal_or_color\",\n\"reason\": \"The object corresponds in shape and position to the T1 feature, but its appearance has changed from bright green to dark grey/black, which aligns with scope card exclusions for color/tone differences of the same building.\"\n}",
+  "usage": {
+    "prompt_tokens": 1081,
+    "total_tokens": 1240,
+    "completion_tokens": 159,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 497
+    },
+    "completion_tokens_details": {
+      "text_tokens": 159
+    }
+  },
+  "tokens": {
+    "input": 1081,
+    "cached": 0,
+    "output": 159
+  },
+  "cost_cny": 0.00034340000000000005,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/smoke/answers/structured/inputs/levir_any__train_106__14"
+}

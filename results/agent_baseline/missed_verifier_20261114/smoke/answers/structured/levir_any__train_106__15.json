@@ -1,0 +1,35 @@
+{
+  "uid": "levir_any:train_106:15",
+  "answer": "yes",
+  "parsed": {
+    "t1_state": "The object inside the red contour at T1 is a dense cluster of trees and vegetation, appearing as an irregular patch of dark green/brown texture consistent with a tree canopy.",
+    "t2_state": "The object inside the red contour at T2 is a paved surface, likely a parking lot or driveway, with visible curbing and adjacent to new residential-style buildings; the original tree cover has been removed.",
+    "same_object": false,
+    "appearance_only": false,
+    "change": "yes",
+    "type": "demolished",
+    "reason": "The vegetated area (trees) present in T1 has been cleared and replaced by hardscape (pavement) and new construction in T2, indicating the demolition/removal of the natural feature to make way for development, which falls under building change scope as land cover conversion associated with construction."
+  },
+  "raw": "{\n\"t1_state\": \"The object inside the red contour at T1 is a dense cluster of trees and vegetation, appearing as an irregular patch of dark green/brown texture consistent with a tree canopy.\",\n\"t2_state\": \"The object inside the red contour at T2 is a paved surface, likely a parking lot or driveway, with visible curbing and adjacent to new residential-style buildings; the original tree cover has been removed.\",\n\"same_object\": false,\n\"appearance_only\": false,\n\"change\": \"yes\",\n\"type\": \"demolished\",\n\"reason\": \"The vegetated area (trees) present in T1 has been cleared and replaced by hardscape (pavement) and new construction in T2, indicating the demolition/removal of the natural feature to make way for development, which falls under building change scope as land cover conversion associated with construction.\"\n}",
+  "usage": {
+    "prompt_tokens": 1081,
+    "total_tokens": 1270,
+    "completion_tokens": 189,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 497
+    },
+    "completion_tokens_details": {
+      "text_tokens": 189
+    }
+  },
+  "tokens": {
+    "input": 1081,
+    "cached": 0,
+    "output": 189
+  },
+  "cost_cny": 0.00036740000000000004,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/smoke/answers/structured/inputs/levir_any__train_106__15"
+}

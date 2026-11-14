@@ -1,0 +1,31 @@
+{
+  "uid": "second_appeared:train_1065:19",
+  "answer": "no",
+  "parsed": {
+    "change": "no",
+    "type": "non_building_change",
+    "reason": "The object within the contour is a linear feature (likely a fence or wall) present in both dates; while the large building adjacent to it in T2 is new construction, the specific target object itself has not changed into a building."
+  },
+  "raw": "{\n\"change\": \"no\",\n\"type\": \"non_building_change\",\n\"reason\": \"The object within the contour is a linear feature (likely a fence or wall) present in both dates; while the large building adjacent to it in T2 is new construction, the specific target object itself has not changed into a building.\"\n}",
+  "usage": {
+    "prompt_tokens": 1041,
+    "total_tokens": 1112,
+    "completion_tokens": 71,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 457
+    },
+    "completion_tokens_details": {
+      "text_tokens": 71
+    }
+  },
+  "tokens": {
+    "input": 1041,
+    "cached": 0,
+    "output": 71
+  },
+  "cost_cny": 0.000265,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/smoke/answers/som/inputs/second_appeared__train_1065__19"
+}

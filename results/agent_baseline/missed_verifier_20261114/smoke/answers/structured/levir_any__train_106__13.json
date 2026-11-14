@@ -1,0 +1,35 @@
+{
+  "uid": "levir_any:train_106:13",
+  "answer": "no",
+  "parsed": {
+    "t1_state": "The object within the red contour at T1 is a small, light-colored building with a simple roof structure, situated in a grassy area next to a road and a larger parking lot.",
+    "t2_state": "The object within the red contour at T2 appears to be the same small building, maintaining its position and general footprint, although the surrounding vegetation has changed slightly in density and color.",
+    "same_object": true,
+    "appearance_only": true,
+    "change": "no",
+    "type": "no_change",
+    "reason": "The building present in T1 corresponds to the building in T2 in terms of location, size, and shape; observed differences are likely due to seasonal vegetation changes and lighting, not construction or demolition."
+  },
+  "raw": "{\n\"t1_state\": \"The object within the red contour at T1 is a small, light-colored building with a simple roof structure, situated in a grassy area next to a road and a larger parking lot.\",\n\"t2_state\": \"The object within the red contour at T2 appears to be the same small building, maintaining its position and general footprint, although the surrounding vegetation has changed slightly in density and color.\",\n\"same_object\": true,\n\"appearance_only\": true,\n\"change\": \"no\",\n\"type\": \"no_change\",\n\"reason\": \"The building present in T1 corresponds to the building in T2 in terms of location, size, and shape; observed differences are likely due to seasonal vegetation changes and lighting, not construction or demolition.\"\n}",
+  "usage": {
+    "prompt_tokens": 1081,
+    "total_tokens": 1246,
+    "completion_tokens": 165,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 497
+    },
+    "completion_tokens_details": {
+      "text_tokens": 165
+    }
+  },
+  "tokens": {
+    "input": 1081,
+    "cached": 0,
+    "output": 165
+  },
+  "cost_cny": 0.00034820000000000006,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/smoke/answers/structured/inputs/levir_any__train_106__13"
+}

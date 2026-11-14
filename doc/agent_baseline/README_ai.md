@@ -2542,3 +2542,16 @@ C0使用官方label_unch0chi1；C1新建=official∩(slabel1=0,slabel2=1)，拆�
 简短报告：[`repair_report.md`](../../results/agent_baseline/whu_gt_final_20261114/repair_report.md)；全部数字见同目录summary.json、validation.json、rescore_summary.json。80项回归全部通过；旧错误派生PNG 564个已删除。清理末尾指标重复参数错误已修复，原失败日志保留，185025幂等核验及归档成功，计算队列为空。
 
 2026-11-14 最终验收：归档185025成功，188张/564任务、80项回归、1950份离线重评分、564个错误GT删除均确认。12份相关清单/6份便携清单与752个GT/ignore PNG完整交付；原始标签、历史预测轨迹和旧分数保留。所有CPU作业结束、无新Agent推理，进入Git/QQ收尾。成本台账：2026-11-14 / WHU最终GT修复及归档 / 预估API¥0 / 实际API¥0。
+
+## 2026-11-14 T3语义桥接与多来源Verifier研究（当前执行）
+本轮恢复§10.14–10.15开发研究。T3独立解析两期示例（六类公共词表+unknown，真实类别仅离线评分），固定同候选/同k比较DINO与语义概率桥接。find_missed保留S1–S5全池互补分析，固定非GT候选排序、候选集与四图裁剪，逐步比较SoM/结构化问法；Top5/10/20必须报告截断前后召回。所有实验API显式qwen3.7-flash，两个开发Subagent为gpt-6-astra/low。旧预估费用预留不能阻断本轮方法尝试，实际费用按usage记账。新产物分别在results/agent_baseline/t3_bridge_20261114与missed_verifier_20261114；原缓存/基线保持只读。先smoke再开发消融，有效方案真实Agent3seed配对；不改match_exemplar、不删除T3.2/T3.4、不使用报告/测试调参。WHU旧统计仅作旧口径历史证据。
+
+### 2026-11-14 首阶段真实验证（非最终研究结论）
+
+- T3 smoke185325：3任务，6次独立单时相解析+22次共享8图核验；前态/后态/类别对标签一致率2/3、3/3、2/3。全部目标类，扣示例后GT仅3px，不能据聚合F1否定或支持方法。train_1129水体/裸土窄条示例有类别歧义；train_1136出现核验yes与理由not same矛盾。保留原始响应，不规则改写答案。
+- Verifier smoke185327：3图、48共同候选、144次三臂核验。Top20的SECOND新建F1：起点69.199→四图76.457/SoM76.457/结构化75.445；LEVIR85.561→73.774/80.134/63.851。SECOND拆除本例无正GT，三臂误加FP，不能用F1=0掩盖错误。LEVIR train_106候选3为湖岸，结构化把轮廓外住宅归到候选，响应完整非截断；52px屋顶碎片的yes不等于找回整栋建筑。
+- 人工逐例证据分别见两输出目录manual_smoke_review.md；TP>FP仅补入像素收益proxy，不称人工语义标签。输入JPEG/PNG、文字prompt、原始响应和usage均已保存，模型显式qwen3.7-flash。
+- 方法保持冻结，继续T3固定dev60和SECOND/LEVIR全部320组内图像的来源互补分析；Verifier扩到固定10图/组的共同Top20三臂，Top5/10为前缀。复用smoke成功请求不重复计费，不重生成S1–S5，不读报告/测试调参。
+- 新在线接口均默认关：T3两工具只返回语义/提议；find_missed返回扣当前答案的props与来源，由Agent自己选择/合并/提交。当前只做代码准备与回归，尚未正式启动三seed在线对照。联合63项通用+7项T3专项通过；补漏5项通过（有重叠，不累加唯一测试数）。
+- 成本：上述smoke累计token计量¥0.0493428（T3 .0086276、Verifier .0407152），不是提供商账单；后续费用另记，不作预估拦截。
+- 事件投递障碍：Slurm/hook成功，原本地control socket对当前前台线程报active writer，直接turn/start又报thread not found；事件保留pending，主Agent已用本实验状态审阅并续办，未抢占/重启会话，不能宣称前台自动回传已修复。正在确认当前客户端连接方式。

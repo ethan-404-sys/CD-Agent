@@ -1,0 +1,35 @@
+{
+  "uid": "levir_any:train_106:11",
+  "answer": "no",
+  "parsed": {
+    "t1_state": "The object inside the contour is a circular structure with a distinct green roof, likely a small shed or outbuilding, located next to a white rectangular building.",
+    "t2_state": "The object in the same location appears as a dark grey or brownish circular shape. The distinct green color is gone, and it blends more with the surrounding shadows and ground tones.",
+    "same_object": true,
+    "appearance_only": true,
+    "change": "no",
+    "type": "seasonal_or_color",
+    "reason": "The object persists in the same location with the same circular footprint, but its appearance has changed from bright green to dark grey/brown, likely due to seasonal changes (e.g., vegetation growth on the roof or loss of paint) or illumination differences, rather than demolition or construction."
+  },
+  "raw": "{\n\"t1_state\": \"The object inside the contour is a circular structure with a distinct green roof, likely a small shed or outbuilding, located next to a white rectangular building.\",\n\"t2_state\": \"The object in the same location appears as a dark grey or brownish circular shape. The distinct green color is gone, and it blends more with the surrounding shadows and ground tones.\",\n\"same_object\": true,\n\"appearance_only\": true,\n\"change\": \"no\",\n\"type\": \"seasonal_or_color\",\n\"reason\": \"The object persists in the same location with the same circular footprint, but its appearance has changed from bright green to dark grey/brown, likely due to seasonal changes (e.g., vegetation growth on the roof or loss of paint) or illumination differences, rather than demolition or construction.\"\n}",
+  "usage": {
+    "prompt_tokens": 1081,
+    "total_tokens": 1257,
+    "completion_tokens": 176,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 584,
+      "text_tokens": 497
+    },
+    "completion_tokens_details": {
+      "text_tokens": 176
+    }
+  },
+  "tokens": {
+    "input": 1081,
+    "cached": 0,
+    "output": 176
+  },
+  "cost_cny": 0.000357,
+  "model": "qwen3.7-flash",
+  "input_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/missed_verifier_20261114/smoke/answers/structured/inputs/levir_any__train_106__11"
+}
