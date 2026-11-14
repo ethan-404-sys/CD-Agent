@@ -1,0 +1,142 @@
+{
+  "status": "ready_for_real_worker_start",
+  "source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/research-20261114/online-v1",
+  "ovcd_source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/research-20261114/online-v1/code/ovcd_v0",
+  "checked_paths": [
+    "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/research-20261114/online-v1/code/ovcd_v0/common.py",
+    "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/research-20261114/online-v1/code/ovcd_v0/prompts.py",
+    "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/research-20261114/online-v1/code/ovcd_v0/render.py",
+    "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/research-20261114/online-v1/code/ovcd_v0/mllm.py",
+    "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/research-20261114/online-v1/code/ovcd_v0/sam_tools.py",
+    "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/research-20261114/online-v1/code/agent_baseline/run_agent.sbatch",
+    "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/research-20261114/online-v1/code/agent_baseline/loop_json.py",
+    "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/research-20261114/online-v1/code/agent_baseline/exemplar_semantics.py",
+    "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/research-20261114/online-v1/code/agent_baseline/semantic_bridge_tools.py",
+    "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/research-20261114/online-v1/code/agent_baseline/prompts/system_v4.txt",
+    "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/.runtime/research-20261114/online-v1/code/agent_baseline/workers/sam3_worker.py",
+    "/guisongxia01/pangchao/wangyihan/conda_envs/ovcd-de-env/bin/python",
+    "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/batch56_ovcd_de/DynamicEarth",
+    "/guisongxia01/pangchao/wangyihan/models/SAM/sam_vit_h_4b8939.pth",
+    "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/batch56_ovcd_de/weights/hf/dinov2-base",
+    "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/batch56_ovcd_de/weights/clip/ViT-B-16.pt",
+    "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/batch56_ovcd_de/weights/simfeatup/xclip_jbu_one_million_aid.ckpt",
+    "/guisongxia01/pangchao/wangyihan/conda_envs/exp5-env/bin/python",
+    "/guisongxia01/pangchao/wangyihan/models/SAM/sam_vit_h_4b8939.pth",
+    "/guisongxia01/pangchao/wangyihan/conda_envs/exp5-env/bin/python",
+    "/guisongxia01/pangchao/wangyihan/conda_envs/omniovcd-env/bin/python",
+    "/guisongxia01/pangchao/wangyihan/Chang-Agent/tools/run_with_bailian_csv.py",
+    "/guisongxia01/pangchao/wangyihan/Chang-Agent/probe/sam3_tools.py",
+    "/guisongxia01/pangchao/wangyihan/models/sam3/sam3.pt",
+    "/guisongxia01/pangchao/wangyihan/Chang-Agent/third_party/OmniOVCD/sam3/assets/bpe_simple_vocab_16e6.txt.gz"
+  ],
+  "credentials_file_readable": true,
+  "tasks": [
+    {
+      "id": "train_1884_4to3",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 914,
+      "gt_pixels": 914,
+      "remaining_gt_pixels": 0
+    },
+    {
+      "id": "train_368_1to2",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 1421,
+      "gt_pixels": 71998,
+      "remaining_gt_pixels": 70577
+    },
+    {
+      "id": "train_2043_2to3",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 162,
+      "gt_pixels": 548,
+      "remaining_gt_pixels": 386
+    },
+    {
+      "id": "train_2438_5to1",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 367,
+      "gt_pixels": 13392,
+      "remaining_gt_pixels": 13025
+    },
+    {
+      "id": "train_1808_2to1",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 13067,
+      "gt_pixels": 20708,
+      "remaining_gt_pixels": 7641
+    },
+    {
+      "id": "train_968_5to3",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 45,
+      "gt_pixels": 107,
+      "remaining_gt_pixels": 62
+    },
+    {
+      "id": "train_2461_5to3",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 213,
+      "gt_pixels": 1100,
+      "remaining_gt_pixels": 887
+    },
+    {
+      "id": "train_1377_5to3",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 1112,
+      "gt_pixels": 1112,
+      "remaining_gt_pixels": 0
+    },
+    {
+      "id": "train_2828_1to5",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 613,
+      "gt_pixels": 44513,
+      "remaining_gt_pixels": 43900
+    },
+    {
+      "id": "train_2848_1to4",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 8377,
+      "gt_pixels": 8377,
+      "remaining_gt_pixels": 0
+    }
+  ],
+  "empty_remaining_gt_tasks": 3,
+  "schema_additions": [
+    "interpret_exemplar",
+    "rank_semantic_transition"
+  ],
+  "api_model": "qwen3.7-flash",
+  "limitation": "No API, CUDA inference, environment import or model load is performed by this check."
+}

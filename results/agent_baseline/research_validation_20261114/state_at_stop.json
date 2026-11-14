@@ -1,0 +1,90 @@
+{
+  "name": "cd-research-validation-20261114",
+  "status": "done",
+  "queue": [],
+  "done": [
+    "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-research-validation-20261114/jobs/01-validate.sbatch"
+  ],
+  "current": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-research-validation-20261114/jobs/01-validate.sbatch",
+  "job_id": "185663",
+  "hook_id": "185664",
+  "rounds": 1,
+  "rounds_submitted": 1,
+  "primary_best": null,
+  "cost_cny": 0.0,
+  "finalized": false,
+  "finalize_requested": true,
+  "started_at": "2026-11-14 21:59:16",
+  "started_epoch": 1794664756.9351199,
+  "history": [
+    {
+      "job": "01-validate.sbatch",
+      "job_id": "185663",
+      "hook_id": "185664",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0.0,
+      "metric": {
+        "stage": "online_code_validation",
+        "cost_cny": 0,
+        "completed": 1,
+        "failed": 0,
+        "result_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/research_validation_20261114"
+      },
+      "metric_error": null,
+      "at": "2026-11-14 21:59:51"
+    }
+  ],
+  "driver": "dependency",
+  "recorded_current": true,
+  "submitted_at": "2026-11-14 21:59:16",
+  "last_advance_at": "2026-11-14 21:59:16",
+  "hook_attempts": 1,
+  "review_count": 1,
+  "review": {
+    "id": "event-0001",
+    "kind": "round_finished",
+    "error": null,
+    "at": "2026-11-14 21:59:51",
+    "job_id": "185663",
+    "hook_id": "185664",
+    "current": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-research-validation-20261114/jobs/01-validate.sbatch",
+    "latest": {
+      "job": "01-validate.sbatch",
+      "job_id": "185663",
+      "hook_id": "185664",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0.0,
+      "metric": {
+        "stage": "online_code_validation",
+        "cost_cny": 0,
+        "completed": 1,
+        "failed": 0,
+        "result_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/research_validation_20261114"
+      },
+      "metric_error": null,
+      "at": "2026-11-14 21:59:51"
+    },
+    "queued_jobs": [],
+    "cost_cny": 0.0,
+    "delivery": "pending",
+    "delivery_error": "thread/resume: {'code': -32600, 'message': 'thread 01a1d014-9f29-76a1-8fce-cdbd93601af4 already has an active writer'}"
+  },
+  "decisions": [
+    {
+      "event_id": "event-0001",
+      "action": "finish",
+      "reason": "Job185663 completed:18 regressions passed, frozen agent10 path/schema prerequisites valid; full dev60 geometry audited (30 residual-empty tasks,7 holed exemplars), partial semantics explicitly29/60. No API. Logs archived. Event delivery still pending active-writer mismatch; decision based on persisted completed evidence.",
+      "at": "2026-11-14 22:02:26"
+    }
+  ],
+  "stop_reason": "Job185663 completed:18 regressions passed, frozen agent10 path/schema prerequisites valid; full dev60 geometry audited (30 residual-empty tasks,7 holed exemplars), partial semantics explicitly29/60. No API. Logs archived. Event delivery still pending active-writer mismatch; decision based on persisted completed evidence.",
+  "finished_at": "2026-11-14 22:02:26",
+  "elapsed_seconds": 189.7,
+  "finalize_attempts": 1
+}
