@@ -76,6 +76,31 @@ def gate_features(masks,rgb,feature_pair):
     return result
 
 
+def feature_paths(a,dataset,stem):
+    paths=[]
+    for time in ('t1','t2'):
+        old=a.work/'gpu_cache'/'dynamic'/dataset/stem/f'extract_features_{time}.npz'
+        paths.append(old if old.exists() else a.out/'feature_cache'/dataset/stem/f'extract_features_{time}.npz')
+    return paths
+
+
+def fill_features(a):
+    from .missed_sources_gpu import LineWorker
+    cfg=load(a.run/'t3x'/'vision.json')['dynamic']
+    worker=LineWorker([cfg['python'],'-B','-m','agent_baseline.workers.missed_sources_worker','dynamic'],a.out/'feature_worker')
+    records=[]
+    try:
+        for spec,row,split in frozen_rows(a):
+            stem=Path(row['id']).stem
+            for time,path in zip(('t1','t2'),feature_paths(a,spec['dataset'],stem)):
+                if path.exists():continue
+                worker(dict(operation='extract_features',paths=[row['image_t1'],row['image_t2']],time=time,config=cfg,output=str(path)))
+                records.append(dict(group=spec['group'],stem=stem,time=time,path=str(path)))
+                write_json(a.out/'feature_fill.json',dict(completed=records,cost_cny=0))
+    finally:worker.close()
+    write_json(a.out/'feature_fill.json',dict(completed=records,cost_cny=0,status='complete'))
+
+
 def extract(a):
     rows=frozen_rows(a)
     policy=dict(gates=GATES,scope='all_development' if a.all_dev else 'same_pilot_images',threshold_policy='bounded one-factor plus one predeclared joint feature gate',
@@ -87,7 +112,10 @@ def extract(a):
     manifest=[]
     for spec,row,split in rows:
         group=spec['group'];stem=Path(row['id']).stem;dest=a.out/'prepared'/group/(stem+'.json')
-        if dest.exists():manifest.append(load(dest));continue
+        if dest.exists():
+            old=load(dest)
+            if old['feature_cache_available'] or not all(p.exists() for p in feature_paths(a,spec['dataset'],stem)):
+                manifest.append(old);continue
         base=load_npz(a.work/'base'/group/(stem+'.npz'))['start'];shape=base.shape
         sources={}
         for source in SOURCES:
@@ -95,8 +123,8 @@ def extract(a):
             sources[source]=list(unpack(z['masks'],tuple(z['shape'])))
         s5=sources['S5'];original=mask_union(s5,shape)
         found,files=visual_instances(a.work,group,stem,shape)
-        feature_paths=[a.work/'gpu_cache'/'dynamic'/spec['dataset']/stem/f'extract_features_{time}.npz' for time in ('t1','t2')]
-        features=[Features(load_npz(path)['data'],shape,time) for path,time in zip(feature_paths,('t1','t2'))] if all(p.exists() for p in feature_paths) else None
+        paths=feature_paths(a,spec['dataset'],stem)
+        features=[Features(load_npz(path)['data'],shape,time) for path,time in zip(paths,('t1','t2'))] if all(p.exists() for p in paths) else None
         rgb=[read_image(row['image_'+time],rgb=True) for time in ('t1','t2')]
         values=gate_features(s5,rgb,features)
         masks=dict(baseline=original,dilate_1=original&~ndi.binary_dilation(base,structure=np.ones((3,3))),
@@ -165,6 +193,7 @@ def evaluate(a):
                 usable=[r for r in rows if gate in r['gates']]
                 tp=sum(r['gates'][gate]['tp'] for r in usable);fp=sum(r['gates'][gate]['fp'] for r in usable)
                 stats[gate]=dict(images=len(usable),expected=len(rows),complete=len(usable)==len(rows),tp=tp,fp=fp,
+                    matching_cache_mismatch_images=sum(r['status'].get('old_rematch_equals_cache') is False for r in usable) if gate in ('overlap_010','overlap_050','iou_025') else 0,
                     tp_retention=tp/base_tp if base_tp else None,fp_retention=fp/base_fp if base_fp else None,
                     add_all=metrics([sum(r['gates'][gate]['add_all'][key] for r in usable) for key in ('tp','fp','fn')]) if usable else None)
                 if usable:
@@ -178,7 +207,7 @@ def evaluate(a):
                     stats[gate]['paired_image_bootstrap95']=np.quantile(draws,[.025,.975]).tolist()
             summaries[group][split]=stats
         # Selection is made ONLY from tune. Confirmation never changes this key.
-        tune=summaries[group]['tune'];eligible=[g for g,v in tune.items() if v['complete'] and v['tp_retention'] is not None and v['tp_retention']>=.80]
+        tune=summaries[group]['tune'];eligible=[g for g,v in tune.items() if v['complete'] and not v['matching_cache_mismatch_images'] and v['tp_retention'] is not None and v['tp_retention']>=.80]
         choice=min(eligible,key=lambda g:(tune[g]['fp'],GATES.index(g))) if eligible else 'baseline'
         selection[group]=dict(gate=choice,rule='tune TP retention >=80%, then smallest FP; ties predeclared order',
             tune=tune[choice],confirmation=summaries[group]['confirm'].get(choice))
@@ -223,7 +252,7 @@ def whu(a):
 
 
 def main():
-    p=argparse.ArgumentParser();p.add_argument('command',choices=['extract','evaluate','whu']);p.add_argument('--out',type=Path,required=True)
+    p=argparse.ArgumentParser();p.add_argument('command',choices=['extract','evaluate','whu','fill_features']);p.add_argument('--out',type=Path,required=True)
     p.add_argument('--views',type=Path,required=True);p.add_argument('--run',type=Path,required=True);p.add_argument('--work',type=Path,required=True)
     p.add_argument('--all-dev',action='store_true');a=p.parse_args();globals()[a.command](a)
 
