@@ -184,41 +184,7 @@ def page(a,cases):
 
 
 def build(a):
-    candidates,audit=t5(a);anomalies=anomaly(a);cases=[]
-    whu=json.loads((a.output/'whu/audit_images.json').read_text())
-    # Six distinct WHU examples stratified by the observed label discrepancy.
-    picks=[]
-    groups=[('official_empty',sorted([r for r in whu if r['official_pixels']==0],key=lambda r:-r['old_pixels'])),
-            ('official_positive',sorted([r for r in whu if r['official_pixels']>0],key=lambda r:r['old_vs_official']['iou'])),
-            ('C1_conflict',sorted(whu,key=lambda r:-sum(c['qc']!='inside_official' for v in r['directions'].values() for c in v)))]
-    for label,group in groups:
-        count=0
-        for r in group:
-            if r['name'] in {p[1]['name'] for p in picks}:continue
-            picks.append((label,r));count+=1
-            if count==2:break
-    for label,r in picks:
-        name=r['name'];c1=label=='C1_conflict'
-        cases.append(dict(title='WHU '+label+' '+name,t1=str(a.whu/'img1'/name),t2=str(a.whu/'img2'/name),
-            old_gt=str(a.run/'whu/gt'/('new' if c1 else 'c0')/name),new_gt=str(a.run/'whu/gt/new'/name) if c1 else str(a.output/'gt/c0_official'/name),
-            official_gt=str(a.whu/'label_unch0chi1'/name),instruction='Identify newly built buildings.' if c1 else 'Find newly built or demolished buildings.',
-            reason='C1 original new-building target retained pending component-level review; official C0 is a consistency diagnostic.' if c1 else 'Replace legacy semantic-label XOR by official C0; preserve frozen legacy selection.',qc=r))
-    used=set()
-    # Three per task, distinct source images; prioritize partial shape with mixed correction.
-    ranked=sorted(candidates,key=lambda r:(-len(r['meta']['qc']['categories']),-r['meta']['qc']['partial_error_regions'],r['id']))
-    for task in ('T5.2','T5.3'):
-        n=0
-        for r in ranked:
-            if r['task_type']!=task or r['id'] in used:continue
-            used.add(r['id']);n+=1
-            cases.append(dict(title=task+' quality candidate '+r['id'],t1=r['image_t1'],t2=r['image_t2'],old_gt=r['gt_mask'],new_gt=r['gt_mask'],initial=r['init_mask'],
-                instruction=r['instruction'],feedback=r['meta']['feedback'],reason='Revised feedback protocol targets partial-object shape plus combined corrections; full GT unchanged.',qc=r['meta']))
-            if n==3:break
-    for r in anomalies:
-        cases.append(dict(title=r['case_id']+' source / crop audit '+r['task'],t1=r['source_images'][0],t2=r['source_images'][1],
-            old_gt=r['old_gt'],new_gt=r['new_gt'],prediction=r['prediction'],instruction=r['instruction'],reason=r['conclusion'],
-            roi=r.get('roi'),source_mask=r.get('source_mask'),official_gt=r.get('official_gt'),qc=r))
-    page(a,cases);print(json.dumps({'review_cases':len(cases),'t5_candidates':len(candidates),'api_calls':0}),flush=True)
+    raise SystemExit('Historical WHU comparison renderer retired after XOR GT removal; retain the published embedded review pages. Use finalize_whu_gt for current references.')
 
 
 if __name__=='__main__':

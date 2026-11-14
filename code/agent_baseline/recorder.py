@@ -19,17 +19,22 @@ def json_default(obj):
 
 
 class Recorder:
-    def __init__(self, directory, split, name, gt=None, gt_path=None):
+    def __init__(self, directory, split, name, gt=None, gt_path=None, gt_ignore_path=None):
+        self.gt_ignore_path = str(gt_ignore_path) if gt_ignore_path else None
+        self.valid = None
         self.gt_path = str(gt_path) if gt_path is not None else None
         self.directory = Path(directory)
         for folder in ('images', 'masks', 'insts'):
             (self.directory / folder).mkdir(parents=True, exist_ok=True)
         # Exactly one read, before any execution, never passed back into Session.
         if gt_path is not None:
-            from common import load_mask_png
-            gt = load_mask_png(gt_path)
+            from .evaluation import load_reference
+            gt, self.valid = load_reference(gt_path, gt_ignore_path)
         self.gt = np.array(load_gt(split, name) if gt is None else gt, dtype=bool, copy=True)
         self.gt.flags.writeable = False
+        if self.valid is None:
+            self.valid = np.ones_like(self.gt, bool)
+        self.valid.flags.writeable = False
         self.cache, self.saved = {}, set()
         self.previous = None
         self.initial_eval = None
@@ -65,13 +70,13 @@ class Recorder:
 
     def start(self, session, metadata):
         if self.gt_path is not None:
-            metadata = dict(metadata, gt_mask_path=self.gt_path)
+            metadata = dict(metadata, gt_mask_path=self.gt_path, gt_ignore_mask_path=self.gt_ignore_path, ignored_pixels=int((~self.valid).sum()))
         write_json(self.directory / 'input.json', metadata)
         self.assets(session)
         if session.initial_mask is not None:
             key = session.initial_mask
             self.initial_eval = self.metric(session, key)
-            self.initial_objects = object_counts(session.get(key, Mask).data, self.gt)
+            self.initial_objects = object_counts(session.get(key, Mask).data & self.valid, self.gt)
         self.append('steps.jsonl', dict(step=0, planner=None, calls=[], current_mask=session.current_mask,
             eval=self.edge(session, session.current_mask, None), initial_objects=self.initial_objects))
         self.previous = session.current_mask
@@ -83,7 +88,7 @@ class Recorder:
         c = confusion(empty, self.gt)
         metric = dict(c, f1=image_f1(empty, self.gt), iou=0. if self.gt.any() else 1.)
         if self.gt_path is not None:
-            metadata = dict(metadata, gt_mask_path=self.gt_path)
+            metadata = dict(metadata, gt_mask_path=self.gt_path, gt_ignore_mask_path=self.gt_ignore_path, ignored_pixels=int((~self.valid).sum()))
         write_json(self.directory / 'input.json', dict(metadata, task_id=task, input_error=error))
         row = dict(task_id=task, final_handle='mask#0', mask_path='masks/mask_0.png',
             summary='系统兜底：输入影像无法读取；使用空掩码。', summary_source='system',
@@ -132,7 +137,7 @@ class Recorder:
         if key is None:
             return None
         if key not in self.cache:
-            mask = session.get(key, Mask).data
+            mask = session.get(key, Mask).data & self.valid
             c = confusion(mask, self.gt)
             union = c['tp'] + c['fp'] + c['fn']
             self.cache[key] = dict(**c, f1=image_f1(mask, self.gt), iou=c['tp'] / union if union else 1.)
@@ -186,7 +191,7 @@ class Recorder:
         key = session.submitted
         mask = session.get(key, Mask)
         metric = self.metric(session, key)
-        obj = object_counts(mask.data, self.gt)
+        obj = object_counts(mask.data & self.valid, self.gt)
         tokens = {k: planner.tokens[k] + self.ask_tokens[k] for k in planner.tokens}
         initial = session.get(session.initial_mask, Mask).data if session.initial_mask is not None else None
         calls = [c for row in self.steps for c in row['calls']]

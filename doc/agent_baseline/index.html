@@ -3376,6 +3376,8 @@ if (panels.length > 1) {
 })();
 </script>
 <section style="margin:2em;padding:1em;border:1px solid #bbb"><h2>2026-11-13 轨迹审查与待审核方案</h2><p>全量行为分析覆盖20,321会话。20条完整轨迹审查已完成：四类各5条、3数据集/11任务/15配置，入选信号确认9、误判5、部分3、未确认3；这是目的抽样，不是总体错误率。</p><p><a href="../../results/agent_baseline/trace_behavior_review_20261113/index.html">20例完整回放</a> · <a href="../../results/agent_baseline/trace_behavior_review_20261113/20_case_review.md">逐例审查报告</a> · <a href="../../results/agent_baseline/answer_state_20261113/selection.json">14例冻结开发选集</a></p><p>§10.20已授权Harness核心修复和真实开发配对；可选显式答案/状态摘要、双时相工具及最小披露正在验证，真实结果待完成。Gate6旧10任务配对两侧均无越界，pooled F1 51.10→46.24，未证明有效；Gate6/显示尺寸/扩边、T3/find_missed暂不开展新实验。T4.3/T4.4各128条候选，256/256通过自动QC；人工批准数为0，不用于正式Agent评测。<a href="../../results/agent_baseline/task_review_20261113/qc/full-v1/qc_report.json">全量QC报告</a>。最新规则与执行状态见 <a href="README_ai.md">README_ai §10.20</a>。</p></section>
+
+<section style="margin:2em;padding:1em;border:1px solid #bbb"><h2>2026-11-14 WHU C0/C1 官方 GT 最终修复</h2><p>覆盖冻结开发60张、报告128张，共564条独立任务。C0直接采用官方变化；C1仅在官方变化内按两期建筑标签分方向，211,006个方向不明像素设为ignore。官方负区域仍参与误检评分。</p><p>1950份历史预测已离线重评分，18组、缺失0；未新增Agent推理。完整GT、ignore、任务清单和逐图检查结果均已归档。新GT下G3报告集三seed pooled F1：C0 77.807/76.881/75.520，新建80.862/83.308/84.664，拆除53.065/61.643/52.859。不能把GT口径变化视为模型收益。</p><p><a href="../../results/agent_baseline/whu_gt_final_20261114/repair_report.md">修复报告与最终GT路径</a> · <a href="../../results/agent_baseline/whu_gt_final_20261114/validation.json">全量一致性检查</a> · <a href="../../results/agent_baseline/whu_gt_final_20261114/rescore_summary.json">18组重评分</a>。保留官方微小残留与历史scope冲突说明，T5.4独立地图更新定义及T5/T4待审状态不变；最新状态以README_ai为准。</p></section>
 </body>
 </html>
 

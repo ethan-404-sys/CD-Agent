@@ -154,7 +154,7 @@ def read_tasks(filename, task=None):
             if (not row.get('region_mask') or row['change_direction'] != BOX_DIRECTIONS[row['task_type']]
                     or row['target'] != 'building' or row.get('scope') != 'building_rebuild_excluded'):
                 raise ValueError('C2/C4 requires region_mask, building scope and the task direction')
-        for field in ('image_t1', 'image_t2', 'init_mask', 'gt_mask', 'region_mask', *(['exemplar_mask'] if row.get('exemplar_mask') else [])):
+        for field in ('image_t1', 'image_t2', 'init_mask', 'gt_mask', 'gt_ignore_mask', 'region_mask', *(['exemplar_mask'] if row.get('exemplar_mask') else [])):
             if row.get(field) is not None:
                 row[field] = str((path.parent / row[field]).resolve())
         if not row['gt_mask']:

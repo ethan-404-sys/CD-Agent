@@ -525,7 +525,7 @@ def main():
         if guard.stopped():
             return name, 'stopped'
         # The label path is consumed only by the one-way scoring recorder.
-        recorder = Recorder(directory, args.split, name, gt_path=row['gt_mask'] if row else None)
+        recorder = Recorder(directory, args.split, name, gt_path=row['gt_mask'] if row else None, gt_ignore_path=row.get('gt_ignore_mask') if row else None)
         try:
             rgb = load_pair(row) if row else load_rgb(args.split, name)
         except Exception:

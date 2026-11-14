@@ -9,6 +9,22 @@ from .helpers import run, call, response, mask, tempdir
 
 
 class SummaryTests(unittest.TestCase):
+    def test_whu_ignore_applies_to_recomputed_summary(self):
+        from agent_baseline.whu_gt import paths
+        from common import save_mask_png
+        with tempdir() as root:
+            root=Path(root)
+            gt,ignore=paths(root,'a.png','appeared')
+            truth=mask();pred=truth.copy();pred[0,0]=True
+            uncertain=np.zeros_like(truth);uncertain[0,0]=True
+            save_mask_png(gt,truth);save_mask_png(ignore,uncertain)
+            directory=root/'sessions'
+            run(directory/'a',[response([call('submit',dict(mask='mask#0',summary='Keep.'))])],init=pred,gt=truth)
+            info=directory/'a/input.json';meta=json.loads(info.read_text())
+            meta.update(gt_mask_path=str(gt),gt_ignore_mask_path=str(ignore));info.write_text(json.dumps(meta))
+            result=summarize(directory,'synthetic','T1.1xC0')
+            self.assertEqual(result['fp'],0)
+
     def test_input_failure_is_an_empty_scored_session(self):
         with tempdir() as root:
             recorder=Recorder(Path(root)/'broken','synthetic','broken.png',gt=mask())

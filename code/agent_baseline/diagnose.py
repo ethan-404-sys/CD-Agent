@@ -95,7 +95,13 @@ def main():
         final = json.loads((d / 'final.json').read_text())
         info = json.loads((d / 'input.json').read_text()) if (d / 'input.json').exists() else {}
         gt_path = by_stem[stem]['gt_mask'] if stem in by_stem else info.get('gt_mask_path')
-        gt = load_mask_png(gt_path) if gt_path else load_gt(a.split, name)
+        if gt_path:
+            from .evaluation import load_reference
+            ignore_path = by_stem[stem].get('gt_ignore_mask') if stem in by_stem else info.get('gt_ignore_mask_path')
+            gt, valid = load_reference(gt_path, ignore_path)
+        else:
+            gt = load_gt(a.split, name)
+            valid = np.ones_like(gt, bool)
         pred = load_mask_png(d / final['mask_path'])
         imc_path = a.fixed_dir / (stem + '.png') if a.fixed_dir else Path(info['init_mask_path']) if info.get('init_mask_path') else RUN / 'init' / 'sam3_imc' / a.split / name
         imc = load_mask_png(imc_path)
@@ -107,6 +113,7 @@ def main():
         thr = sorted({(c['args'] or {}).get('score_thr', 0.5) for c in calls if c['tool'] == 'segment_text'})
         texts = sorted({(c['args'] or {}).get('text') for c in calls if c['tool'] == 'segment_text'})
         tiles = sorted({(c['args'] or {}).get('tile', 512) for c in calls if c['tool'] == 'segment_text'})
+        pred, imc = pred & valid, imc & valid
         c_pred, c_imc = confusion(pred, gt), confusion(imc, gt)
         rows.append(dict(image=stem, submitted_by=final['submitted_by'], rounds=final['planning_rounds'],
             route=route, thresholds=thr, texts=texts, tiles=tiles, views=used.count('view'), asks=used.count('ask'),

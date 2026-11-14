@@ -1,0 +1,49 @@
+{
+  "version": "whu_official_v3_20261114",
+  "images": 188,
+  "splits": {
+    "val": {
+      "images": 128,
+      "total_pixels": 33554432,
+      "official_pixels": 1968113,
+      "appeared_pixels": 1606025,
+      "disappeared_pixels": 174922,
+      "ignore_pixels": 187166,
+      "official_empty": 56,
+      "tiny_official_positive": 1,
+      "direction_fully_ambiguous": 0,
+      "images_with_ignore": 46
+    },
+    "dev": {
+      "images": 60,
+      "total_pixels": 15728640,
+      "official_pixels": 1236166,
+      "appeared_pixels": 1183292,
+      "disappeared_pixels": 29034,
+      "ignore_pixels": 23840,
+      "official_empty": 22,
+      "tiny_official_positive": 2,
+      "direction_fully_ambiguous": 1,
+      "images_with_ignore": 28
+    }
+  },
+  "updated_manifests": 12,
+  "updated_manifest_rows": 1128,
+  "canonical_task_rows": 564,
+  "gt_root": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/whu/gt_official_v3",
+  "git_mirror": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/whu_gt_final_20261114/gt_official_v3",
+  "rescore": {
+    "predictions": 1950,
+    "groups": 18,
+    "missing": 0,
+    "by_direction": {
+      "any": 650,
+      "appeared": 650,
+      "disappeared": 650
+    }
+  },
+  "api_calls": 0,
+  "cost_cny": 0,
+  "cleanup_complete": true,
+  "deleted_gt_files": 564
+}

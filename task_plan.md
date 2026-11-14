@@ -1,8 +1,17 @@
 # task_plan.md — Change Detection Agent 研究与实验迭代计划
 
-> 最后更新：2026-11-13（夜间Harness修复与WHU/T5任务数据工程修订；最新执行计划在最上方）。以 `claude/project-thread-2tuaib` 的已验证记录为研究依据；开发中的实际 HEAD 与运行档案以服务器核查为准。**用户最新决策取代此前“立即收敛论文主表、暂停 T3/补漏工具”的建议。**
+> 最后更新：2026-11-14（WHU最终GT修复；最新执行计划在最上方）。以 `claude/project-thread-2tuaib` 的已验证记录为研究依据；开发中的实际 HEAD 与运行档案以服务器核查为准。**用户最新决策取代此前“立即收敛论文主表、暂停 T3/补漏工具”的建议。**
 >
 > 长期目标及协作边界：[研究协作与最新决定（README_ai §0.2）](doc/agent_baseline/README_ai.md)；技术历史：[README_ai](doc/agent_baseline/README_ai.md)；任务定义：[task_system.html](doc/agent_baseline/task_system.html)。本文件只维护计划；`findings.md` 记可追溯证据，`progress.md` 记实际操作。
+
+
+
+## 2026-11-14 WHU最终GT修复（最新授权）
+
+- [x] 官方约束生成器和C1 ignore评测、188张完整检查、1950份历史预测重评分。
+- [x] 最终清单盘点、564个错误GT清理、80项回归、185025归档完成。
+- Git推送与QQ通知由本实验exp-loop终态记录确认；无待跑推理任务。
+C0使用官方label_unch0chi1；C1新建=official∩(slabel1=0,slabel2=1)，拆除反向，official内方向不明部分对两种C1均ignore。official外始终有效负样本。冻结开发60/报告128不重采样。生成器、manifest、Recorder及固定/离线评测统一支持独立ignore；先全量验证和历史预测重评分，再删除whu/gt中的错误旧派生PNG。原始标签、历史预测/轨迹/指标保留，不启动推理。T5.4独立地图更新定义暂保留，待明确是否一并改定义。全量构造/回归/重评分及旧GT清理完成：更新12份C0/C1清单（1128行，含重复交付副本），6份Git便携清单；补充盘点124份JSONL，无遗漏C0/C1清单。共删除564个错误派生PNG，保留独立地图任务。成本台账：2026-11-14 / WHU最终GT修复 / 预估API¥0 / 实际API¥0。
 
 ## 2026-11-13 用户最新验收与待审事项（优先于下方旧执行指令）
 

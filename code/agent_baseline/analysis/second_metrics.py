@@ -27,7 +27,9 @@ def direction_violation(pred, opposite):
     return float((pred & opposite).sum() / pred.sum()) if pred.any() else 0.
 
 
-def counts(pred, truth, opposite=None):
+def counts(pred, truth, opposite=None, valid=None):
+    if valid is not None:
+        pred, truth = pred & valid, truth & valid
     return pixel_counts(pred, truth) + [int((pred & opposite).sum()) if opposite is not None else 0, int(pred.sum())]
 
 
@@ -96,19 +98,20 @@ def evaluate_group(spec, samples=4000, seed=1016):
     if len(stems) != len(set(stems)):
         raise ValueError('Duplicate image IDs')
     for row, stem in zip(rows, stems):
-        gt = mask(row['gt_mask'])
+        from agent_baseline.evaluation import load_reference
+        gt, valid = load_reference(row['gt_mask'], row.get('gt_ignore_mask'))
         opposite = None
         if direction != 'any':
             opposite_kind = 'demolished' if direction == 'appeared' else 'new'
             opposite = mask(Path(row['gt_mask']).parent.parent / opposite_kind / Path(row['gt_mask']).name, gt.shape)
-        truths.append((gt, opposite))
+        truths.append((gt, opposite, valid))
         for name, directory in baselines.items():
-            base[name].append(counts(mask(Path(directory) / (stem + '.png'), gt.shape), gt, opposite))
+            base[name].append(counts(mask(Path(directory) / (stem + '.png'), gt.shape), gt, opposite, valid))
     for run in spec['agent_runs']:
         predictions = []
         stats = dict(error_sessions=0, fallback_sessions=0, submitted_by={}, rebuilt_answers=0,
                      rebuilt_regions=0, missing_verification_ledgers=0)
-        for row, stem, (gt, opposite) in zip(rows, stems, truths):
+        for row, stem, (gt, opposite, valid) in zip(rows, stems, truths):
             directory = Path(run) / stem
             final = json.loads((directory / 'final.json').read_text())
             by = final['submitted_by']
@@ -121,7 +124,7 @@ def evaluate_group(spec, samples=4000, seed=1016):
                 pred = np.zeros_like(gt)
             else:
                 raise ValueError(f'Missing final mask: {directory}')
-            predictions.append(counts(pred, gt, opposite))
+            predictions.append(counts(pred, gt, opposite, valid))
             r = rebuilt_online(directory / 'verification.json')
             stats['rebuilt_answers'] += r['answers']
             stats['rebuilt_regions'] += r['regions']

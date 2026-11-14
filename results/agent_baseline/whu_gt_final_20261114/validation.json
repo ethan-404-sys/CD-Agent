@@ -1,0 +1,72 @@
+{
+  "version": "whu_official_v3_20261114",
+  "passed": true,
+  "images": 188,
+  "splits": {
+    "val": {
+      "images": 128,
+      "total_pixels": 33554432,
+      "official_pixels": 1968113,
+      "appeared_pixels": 1606025,
+      "disappeared_pixels": 174922,
+      "ignore_pixels": 187166,
+      "official_empty": 56,
+      "tiny_official_positive": 1,
+      "direction_fully_ambiguous": 0,
+      "images_with_ignore": 46
+    },
+    "dev": {
+      "images": 60,
+      "total_pixels": 15728640,
+      "official_pixels": 1236166,
+      "appeared_pixels": 1183292,
+      "disappeared_pixels": 29034,
+      "ignore_pixels": 23840,
+      "official_empty": 22,
+      "tiny_official_positive": 2,
+      "direction_fully_ambiguous": 1,
+      "images_with_ignore": 28
+    }
+  },
+  "checked_manifest_rows": 1692,
+  "doubts": [
+    {
+      "name": "train_1112.png",
+      "split": "val",
+      "total_pixels": 262144,
+      "official_pixels": 57,
+      "appeared_pixels": 20,
+      "disappeared_pixels": 0,
+      "ignore_pixels": 37,
+      "official_empty": false,
+      "tiny_official_positive": true,
+      "direction_fully_ambiguous": false
+    },
+    {
+      "name": "train_246.png",
+      "split": "dev",
+      "total_pixels": 262144,
+      "official_pixels": 1,
+      "appeared_pixels": 0,
+      "disappeared_pixels": 0,
+      "ignore_pixels": 1,
+      "official_empty": false,
+      "tiny_official_positive": true,
+      "direction_fully_ambiguous": true
+    },
+    {
+      "name": "train_8.png",
+      "split": "dev",
+      "total_pixels": 262144,
+      "official_pixels": 38,
+      "appeared_pixels": 38,
+      "disappeared_pixels": 0,
+      "ignore_pixels": 0,
+      "official_empty": false,
+      "tiny_official_positive": true,
+      "direction_fully_ambiguous": false
+    }
+  ],
+  "gt_root": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/whu/gt_official_v3",
+  "git_mirror": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/whu_gt_final_20261114/gt_official_v3"
+}

@@ -140,13 +140,13 @@ def specifications(run):
                 names='second/second_val128.txt' if dataset == 'second' else 'whu/names_val128.txt',
                 mask_dir=f'{dataset}/fixed/{direction}', answers=f'{dataset}/rule/{direction}/answers.jsonl',
                 settings=f'{dataset}/rule/{direction}/settings.json', saved_rule=f'{dataset}/rule/{direction}/masks',
-                truth_dir=str(run/f'{dataset}/gt/{gt}'), truth_source=f'{dataset}/gt/{gt}')
+                truth_dir=str(run/f'{dataset}/{"gt_official_v3" if dataset == "whu" else "gt"}/{gt}'), truth_source=f'{dataset}/{"gt_official_v3" if dataset == "whu" else "gt"}/{gt}')
             dev = dict(name=f'{dataset}_{direction}_dev',
                 names='second_dev/names.txt' if dataset == 'second' else 'whu/names_dev60.txt',
                 mask_dir=f'second_dev/second/fixed/{direction}' if dataset == 'second' else f'whu/fixed/{direction}',
                 answers=f'second_dev/rule_card_defined/{direction}/{direction}/answers.jsonl' if dataset == 'second' else f'whu/rule/{direction}/answers.jsonl',
-                truth_dir=str(run/f'second_dev/second/gt/{gt}') if dataset == 'second' else str(run/f'whu/gt/{gt}'),
-                truth_source=f'second_dev/second/gt/{gt}' if dataset == 'second' else f'whu/gt/{gt}')
+                truth_dir=str(run/f'second_dev/second/gt/{gt}') if dataset == 'second' else str(run/f'whu/gt_official_v3/{gt}'),
+                truth_source=f'second_dev/second/gt/{gt}' if dataset == 'second' else f'whu/gt_official_v3/{gt}')
             if dataset == 'second':
                 dev.update(settings=f'second_dev/rule_card_defined/{direction}/{direction}/settings.json',
                            saved_rule=f'second_dev/rule_card_defined/{direction}/{direction}/masks')
@@ -285,6 +285,9 @@ def main():
     cache = work/'tmp/pyes_inventory.json'
     if args.reuse_inventory:
         cached = json_file(cache)
+        from agent_baseline.whu_gt import VERSION
+        if cached.get('whu_gt_version') != VERSION:
+            raise ValueError('Stale WHU inventory: rebuild without --reuse-inventory')
         datasets = cached['datasets']
         comparisons = cached['comparisons']
         inventory_seconds = cached['inventory_seconds']
@@ -319,7 +322,8 @@ def main():
             else:
                 comparisons[name] = '报告 settings：building_rebuild_excluded + f37_corr，模型定义为 qwen3.7-flash，与 SECOND 最终范围卡同口径。开发图未找到固定路线和 ask，无法比较开发请求。报告 answers 中没有开发图 uid。'
         inventory_seconds = time.monotonic()-started
-        write_json(cache,dict(datasets=datasets,comparisons=comparisons,inventory_seconds=inventory_seconds))
+        from agent_baseline.whu_gt import VERSION
+        write_json(cache,dict(whu_gt_version=VERSION,datasets=datasets,comparisons=comparisons,inventory_seconds=inventory_seconds))
     # Freeze every selection from development data before any report F1 evaluation.
     selections = {}
     for name,pair in datasets.items():
@@ -393,15 +397,16 @@ def answers(path):
     return by_uid, dict(lines=len(seq), duplicates=len(seq) - len(by_uid))
 
 
-def component_pixels(mask, truth):
+def component_pixels(mask, truth, valid=None):
     """Same scipy 8-connectivity and scan order as common.components, no min area.
 
     bincount avoids repeatedly scanning a whole image for each component.
     """
     from scipy import ndimage
     labels, n = ndimage.label(mask, np.ones((3, 3), bool))
-    areas = np.bincount(labels.ravel(), minlength=n+1)
-    tp = np.bincount(labels[truth], minlength=n+1)
+    valid = np.ones_like(mask, bool) if valid is None else valid
+    areas = np.bincount(labels[valid], minlength=n+1)
+    tp = np.bincount(labels[truth & valid], minlength=n+1)
     return [(i, int(tp[i]), int(areas[i] - tp[i])) for i in range(1, n+1)]
 
 
@@ -419,11 +424,17 @@ def load_pool(run, spec):
             missing_masks.append(stem)
             continue
         mask = read_image(mask_path) > 0
-        truth = read_image(Path(spec['truth_dir']) / (stem + '.png')) > spec.get('truth_threshold', 0)
+        truth_path = Path(spec['truth_dir']) / (stem + '.png')
+        if 'gt_official_v3' in truth_path.parts:
+            from agent_baseline.evaluation import load_reference
+            truth, valid = load_reference(truth_path)
+        else:
+            truth = read_image(truth_path) > spec.get('truth_threshold', 0)
+            valid = np.ones_like(truth, bool)
         if mask.ndim != 2 or mask.shape != truth.shape:
             raise ValueError(f'Unexpected mask/truth shape for {stem}')
         truths[stem] = int(truth.sum())
-        pixels = component_pixels(mask, truth)
+        pixels = component_pixels(mask, truth, valid)
         for ident, tp, fp in pixels:
             uid = f'{stem}:{ident}'
             expected.add(uid)
@@ -435,7 +446,7 @@ def load_pool(run, spec):
             # Compare by component counts using the exact labels and no policy.
             base_tp = sum(tp for ident,tp,fp in pixels if answer_rows.get(f'{stem}:{ident}',{}).get('answer') != 'no')
             base_fp = sum(fp for ident,tp,fp in pixels if answer_rows.get(f'{stem}:{ident}',{}).get('answer') != 'no')
-            if [int((saved & truth).sum()), int((saved & ~truth).sum())] != [base_tp, base_fp]:
+            if [int((saved & truth & valid).sum()), int((saved & ~truth & valid).sum())] != [base_tp, base_fp]:
                 saved_mismatch.append(stem)
         if k % 25 == 0:
             print(spec['name'], k+1, '/', len(names), flush=True)

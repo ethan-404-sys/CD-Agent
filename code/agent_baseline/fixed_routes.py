@@ -85,8 +85,9 @@ def run_manifest(rows, output, direction=None, scope=None, worker=None, pixel_th
         mask = imc(box, score_thr, session.change_direction)
         save_mask_png(output / (stem + '.png'), mask)
         if row.get('gt_mask'):
-            truth = np.asarray(Image.open(row['gt_mask'])) > 0
-            tp, fp, fn = pixel_counts(mask, truth)
+            from .evaluation import load_reference
+            truth, valid = load_reference(row['gt_mask'], row.get('gt_ignore_mask'))
+            tp, fp, fn = pixel_counts(mask & valid, truth)
             per[stem] = dict(tp=tp, fp=fp, fn=fn)
             total += [tp, fp, fn]
     result = dict(policy, per_image=per, tp=int(total[0]), fp=int(total[1]), fn=int(total[2]))

@@ -40,10 +40,19 @@ def summarize(directory, split, task, errors=False, gts=None):
         row = json.loads(path.read_text())
         info_path = path.parent / 'input.json'
         info = json.loads(info_path.read_text()) if info_path.exists() else {}
-        gt = gts[name] if gts is not None else load_mask_png(info['gt_mask_path']) if info.get('gt_mask_path') else load_gt(split, name)
+        if gts is not None:
+            gt = gts[name]
+            valid = np.ones_like(gt, bool)
+        elif info.get('gt_mask_path'):
+            from .evaluation import load_reference
+            gt, valid = load_reference(info['gt_mask_path'], info.get('gt_ignore_mask_path'))
+        else:
+            gt = load_gt(split, name)
+            valid = np.ones_like(gt, bool)
         references[name] = gt
         mask_path = row.get('mask_path')
         preds[name] = load_mask_png(path.parent / mask_path) if mask_path else np.zeros_like(gt)
+        preds[name] &= valid
         calls = [c for step in read_jsonl(path.parent / 'steps.jsonl') for c in step.get('calls', [])]
         py = [c for c in calls if c['tool'] == 'python' and c.get('status') != 'skipped_due_to_submit']
         python_sessions += bool(py)
@@ -64,7 +73,7 @@ def summarize(directory, split, task, errors=False, gts=None):
                 info = json.loads(info_path.read_text()) if info_path.exists() else {}
                 init_path = Path(info.get('init_mask_path') or RUN / 'init' / 'sam3_imc' / split / name)
             if init_path.exists():
-                initial[name] = load_mask_png(init_path)
+                initial[name] = load_mask_png(init_path) & valid
         diagnostics.append(dict(image=name, submitted_by=row['submitted_by'],
             termination_reason=row.get('termination_reason'), steps=row.get('planning_rounds', 0),
             view_calls=sum(c['tool']=='view' for c in calls), ask_calls=sum(c['tool']=='ask' for c in calls),
