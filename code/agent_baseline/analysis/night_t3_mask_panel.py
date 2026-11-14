@@ -45,7 +45,7 @@ def main():
             image=read_image(row['image_'+time],rgb=True)
             system=('All four images refer to ONE date. Each original RGB crop is followed by a binary support panel with identical coordinates and size. '
                 'Identify land cover in RGB only at coordinates where the paired panel is WHITE. BLACK is excluded, including black holes enclosed by white regions. '
-                'Buildings inside black holes are NOT the target. Do not classify the entire RGB crop or the shape of the white panel itself. '
+                'Objects inside black holes are NOT the target. Do not classify the entire RGB crop or the shape of the white panel itself. '
                 'Explain the visible land cover on the included white-supported pixels.')
             answers.append(request(out/'tasks'/row['id']/time,system,PARSE_QUESTION,panels(image,support),API_SEED))
         pair=[reverse.get(canonical(v['parsed'].get('class'))) for v in answers];truth=list(pair_id(row));geo=geometries[row['id']]
