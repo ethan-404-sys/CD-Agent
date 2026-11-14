@@ -37,7 +37,7 @@ def geometry_indices(masks,query_images,reference_mask,reference_images):
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--run',type=Path,required=True);p.add_argument('--night',type=Path,required=True)
-    p.add_argument('--parse-variant',choices=['B0','B1','B2'],default='B1');a=p.parse_args()
+    p.add_argument('--parse-variant',choices=['B0','B1','B2'],default='B0');a=p.parse_args()
     if not os.environ.get('SLURM_JOB_ID'):raise RuntimeError('Run through Slurm GPU')
     audit=json.loads(read_text(a.night/'t33/audit.json'));pilot=audit['pilot_ids']
     source=json.loads(read_text(a.night/'t33'/a.parse_variant/'summary.json'))
