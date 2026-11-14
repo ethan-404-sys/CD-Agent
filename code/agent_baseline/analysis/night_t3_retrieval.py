@@ -61,6 +61,12 @@ def score(masks,indices,truth,exemplar,method,k):
         coverage=proposal_metrics(masks[indices],truth,exemplar),candidates=indices)
 
 
+def verification_stats(answers):
+    labels=[v['answer'] for v in answers.values()]
+    return dict(requests=len(labels),yes=labels.count('yes'),no=labels.count('no'),
+        unparsed=labels.count('unparsed'),policy='keep unparsed as historical verifier; strict parsed-yes is diagnostic only')
+
+
 def summaries(records):
     output=[]
     for split in ('all','tune','confirm'):
@@ -75,7 +81,9 @@ def summaries(records):
                         covered_pixels=sum(r['coverage']['covered_pixels'] for r in rows),
                         truth_pixels=sum(r['coverage']['truth_pixels'] for r in rows),
                         aligned_instances=sum(r['coverage']['aligned_instances'] for r in rows),gt_instances=sum(r['coverage']['gt_instances'] for r in rows))
-                output.append(dict(split=split,support=support,group=label,tasks=len(tasks),methods=methods))
+                output.append(dict(split=split,support=support,group=label,tasks=len(tasks),methods=methods,
+                    verification_unparsed=sum(verification_stats(t['verification'])['unparsed'] for t in tasks),
+                    verification_requests=sum(len(t['verification']) for t in tasks)))
     return output
 
 
@@ -93,6 +101,8 @@ def main():
     settings=dict(parse_variant=a.parse_variant,verify_k=a.verify_k,model='qwen3.7-flash',source=str(a.night/a.parse_variant/'summary.json'),
         R1='same broad geometry/colour gates as historical geometry; DINO change-vector ranking',
         R2='predicted source/target text each at both dates; directed loss/gain overlap; all proposals union',
+        native_order='SAM query order after filtering; source candidates then target candidates; not confidence-sorted or randomized',
+        unparsed_policy='historical keep-unparsed; parsed-yes-only score is an offline sensitivity diagnostic',
         R3='same R2 pool; DINO reorder and top-k; fixed top8 local two-date spotlight verifier',
         verifier='joint local view/support-prompt intervention, not a pure single-factor comparison to old eight-view verifier',
         code=str(Path(__file__).resolve()))
@@ -137,9 +147,10 @@ def main():
             if a.verify_k:
                 chosen=[i for i in order3[:a.verify_k] if answers[i]['answer']!='no']
                 scores.append(score(r2,chosen,truth,ex,'R3_verified',a.verify_k))
+                scores.append(score(r2,[i for i in order3[:a.verify_k] if answers[i]['answer']=='yes'],truth,ex,'R3_drop_unparsed_diagnostic',a.verify_k))
             record=dict(id=row['id'],split=audit['split'][row['id']],group=group(row),remaining_gt_pixels=int((truth&~ex).sum()),
                 scores=scores,text_proposal_upper=proposal_metrics(r2,truth,ex),geometry_proposal_upper=proposal_metrics(r1,truth,ex),
-                verification=answers,cost_cny=sum(v['cost_cny'] for v in answers.values()))
+                verification=answers,verification_stats=verification_stats(answers),cost_cny=sum(v['cost_cny'] for v in answers.values()))
             write_json(result,record);records.append(record)
             write_json(out/f'summary_{a.split}.json',dict(tasks=len(records),records=records,summary=summaries(records),cost_cny=sum(r['cost_cny'] for r in records)))
             print('retrieval',len(records),row['id'],flush=True)
