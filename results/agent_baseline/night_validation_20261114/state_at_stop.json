@@ -1,0 +1,86 @@
+{
+  "name": "cd-night-validation-20261114",
+  "status": "done",
+  "queue": [],
+  "done": [
+    "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-night-validation-20261114/jobs/01-followup.sbatch"
+  ],
+  "current": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-night-validation-20261114/jobs/01-followup.sbatch",
+  "job_id": "186430",
+  "hook_id": "186431",
+  "rounds": 1,
+  "rounds_submitted": 1,
+  "primary_best": null,
+  "cost_cny": 0.0,
+  "finalized": false,
+  "finalize_requested": true,
+  "started_at": "2026-11-14 23:16:51",
+  "started_epoch": 1794669411.4606562,
+  "history": [
+    {
+      "job": "01-followup.sbatch",
+      "job_id": "186430",
+      "hook_id": "186431",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0.0,
+      "metric": {
+        "stage": "followup_validation_and_T33_audit",
+        "completed": 1,
+        "cost_cny": 0
+      },
+      "metric_error": null,
+      "at": "2026-11-14 23:17:33"
+    }
+  ],
+  "driver": "dependency",
+  "recorded_current": true,
+  "submitted_at": "2026-11-14 23:16:51",
+  "last_advance_at": "2026-11-14 23:16:51",
+  "hook_attempts": 1,
+  "review_count": 1,
+  "review": {
+    "id": "event-0001",
+    "kind": "round_finished",
+    "error": null,
+    "at": "2026-11-14 23:17:33",
+    "job_id": "186430",
+    "hook_id": "186431",
+    "current": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-night-validation-20261114/jobs/01-followup.sbatch",
+    "latest": {
+      "job": "01-followup.sbatch",
+      "job_id": "186430",
+      "hook_id": "186431",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0.0,
+      "metric": {
+        "stage": "followup_validation_and_T33_audit",
+        "completed": 1,
+        "cost_cny": 0
+      },
+      "metric_error": null,
+      "at": "2026-11-14 23:17:33"
+    },
+    "queued_jobs": [],
+    "cost_cny": 0.0,
+    "delivery": "pending",
+    "delivery_error": "thread/resume: {'code': -32600, 'message': 'thread 01a1d014-9f29-76a1-8fce-cdbd93601af4 already has an active writer'}"
+  },
+  "decisions": [
+    {
+      "event_id": "event-0001",
+      "action": "finish",
+      "reason": "186430 passed12 new contracts and audited all358 existing T3.3 dev tasks. No API. Frozen followup code available; this validation does not claim real GPU/Agent gains.",
+      "at": "2026-11-14 23:26:01"
+    }
+  ],
+  "stop_reason": "186430 passed12 new contracts and audited all358 existing T3.3 dev tasks. No API. Frozen followup code available; this validation does not claim real GPU/Agent gains.",
+  "finished_at": "2026-11-14 23:26:01",
+  "elapsed_seconds": 549.7,
+  "finalize_attempts": 1
+}
