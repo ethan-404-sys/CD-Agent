@@ -1,0 +1,2053 @@
+{
+  "variant": "B2",
+  "tasks": 60,
+  "records": [
+    {
+      "id": "train_1065_2to5",
+      "split": "tune",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "pair": [
+          5,
+          5
+        ],
+        "classes": [
+          "building",
+          "building"
+        ],
+        "evidence": [
+          "The bright, unmodified pixel in the T1 spotlight close view shows a distinct rectangular shape with a light tan/white color and flat texture, characteristic of a building roof. This is confirmed by the wide view and reference images, which show this structure as a small building located near a road and larger industrial warehouses.",
+          "The bright, unmodified pixel in the T2 spotlight close view shows a distinct rectangular shape with a light grey/white roof and a smaller attached section, characteristic of a long industrial or storage building. This matches the identical structure visible in the unmodified reference T2 close image, confirming it is a man-made structure rather than natural ground cover."
+        ]
+      },
+      "true_pair": [
+        2,
+        5
+      ],
+      "before_agrees": false,
+      "after_agrees": true,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0005556
+    },
+    {
+      "id": "train_1129_4to5",
+      "split": "confirm",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "pair": [
+          1,
+          5
+        ],
+        "classes": [
+          "low vegetation",
+          "building"
+        ],
+        "evidence": [
+          "The bright, unmodified support pixel in the T1 spotlight views highlights a small, elongated patch of greenish material. Comparing this to the unmodified reference image for T1, this feature corresponds to a similar green area situated on the ground between patches of bare soil and darker scrub. The texture and color are consistent with grass or low-lying herbaceous plants rather than trees (too small/flat), water (wrong color/texture), or buildings.",
+          "The bright, unmodified support pixels in the T2 spotlight views highlight a long, rectangular structure with a light grey/white surface. This shape and color are consistent with a building roof, specifically matching the footprint of the large industrial warehouse visible in the unmodified reference image at the same location. The surrounding context consists of other similar industrial structures."
+        ]
+      },
+      "true_pair": [
+        4,
+        5
+      ],
+      "before_agrees": false,
+      "after_agrees": true,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0005804
+    },
+    {
+      "id": "train_1136_5to1",
+      "split": "tune",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 3,
+      "interpretation": {
+        "pair": [
+          5,
+          1
+        ],
+        "classes": [
+          "building",
+          "low vegetation"
+        ],
+        "evidence": [
+          "The bright, unmodified pixels in the T1 spotlight view form a distinct geometric 'L' or 'T' shape with sharp edges and a light-colored (white/light blue) surface. This morphology is characteristic of a man-made structure with a roof. The unmodified reference image confirms this is a building with a blue roof, situated adjacent to a road and open ground.",
+          "The bright, unmodified support pixels in the T2 spotlight views show a distinct light green color and a relatively uniform, flat texture. This appearance is characteristic of maintained grass or turf, likely serving as landscaping within the industrial complex. It contrasts with the darker, rougher texture of the surrounding natural vegetation seen in the reference images."
+        ]
+      },
+      "true_pair": [
+        5,
+        1
+      ],
+      "before_agrees": true,
+      "after_agrees": true,
+      "pair_agrees": true,
+      "semantic_review_required": false,
+      "new_cost_cny": 0.0005636
+    },
+    {
+      "id": "train_1166_3to5",
+      "split": "tune",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "pair": [
+          5,
+          3
+        ],
+        "classes": [
+          "building",
+          "tree"
+        ],
+        "evidence": [
+          "The bright, unmodified pixel in the T1 spotlight close view corresponds to a rectangular structure visible in the reference images. It exhibits a flat, uniform light-grey/white surface typical of a roof or paved area, distinct from the surrounding darker vegetation and soil.",
+          "The bright, unmodified pixels in the T2 close spotlight view show a dark green, textured surface consistent with dense tree canopy. This matches the unmodified reference image for T2, which clearly depicts a forested or heavily wooded area surrounding a small clearing and a building. The darkened areas are excluded as per instructions."
+        ]
+      },
+      "true_pair": [
+        3,
+        5
+      ],
+      "before_agrees": false,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0005436
+    },
+    {
+      "id": "train_1177_2to3",
+      "split": "confirm",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 1686,
+      "interpretation": {
+        "pair": [
+          5,
+          5
+        ],
+        "classes": [
+          "building",
+          "building"
+        ],
+        "evidence": [
+          "The bright, unmodified pixels in the T1 spotlight view (visible in the upper right and center) correspond to flat, light-colored surfaces with geometric edges. Comparing these to the unmodified reference image for T1, these areas align perfectly with the roofs of residential and industrial structures. The texture is smooth and uniform, consistent with roofing materials like metal or concrete, distinct from the surrounding vegetation or bare ground.",
+          "The bright, unmodified pixels in the T2 spotlight view correspond to large, flat-roofed structures visible in the unmodified reference image. These features exhibit geometric shapes (rectangular) and uniform grey/white tones characteristic of industrial or commercial building roofs. The darkened areas in the target spotlight are excluded, but the bright support clearly outlines the footprint of these built structures."
+        ]
+      },
+      "true_pair": [
+        2,
+        3
+      ],
+      "before_agrees": false,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0005771999999999999
+    },
+    {
+      "id": "train_119_6to2",
+      "split": "tune",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "pair": [
+          5,
+          4
+        ],
+        "classes": [
+          "building",
+          "water"
+        ],
+        "evidence": [
+          "The bright, unmodified pixels in the T1 spotlight views clearly show large, rectangular structures with distinct blue roofs. These geometric shapes and colors are characteristic of industrial warehouses or factory buildings. The surrounding paved areas and loading docks further support this classification.",
+          "The bright, unmodified support pixels in the T2 spotlight view (visible in the bottom-left corner) show a distinct greenish body of water with surface texture. The large dark areas to the right are excluded as dark holes. The reference image confirms this is an aquaculture pond or similar water body."
+        ]
+      },
+      "true_pair": [
+        6,
+        2
+      ],
+      "before_agrees": false,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0005388
+    },
+    {
+      "id": "train_127_3to2",
+      "split": "tune",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "pair": [
+          3,
+          2
+        ],
+        "classes": [
+          "tree",
+          "non-vegetated ground"
+        ],
+        "evidence": [
+          "The bright, unmodified pixel in the T1 spotlight close view displays a textured, mottled green and white appearance characteristic of tree canopy foliage viewed from above. This matches the surrounding darkened vegetation areas in the reference images, which represent a cluster of trees or dense shrubbery along the waterway.",
+          "The bright, unmodified support pixels in the T2 spotlight close view show a light gray, textured surface consistent with bare earth, gravel, or a paved lot. This matches the corresponding area in the unmodified reference T2 close image, which depicts an open, unvegetated plot of land adjacent to a canal and vegetation. The lack of green coloration rules out vegetation, and the flat, uniform texture suggests non-vegetated ground rather than a structured building."
+        ]
+      },
+      "true_pair": [
+        3,
+        2
+      ],
+      "before_agrees": true,
+      "after_agrees": true,
+      "pair_agrees": true,
+      "semantic_review_required": false,
+      "new_cost_cny": 0.000578
+    },
+    {
+      "id": "train_1322_2to4",
+      "split": "tune",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "pair": [
+          2,
+          5
+        ],
+        "classes": [
+          "non-vegetated ground",
+          "building"
+        ],
+        "evidence": [
+          "The bright, unmodified support pixels in the T1 spotlight views reveal a patch of light brown, textured earth. This area appears to be bare soil or a dirt yard, possibly containing construction debris or stockpiled material, situated adjacent to a small structure and a path. The texture is rough and granular, consistent with exposed ground rather than vegetation or pavement.",
+          "The bright, unmodified pixel in the T2 spotlight close view shows a distinct rectangular shape with a flat, light-colored surface. This corresponds to the roof of a small structure visible in the unmodified reference T2 image, situated in front of a larger industrial building. The geometry and context (industrial park setting) strongly indicate it is a building or shed."
+        ]
+      },
+      "true_pair": [
+        2,
+        4
+      ],
+      "before_agrees": true,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.00057
+    },
+    {
+      "id": "train_1344_2to5",
+      "split": "confirm",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 16056,
+      "interpretation": {
+        "pair": [
+          5,
+          5
+        ],
+        "classes": [
+          "building",
+          "building"
+        ],
+        "evidence": [
+          "The bright, unmodified support pixels in the T1 spotlight close view reveal a distinct rectangular structure with a light-colored (likely white or light grey) roof. This shape and reflectivity are characteristic of industrial or warehouse buildings, which is consistent with the surrounding context of similar structures visible in the wide view and reference images.",
+          "The bright, unmodified pixels in the T2 spotlight views clearly show rectangular structures with distinct blue and light grey/white roofing materials. These features are characteristic of industrial warehouses or factories. The shape is geometric and regular, contrasting with the organic shapes of vegetation seen in the reference images."
+        ]
+      },
+      "true_pair": [
+        2,
+        5
+      ],
+      "before_agrees": false,
+      "after_agrees": true,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0005468000000000001
+    },
+    {
+      "id": "train_1370_3to1",
+      "split": "confirm",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 791,
+      "interpretation": {
+        "pair": [
+          5,
+          5
+        ],
+        "classes": [
+          "building",
+          "building"
+        ],
+        "evidence": [
+          "The bright, unmodified pixels in the T1 spotlight views (particularly visible in the lower-left corner) show a dense cluster of rectangular structures with blue, red, and grey roofs. These shapes and colors are characteristic of industrial or residential buildings, matching the surrounding urban fabric seen in the reference images.",
+          "The bright, unmodified pixels in the T2 spotlight views (particularly visible in the lower-left area where the mask is applied) reveal a dense cluster of structures with distinct rectangular footprints and blue/grey roofing materials. These features are consistent with the surrounding industrial or residential buildings seen clearly in the unmodified reference image for T2. The texture is hard and geometric, lacking the irregularity of vegetation or the uniformity of open ground."
+        ]
+      },
+      "true_pair": [
+        3,
+        1
+      ],
+      "before_agrees": false,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0005683999999999999
+    },
+    {
+      "id": "train_1377_5to3",
+      "split": "tune",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "pair": [
+          5,
+          5
+        ],
+        "classes": [
+          "building",
+          "building"
+        ],
+        "evidence": [
+          "The bright, unmodified pixels in the T1 spotlight view clearly show large, rectangular structures with distinct grid-like patterns on their roofs. These geometric shapes and light beige/white colors are characteristic of industrial warehouse or factory buildings. The surrounding dark areas are excluded per instructions, leaving only the visible rooftops to classify.",
+          "The bright, unmodified pixels in the T2 spotlight views clearly show large, rectangular structures with distinct grid-like patterns on their roofs. These features are characteristic of industrial warehouses or factories. The surrounding dark areas are excluded per instructions, leaving only the building rooftops and adjacent paved yards visible."
+        ]
+      },
+      "true_pair": [
+        5,
+        3
+      ],
+      "before_agrees": true,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0005468
+    },
+    {
+      "id": "train_145_1to2",
+      "split": "tune",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "pair": [
+          5,
+          5
+        ],
+        "classes": [
+          "building",
+          "building"
+        ],
+        "evidence": [
+          "The bright, unmodified pixel in the T1 spotlight close view displays a distinct rectangular shape with a light gray, textured surface. This corresponds to the roof of a long industrial structure visible in the unmodified reference image. The geometry and reflectance are characteristic of a building roof, distinguishing it from the surrounding ground or vegetation.",
+          "The bright, unmodified support pixel in the T2 spotlight close view reveals a rectangular structure with a light-colored, possibly metallic or concrete roof. The shape is geometric and distinct from natural features. In the wider context (T2 wide), this corresponds to a long, low industrial-style building situated between a road/canal and other large structures with solar panels. The texture appears smooth and uniform, typical of a roof."
+        ]
+      },
+      "true_pair": [
+        1,
+        2
+      ],
+      "before_agrees": false,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0005692000000000001
+    },
+    {
+      "id": "train_147_1to5",
+      "split": "tune",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "pair": [
+          2,
+          5
+        ],
+        "classes": [
+          "non-vegetated ground",
+          "building"
+        ],
+        "evidence": [
+          "The bright, unmodified support pixel in the T1 spotlight close view highlights a large, irregularly shaped patch of light beige/grey terrain. The texture appears granular and uniform, consistent with bare soil, gravel, or a construction site surface. It lacks the green tones of vegetation, the defined geometric shapes of buildings, or the dark reflectance of water. Contextually, it is situated adjacent to industrial structures and roads, typical of an unpaved lot or staging area.",
+          "The bright, unmodified pixel in the T2 spotlight close view displays a distinct geometric shape with straight edges and right angles, characteristic of a man-made structure. The surface appears uniform and light blue/white, consistent with a metal or composite roof material seen in the reference image. It is situated adjacent to other residential structures and what appears to be a construction or industrial yard, reinforcing its classification as a building."
+        ]
+      },
+      "true_pair": [
+        1,
+        5
+      ],
+      "before_agrees": false,
+      "after_agrees": true,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0005956
+    },
+    {
+      "id": "train_1496_2to1",
+      "split": "confirm",
+      "group": "地表类",
+      "has_holes": true,
+      "remaining_gt_pixels": 4,
+      "interpretation": {
+        "pair": [
+          2,
+          5
+        ],
+        "classes": [
+          "non-vegetated ground",
+          "building"
+        ],
+        "evidence": [
+          "The bright, unmodified pixels in the T1 spotlight view show a light brown, textured surface consistent with bare soil or dirt. The dark rectangular shapes are excluded as they represent holes (likely future building footprints or shadows) within this support area. The surrounding context in the unmodified reference confirms this is an undeveloped construction site or vacant lot adjacent to a canal and residential area.",
+          "The bright, unmodified pixels in the T2 spotlight view reveal a dense residential area. The visible features include multiple parallel rows of multi-story apartment blocks with distinct rectangular footprints and greyish rooftops (some with solar panels). These structures are separated by narrow access paths and surrounded by dark vegetation, consistent with the 'building' class."
+        ]
+      },
+      "true_pair": [
+        2,
+        1
+      ],
+      "before_agrees": true,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.00057
+    },
+    {
+      "id": "train_1527_5to2",
+      "split": "confirm",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "pair": [
+          2,
+          5
+        ],
+        "classes": [
+          "non-vegetated ground",
+          "building"
+        ],
+        "evidence": [
+          "The bright, unmodified pixels in the T1 spotlight views (particularly the wide view) show a patch of brownish, textured earth located between the large industrial buildings. This area lacks the uniform color and geometric shape of the adjacent buildings or paved roads, and shows no signs of significant vegetation cover, consistent with bare soil or construction ground.",
+          "The bright, unmodified pixel in the T2 spotlight view displays a distinct rectangular shape with a light blue/white color and linear texture, characteristic of a metal roof. Context from the unmodified T2 reference image confirms this is the roof of an industrial warehouse structure situated between other similar buildings."
+        ]
+      },
+      "true_pair": [
+        5,
+        2
+      ],
+      "before_agrees": false,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0005548
+    },
+    {
+      "id": "train_1535_4to1",
+      "split": "confirm",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 14,
+      "interpretation": {
+        "pair": [
+          4,
+          4
+        ],
+        "classes": [
+          "water",
+          "water"
+        ],
+        "evidence": [
+          "The bright, unmodified support pixel in the T1 spotlight view highlights a distinct, irregularly shaped patch within a larger dark basin. Comparing this to the unmodified reference image for T1, this specific area corresponds to the water body of the lake/pond. The color (light blue/grey) and texture are consistent with open water reflecting the sky, distinguishing it from the surrounding dark vegetation or non-vegetated ground.",
+          "The bright, unmodified pixels in the center of the darkened spotlight area show a distinct blue, speckled texture characteristic of water surface with light reflection or ripples. This corresponds to the lake visible in the unmodified T2 reference image, confirming it is a water body rather than the surrounding darkened land cover."
+        ]
+      },
+      "true_pair": [
+        4,
+        1
+      ],
+      "before_agrees": true,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0005716
+    },
+    {
+      "id": "train_1538_1to3",
+      "split": "tune",
+      "group": "地表类",
+      "has_holes": true,
+      "remaining_gt_pixels": 5243,
+      "interpretation": {
+        "pair": [
+          5,
+          5
+        ],
+        "classes": [
+          "building",
+          "building"
+        ],
+        "evidence": [
+          "The bright, unmodified pixel in the spotlight view shows a long, narrow structure with a light-colored, possibly metallic or concrete roof. Its rectangular shape and linear form are characteristic of an industrial shed, warehouse, or storage building. The context from the reference image confirms this is part of an industrial complex with similar large structures.",
+          "The bright, unmodified pixels in the T2 spotlight close view clearly show large, rectangular structures with flat roofs (grey and blue). These geometric shapes and textures are characteristic of industrial or warehouse buildings. The surrounding dark areas are excluded per instructions."
+        ]
+      },
+      "true_pair": [
+        1,
+        3
+      ],
+      "before_agrees": false,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0005411999999999999
+    },
+    {
+      "id": "train_156_2to3",
+      "split": "confirm",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "pair": [
+          2,
+          1
+        ],
+        "classes": [
+          "non-vegetated ground",
+          "low vegetation"
+        ],
+        "evidence": [
+          "The bright, unmodified support pixel in the T1 spotlight view (bottom left) shows a large, uniform area with a pale, whitish-grey color and a relatively smooth texture. This appearance is characteristic of bare soil, sand, or a dry field that has been tilled or cleared, lacking the green tones of vegetation or the structured patterns of buildings.",
+          "The only bright, unmodified support pixel is located in the bottom-left corner of the spotlight view. This area displays a textured, mottled green and grey appearance consistent with dense, low-growing plant life or scrubland. It lacks the distinct individual canopy shapes of trees and the geometric, hard-edged structures of buildings."
+        ]
+      },
+      "true_pair": [
+        2,
+        3
+      ],
+      "before_agrees": true,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0005636
+    },
+    {
+      "id": "train_1659_1to2",
+      "split": "tune",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 7720,
+      "interpretation": {
+        "pair": [
+          1,
+          1
+        ],
+        "classes": [
+          "low vegetation",
+          "low vegetation"
+        ],
+        "evidence": [
+          "The bright, unmodified support pixel in the T1 spotlight view displays a pale greenish-grey color and a relatively uniform, soft texture. This appearance is consistent with agricultural crops or grassy fields, distinguishing it from the darker brown of bare soil (non-vegetated ground) or the dark, rough texture of trees. The context from the reference images confirms this area is part of a patchwork of agricultural fields.",
+          "The bright, unmodified pixel in the T2 spotlight view displays a pale pinkish-green hue and a soft, uniform texture. Comparing this to the unmodified reference image for T2, this area corresponds to a patch of green ground cover situated adjacent to a road and brown agricultural fields. The appearance is consistent with grassy or herbaceous low vegetation rather than bare soil, dense trees, or man-made structures."
+        ]
+      },
+      "true_pair": [
+        1,
+        2
+      ],
+      "before_agrees": true,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.000586
+    },
+    {
+      "id": "train_1745_5to2",
+      "split": "tune",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 12451,
+      "interpretation": {
+        "pair": [
+          5,
+          2
+        ],
+        "classes": [
+          "building",
+          "non-vegetated ground"
+        ],
+        "evidence": [
+          "The bright, unmodified support pixels in the T1 spotlight views reveal a rectangular structure with a distinct roof. In the close-up reference, this appears as a blue-grey surface typical of metal roofing, situated adjacent to other similar industrial structures. The shape is geometric and rigid, consistent with a man-made building rather than natural features.",
+          "The bright, unmodified support pixel in the T2 spotlight close view shows a light beige, sandy texture consistent with bare earth or dirt. In the wide view, this bright patch is located within a large, open yard area adjacent to industrial buildings, which appears to be unpaved ground used for storage or access. The color and lack of vegetation or structural features confirm it is non-vegetated ground."
+        ]
+      },
+      "true_pair": [
+        5,
+        2
+      ],
+      "before_agrees": true,
+      "after_agrees": true,
+      "pair_agrees": true,
+      "semantic_review_required": false,
+      "new_cost_cny": 0.0005708
+    },
+    {
+      "id": "train_1754_5to1",
+      "split": "tune",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 6067,
+      "interpretation": {
+        "pair": [
+          5,
+          5
+        ],
+        "classes": [
+          "building",
+          "building"
+        ],
+        "evidence": [
+          "In the T1 spotlight close view, the bright, unmodified pixels (primarily in the upper right and center) show rectangular shapes with a brownish-grey texture consistent with rooftops. The surrounding dark areas are excluded as per instructions. The visible bright sections correspond to the roofs of structures seen in the reference image, identifying them as buildings.",
+          "The bright, unmodified pixels in the T2 spotlight close view reveal a distinct rectangular structure with a light-colored, reflective roof (likely metal or concrete) and defined edges. This geometry is consistent with an industrial building or warehouse, matching the structures visible in the unmodified reference image. The surrounding dark areas are excluded as per instructions."
+        ]
+      },
+      "true_pair": [
+        5,
+        1
+      ],
+      "before_agrees": true,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0005587999999999999
+    },
+    {
+      "id": "train_1798_2to6",
+      "split": "tune",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "pair": [
+          5,
+          6
+        ],
+        "classes": [
+          "building",
+          "playground"
+        ],
+        "evidence": [
+          "The bright, unmodified pixel region in the T1 spotlight shows a rectangular structure with a textured, brownish-pink surface that matches the roof of the adjacent grey industrial buildings seen in the reference images. The shape and alignment with the surrounding complex indicate it is a building roof, likely under construction or with a different roofing material than its neighbors.",
+          "In the bright, unmodified spotlight view for T2 (specifically visible in the upper right quadrant of the close-up), there is a distinct rectangular area with red and green surfacing marked with white lines. This pattern is characteristic of sports courts, such as tennis or basketball courts, which fall under the 'playground' class. The surrounding dark areas are excluded per instructions."
+        ]
+      },
+      "true_pair": [
+        2,
+        6
+      ],
+      "before_agrees": false,
+      "after_agrees": true,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0005668
+    },
+    {
+      "id": "train_1808_2to1",
+      "split": "tune",
+      "group": "地表类",
+      "has_holes": true,
+      "remaining_gt_pixels": 7641,
+      "interpretation": {
+        "pair": [
+          2,
+          1
+        ],
+        "classes": [
+          "non-vegetated ground",
+          "low vegetation"
+        ],
+        "evidence": [
+          "The bright, unmodified pixels in the T1 spotlight view show a light brown, tan-colored surface with a rough, uneven texture. This appearance is consistent with bare earth, dirt, or construction soil. The area lacks the green coloration of vegetation and does not have the defined geometric shapes or textures of buildings or pavement. It appears to be an excavated or cleared strip of land situated between industrial structures.",
+          "The bright, unmodified pixels in the T2 spotlight view show a strip of green, textured ground cover situated between large industrial buildings. This appearance corresponds to grass or herbaceous plants, distinguishing it from the darker, denser tree canopy visible in the excluded dark regions and the bare earth seen in the T1 reference."
+        ]
+      },
+      "true_pair": [
+        2,
+        1
+      ],
+      "before_agrees": true,
+      "after_agrees": true,
+      "pair_agrees": true,
+      "semantic_review_required": false,
+      "new_cost_cny": 0.0005708
+    },
+    {
+      "id": "train_1884_4to3",
+      "split": "confirm",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "pair": [
+          4,
+          4
+        ],
+        "classes": [
+          "water",
+          "water"
+        ],
+        "evidence": [
+          "The bright, unmodified support pixel in the T1 spotlight views (both close and wide) highlights a distinct body of water. This is confirmed by comparing it to the unmodified reference T1 images, where the same feature is clearly visible as a dark, liquid-filled depression or pond within an industrial or excavation site. The shape is irregular, consistent with a man-made or natural pool, and its location adjacent to what appears to be mining or construction activity supports this classification.",
+          "The bright, unmodified support pixels in the T2 spotlight views reveal a body of water with a distinct blue-grey color and a smooth surface texture. This is consistent with the dark pond visible in the same location in the unmodified T2 reference images. The surrounding area is darkened and excluded."
+        ]
+      },
+      "true_pair": [
+        4,
+        3
+      ],
+      "before_agrees": true,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0005740000000000001
+    },
+    {
+      "id": "train_2043_2to3",
+      "split": "confirm",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 386,
+      "interpretation": {
+        "pair": [
+          5,
+          5
+        ],
+        "classes": [
+          "building",
+          "building"
+        ],
+        "evidence": [
+          "The bright, unmodified support pixels in the T1 spotlight close view reveal a structure with a flat, light-colored (likely white or light grey) roof. The shape is roughly rectangular with defined edges, consistent with a small building or shed. This matches the corresponding bright area in the unmodified reference T1 close image, which shows a built structure adjacent to a larger dark-roofed building. The texture appears smooth and uniform, typical of roofing material, rather than natural ground cover.",
+          "The bright, unmodified pixel in the T2 spotlight close view shows a light gray, roughly rectangular shape with a flat texture. Comparing this to the unmodified reference T2 wide view, this bright spot corresponds to the roof of a small structure located at the bottom edge of the frame, adjacent to a larger industrial building. The shape and reflectance are consistent with a building roof."
+        ]
+      },
+      "true_pair": [
+        2,
+        3
+      ],
+      "before_agrees": false,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0005908
+    },
+    {
+      "id": "train_206_3to4",
+      "split": "confirm",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "pair": [
+          4,
+          5
+        ],
+        "classes": [
+          "water",
+          "building"
+        ],
+        "evidence": [
+          "The bright, unmodified pixels in the T1 spotlight views (especially visible in the wide view) trace a winding, linear feature consistent with a canal or river. The color is a murky brownish-green typical of standing water, and it is bordered by banks with vegetation and crossed by bridges, confirming its identity as a waterway.",
+          "The bright, unmodified pixels in the T2 spotlight close view clearly show large, rectangular structures with flat, light-grey roofs, characteristic of industrial or commercial buildings. The wide view shows similar large footprints alongside residential blocks and infrastructure. The texture is smooth and uniform on the roofs, distinct from the surrounding vegetation or roads."
+        ]
+      },
+      "true_pair": [
+        3,
+        4
+      ],
+      "before_agrees": false,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0005556000000000001
+    },
+    {
+      "id": "train_2075_4to2",
+      "split": "confirm",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "pair": [
+          2,
+          5
+        ],
+        "classes": [
+          "non-vegetated ground",
+          "building"
+        ],
+        "evidence": [
+          "The bright, unmodified pixels in the T1 spotlight reveal a large area of exposed brown earth with visible tire tracks and uneven terrain, characteristic of construction activity or bare soil. This is confirmed by the reference image which shows the same area as active construction/earthworks. The dark areas are excluded as per instructions.",
+          "The bright, unmodified pixels in the spotlight view clearly show large, rectangular structures with distinct blue roofs and light-colored walls. These geometric shapes and colors are characteristic of industrial or commercial buildings under construction or recently completed. The surrounding area shows construction activity (exposed earth), further supporting the classification of these bright objects as buildings."
+        ]
+      },
+      "true_pair": [
+        4,
+        2
+      ],
+      "before_agrees": false,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0005556000000000001
+    },
+    {
+      "id": "train_2130_2to4",
+      "split": "confirm",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "pair": [
+          2,
+          4
+        ],
+        "classes": [
+          "non-vegetated ground",
+          "water"
+        ],
+        "evidence": [
+          "The bright, unmodified pixels in the T1 wide spotlight view reveal light brown, textured terrain consistent with bare soil or dirt. This is confirmed by the unmodified reference image for T1, which shows the same area as a cleared patch of earth with visible tracks and no significant vegetation cover. The close-up spotlight is too dark to classify reliably on its own, but the corresponding bright areas in the wide view indicate non-vegetated ground.",
+          "The bright, unmodified pixels in the T2 close spotlight (matching the clear T2 reference) show dark, uniform surfaces typical of water bodies (likely aquaculture ponds or wetlands). These are separated by narrow, light-colored earthen embankments or dikes. The presence of a barge on the road in the T2 close view further confirms this is a coastal or waterside environment where such ponds are common."
+        ]
+      },
+      "true_pair": [
+        2,
+        4
+      ],
+      "before_agrees": true,
+      "after_agrees": true,
+      "pair_agrees": true,
+      "semantic_review_required": false,
+      "new_cost_cny": 0.0005939999999999999
+    },
+    {
+      "id": "train_2192_1to5",
+      "split": "confirm",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 25417,
+      "interpretation": {
+        "pair": [
+          5,
+          5
+        ],
+        "classes": [
+          "building",
+          "building"
+        ],
+        "evidence": [
+          "The bright, unmodified pixels in the T1 spotlight views (particularly visible in the lower right and upper right quadrants) show large, rectangular structures with distinct geometric shapes. These features have flat, light-colored or blue surfaces typical of industrial warehouse roofs. The organized layout and sharp edges distinguish them from natural land cover, confirming they are man-made structures.",
+          "The bright, unmodified pixels in the T2 spotlight view correspond to large, rectangular structures with flat roofs. The prominent building in the upper left features a distinct grid pattern characteristic of solar panels installed on a roof. Other bright areas show uniform, light-colored surfaces typical of industrial or commercial warehouse roofing. The surrounding context includes roads and other similar structures, confirming an urban/industrial built environment."
+        ]
+      },
+      "true_pair": [
+        1,
+        5
+      ],
+      "before_agrees": false,
+      "after_agrees": true,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0005700000000000001
+    },
+    {
+      "id": "train_2227_3to2",
+      "split": "confirm",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 816,
+      "interpretation": {
+        "pair": [
+          3,
+          1
+        ],
+        "classes": [
+          "tree",
+          "low vegetation"
+        ],
+        "evidence": [
+          "In the T1 spotlight close view, there is a distinct bright green patch located near a road intersection. Comparing this to the unmodified reference image for T1, this bright green area corresponds to a dense cluster of dark green foliage, characteristic of tree canopies. The shape is irregular and organic, consistent with vegetation rather than man-made structures. Although the spotlight view has a dark hole in the center of this feature, the surrounding bright support pixels clearly show the texture and color of leafy vegetation.",
+          "The bright, unmodified support pixel in the T2 spotlight view shows a patch of light greenish-white material with a clumpy, irregular texture. Comparing this to the unmodified reference T2 wide image, the corresponding area is an open field with dry, sparse grass or weeds. The color and texture are consistent with low-lying vegetative cover rather than bare soil, buildings, or trees."
+        ]
+      },
+      "true_pair": [
+        3,
+        2
+      ],
+      "before_agrees": true,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0005956
+    },
+    {
+      "id": "train_2255_2to5",
+      "split": "confirm",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 3859,
+      "interpretation": {
+        "pair": [
+          5,
+          5
+        ],
+        "classes": [
+          "building",
+          "building"
+        ],
+        "evidence": [
+          "The bright, unmodified pixels in the spotlight view reveal a dense urban environment dominated by structures. Specifically, there are large industrial or commercial buildings with distinct blue roofs and adjacent residential blocks with reddish-brown tiled roofs. The geometric shapes, regular patterns of windows on the residential blocks, and flat roofing materials are characteristic of built infrastructure.",
+          "The bright, unmodified pixels in the T2 spotlight view reveal structures with distinct geometric shapes, straight edges, and flat or low-pitched roofs. Specifically, there are large rectangular footprints with grey and blue roofing materials, characteristic of industrial warehouses or commercial buildings. The surrounding context shows a dense urban grid with similar structures, confirming these are man-made constructions rather than natural features."
+        ]
+      },
+      "true_pair": [
+        2,
+        5
+      ],
+      "before_agrees": false,
+      "after_agrees": true,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0005644000000000001
+    },
+    {
+      "id": "train_23_2to1",
+      "split": "confirm",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 3235,
+      "interpretation": {
+        "pair": [
+          5,
+          5
+        ],
+        "classes": [
+          "building",
+          "building"
+        ],
+        "evidence": [
+          "The bright, unmodified pixel region in the T1 close spotlight (left side) displays a uniform, light pinkish-beige color with a flat, textureless appearance. This contrasts sharply with the surrounding darkened areas and matches the large industrial or commercial building visible in the same location in the unmodified reference image. The shape is rectilinear, consistent with a roof structure.",
+          "The bright, unmodified pixel region in the T2 spotlight close view shows a rectangular structure with a light-colored (beige/white) flat roof. Several dark, regularly spaced spots are visible on the roof surface, likely representing HVAC units or skylights. The shape and context (adjacent to roads and other urban infrastructure seen in reference views) confirm it is a building."
+        ]
+      },
+      "true_pair": [
+        2,
+        1
+      ],
+      "before_agrees": false,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0005716
+    },
+    {
+      "id": "train_2383_2to5",
+      "split": "confirm",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 14568,
+      "interpretation": {
+        "pair": [
+          5,
+          5
+        ],
+        "classes": [
+          "building",
+          "building"
+        ],
+        "evidence": [
+          "The bright, unmodified pixels in the T1 spotlight views reveal a distinct L-shaped structure with a light-colored, reflective roof. This geometry and high albedo are characteristic of an industrial or warehouse building, contrasting with the surrounding darker, textured ground.",
+          "The bright, unmodified pixels in the T2 spotlight close view show a distinct rectangular structure with a light blue/white roof. This shape and color are characteristic of an industrial or commercial building, consistent with the surrounding structures visible in the reference images."
+        ]
+      },
+      "true_pair": [
+        2,
+        5
+      ],
+      "before_agrees": false,
+      "after_agrees": true,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.00053
+    },
+    {
+      "id": "train_2437_1to3",
+      "split": "confirm",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "pair": [
+          5,
+          5
+        ],
+        "classes": [
+          "building",
+          "building"
+        ],
+        "evidence": [
+          "The bright, unmodified pixels in the T1 spotlight views clearly show large, rectangular structures with distinct blue roofs. These geometric shapes and colors are characteristic of industrial or warehouse buildings. The surrounding context in the reference images confirms a complex of similar structures.",
+          "The bright, unmodified pixels in the T2 spotlight views clearly show large, rectangular structures with distinct blue and reddish-brown roofs. These geometric shapes and roof materials are characteristic of industrial or commercial buildings. The central courtyard area is also visible as a non-vegetated ground surface within the building complex."
+        ]
+      },
+      "true_pair": [
+        1,
+        3
+      ],
+      "before_agrees": false,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0005396
+    },
+    {
+      "id": "train_2438_5to1",
+      "split": "confirm",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 13025,
+      "interpretation": {
+        "pair": [
+          5,
+          2
+        ],
+        "classes": [
+          "building",
+          "non-vegetated ground"
+        ],
+        "evidence": [
+          "The bright support pixels in the T1 spotlight highlight a section of a large, rectangular structure with a blue roof. The surrounding context in the wide view confirms this is part of an industrial complex with multiple similar blue-roofed warehouses. The shape and color are characteristic of building roofs.",
+          "The bright, unmodified support pixel in the T2 spotlight close view shows a patch of light brownish-grey terrain. The texture is rough and uneven, consistent with bare soil, dirt, or construction debris. There are no clear features of vegetation (like green color or leaf patterns), water, or distinct building structures within this specific highlighted area. It appears to be an area of disturbed earth or gravel."
+        ]
+      },
+      "true_pair": [
+        5,
+        1
+      ],
+      "before_agrees": true,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0005636
+    },
+    {
+      "id": "train_2461_5to3",
+      "split": "confirm",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 887,
+      "interpretation": {
+        "pair": [
+          5,
+          5
+        ],
+        "classes": [
+          "building",
+          "building"
+        ],
+        "evidence": [
+          "The bright, unmodified support pixels in the T1 spotlight views reveal a distinct rectangular shape with a flat roof. The coloration is primarily white and light grey on the upper surface, contrasting with the surrounding reddish-brown roofs visible in the reference images. This geometry and material appearance are characteristic of an industrial or commercial building structure.",
+          "The bright, unmodified pixel in the T2 spotlight close view displays a light beige/white color and a roughly rectangular shape with defined edges. This corresponds to a roof structure visible in the unmodified reference T2 image, where it appears as part of a building complex with reddish-brown roofs. The texture is smooth and uniform, consistent with a rooftop material (like concrete or tile) rather than vegetation or ground. Context from the wide view confirms this object is situated within a built-up area among other structures."
+        ]
+      },
+      "true_pair": [
+        5,
+        3
+      ],
+      "before_agrees": true,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0005860000000000001
+    },
+    {
+      "id": "train_2571_4to5",
+      "split": "tune",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 6,
+      "interpretation": {
+        "pair": [
+          4,
+          5
+        ],
+        "classes": [
+          "water",
+          "building"
+        ],
+        "evidence": [
+          "The bright, unmodified support pixel at the bottom tip of the dark feature exhibits a distinct light blue-grey color and smooth texture. This appearance contrasts sharply with the surrounding brown earth and matches the visual characteristics of an open water body (likely a pond or lake) seen in the reference images. The dark area above it is excluded as per instructions, but the visible bright segment clearly represents water.",
+          "The bright, unmodified support pixels in the T2 spotlight views clearly show the roof of a structure. The shape is rectangular and elongated, consistent with the adjacent buildings visible in the reference images. The color is a reddish-brown, typical of tiled or painted roofs found in this settlement. The texture appears relatively smooth but distinct from the surrounding ground."
+        ]
+      },
+      "true_pair": [
+        4,
+        5
+      ],
+      "before_agrees": true,
+      "after_agrees": true,
+      "pair_agrees": true,
+      "semantic_review_required": false,
+      "new_cost_cny": 0.00057
+    },
+    {
+      "id": "train_2590_3to5",
+      "split": "confirm",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 1014,
+      "interpretation": {
+        "pair": [
+          5,
+          5
+        ],
+        "classes": [
+          "building",
+          "building"
+        ],
+        "evidence": [
+          "The bright, unmodified pixels in the T1 spotlight close view reveal rectangular structures with reddish-brown and grey tones, consistent with rooftops. These shapes align perfectly with the buildings visible in the corresponding unmodified reference image for T1. The texture is smooth and uniform, typical of roofing materials, distinct from the surrounding dark vegetation.",
+          "The bright, unmodified pixels in the T2 spotlight close view reveal rectangular structures with reddish-brown tones, consistent with the rooftops seen in the reference images. The shape and alignment indicate man-made construction rather than natural features."
+        ]
+      },
+      "true_pair": [
+        3,
+        5
+      ],
+      "before_agrees": false,
+      "after_agrees": true,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.000542
+    },
+    {
+      "id": "train_2677_2to1",
+      "split": "tune",
+      "group": "地表类",
+      "has_holes": true,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "pair": [
+          5,
+          5
+        ],
+        "classes": [
+          "building",
+          "building"
+        ],
+        "evidence": [
+          "The bright, unmodified pixels in the T1 spotlight views correspond to the large, rectangular white areas seen in the reference images. These shapes and their arrangement (parallel rows with narrow gaps) are characteristic of industrial warehouse roofs. The color is bright white/grey, consistent with roofing material, and the geometry is strictly rectilinear, distinguishing it from natural land cover.",
+          "The bright, unmodified pixels in the T2 spotlight view reveal a large, rectangular structure with a flat, light-colored roof. This shape and texture are consistent with the industrial warehouse buildings seen in the reference images (T1 and unmodified T2) occupying the same location. The surrounding dark areas are excluded as per instructions."
+        ]
+      },
+      "true_pair": [
+        2,
+        1
+      ],
+      "before_agrees": false,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0005612
+    },
+    {
+      "id": "train_2792_1to5",
+      "split": "confirm",
+      "group": "目标类",
+      "has_holes": true,
+      "remaining_gt_pixels": 5613,
+      "interpretation": {
+        "pair": [
+          5,
+          5
+        ],
+        "classes": [
+          "building",
+          "building"
+        ],
+        "evidence": [
+          "The bright, unmodified pixels in the T1 spotlight views clearly show large, rectangular structures with flat roofs. These are characteristic of industrial warehouses or factories. The long, white reflective strip on one of the central buildings is a common feature of building roofing materials (like metal sheets). The surrounding context includes paved yards and other similar structures, reinforcing the classification as built environment/buildings.",
+          "The bright, unmodified pixels in the T2 spotlight views correspond to the large, rectangular structures with flat, greyish-brown roofs seen clearly in the reference image. These are arranged in parallel rows typical of an industrial park or warehouse complex. The shape, size, and context (surrounded by paved yards and other similar structures) confirm they are buildings."
+        ]
+      },
+      "true_pair": [
+        1,
+        5
+      ],
+      "before_agrees": false,
+      "after_agrees": true,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0005692000000000001
+    },
+    {
+      "id": "train_2822_1to2",
+      "split": "tune",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "pair": [
+          5,
+          5
+        ],
+        "classes": [
+          "building",
+          "building"
+        ],
+        "evidence": [
+          "The bright, unmodified pixels in the T1 spotlight views clearly show a large, rectangular structure with a light blue/grey roof. The roof features distinct parallel ridges and lighter linear elements, characteristic of industrial or warehouse roofing materials. The shape and texture are inconsistent with natural land cover like vegetation or bare ground.",
+          "The bright, unmodified pixels in the T2 spotlight views clearly show large, rectangular structures with segmented, light-grey roofs featuring longitudinal ridges. These geometric shapes and roof textures are characteristic of large industrial warehouses or factories. The surrounding darkened areas are excluded per instructions, but the visible bright portions definitively identify built infrastructure."
+        ]
+      },
+      "true_pair": [
+        1,
+        2
+      ],
+      "before_agrees": false,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0005524
+    },
+    {
+      "id": "train_2828_1to5",
+      "split": "confirm",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 43900,
+      "interpretation": {
+        "pair": [
+          5,
+          5
+        ],
+        "classes": [
+          "building",
+          "building"
+        ],
+        "evidence": [
+          "The bright, unmodified pixels in the T1 spotlight views clearly show large, rectangular structures with distinct blue roofs. These geometric shapes and uniform colors are characteristic of industrial warehouse or factory buildings. The surrounding area consists of dirt and gravel, typical of an industrial site, but the specific bright targets requested are the buildings themselves.",
+          "The bright, unmodified pixel in the T2 spotlight close view displays a distinct rectangular shape with a light blue/white coloration. This geometry and color are consistent with the roofs of the adjacent industrial structures visible in the reference images, identifying it as a building."
+        ]
+      },
+      "true_pair": [
+        1,
+        5
+      ],
+      "before_agrees": false,
+      "after_agrees": true,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0005436
+    },
+    {
+      "id": "train_2848_1to4",
+      "split": "tune",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "pair": [
+          1,
+          5
+        ],
+        "classes": [
+          "low vegetation",
+          "building"
+        ],
+        "evidence": [
+          "The bright, unmodified support pixels in the T1 spotlight views reveal a textured, brownish-tan surface consistent with dry grass, scrub, or fallow agricultural land. This classification is confirmed by comparing the highlighted area to the unmodified reference image for T1, which clearly shows natural, non-structural ground cover with faint linear patterns likely from tracks or field boundaries, rather than built structures or bare soil.",
+          "The bright, unmodified pixels in the T2 spotlight views reveal a large, L-shaped structure with a segmented, light-grey/white roof. This geometry and high reflectivity are characteristic of a large industrial building, warehouse, or greenhouse complex. The surrounding dark areas are excluded as per instructions."
+        ]
+      },
+      "true_pair": [
+        1,
+        4
+      ],
+      "before_agrees": true,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0005644000000000001
+    },
+    {
+      "id": "train_2890_5to1",
+      "split": "tune",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 492,
+      "interpretation": {
+        "pair": [
+          5,
+          5
+        ],
+        "classes": [
+          "building",
+          "building"
+        ],
+        "evidence": [
+          "In the T1 spotlight close view, the bright, unmodified pixels (top center) clearly show a structure with a white, multi-ribbed roof, characteristic of a greenhouse or industrial building. In the T1 spotlight wide view, the bright pixels in the top left corner reveal a rectangular building with a dark grey roof. Both are classified as buildings based on their geometric shapes and roof textures visible in the support areas.",
+          "The bright, unmodified support pixels in the T2 spotlight views (specifically the L-shaped structure at the top and the large rectangular complex at the bottom) display distinct geometric shapes, sharp right-angled corners, and flat, uniform surfaces (light grey/white). These features are characteristic of man-made construction. The wide view confirms these are large industrial or commercial buildings with defined rooflines, contrasting with the surrounding darkened areas which are excluded."
+        ]
+      },
+      "true_pair": [
+        5,
+        1
+      ],
+      "before_agrees": true,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.00059
+    },
+    {
+      "id": "train_2912_5to2",
+      "split": "tune",
+      "group": "目标类",
+      "has_holes": true,
+      "remaining_gt_pixels": 429,
+      "interpretation": {
+        "pair": [
+          5,
+          5
+        ],
+        "classes": [
+          "building",
+          "building"
+        ],
+        "evidence": [
+          "The bright, unmodified pixels in the T1 spotlight close view form a distinct rectangular shape with a light blue/grey color and two dark rectangular cutouts (likely skylights or vents). This geometry and appearance are characteristic of an industrial warehouse roof. The surrounding context in the reference images confirms this is part of an industrial complex with similar structures.",
+          "The bright, unmodified pixels in the T2 spotlight close view clearly show large, rectangular structures with flat roofs. Specifically, there is a large building with a light grey roof and an adjacent one with a blue roof. The distinct geometric shapes, straight edges, and roof textures are characteristic of industrial or commercial buildings."
+        ]
+      },
+      "true_pair": [
+        5,
+        2
+      ],
+      "before_agrees": true,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0005556
+    },
+    {
+      "id": "train_2928_3to1",
+      "split": "tune",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "pair": [
+          5,
+          5
+        ],
+        "classes": [
+          "building",
+          "building"
+        ],
+        "evidence": [
+          "The bright, unmodified pixels in the T1 spotlight view reveal a long, rectangular structure with a distinct roof texture (appearing metallic or reflective) that is darkened in the target views. The shape, size, and context within an industrial complex of large warehouses confirm it is a building.",
+          "The bright, unmodified pixels in the T2 spotlight views clearly show large, rectangular structures with blue, paneled roofs. These geometric shapes and roof textures are characteristic of industrial warehouse or factory buildings, consistent with the surrounding context in the reference images."
+        ]
+      },
+      "true_pair": [
+        3,
+        1
+      ],
+      "before_agrees": false,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0005372
+    },
+    {
+      "id": "train_368_1to2",
+      "split": "confirm",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 70577,
+      "interpretation": {
+        "pair": [
+          5,
+          5
+        ],
+        "classes": [
+          "building",
+          "building"
+        ],
+        "evidence": [
+          "The bright, unmodified pixels in the T1 spotlight views reveal a large area dominated by the skeletal steel framework of a structure under construction (visible as a grid of dark lines on light ground) and adjacent completed industrial buildings with grey roofs. These features are characteristic of construction sites and industrial buildings.",
+          "The bright, unmodified pixels in the T2 spotlight views clearly show large, rectangular structures with light grey, paneled roofs. These geometric shapes and roof textures are characteristic of industrial warehouses or factories, which were under construction in the T1 reference images."
+        ]
+      },
+      "true_pair": [
+        1,
+        2
+      ],
+      "before_agrees": false,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0005380000000000001
+    },
+    {
+      "id": "train_37_4to3",
+      "split": "confirm",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "pair": [
+          5,
+          1
+        ],
+        "classes": [
+          "building",
+          "low vegetation"
+        ],
+        "evidence": [
+          "The bright, unmodified pixel in the T1 spotlight close view shows a distinct rectangular structure with a flat roof. The roof has a specific greenish/teal color on one section and grey on another, with visible mechanical units (HVAC) on the flat grey portion. This morphology and texture are characteristic of a building rooftop, distinguishing it from natural land cover like vegetation or water.",
+          "The bright, unmodified pixels in the T2 spotlight close view show a patch of green, textured ground cover located on a paved area between buildings. Comparing this to the unmodified reference T2 image, this specific spot corresponds to a small grassy lawn or landscaped island. The texture is consistent with short grass (low vegetation) rather than trees (which would be darker and have more distinct canopy shadows) or non-vegetated ground."
+        ]
+      },
+      "true_pair": [
+        4,
+        3
+      ],
+      "before_agrees": false,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0005852
+    },
+    {
+      "id": "train_378_1to4",
+      "split": "confirm",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "pair": [
+          1,
+          5
+        ],
+        "classes": [
+          "low vegetation",
+          "building"
+        ],
+        "evidence": [
+          "The bright, unmodified pixels in the T1 spotlight views (visible via the reference image) show a dense, textured green surface consistent with herbaceous plants or crops. The area is divided into rectangular plots by channels and paths, which is characteristic of agricultural land cover rather than natural forest (tree) or bare soil.",
+          "In the T2 spotlight close view, there is a distinct dark rectangular structure located in the lower central area. Although it appears darkened in the spotlight view, comparing it to the unmodified reference T2 close image reveals it is a long, dark-roofed building (likely a warehouse or agricultural shed) situated between fields and a canal. The shape is clearly geometric and man-made, consistent with a building footprint. In the wide view, similar structures with blue roofs are visible nearby, confirming this is an industrial/agricultural complex area."
+        ]
+      },
+      "true_pair": [
+        1,
+        4
+      ],
+      "before_agrees": true,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0005892
+    },
+    {
+      "id": "train_385_5to6",
+      "split": "tune",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "pair": [
+          5,
+          6
+        ],
+        "classes": [
+          "building",
+          "playground"
+        ],
+        "evidence": [
+          "The bright, unmodified support pixel in the T1 spotlight close view highlights a rectangular structure with a light blue/white roof. This shape and color are consistent with the adjacent blue-roofed structures visible in the reference images, identifying it as an industrial or commercial building.",
+          "The bright, unmodified pixel in the T2 spotlight view displays a distinct pattern of reddish-pink and green rectangular sections. This color scheme and geometric layout are characteristic of multi-sport court surfaces (such as tennis or basketball courts) or synthetic playground flooring. The surrounding darkened areas are excluded per instructions, but the visible texture within the bright support clearly indicates a recreational surface rather than natural vegetation, water, or standard building roofing."
+        ]
+      },
+      "true_pair": [
+        5,
+        6
+      ],
+      "before_agrees": true,
+      "after_agrees": true,
+      "pair_agrees": true,
+      "semantic_review_required": false,
+      "new_cost_cny": 0.0005652000000000001
+    },
+    {
+      "id": "train_427_3to1",
+      "split": "confirm",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 364,
+      "interpretation": {
+        "pair": [
+          5,
+          1
+        ],
+        "classes": [
+          "building",
+          "low vegetation"
+        ],
+        "evidence": [
+          "The bright, unmodified pixels in the T1 spotlight close view reveal a structure with distinct parallel ridges or panels, characteristic of an industrial warehouse or greenhouse roof. This is confirmed by the unmodified reference image for T1, which shows the same object as a large, rectangular building with a light-colored, ribbed roof situated adjacent to roads and other similar structures.",
+          "The bright, unmodified pixels in the T2 spotlight close view (matching the unmodified reference T2 close) display a mottled texture with patches of green and brown earth. This appearance is characteristic of grassy areas, scrub, or undeveloped vegetated ground, distinct from the smooth grey of buildings or roads."
+        ]
+      },
+      "true_pair": [
+        3,
+        1
+      ],
+      "before_agrees": false,
+      "after_agrees": true,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0005628
+    },
+    {
+      "id": "train_443_3to2",
+      "split": "tune",
+      "group": "地表类",
+      "has_holes": true,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "pair": [
+          5,
+          2
+        ],
+        "classes": [
+          "building",
+          "non-vegetated ground"
+        ],
+        "evidence": [
+          "The bright, unmodified pixels in the T1 spotlight views (both close and wide) clearly show a rectangular structure with a light-colored, possibly white or light grey, roof. This shape and reflectivity are characteristic of a building, likely a temporary structure or container, situated within an industrial or construction area. The surrounding darkened areas are excluded per instructions.",
+          "The bright, unmodified pixels in the T2 spotlight views show a light gray, uniform surface texture consistent with paved ground, concrete, or an asphalt parking area. This is supported by the unmodified reference image for T2, which shows the same location as a clear, open paved space adjacent to roads and buildings, lacking the green texture of vegetation or the structural features of buildings."
+        ]
+      },
+      "true_pair": [
+        3,
+        2
+      ],
+      "before_agrees": false,
+      "after_agrees": true,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0005724
+    },
+    {
+      "id": "train_555_4to2",
+      "split": "tune",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "pair": [
+          4,
+          4
+        ],
+        "classes": [
+          "water",
+          "water"
+        ],
+        "evidence": [
+          "The bright, unmodified support pixel in the T1 spotlight views (both close and wide) highlights a rectangular section of a dark blue-grey linear feature. Comparing this to the unmodified reference image for T1, this feature is clearly a river or canal. The color and context within the wider landscape confirm it is a body of water.",
+          "The bright unmodified support pixel in the T2 spotlight corresponds to a linear, dark blue-green feature visible in the unmodified reference image. This feature is clearly a canal or river running adjacent to the road and buildings, consistent with the water class."
+        ]
+      },
+      "true_pair": [
+        4,
+        2
+      ],
+      "before_agrees": true,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0005452
+    },
+    {
+      "id": "train_615_3to4",
+      "split": "confirm",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "pair": [
+          4,
+          4
+        ],
+        "classes": [
+          "water",
+          "water"
+        ],
+        "evidence": [
+          "The bright, unmodified support pixel in the T1 spotlight close view shows a smooth, light-grey/white surface located at the edge of the landmass. In the corresponding wide view and unmodified reference, this location corresponds to the river body adjacent to the bank. The texture is uniform and lacks the structural details of buildings or vegetation, consistent with a water surface reflecting light (sun glint) in the spotlight view.",
+          "The bright, unmodified support pixel in the T2 close-up (and confirmed in the unmodified T2 reference) shows a dark, uniform surface with subtle tonal variations typical of a water body. In the wide view, this area corresponds to the large dark expanse adjacent to the industrial buildings and shoreline, consistent with a river or canal."
+        ]
+      },
+      "true_pair": [
+        3,
+        4
+      ],
+      "before_agrees": false,
+      "after_agrees": true,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0005740000000000001
+    },
+    {
+      "id": "train_7_1to2",
+      "split": "tune",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 262,
+      "interpretation": {
+        "pair": [
+          1,
+          1
+        ],
+        "classes": [
+          "low vegetation",
+          "low vegetation"
+        ],
+        "evidence": [
+          "The bright, unmodified pixels in the T1 spotlight views (visible on the left side and surrounding the darkened areas) show a reddish-brown, textured surface consistent with bare earth or sparse, low-lying vegetation/soil. This matches the appearance of the surrounding agricultural fields in the unmodified reference images, which are classified as low vegetation or bare ground rather than built structures or water.",
+          "In the T2 spotlight close view, the bright, unmodified support pixels (the light-colored, textured area on the left) correspond to a patch of greenish-brown ground cover visible in the unmodified T2 reference. This texture and color are consistent with low vegetation or grass, distinct from the surrounding bare soil or paved surfaces."
+        ]
+      },
+      "true_pair": [
+        1,
+        2
+      ],
+      "before_agrees": true,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0005708
+    },
+    {
+      "id": "train_786_3to5",
+      "split": "tune",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "pair": [
+          5,
+          5
+        ],
+        "classes": [
+          "building",
+          "building"
+        ],
+        "evidence": [
+          "The bright, unmodified pixel in the T1 spotlight close view displays a distinct geometric, angular shape with high reflectance (white/grey), characteristic of a man-made roof. In the wide context view, this bright spot corresponds to a structure located within a developed urban grid, adjacent to roads and other similar rectangular footprints visible in the reference imagery. The texture is smooth and uniform, consistent with construction materials like metal or concrete roofing, distinguishing it from natural vegetation or ground.",
+          "The bright, unmodified support pixel in the T2 spotlight close view reveals a distinct rectangular shape with a flat, light-colored surface. This geometry and high albedo are characteristic of a building roof. The context from the unmodified reference T2 wide image confirms this object is part of a built-up area with similar structures nearby."
+        ]
+      },
+      "true_pair": [
+        3,
+        5
+      ],
+      "before_agrees": false,
+      "after_agrees": true,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0005796
+    },
+    {
+      "id": "train_908_4to1",
+      "split": "tune",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "pair": [
+          4,
+          4
+        ],
+        "classes": [
+          "water",
+          "water"
+        ],
+        "evidence": [
+          "The bright, unmodified support pixels in the T1 spotlight views reveal a linear, elongated feature with a smooth, light-grey surface texture. This shape and position correspond directly to the dark river channel visible in the wide reference image. The high brightness is likely due to specular reflection of sunlight off the water surface (sun glint), which is a common phenomenon in satellite imagery. The surrounding dark areas are excluded as per instructions, leaving only this bright water body for classification.",
+          "The bright, unmodified support pixel in the T2 spotlight close view shows a linear, elongated shape with a light blue-grey color and smooth texture. This corresponds to the river visible in the unmodified reference T2 wide image, which flows between buildings. The dark areas surrounding this bright strip are excluded as per instructions. The shape and context (flowing through an urban area) strongly indicate a body of water, likely a river or canal."
+        ]
+      },
+      "true_pair": [
+        4,
+        1
+      ],
+      "before_agrees": true,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.000598
+    },
+    {
+      "id": "train_915_3to4",
+      "split": "tune",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 1,
+      "interpretation": {
+        "pair": [
+          5,
+          5
+        ],
+        "classes": [
+          "building",
+          "building"
+        ],
+        "evidence": [
+          "The bright, unmodified pixels in the upper portion of the spotlight view show large, rectangular structures with light grey/white roofs arranged in a grid. These features are characteristic of industrial warehouses or large commercial buildings. The unmodified reference image confirms these are built structures with distinct roof lines and loading dock areas, clearly distinguishing them from natural land cover.",
+          "The bright, unmodified pixels in the T2 spotlight views clearly show large, rectangular structures with flat, light-gray roofs. These features are characteristic of industrial warehouses or factories. The presence of loading docks and vehicles (trucks) parked alongside the structures further confirms they are buildings. This is consistent with the unmodified reference image for T2, which shows the same structures without the dark overlay."
+        ]
+      },
+      "true_pair": [
+        3,
+        4
+      ],
+      "before_agrees": false,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0005684
+    },
+    {
+      "id": "train_968_5to3",
+      "split": "confirm",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 62,
+      "interpretation": {
+        "pair": [
+          5,
+          5
+        ],
+        "classes": [
+          "building",
+          "building"
+        ],
+        "evidence": [
+          "The bright, unmodified support pixels in the T1 spotlight views show a distinct rectangular shape with a light grey/white color. Comparing this to the unmodified reference image for T1, this feature corresponds to the roof of the large industrial structure (likely a warehouse or factory) visible on the left side of the wide view. The texture and geometry are consistent with a building roof, specifically appearing as a skylight or a lighter section of the roofing material.",
+          "The bright, unmodified support pixels in the T2 spotlight views (both close and wide) clearly show a large, flat, blue-grey surface with linear paneling or seams. This texture and geometry are characteristic of an industrial or commercial building roof. The surrounding darkened areas represent shadows or excluded zones, but the highlighted support area is definitively a man-made structure."
+        ]
+      },
+      "true_pair": [
+        5,
+        3
+      ],
+      "before_agrees": true,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0005851999999999999
+    },
+    {
+      "id": "train_987_3to5",
+      "split": "tune",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "pair": [
+          5,
+          5
+        ],
+        "classes": [
+          "building",
+          "building"
+        ],
+        "evidence": [
+          "The bright, unmodified pixels in the T1 spotlight views reveal a large, rectangular structure with a segmented roof composed of parallel panels. This geometric shape and roofing texture are characteristic of a large industrial warehouse or factory building. The dark horizontal band across the center represents a shadowed gap or lower section between roof segments, which is excluded from classification per instructions.",
+          "The bright, unmodified pixels in the T2 spotlight views reveal a large, rectangular structure with a segmented roof pattern consisting of parallel ridges. This geometry is characteristic of a large industrial warehouse or factory building. The dark horizontal band across the center corresponds to a shadowed gap or lower section between roof sections, which is excluded from classification per instructions. The surrounding context in the reference images confirms this is a built-up industrial area."
+        ]
+      },
+      "true_pair": [
+        3,
+        5
+      ],
+      "before_agrees": false,
+      "after_agrees": true,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0005748
+    }
+  ],
+  "label_agreement_only": true,
+  "summary": [
+    {
+      "split": "all",
+      "group": "全部",
+      "holes": "all",
+      "tasks": 60,
+      "before_label_agreement": 0.43333333333333335,
+      "after_label_agreement": 0.38333333333333336,
+      "pair_label_agreement": 0.11666666666666667
+    },
+    {
+      "split": "all",
+      "group": "全部",
+      "holes": "holes",
+      "tasks": 7,
+      "before_label_agreement": 0.42857142857142855,
+      "after_label_agreement": 0.42857142857142855,
+      "pair_label_agreement": 0.14285714285714285
+    },
+    {
+      "split": "all",
+      "group": "全部",
+      "holes": "no_holes",
+      "tasks": 53,
+      "before_label_agreement": 0.4339622641509434,
+      "after_label_agreement": 0.37735849056603776,
+      "pair_label_agreement": 0.11320754716981132
+    },
+    {
+      "split": "all",
+      "group": "目标类",
+      "holes": "all",
+      "tasks": 27,
+      "before_label_agreement": 0.4074074074074074,
+      "after_label_agreement": 0.6296296296296297,
+      "pair_label_agreement": 0.14814814814814814
+    },
+    {
+      "split": "all",
+      "group": "目标类",
+      "holes": "holes",
+      "tasks": 2,
+      "before_label_agreement": 0.5,
+      "after_label_agreement": 0.5,
+      "pair_label_agreement": 0.0
+    },
+    {
+      "split": "all",
+      "group": "目标类",
+      "holes": "no_holes",
+      "tasks": 25,
+      "before_label_agreement": 0.4,
+      "after_label_agreement": 0.64,
+      "pair_label_agreement": 0.16
+    },
+    {
+      "split": "all",
+      "group": "地表类",
+      "holes": "all",
+      "tasks": 33,
+      "before_label_agreement": 0.45454545454545453,
+      "after_label_agreement": 0.18181818181818182,
+      "pair_label_agreement": 0.09090909090909091
+    },
+    {
+      "split": "all",
+      "group": "地表类",
+      "holes": "holes",
+      "tasks": 5,
+      "before_label_agreement": 0.4,
+      "after_label_agreement": 0.4,
+      "pair_label_agreement": 0.2
+    },
+    {
+      "split": "all",
+      "group": "地表类",
+      "holes": "no_holes",
+      "tasks": 28,
+      "before_label_agreement": 0.4642857142857143,
+      "after_label_agreement": 0.14285714285714285,
+      "pair_label_agreement": 0.07142857142857142
+    },
+    {
+      "split": "tune",
+      "group": "全部",
+      "holes": "all",
+      "tasks": 30,
+      "before_label_agreement": 0.5333333333333333,
+      "after_label_agreement": 0.4,
+      "pair_label_agreement": 0.2
+    },
+    {
+      "split": "tune",
+      "group": "全部",
+      "holes": "holes",
+      "tasks": 5,
+      "before_label_agreement": 0.4,
+      "after_label_agreement": 0.4,
+      "pair_label_agreement": 0.2
+    },
+    {
+      "split": "tune",
+      "group": "全部",
+      "holes": "no_holes",
+      "tasks": 25,
+      "before_label_agreement": 0.56,
+      "after_label_agreement": 0.4,
+      "pair_label_agreement": 0.2
+    },
+    {
+      "split": "tune",
+      "group": "目标类",
+      "holes": "all",
+      "tasks": 15,
+      "before_label_agreement": 0.5333333333333333,
+      "after_label_agreement": 0.6,
+      "pair_label_agreement": 0.26666666666666666
+    },
+    {
+      "split": "tune",
+      "group": "目标类",
+      "holes": "holes",
+      "tasks": 1,
+      "before_label_agreement": 1.0,
+      "after_label_agreement": 0.0,
+      "pair_label_agreement": 0.0
+    },
+    {
+      "split": "tune",
+      "group": "目标类",
+      "holes": "no_holes",
+      "tasks": 14,
+      "before_label_agreement": 0.5,
+      "after_label_agreement": 0.6428571428571429,
+      "pair_label_agreement": 0.2857142857142857
+    },
+    {
+      "split": "tune",
+      "group": "地表类",
+      "holes": "all",
+      "tasks": 15,
+      "before_label_agreement": 0.5333333333333333,
+      "after_label_agreement": 0.2,
+      "pair_label_agreement": 0.13333333333333333
+    },
+    {
+      "split": "tune",
+      "group": "地表类",
+      "holes": "holes",
+      "tasks": 4,
+      "before_label_agreement": 0.25,
+      "after_label_agreement": 0.5,
+      "pair_label_agreement": 0.25
+    },
+    {
+      "split": "tune",
+      "group": "地表类",
+      "holes": "no_holes",
+      "tasks": 11,
+      "before_label_agreement": 0.6363636363636364,
+      "after_label_agreement": 0.09090909090909091,
+      "pair_label_agreement": 0.09090909090909091
+    },
+    {
+      "split": "confirm",
+      "group": "全部",
+      "holes": "all",
+      "tasks": 30,
+      "before_label_agreement": 0.3333333333333333,
+      "after_label_agreement": 0.36666666666666664,
+      "pair_label_agreement": 0.03333333333333333
+    },
+    {
+      "split": "confirm",
+      "group": "全部",
+      "holes": "holes",
+      "tasks": 2,
+      "before_label_agreement": 0.5,
+      "after_label_agreement": 0.5,
+      "pair_label_agreement": 0.0
+    },
+    {
+      "split": "confirm",
+      "group": "全部",
+      "holes": "no_holes",
+      "tasks": 28,
+      "before_label_agreement": 0.32142857142857145,
+      "after_label_agreement": 0.35714285714285715,
+      "pair_label_agreement": 0.03571428571428571
+    },
+    {
+      "split": "confirm",
+      "group": "目标类",
+      "holes": "all",
+      "tasks": 12,
+      "before_label_agreement": 0.25,
+      "after_label_agreement": 0.6666666666666666,
+      "pair_label_agreement": 0.0
+    },
+    {
+      "split": "confirm",
+      "group": "目标类",
+      "holes": "holes",
+      "tasks": 1,
+      "before_label_agreement": 0.0,
+      "after_label_agreement": 1.0,
+      "pair_label_agreement": 0.0
+    },
+    {
+      "split": "confirm",
+      "group": "目标类",
+      "holes": "no_holes",
+      "tasks": 11,
+      "before_label_agreement": 0.2727272727272727,
+      "after_label_agreement": 0.6363636363636364,
+      "pair_label_agreement": 0.0
+    },
+    {
+      "split": "confirm",
+      "group": "地表类",
+      "holes": "all",
+      "tasks": 18,
+      "before_label_agreement": 0.3888888888888889,
+      "after_label_agreement": 0.16666666666666666,
+      "pair_label_agreement": 0.05555555555555555
+    },
+    {
+      "split": "confirm",
+      "group": "地表类",
+      "holes": "holes",
+      "tasks": 1,
+      "before_label_agreement": 1.0,
+      "after_label_agreement": 0.0,
+      "pair_label_agreement": 0.0
+    },
+    {
+      "split": "confirm",
+      "group": "地表类",
+      "holes": "no_holes",
+      "tasks": 17,
+      "before_label_agreement": 0.35294117647058826,
+      "after_label_agreement": 0.17647058823529413,
+      "pair_label_agreement": 0.058823529411764705
+    }
+  ],
+  "new_cost_cny": 0.0339736
+}

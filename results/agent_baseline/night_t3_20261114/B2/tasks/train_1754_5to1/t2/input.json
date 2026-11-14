@@ -1,0 +1,34 @@
+{
+  "system": "Identify land cover only on the bright, unmodified support pixels in the target-date spotlight views. All darkened pixels, including dark holes surrounded by bright support, are excluded. Do not classify objects inside excluded holes. Raw reference images show both dates for context; answer only for the stated target date.",
+  "question": "Target date is T2. Choose one class from low vegetation, non-vegetated ground, tree, water, building, playground, unknown. Use unknown when the region cannot be identified reliably. Return JSON {\"class\":\"one allowed class\", \"evidence\":\"visible texture, shape, colour and context supporting the choice\"}.",
+  "images": [
+    {
+      "label": "Target date T2 spotlight close",
+      "path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/night_t3_20261114/B2/tasks/train_1754_5to1/t2/00.png"
+    },
+    {
+      "label": "Target date T2 spotlight wide",
+      "path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/night_t3_20261114/B2/tasks/train_1754_5to1/t2/01.png"
+    },
+    {
+      "label": "Unmodified reference T1 close",
+      "path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/night_t3_20261114/B2/tasks/train_1754_5to1/t2/02.png"
+    },
+    {
+      "label": "Unmodified reference T1 wide",
+      "path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/night_t3_20261114/B2/tasks/train_1754_5to1/t2/03.png"
+    },
+    {
+      "label": "Unmodified reference T2 close",
+      "path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/night_t3_20261114/B2/tasks/train_1754_5to1/t2/04.png"
+    },
+    {
+      "label": "Unmodified reference T2 wide",
+      "path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/night_t3_20261114/B2/tasks/train_1754_5to1/t2/05.png"
+    }
+  ],
+  "model": "qwen3.7-flash",
+  "seed": 1016,
+  "max_tokens": 768,
+  "temperature": 0
+}

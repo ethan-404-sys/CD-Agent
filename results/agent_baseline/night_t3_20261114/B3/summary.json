@@ -1,0 +1,1153 @@
+{
+  "variant": "B3",
+  "tasks": 30,
+  "records": [
+    {
+      "id": "train_1065_2to5",
+      "split": "tune",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "pair": [
+          2,
+          5
+        ],
+        "classes": [
+          "non-vegetated ground",
+          "building"
+        ],
+        "evidence": [
+          "The white support panel in both the close and wide views highlights a small, isolated patch of light tan/beige material. In the wide context image, this corresponds to an area of bare earth or dirt located adjacent to a road and near large industrial buildings. The texture is uniform and lacks the green tones or structural patterns associated with vegetation or buildings, indicating exposed soil or a cleared dirt surface.",
+          "The white support panel isolates a distinct rectangular object with a uniform grey roof. This structure is situated adjacent to a dirt road and cleared land, consistent with the appearance of a small industrial shed, warehouse, or storage building seen in aerial imagery."
+        ]
+      },
+      "true_pair": [
+        2,
+        5
+      ],
+      "before_agrees": true,
+      "after_agrees": true,
+      "pair_agrees": true,
+      "semantic_review_required": false,
+      "new_cost_cny": 0.00044360000000000005
+    },
+    {
+      "id": "train_1136_5to1",
+      "split": "tune",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 3,
+      "interpretation": {
+        "pair": [
+          5,
+          5
+        ],
+        "classes": [
+          "building",
+          "building"
+        ],
+        "evidence": [
+          "The white binary mask isolates a distinct geometric structure with right-angled corners and linear edges, characteristic of man-made architecture. In the RGB image, this specific area corresponds to a complex of structures with bright blue roofs and light-colored walls, situated adjacent to a road. The shape and construction materials clearly identify it as a building rather than natural land cover.",
+          "The white support mask in both the close and wide views isolates a specific structure located adjacent to a large industrial warehouse complex. In the wide RGB view, this corresponds to a small, rectangular object with a light-colored (likely white or light grey) roof situated next to the paved area and green space. The shape is geometric and distinct from the surrounding vegetation or bare earth, consistent with a small utility building, guardhouse, or storage shed within an industrial park."
+        ]
+      },
+      "true_pair": [
+        5,
+        1
+      ],
+      "before_agrees": true,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.00047080000000000006
+    },
+    {
+      "id": "train_1166_3to5",
+      "split": "tune",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "pair": [
+          3,
+          5
+        ],
+        "classes": [
+          "tree",
+          "building"
+        ],
+        "evidence": [
+          "The white support panel in both the close and wide views isolates a small, distinct patch of dark green, textured material. In the wide context image, this specific location corresponds to the canopy of a tree situated within a larger vegetated area, distinct from the nearby blue-roofed buildings and paved roads. The texture is consistent with foliage.",
+          "The white support panel in both the close and wide views isolates a distinct rectangular structure with light gray, flat roofing. In the wide context image, this shape corresponds to a building located at the bottom edge, adjacent to dense green vegetation. The uniform color and geometric edges are characteristic of artificial construction rather than natural land cover."
+        ]
+      },
+      "true_pair": [
+        3,
+        5
+      ],
+      "before_agrees": true,
+      "after_agrees": true,
+      "pair_agrees": true,
+      "semantic_review_required": false,
+      "new_cost_cny": 0.00044840000000000006
+    },
+    {
+      "id": "train_119_6to2",
+      "split": "tune",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "pair": [
+          6,
+          5
+        ],
+        "classes": [
+          "playground",
+          "building"
+        ],
+        "evidence": [
+          "The white support panel in the top-left corner isolates a distinct rectangular area with a reddish-brown surface. This area features a grid of white lines forming rectangular courts, which is characteristic of outdoor sports facilities like tennis or basketball courts. The color and geometric pattern are clearly visible in the RGB crop within the masked region.",
+          "The white support panel in the top-left corner isolates a bright blue, rectangular object with sharp geometric edges. This high saturation and uniform color, distinct from natural ground cover, is characteristic of a man-made structure, specifically appearing to be a roof covered with blue material (like a tarp or painted metal) or a large blue industrial container."
+        ]
+      },
+      "true_pair": [
+        6,
+        2
+      ],
+      "before_agrees": true,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.00044840000000000006
+    },
+    {
+      "id": "train_127_3to2",
+      "split": "tune",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "pair": [
+          3,
+          2
+        ],
+        "classes": [
+          "tree",
+          "non-vegetated ground"
+        ],
+        "evidence": [
+          "The white support mask in both the close and wide views isolates a specific patch of dense, dark green vegetation. The texture appears clumpy and irregular, consistent with a tree canopy or a very dense cluster of treetops. It is distinct from the lower, lighter green 'low vegetation' seen elsewhere in the wide view and lacks the geometric shapes of buildings or the smooth surface of water.",
+          "The white support panel isolates a distinct, light-colored patch of land located on a peninsula or riverbank. In the RGB imagery, this area appears as a pale, beige-to-grey surface with a relatively uniform texture, lacking the green tones of vegetation or the dark, structured patterns of buildings. Its appearance is consistent with exposed soil, sand, gravel, or a dirt clearing situated next to the water."
+        ]
+      },
+      "true_pair": [
+        3,
+        2
+      ],
+      "before_agrees": true,
+      "after_agrees": true,
+      "pair_agrees": true,
+      "semantic_review_required": false,
+      "new_cost_cny": 0.00047080000000000006
+    },
+    {
+      "id": "train_1322_2to4",
+      "split": "tune",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "pair": [
+          5,
+          5
+        ],
+        "classes": [
+          "building",
+          "building"
+        ],
+        "evidence": [
+          "The white support panel isolates a small, rectangular structure with a distinct blue roof. This object is clearly man-made and architectural in shape, matching the style of the larger blue-roofed industrial buildings visible in the wide view. It sits on bare ground near a dirt path.",
+          "The white support mask in both the close and wide views isolates a distinct rectangular structure. In the RGB data, this area corresponds to a light-colored, flat-roofed edifice with visible architectural details (such as a grid-like pattern on one side, possibly a sunshade or railing). The object's geometric shape, uniform color, and hard edges are characteristic of man-made construction, distinguishing it from natural land cover like vegetation or bare ground."
+        ]
+      },
+      "true_pair": [
+        2,
+        4
+      ],
+      "before_agrees": false,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.00045640000000000003
+    },
+    {
+      "id": "train_1377_5to3",
+      "split": "tune",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "pair": [
+          3,
+          3
+        ],
+        "classes": [
+          "tree",
+          "tree"
+        ],
+        "evidence": [
+          "The white support mask in both the close and wide views isolates a narrow, vertical strip located in the bottom center of the image. In the corresponding RGB data, this specific location corresponds to a dark green, textured patch that is consistent with the canopy of a tree or dense shrubbery adjacent to the bare ground and buildings. The shape and dark coloration distinguish it from the surrounding non-vegetated ground.",
+          "The white support panel isolates a narrow, vertical strip of dark green vegetation located in the lower central part of the image, between the large industrial buildings and the smaller structures below. The texture is leafy and organic, distinct from the surrounding paved ground and building roofs, indicating a line of trees or dense shrubbery acting as a buffer or border."
+        ]
+      },
+      "true_pair": [
+        5,
+        3
+      ],
+      "before_agrees": false,
+      "after_agrees": true,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0004628000000000001
+    },
+    {
+      "id": "train_145_1to2",
+      "split": "tune",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "pair": [
+          5,
+          5
+        ],
+        "classes": [
+          "building",
+          "building"
+        ],
+        "evidence": [
+          "The white support panel in both the close and wide views isolates a distinct, elongated rectangular object. In the wide RGB view, this object corresponds to a long structure with a light grey or off-white roof, typical of an industrial warehouse or factory building. The shape is geometric and rigid, contrasting with the surrounding soil and vegetation, confirming it is a man-made structure.",
+          "The white support panel highlights a distinct, light-colored rectangular structure. In the wide-angle view, this corresponds to a long, low-profile industrial building or warehouse with a pale roof, situated adjacent to paved areas and other large structures with solar panels. The shape and reflectance are characteristic of built infrastructure."
+        ]
+      },
+      "true_pair": [
+        1,
+        2
+      ],
+      "before_agrees": false,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0004468
+    },
+    {
+      "id": "train_147_1to5",
+      "split": "tune",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "pair": [
+          5,
+          5
+        ],
+        "classes": [
+          "building",
+          "building"
+        ],
+        "evidence": [
+          "The white support panel in both the close and wide views isolates a specific structure located within a dense residential area. In the RGB image, this corresponding pixel region shows a rectangular object with a distinct bright yellow roof. This color contrasts sharply with the surrounding grey and reddish-brown rooftops of neighboring houses. The regular geometric shape and solid coloration are characteristic of a single building, likely a warehouse or a large residence with a metal roof, rather than natural vegetation or bare ground.",
+          "The white support panel in both the close and wide views highlights a specific structure located in the lower-central part of the urban fabric. In the RGB image, this area corresponds to a building with a distinct bright blue roof. The shape is geometric and rectangular, consistent with industrial or commercial construction, and it is surrounded by other residential buildings and streets."
+        ]
+      },
+      "true_pair": [
+        1,
+        5
+      ],
+      "before_agrees": false,
+      "after_agrees": true,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.00047240000000000004
+    },
+    {
+      "id": "train_1538_1to3",
+      "split": "tune",
+      "group": "地表类",
+      "has_holes": true,
+      "remaining_gt_pixels": 5243,
+      "interpretation": {
+        "pair": [
+          5,
+          5
+        ],
+        "classes": [
+          "building",
+          "building"
+        ],
+        "evidence": [
+          "The white support panel in both the close and wide views isolates a specific elongated, diagonal structure. In the RGB image, this corresponding area shows a long, rectangular object with a light gray or off-white color and a relatively uniform, flat texture. This morphology is consistent with the roof of a long industrial shed, warehouse, or factory building, which matches the style of the adjacent blue-roofed structures visible in the wider context.",
+          "The white support mask in both the close and wide views isolates a distinct, elongated rectangular structure. In the corresponding RGB pixels, this object displays a uniform light gray/white color with a smooth texture, consistent with a metal or concrete roof. Its geometric shape and alignment parallel to other large industrial structures in the vicinity confirm it is a building, specifically a warehouse or factory."
+        ]
+      },
+      "true_pair": [
+        1,
+        3
+      ],
+      "before_agrees": false,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.00047080000000000006
+    },
+    {
+      "id": "train_1659_1to2",
+      "split": "tune",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 7720,
+      "interpretation": {
+        "pair": [
+          3,
+          1
+        ],
+        "classes": [
+          "tree",
+          "low vegetation"
+        ],
+        "evidence": [
+          "The white support panel in both the close and wide views highlights a small, isolated patch of dark green vegetation. In the wide context image, this specific location corresponds to a dark, textured spot within a lighter green agricultural field, consistent with the appearance of a single tree or a very small, dense clump of trees. The color is significantly darker than the surrounding low-lying crops, indicating taller, denser foliage typical of a tree.",
+          "The white support panel in both the close and wide views isolates a specific patch of land. In the wide context image, this location corresponds to a area of green, textured ground cover situated between tilled brown fields and darker tree lines. The color is a muted green, distinct from the deep green of the surrounding forest (trees) and the bare brown of the plowed soil. This appearance is characteristic of grassy areas, crops, or general low-lying vegetation."
+        ]
+      },
+      "true_pair": [
+        1,
+        2
+      ],
+      "before_agrees": false,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0004868
+    },
+    {
+      "id": "train_1745_5to2",
+      "split": "tune",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 12451,
+      "interpretation": {
+        "pair": [
+          5,
+          5
+        ],
+        "classes": [
+          "building",
+          "building"
+        ],
+        "evidence": [
+          "The white support panel in both the close and wide views isolates a small, rectangular structure. In the wide RGB context, this object is clearly a small building with a blue roof, situated among larger industrial-style buildings with similar blue roofing. The shape is geometric and distinct from natural features like trees or vegetation.",
+          "The white support mask in both the close and wide views isolates a distinct, small, rectangular object with high reflectivity (bright white/grey tones). In the wide context view, this object corresponds to a roof structure situated adjacent to other industrial buildings with blue roofs. The sharp geometric shape and bright material contrast with the surrounding dirt ground and darker vegetation confirm it is a man-made structure, specifically a building or shed."
+        ]
+      },
+      "true_pair": [
+        5,
+        2
+      ],
+      "before_agrees": true,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.00045560000000000007
+    },
+    {
+      "id": "train_1754_5to1",
+      "split": "tune",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 6067,
+      "interpretation": {
+        "pair": [
+          5,
+          5
+        ],
+        "classes": [
+          "building",
+          "building"
+        ],
+        "evidence": [
+          "The white support panel in both the close and wide views isolates a small, rectangular structure located at the bottom center. In the wide RGB view, this object appears as a small, light-colored (beige/grey) rectangle with a flat roof, distinct from the surrounding darker soil and the large dark green tree cluster to its left. Its geometric shape and position within a developed area (indicated by the rows of larger buildings on either side) identify it as a small building or shed.",
+          "The white support panel in the close-up view highlights a structure with a distinct, bright white, rectangular roof. This high reflectivity and geometric shape are characteristic of man-made materials like metal sheeting or painted concrete commonly used for buildings. The wide-angle context confirms this is part of a larger complex of similar structures, likely agricultural or industrial sheds, situated next to non-vegetated ground."
+        ]
+      },
+      "true_pair": [
+        5,
+        1
+      ],
+      "before_agrees": true,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.00048120000000000004
+    },
+    {
+      "id": "train_1798_2to6",
+      "split": "tune",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "pair": [
+          5,
+          6
+        ],
+        "classes": [
+          "building",
+          "playground"
+        ],
+        "evidence": [
+          "The white support panel highlights a structure with a distinct bright blue roof, which is clearly visible in the corresponding location of the RGB crop. The object exhibits a regular, rectangular geometric shape typical of man-made construction, contrasting with the surrounding brown earth and concrete structures. This identifies it as a building, likely a warehouse or industrial shed.",
+          "The white mask in the binary support panel isolates a specific rectangular area in the upper-right quadrant of the RGB image. Within this masked region, the RGB image clearly displays red and green painted surfaces with white linear markings, which are characteristic features of sports courts or a playground."
+        ]
+      },
+      "true_pair": [
+        2,
+        6
+      ],
+      "before_agrees": false,
+      "after_agrees": true,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.00043880000000000004
+    },
+    {
+      "id": "train_1808_2to1",
+      "split": "tune",
+      "group": "地表类",
+      "has_holes": true,
+      "remaining_gt_pixels": 7641,
+      "interpretation": {
+        "pair": [
+          2,
+          1
+        ],
+        "classes": [
+          "non-vegetated ground",
+          "low vegetation"
+        ],
+        "evidence": [
+          "The white-supported pixels in the binary panel highlight a horizontal band of land situated between large industrial buildings. In the RGB image, this area appears as brownish, bare earth or dirt with a rough, uneven texture, lacking the green coloration of vegetation or the structured appearance of pavement. It resembles construction soil, a dirt lot, or cleared land adjacent to the facilities.",
+          "The white-supported pixels in the binary mask highlight a horizontal strip of green, textured ground located between large industrial buildings. The texture is irregular and organic, consistent with grass, shrubs, or small bushes, rather than the uniform surface of pavement or the distinct vertical structures of trees."
+        ]
+      },
+      "true_pair": [
+        2,
+        1
+      ],
+      "before_agrees": true,
+      "after_agrees": true,
+      "pair_agrees": true,
+      "semantic_review_required": false,
+      "new_cost_cny": 0.00044760000000000004
+    },
+    {
+      "id": "train_2571_4to5",
+      "split": "tune",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 6,
+      "interpretation": {
+        "pair": [
+          4,
+          3
+        ],
+        "classes": [
+          "water",
+          "tree"
+        ],
+        "evidence": [
+          "The pixels indicated by the white support mask in both the close and wide views correspond to a dark, elongated feature visible in the RGB imagery. In the wide view, this feature is clearly a pond or small lake situated adjacent to a settlement and agricultural fields. The dark blue-black coloration is characteristic of deep water or shadowed water bodies in aerial photography, distinct from the surrounding brown non-vegetated ground and buildings.",
+          "The white support panel in both the close and wide views isolates a specific patch of dark green, textured material. In the wide view, this patch is located within a linear green corridor that contains similar textures, indicating a line of vegetation or trees. The color and granular texture are distinct from the surrounding non-vegetated ground (dirt/concrete) and buildings."
+        ]
+      },
+      "true_pair": [
+        4,
+        5
+      ],
+      "before_agrees": true,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0004692
+    },
+    {
+      "id": "train_2677_2to1",
+      "split": "tune",
+      "group": "地表类",
+      "has_holes": true,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "pair": [
+          5,
+          2
+        ],
+        "classes": [
+          "building",
+          "non-vegetated ground"
+        ],
+        "evidence": [
+          "The white-supported region corresponds to a large, bright white, rectangular surface with sharp geometric edges. This high albedo and uniform texture are characteristic of industrial or warehouse rooftops (likely metal or painted concrete). The surrounding context includes adjacent similar structures and paved access roads, confirming an industrial built-up area.",
+          "The white support panel isolates a patch of dark, textured earth located adjacent to the large white industrial building roofs. The surface appears rough and uneven with a brownish-grey coloration, lacking the green tones of vegetation or the geometric structure of buildings. This appearance is consistent with bare soil, gravel, or a storage pile of raw material (like wood chips or compost) within an industrial yard."
+        ]
+      },
+      "true_pair": [
+        2,
+        1
+      ],
+      "before_agrees": false,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.00045400000000000003
+    },
+    {
+      "id": "train_2822_1to2",
+      "split": "tune",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "pair": [
+          5,
+          3
+        ],
+        "classes": [
+          "building",
+          "tree"
+        ],
+        "evidence": [
+          "The white support panel highlights a small structure with a distinct blue roof located in the upper left corner of the RGB crops. This object exhibits a clear geometric, rectangular shape and artificial coloring consistent with a small building or shed, situated adjacent to dirt paths and larger industrial structures.",
+          "The white support panel highlights a small, isolated region in the upper portion of the image. In the corresponding RGB area, this location corresponds to a dark green, textured patch consistent with the canopy of a tree or dense shrubbery, similar to the organized rows of vegetation seen elsewhere in the wider view."
+        ]
+      },
+      "true_pair": [
+        1,
+        2
+      ],
+      "before_agrees": false,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0004316000000000001
+    },
+    {
+      "id": "train_2848_1to4",
+      "split": "tune",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "pair": [
+          2,
+          4
+        ],
+        "classes": [
+          "non-vegetated ground",
+          "water"
+        ],
+        "evidence": [
+          "The white support panel in both the close and wide views highlights a small, isolated patch at the bottom edge of the image. In the RGB data, this specific area appears as a light brownish-grey, irregular patch. It lacks the green coloration of the adjacent agricultural fields or low vegetation, and it does not have the defined geometric shape or blue/white coloring of the nearby buildings. Its texture and color are consistent with bare soil, dirt, or a cleared patch of non-vegetated ground.",
+          "The white support panel in both the close and wide views isolates a distinct, roughly rectangular patch located in the lower central area of the RGB image. The pixels within this specific region exhibit a dark greenish-blue color with a smooth, uniform texture that lacks the surface roughness of surrounding soil or vegetation. This appearance is characteristic of a aquaculture pond or stagnant water body, distinguishing it from the adjacent brown non-vegetated ground and the structured greenhouse buildings."
+        ]
+      },
+      "true_pair": [
+        1,
+        4
+      ],
+      "before_agrees": false,
+      "after_agrees": true,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.000498
+    },
+    {
+      "id": "train_2890_5to1",
+      "split": "tune",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 492,
+      "interpretation": {
+        "pair": [
+          5,
+          5
+        ],
+        "classes": [
+          "building",
+          "building"
+        ],
+        "evidence": [
+          "The white support panel isolates a specific rectangular structure in the upper portion of the image. In the RGB view, this area corresponds to a light grey, flat-roofed object with distinct linear edges and parallel lines, characteristic of industrial or warehouse construction (possibly corrugated metal roofing). It is situated adjacent to other similar structures and paved areas, confirming it as a man-made edifice rather than natural land cover.",
+          "The white support panel highlights a bright, rectangular structure with a flat roof. In the wide RGB view, this corresponds to a large industrial building featuring distinct longitudinal stripes on its roof (likely skylights or roofing panels), which is characteristic of a warehouse or factory. The high albedo (brightness) and geometric shape confirm it is a man-made structure rather than natural land cover."
+        ]
+      },
+      "true_pair": [
+        5,
+        1
+      ],
+      "before_agrees": true,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.00046680000000000007
+    },
+    {
+      "id": "train_2912_5to2",
+      "split": "tune",
+      "group": "目标类",
+      "has_holes": true,
+      "remaining_gt_pixels": 429,
+      "interpretation": {
+        "pair": [
+          5,
+          5
+        ],
+        "classes": [
+          "building",
+          "building"
+        ],
+        "evidence": [
+          "The binary support panel highlights a small, elongated rectangular structure located in the lower-left area of the wide RGB view (and center-left of the close view). This object has a distinct light-colored (white or light grey) roof and sharp geometric edges, contrasting with the surrounding dirt ground and vegetation. Its shape and size are consistent with a small industrial shed, container, or temporary building within the larger factory complex.",
+          "The white support panel highlights a rectangular structure with a light grey/white roof. In the wider context, this is part of a larger industrial complex with similar large-roofed structures. The shape is geometric and regular, typical of a warehouse or factory building, distinct from the surrounding vegetation or smaller residential houses."
+        ]
+      },
+      "true_pair": [
+        5,
+        2
+      ],
+      "before_agrees": true,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0004548000000000001
+    },
+    {
+      "id": "train_2928_3to1",
+      "split": "tune",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "pair": [
+          3,
+          5
+        ],
+        "classes": [
+          "tree",
+          "building"
+        ],
+        "evidence": [
+          "The white support panel highlights a narrow, elongated strip located in the upper portion of the image. In the corresponding RGB view, this area corresponds to a linear row of dark green, textured objects situated between industrial buildings. The irregular, clumpy texture and dark green coloration are characteristic of a line of trees or dense shrubbery used as a boundary or windbreak, distinct from the smooth blue rooftops and grey pavement nearby.",
+          "The white support panel highlights a narrow, elongated structure located in the upper portion of the image. In the RGB view, this specific area corresponds to a long, light-colored (whitish-grey) rectangular object with linear features, consistent with the roof of a shed, warehouse, or industrial building. It is situated adjacent to other large blue-roofed buildings and bare ground, fitting the context of an industrial complex."
+        ]
+      },
+      "true_pair": [
+        3,
+        1
+      ],
+      "before_agrees": true,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.00047640000000000003
+    },
+    {
+      "id": "train_385_5to6",
+      "split": "tune",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "pair": [
+          5,
+          5
+        ],
+        "classes": [
+          "building",
+          "building"
+        ],
+        "evidence": [
+          "The white support panel isolates a small, rectangular section at the corner of a larger structure. In the RGB image, this specific area corresponds to a light-colored, flat surface with sharp geometric edges, consistent with a building roof or an enclosed part of an industrial facility. It is distinct from the blue roofs and grey grounds nearby.",
+          "The white support panel in both the close and wide views highlights a rectangular structure with a dark, uniform roof. In the wide view, this structure is part of a larger complex of similar buildings adjacent to sports courts and a body of water. The shape and texture are consistent with a built structure, specifically a building roof."
+        ]
+      },
+      "true_pair": [
+        5,
+        6
+      ],
+      "before_agrees": true,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.00044360000000000005
+    },
+    {
+      "id": "train_443_3to2",
+      "split": "tune",
+      "group": "地表类",
+      "has_holes": true,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "pair": [
+          3,
+          3
+        ],
+        "classes": [
+          "tree",
+          "tree"
+        ],
+        "evidence": [
+          "The white-supported region in both the close and wide views highlights a small, dark green to blackish patch with a clumpy, irregular texture. This appearance is characteristic of dense tree canopy or shrubbery viewed from above. In the wide context, this patch is located on a traffic island or small landscaped area within a paved intersection, which is a common placement for trees. The dark color contrasts sharply with the surrounding grey asphalt and concrete, indicating vegetation rather than non-vegetated ground.",
+          "The white support panel in both the close and wide views isolates a specific patch of dark green, textured material. In the wide RGB image, this location corresponds to a cluster of foliage within a landscaped area or park, surrounded by paved roads and buildings. The texture is irregular and clumpy, characteristic of tree canopies viewed from above, distinct from the smoother texture of low vegetation or the hard edges of buildings."
+        ]
+      },
+      "true_pair": [
+        3,
+        2
+      ],
+      "before_agrees": true,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0004860000000000001
+    },
+    {
+      "id": "train_555_4to2",
+      "split": "tune",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "pair": [
+          5,
+          2
+        ],
+        "classes": [
+          "building",
+          "non-vegetated ground"
+        ],
+        "evidence": [
+          "The white support panel in both the close and wide views isolates a small, distinct rectangular object. In the wide RGB context, this object corresponds to a structure with a reddish-brown roof located near the canal, surrounded by other similar industrial or residential structures. The shape is geometric and rigid, consistent with a building footprint rather than natural vegetation or ground.",
+          "The white support panel isolates a diagonal strip of land cover that corresponds to a paved road or path. The texture is smooth and uniform with a light gray color, distinct from the surrounding green vegetation and darker building structures. This appearance is characteristic of impervious surfaces like asphalt or concrete used for transportation infrastructure."
+        ]
+      },
+      "true_pair": [
+        4,
+        2
+      ],
+      "before_agrees": false,
+      "after_agrees": true,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0004508
+    },
+    {
+      "id": "train_7_1to2",
+      "split": "tune",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 262,
+      "interpretation": {
+        "pair": [
+          2,
+          2
+        ],
+        "classes": [
+          "non-vegetated ground",
+          "non-vegetated ground"
+        ],
+        "evidence": [
+          "The white support panel highlights a section of the dark asphalt runway holding position markings (chevrons). This surface is man-made, impervious, and lacks any vegetation, classifying it as non-vegetated ground.",
+          "The white support mask highlights specific yellow chevron markings painted on a dark asphalt surface. These markings are characteristic of airport runway or taxiway threshold indicators. Asphalt is a paved, non-vegetated material. Therefore, the land cover within the masked region is non-vegetated ground."
+        ]
+      },
+      "true_pair": [
+        1,
+        2
+      ],
+      "before_agrees": false,
+      "after_agrees": true,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0004276000000000001
+    },
+    {
+      "id": "train_786_3to5",
+      "split": "tune",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "pair": [
+          3,
+          5
+        ],
+        "classes": [
+          "tree",
+          "building"
+        ],
+        "evidence": [
+          "The white support panel in both the close and wide views isolates a small, irregular patch of land cover. In the wide RGB view, this location corresponds to a dark green, textured area adjacent to buildings and roads, consistent with tree canopy or dense shrubbery. The color (dark green/blue-green) and texture (mottled, non-uniform) within the supported region differ from the surrounding grey pavement and brown bare earth, indicating vegetative cover. Given the scale and appearance, 'tree' is the most specific and accurate classification among the options.",
+          "The white support panel in both the close and wide views isolates a specific rectangular structure. In the wide RGB view, this corresponds to a light-colored, flat-roofed structure typical of a building or warehouse within an urban setting. The close-up confirms a uniform, light grey/white surface texture consistent with construction materials like concrete or metal roofing, distinct from the surrounding darker vegetation and roads."
+        ]
+      },
+      "true_pair": [
+        3,
+        5
+      ],
+      "before_agrees": true,
+      "after_agrees": true,
+      "pair_agrees": true,
+      "semantic_review_required": false,
+      "new_cost_cny": 0.0004932000000000001
+    },
+    {
+      "id": "train_908_4to1",
+      "split": "tune",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "pair": [
+          4,
+          3
+        ],
+        "classes": [
+          "water",
+          "tree"
+        ],
+        "evidence": [
+          "The white support panel in both the close and wide views isolates a small, elongated feature located within the large, dark blue/black body of water visible in the wide RGB context. The color of the pixels within the support mask matches the surrounding river or canal, appearing as a small patch of open water, possibly a shallow area or a gap in surface reflection, rather than land, vegetation, or buildings.",
+          "The white support panel highlights a narrow, diagonal strip of land located on the bank of a dark water body (visible in the wide context). The pixels within this specific strip exhibit a textured, mottled appearance with brownish-green and grey tones, distinct from the smooth dark water and the structured buildings. This texture and location along the riverbank are characteristic of a line of trees or dense riparian vegetation."
+        ]
+      },
+      "true_pair": [
+        4,
+        1
+      ],
+      "before_agrees": true,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.00047080000000000006
+    },
+    {
+      "id": "train_915_3to4",
+      "split": "tune",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 1,
+      "interpretation": {
+        "pair": [
+          3,
+          4
+        ],
+        "classes": [
+          "tree",
+          "water"
+        ],
+        "evidence": [
+          "The white support panel isolates a narrow, vertical strip of land cover along the right edge of the image. In the corresponding RGB pixels, this area displays a dark green color and a textured, irregular surface characteristic of dense foliage or a tree line. It is situated immediately adjacent to a dark water body on the far right, forming a riparian buffer or bank vegetation, which distinguishes it from the open fields or industrial buildings elsewhere in the scene.",
+          "The white support panel isolates a narrow vertical strip on the far right edge of the image. In the corresponding RGB pixels, this area displays a uniform dark blue-black color with a smooth texture, distinct from the adjacent industrial buildings and paved lots. This appearance is characteristic of a body of water, such as a canal or river bordering the facility."
+        ]
+      },
+      "true_pair": [
+        3,
+        4
+      ],
+      "before_agrees": true,
+      "after_agrees": true,
+      "pair_agrees": true,
+      "semantic_review_required": false,
+      "new_cost_cny": 0.00047080000000000006
+    },
+    {
+      "id": "train_987_3to5",
+      "split": "tune",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "pair": [
+          5,
+          5
+        ],
+        "classes": [
+          "building",
+          "building"
+        ],
+        "evidence": [
+          "The white support panel in both the close and wide views isolates a distinct, elongated rectangular structure located at the bottom edge of the main complex. In the RGB imagery, this specific area corresponds to a section of the large industrial roof, characterized by its light grey color and ribbed texture typical of metal sheeting. It is structurally continuous with the massive warehouse building that dominates the rest of the image.",
+          "The white support panel highlights a small, rectangular section at the bottom edge of a large industrial complex. In the RGB image, this specific area corresponds to a light grey, flat surface with linear texturing consistent with metal roofing or siding panels. It is structurally continuous with the larger warehouse roofs visible in the rest of the image, identifying it as part of a building."
+        ]
+      },
+      "true_pair": [
+        3,
+        5
+      ],
+      "before_agrees": false,
+      "after_agrees": true,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0004644
+    }
+  ],
+  "label_agreement_only": true,
+  "summary": [
+    {
+      "split": "all",
+      "group": "全部",
+      "holes": "all",
+      "tasks": 30,
+      "before_label_agreement": 0.5666666666666667,
+      "after_label_agreement": 0.43333333333333335,
+      "pair_label_agreement": 0.2
+    },
+    {
+      "split": "all",
+      "group": "全部",
+      "holes": "holes",
+      "tasks": 5,
+      "before_label_agreement": 0.6,
+      "after_label_agreement": 0.2,
+      "pair_label_agreement": 0.2
+    },
+    {
+      "split": "all",
+      "group": "全部",
+      "holes": "no_holes",
+      "tasks": 25,
+      "before_label_agreement": 0.56,
+      "after_label_agreement": 0.48,
+      "pair_label_agreement": 0.2
+    },
+    {
+      "split": "all",
+      "group": "目标类",
+      "holes": "all",
+      "tasks": 15,
+      "before_label_agreement": 0.7333333333333333,
+      "after_label_agreement": 0.4666666666666667,
+      "pair_label_agreement": 0.2
+    },
+    {
+      "split": "all",
+      "group": "目标类",
+      "holes": "holes",
+      "tasks": 1,
+      "before_label_agreement": 1.0,
+      "after_label_agreement": 0.0,
+      "pair_label_agreement": 0.0
+    },
+    {
+      "split": "all",
+      "group": "目标类",
+      "holes": "no_holes",
+      "tasks": 14,
+      "before_label_agreement": 0.7142857142857143,
+      "after_label_agreement": 0.5,
+      "pair_label_agreement": 0.21428571428571427
+    },
+    {
+      "split": "all",
+      "group": "地表类",
+      "holes": "all",
+      "tasks": 15,
+      "before_label_agreement": 0.4,
+      "after_label_agreement": 0.4,
+      "pair_label_agreement": 0.2
+    },
+    {
+      "split": "all",
+      "group": "地表类",
+      "holes": "holes",
+      "tasks": 4,
+      "before_label_agreement": 0.5,
+      "after_label_agreement": 0.25,
+      "pair_label_agreement": 0.25
+    },
+    {
+      "split": "all",
+      "group": "地表类",
+      "holes": "no_holes",
+      "tasks": 11,
+      "before_label_agreement": 0.36363636363636365,
+      "after_label_agreement": 0.45454545454545453,
+      "pair_label_agreement": 0.18181818181818182
+    },
+    {
+      "split": "tune",
+      "group": "全部",
+      "holes": "all",
+      "tasks": 30,
+      "before_label_agreement": 0.5666666666666667,
+      "after_label_agreement": 0.43333333333333335,
+      "pair_label_agreement": 0.2
+    },
+    {
+      "split": "tune",
+      "group": "全部",
+      "holes": "holes",
+      "tasks": 5,
+      "before_label_agreement": 0.6,
+      "after_label_agreement": 0.2,
+      "pair_label_agreement": 0.2
+    },
+    {
+      "split": "tune",
+      "group": "全部",
+      "holes": "no_holes",
+      "tasks": 25,
+      "before_label_agreement": 0.56,
+      "after_label_agreement": 0.48,
+      "pair_label_agreement": 0.2
+    },
+    {
+      "split": "tune",
+      "group": "目标类",
+      "holes": "all",
+      "tasks": 15,
+      "before_label_agreement": 0.7333333333333333,
+      "after_label_agreement": 0.4666666666666667,
+      "pair_label_agreement": 0.2
+    },
+    {
+      "split": "tune",
+      "group": "目标类",
+      "holes": "holes",
+      "tasks": 1,
+      "before_label_agreement": 1.0,
+      "after_label_agreement": 0.0,
+      "pair_label_agreement": 0.0
+    },
+    {
+      "split": "tune",
+      "group": "目标类",
+      "holes": "no_holes",
+      "tasks": 14,
+      "before_label_agreement": 0.7142857142857143,
+      "after_label_agreement": 0.5,
+      "pair_label_agreement": 0.21428571428571427
+    },
+    {
+      "split": "tune",
+      "group": "地表类",
+      "holes": "all",
+      "tasks": 15,
+      "before_label_agreement": 0.4,
+      "after_label_agreement": 0.4,
+      "pair_label_agreement": 0.2
+    },
+    {
+      "split": "tune",
+      "group": "地表类",
+      "holes": "holes",
+      "tasks": 4,
+      "before_label_agreement": 0.5,
+      "after_label_agreement": 0.25,
+      "pair_label_agreement": 0.25
+    },
+    {
+      "split": "tune",
+      "group": "地表类",
+      "holes": "no_holes",
+      "tasks": 11,
+      "before_label_agreement": 0.36363636363636365,
+      "after_label_agreement": 0.45454545454545453,
+      "pair_label_agreement": 0.18181818181818182
+    },
+    {
+      "split": "confirm",
+      "group": "全部",
+      "holes": "all",
+      "tasks": 0,
+      "before_label_agreement": null,
+      "after_label_agreement": null,
+      "pair_label_agreement": null
+    },
+    {
+      "split": "confirm",
+      "group": "全部",
+      "holes": "holes",
+      "tasks": 0,
+      "before_label_agreement": null,
+      "after_label_agreement": null,
+      "pair_label_agreement": null
+    },
+    {
+      "split": "confirm",
+      "group": "全部",
+      "holes": "no_holes",
+      "tasks": 0,
+      "before_label_agreement": null,
+      "after_label_agreement": null,
+      "pair_label_agreement": null
+    },
+    {
+      "split": "confirm",
+      "group": "目标类",
+      "holes": "all",
+      "tasks": 0,
+      "before_label_agreement": null,
+      "after_label_agreement": null,
+      "pair_label_agreement": null
+    },
+    {
+      "split": "confirm",
+      "group": "目标类",
+      "holes": "holes",
+      "tasks": 0,
+      "before_label_agreement": null,
+      "after_label_agreement": null,
+      "pair_label_agreement": null
+    },
+    {
+      "split": "confirm",
+      "group": "目标类",
+      "holes": "no_holes",
+      "tasks": 0,
+      "before_label_agreement": null,
+      "after_label_agreement": null,
+      "pair_label_agreement": null
+    },
+    {
+      "split": "confirm",
+      "group": "地表类",
+      "holes": "all",
+      "tasks": 0,
+      "before_label_agreement": null,
+      "after_label_agreement": null,
+      "pair_label_agreement": null
+    },
+    {
+      "split": "confirm",
+      "group": "地表类",
+      "holes": "holes",
+      "tasks": 0,
+      "before_label_agreement": null,
+      "after_label_agreement": null,
+      "pair_label_agreement": null
+    },
+    {
+      "split": "confirm",
+      "group": "地表类",
+      "holes": "no_holes",
+      "tasks": 0,
+      "before_label_agreement": null,
+      "after_label_agreement": null,
+      "pair_label_agreement": null
+    }
+  ],
+  "new_cost_cny": 0.013859200000000006
+}

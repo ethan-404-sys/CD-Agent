@@ -1,0 +1,78 @@
+{
+  "reviewer": "main Agent visual inspection, not independent human annotation",
+  "protocol": "Anonymous task/GT identity; input condition inferable. Case01 A/t1 prediction read before image; cases02–12 inspected before predictions. No mapping key opened. Historical visual familiarity possible.",
+  "cases": [
+    {
+      "case": "case_01",
+      "visible_before": "water",
+      "visible_after": "building, with roof/gap mixed edges",
+      "evidence": "T1 at lower tip of narrow pond; T2 lies on red/grey roofs. A/t1 prediction was accidentally read first; not prediction-blind for this one judgement."
+    },
+    {
+      "case": "case_02",
+      "visible_before": "low vegetation or bare/vegetation strip",
+      "visible_after": "building with a narrow gap",
+      "evidence": "Greenish thin strip in mixed vacant lot, then crosses two light rectangular roofs. T1 fine category uncertain."
+    },
+    {
+      "case": "case_03",
+      "visible_before": "bare/paved fragment at top image boundary",
+      "visible_after": "bare/paved fragment with nearby planting",
+      "evidence": "White support lies at top border, NOT large central blue factory. Fine class uncertain in tiny clipped support; no evidence that support is the factory."
+    },
+    {
+      "case": "case_04",
+      "visible_before": "roof-edge strip or adjacent narrow structure",
+      "visible_after": "roof-edge strip",
+      "evidence": "Both show a narrow blue/bright line above the larger roof. Class/direction uncertain from tiny support, no confident land-cover transition."
+    },
+    {
+      "case": "case_05",
+      "visible_before": "low vegetation with possible small bushes",
+      "visible_after": "bare ground",
+      "evidence": "Green textured support beside bare patch becomes light grey rough open ground, no visible roof."
+    },
+    {
+      "case": "case_06",
+      "visible_before": "building",
+      "visible_after": "low vegetation",
+      "evidence": "Blue angular roof footprint disappears; same supported position in a bounded green lawn/planting area."
+    },
+    {
+      "case": "case_07",
+      "visible_before": "bare ground fragment",
+      "visible_after": "low vegetation or water, unresolved",
+      "evidence": "Bottom-left clipped fragment beside road; T2 blue-green uniform region. Do not describe central road or whole construction site as support."
+    },
+    {
+      "case": "case_08",
+      "visible_before": "tree/vegetation crown",
+      "visible_after": "bare ground",
+      "evidence": "Irregular green crown by junction at T1; light rough cleared surface at T2."
+    },
+    {
+      "case": "case_09",
+      "visible_before": "bare/impervious strip, unresolved",
+      "visible_after": "trees/landscaped vegetation",
+      "evidence": "Thin light strip between factory structures becomes a row of green crowns. Adjacent roofs excluded."
+    },
+    {
+      "case": "case_10",
+      "visible_before": "roof or roof-edge strip",
+      "visible_after": "roof or roof-edge strip",
+      "evidence": "Extremely thin line along industrial roof; both periods remain roof-associated. Direction and exact edge category ambiguous."
+    },
+    {
+      "case": "case_11",
+      "visible_before": "building roof",
+      "visible_after": "building roof",
+      "evidence": "Blue rectangular roof with two excluded holes becomes reddish/grey roof. Roof appearance changes, but no confident class transition."
+    },
+    {
+      "case": "case_12",
+      "visible_before": "bare/impervious open plaza",
+      "visible_after": "mixed plaza and trees",
+      "evidence": "Left clipped polygon on open pale surface, later dark tree crowns interspersed with paving. Central pyramid and surrounding roofs are outside support; no forced single class."
+    }
+  ]
+}

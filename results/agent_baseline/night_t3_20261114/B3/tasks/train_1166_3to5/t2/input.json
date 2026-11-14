@@ -1,0 +1,26 @@
+{
+  "system": "All four images refer to ONE date. Each original RGB crop is followed by a binary support panel with identical coordinates and size. Identify land cover in RGB only at coordinates where the paired panel is WHITE. BLACK is excluded, including black holes enclosed by white regions. Objects inside black holes are NOT the target. Do not classify the entire RGB crop or the shape of the white panel itself. Explain the visible land cover on the included white-supported pixels.",
+  "question": "Choose one class from low vegetation, non-vegetated ground, tree, water, building, playground, unknown. Use unknown when the region cannot be identified reliably. Return JSON {\"class\":\"one allowed class\", \"evidence\":\"visible texture, shape, colour and context supporting the choice\"}.",
+  "images": [
+    {
+      "label": "close original RGB",
+      "path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/night_t3_20261114/B3/tasks/train_1166_3to5/t2/00.png"
+    },
+    {
+      "label": "close aligned binary support: WHITE included, BLACK excluded including holes",
+      "path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/night_t3_20261114/B3/tasks/train_1166_3to5/t2/01.png"
+    },
+    {
+      "label": "wide original RGB",
+      "path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/night_t3_20261114/B3/tasks/train_1166_3to5/t2/02.png"
+    },
+    {
+      "label": "wide aligned binary support: WHITE included, BLACK excluded including holes",
+      "path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/night_t3_20261114/B3/tasks/train_1166_3to5/t2/03.png"
+    }
+  ],
+  "model": "qwen3.7-flash",
+  "seed": 1016,
+  "max_tokens": 768,
+  "temperature": 0
+}

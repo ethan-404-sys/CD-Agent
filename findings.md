@@ -338,3 +338,5 @@ T3 train_1496_2to1实际输入审查：示例支持为楼间空地、屋顶为�
 2026-11-14 两项实证更新：B1完整类别对一致5/60（tune4、confirm1）比B0 13/60差，且已见明确支持错指，故本轮70%压暗未解决Grounding；转试不同支持表示而非无限调暗度。旧拆除structured汇总涨分强烈集中，train1322一个大屋顶候选的原four yes+rebuilt违反已提供scope；结构化可能帮助应用排除规则，但不能把这当跨数据集召回普遍提升，LEVIR三臂仍全部退化。原始输入和实际规则引用见night_missed_20261114/manual_old_disappeared_contribution.md。
 
 2026-11-14 夜间并行推进：T3 B0固定60例GPU提议生成186439/hook186440已提交（不发API），供后续同池R1/R2/R3消融复用；25例unknown/同类预测仍以空R2记录，不用GT补正。原始S5代码确认是合并reference后统一匹配，当前LEVIR提取已观察到精确复现，不因计算慢误判卡死。论文动机及B3可证伪假设见night_t3_20261114/grounding_notes.md；B3尚未跑完不得写收益。
+
+2026-11-14 夜间Grounding两轮已完成：B0/B1/B2全60类别对标签吻合13/5/7，tune8/4/6、confirm5/1/1；B3对齐二值支持面板tune6/30，不晋级确认、不扫更多压暗强度。12例输入审查（非人工真值）已落盘grounding_review.md/json和grounding_blind_v1/index.html：case03、case07的B1、case09有明确区域错指；case11两期仍见屋顶，与原方向标签冲突，保留待复核，不改GT。继续固定池DINO端点/差分消融186449及已有T3.3小试186452；GPU提议186439仍资源排队。

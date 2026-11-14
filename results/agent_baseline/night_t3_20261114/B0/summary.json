@@ -1,0 +1,2113 @@
+{
+  "variant": "B0",
+  "tasks": 60,
+  "records": [
+    {
+      "id": "train_1065_2to5",
+      "split": "tune",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "classes": [
+          "non-vegetated ground",
+          "building"
+        ],
+        "pair": [
+          2,
+          5
+        ],
+        "evidence": [
+          "The area within the red contour displays a uniform brownish-tan color consistent with exposed soil or dirt. The texture appears relatively smooth and bare, lacking the distinct patterns of vegetation, the geometric shapes of buildings, or the dark signature of water. Context from the wide view confirms this location is an unpaved strip of land adjacent to a road and large industrial buildings, typical of graded earth or a construction access path.",
+          "The object within the red contour is rectangular with a uniform, light gray roof, distinct from the surrounding soil and vegetation. In the wide view, it is located adjacent to a road and near large industrial warehouses, consistent with the scale and appearance of a small utility building or shed."
+        ],
+        "cost_cny": 0.0003020000000000001
+      },
+      "true_pair": [
+        2,
+        5
+      ],
+      "before_agrees": true,
+      "after_agrees": true,
+      "pair_agrees": true,
+      "semantic_review_required": false,
+      "new_cost_cny": 0.0
+    },
+    {
+      "id": "train_1129_4to5",
+      "split": "confirm",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "classes": [
+          "non-vegetated ground",
+          "building"
+        ],
+        "pair": [
+          2,
+          5
+        ],
+        "evidence": [
+          "The area inside the red contour displays a light tan or beige color, which contrasts sharply with the surrounding dark brown soil and patches of dark green vegetation. The texture appears bare and dusty, consistent with exposed earth, sand, or a dirt track, lacking the canopy structure of trees or the uniformity of low vegetation.",
+          "The red contour encloses a long, rectangular structure with a flat, light-gray roof, consistent with the adjacent industrial or warehouse buildings. The shape and alignment match the surrounding built environment, and there is no visible vegetation, water, or ground texture within the contour—only a uniform rooftop surface."
+        ],
+        "cost_cny": 0.0002884
+      },
+      "true_pair": [
+        4,
+        5
+      ],
+      "before_agrees": false,
+      "after_agrees": true,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0
+    },
+    {
+      "id": "train_1136_5to1",
+      "split": "tune",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 3,
+      "interpretation": {
+        "classes": [
+          "building",
+          "low vegetation"
+        ],
+        "pair": [
+          5,
+          1
+        ],
+        "evidence": [
+          "The region enclosed by the red contour contains a structure with a distinct, geometric T-shape and sharp corners. The roof is a uniform blue color, which contrasts with the surrounding brown, earthy terrain. This artificial shape and coloration are characteristic of a man-made structure, specifically a building or shed, rather than natural land cover.",
+          "The area inside the red contour displays a uniform green color and a relatively smooth, fine texture. It is situated within a defined rectangular plot adjacent to industrial buildings and paved roads, consistent with a maintained grass lawn or similar low-lying ground cover."
+        ],
+        "cost_cny": 0.0002812
+      },
+      "true_pair": [
+        5,
+        1
+      ],
+      "before_agrees": true,
+      "after_agrees": true,
+      "pair_agrees": true,
+      "semantic_review_required": false,
+      "new_cost_cny": 0.0
+    },
+    {
+      "id": "train_1166_3to5",
+      "split": "tune",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "classes": [
+          "building",
+          "building"
+        ],
+        "pair": [
+          5,
+          5
+        ],
+        "evidence": [
+          "In the wide view, the area within the red contour corresponds to a small, light-colored rectangular structure with a distinct roof, situated among darker vegetation. This matches the appearance of a small building or shed seen in the lower-left portion of the wider context image. The close-up view shows a textured, somewhat uniform surface consistent with a roof, surrounded by darker, irregular textures indicative of trees or shrubs.",
+          "The region within the red contour displays a flat, uniform gray surface with distinct straight edges, characteristic of a roof. In the wider view, this structure is situated adjacent to other similar industrial or commercial buildings and a road, reinforcing its identification as a man-made structure rather than a natural feature."
+        ],
+        "cost_cny": 0.0002988
+      },
+      "true_pair": [
+        3,
+        5
+      ],
+      "before_agrees": false,
+      "after_agrees": true,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0
+    },
+    {
+      "id": "train_1177_2to3",
+      "split": "confirm",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 1686,
+      "interpretation": {
+        "classes": [
+          "non-vegetated ground",
+          "building"
+        ],
+        "pair": [
+          2,
+          5
+        ],
+        "evidence": [
+          "The area within the red contour displays a light brown, earthen color with a rough, uneven texture. It appears to be a patch of bare soil or a dirt yard situated between a building with a blue roof and a cluster of houses. The surface lacks the green tones of vegetation or the defined geometric shapes of buildings, consistent with exposed ground.",
+          "The area inside the red contour shows a structure with a distinct geometric, angular shape and a light-colored, flat surface. This appearance is consistent with a building roof, particularly given its proximity to other similar industrial or residential structures in the surrounding urbanized landscape."
+        ],
+        "cost_cny": 0.00028680000000000003
+      },
+      "true_pair": [
+        2,
+        3
+      ],
+      "before_agrees": true,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0
+    },
+    {
+      "id": "train_119_6to2",
+      "split": "tune",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "classes": [
+          "low vegetation",
+          "low vegetation"
+        ],
+        "pair": [
+          1,
+          1
+        ],
+        "evidence": [
+          "The area within the red contour displays a patchwork of rectangular plots with varying shades of reddish-brown and muted green. This pattern is characteristic of agricultural fields, possibly fallow land or crops with sparse ground cover. The texture is relatively uniform and low-lying compared to the distinct tree line along the canal, and it lacks the hard edges and blue roofs of the nearby buildings.",
+          "The area within the red contour displays a mottled, patchy texture with mixed brown and dull green tones. This appearance is characteristic of sparse, low-growing plants, grasses, or scrubland on dry soil. It lacks the uniform dark tone of the adjacent water bodies, the distinct vertical structure of the tree line below it, and the geometric shapes of buildings."
+        ],
+        "cost_cny": 0.00031
+      },
+      "true_pair": [
+        6,
+        2
+      ],
+      "before_agrees": false,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0
+    },
+    {
+      "id": "train_127_3to2",
+      "split": "tune",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "classes": [
+          "tree",
+          "non-vegetated ground"
+        ],
+        "pair": [
+          3,
+          2
+        ],
+        "evidence": [
+          "In the close-up view, the area within the red contour exhibits a dark green color and a clumpy, textured appearance characteristic of tree canopy. It is situated adjacent to a body of water and surrounded by other similar green vegetation, consistent with a cluster of trees on a riverbank.",
+          "The area inside the red contour displays a light gray, uniform color and smooth texture, distinct from the surrounding dark green vegetation. It appears to be a patch of bare soil, sand, or a paved surface located on a peninsula next to a canal, lacking the structural features of buildings or the density of trees."
+        ],
+        "cost_cny": 0.000286
+      },
+      "true_pair": [
+        3,
+        2
+      ],
+      "before_agrees": true,
+      "after_agrees": true,
+      "pair_agrees": true,
+      "semantic_review_required": false,
+      "new_cost_cny": 0.0
+    },
+    {
+      "id": "train_1322_2to4",
+      "split": "tune",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "classes": [
+          "low vegetation",
+          "low vegetation"
+        ],
+        "pair": [
+          1,
+          1
+        ],
+        "evidence": [
+          "The area within the red contour displays a mottled texture with patches of light green and brownish tones, which is characteristic of sparse or low-lying vegetation such as grass or shrubs. It lacks the uniform geometric shapes of buildings or playgrounds, the solid blue color of water, and the bare earth appearance of non-vegetated ground seen in surrounding areas. The context of being adjacent to dirt paths and near cultivated plots further supports this interpretation.",
+          "The area within the red contour exhibits a uniform, muted greenish-grey color and a relatively smooth texture, which contrasts with the darker, rougher texture of the surrounding bare soil or sparse scrub. This appearance is characteristic of a patch of low-growing vegetation, such as grass or moss, especially when compared to the adjacent non-vegetated ground and buildings."
+        ],
+        "cost_cny": 0.0003188
+      },
+      "true_pair": [
+        2,
+        4
+      ],
+      "before_agrees": false,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0
+    },
+    {
+      "id": "train_1344_2to5",
+      "split": "confirm",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 16056,
+      "interpretation": {
+        "classes": [
+          "building",
+          "building"
+        ],
+        "pair": [
+          5,
+          5
+        ],
+        "evidence": [
+          "The region inside the red contour shows a bright white, rectangular structure with a flat roof. It is adjacent to other similar long, white structures that appear to be industrial or warehouse buildings. The high albedo (brightness) and geometric shape are characteristic of building roofs, likely made of metal or concrete, rather than natural ground cover.",
+          "The region inside the red contour shows a rectangular structure with a light-colored (white or light gray) roof, typical of industrial or warehouse buildings. In the wide view, it is clearly part of a larger complex of similar structures with blue and white roofs, indicating an industrial zone. The shape is geometric and distinct from natural features like vegetation or water."
+        ],
+        "cost_cny": 0.00029640000000000005
+      },
+      "true_pair": [
+        2,
+        5
+      ],
+      "before_agrees": false,
+      "after_agrees": true,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0
+    },
+    {
+      "id": "train_1370_3to1",
+      "split": "confirm",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 791,
+      "interpretation": {
+        "classes": [
+          "tree",
+          "building"
+        ],
+        "pair": [
+          3,
+          5
+        ],
+        "evidence": [
+          "The area inside the red contour displays a dark green to bluish-green color with a rough, clumpy texture, which is characteristic of tree canopy foliage in aerial imagery. This contrasts sharply with the surrounding man-made structures, such as the blue and grey rooftops of the buildings and the paved road visible at the bottom edge. The irregular, organic shape of the patch further supports the identification of vegetation rather than built-up surfaces.",
+          "The area within the red contour shows a dense arrangement of rectangular structures with dark, textured roofs, consistent with industrial or residential buildings. The shape and alignment are typical of built environments seen in aerial imagery, and it is surrounded by similar blue-roofed buildings, indicating an urban/industrial zone."
+        ],
+        "cost_cny": 0.0003036
+      },
+      "true_pair": [
+        3,
+        1
+      ],
+      "before_agrees": true,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0
+    },
+    {
+      "id": "train_1377_5to3",
+      "split": "tune",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "classes": [
+          "tree",
+          "tree"
+        ],
+        "pair": [
+          3,
+          3
+        ],
+        "evidence": [
+          "The region inside the red contour shows a dark green, textured patch with an irregular, clumpy shape. It is located at the edge of a large building and adjacent to other similar dark green patches, consistent with the appearance of tree canopies or dense shrubbery in aerial imagery. The color and texture contrast sharply with the nearby bare ground and the structured roof of the building.",
+          "The region inside the red contour displays a dark green color and a rough, clumpy texture characteristic of dense foliage. It forms a linear strip of vegetation situated between the large industrial buildings with beige roofs and an open storage yard containing stacked materials. The height and density suggested by the shadowing and texture indicate woody vegetation, consistent with a row of trees or a thick hedge, rather than low-lying grass or shrubs."
+        ],
+        "cost_cny": 0.00031800000000000003
+      },
+      "true_pair": [
+        5,
+        3
+      ],
+      "before_agrees": false,
+      "after_agrees": true,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0
+    },
+    {
+      "id": "train_145_1to2",
+      "split": "tune",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "classes": [
+          "low vegetation",
+          "building"
+        ],
+        "pair": [
+          1,
+          5
+        ],
+        "evidence": [
+          "In the wide view, the red contour highlights a small, rectangular patch of ground located in an open yard area next to a building. The texture within this specific patch appears slightly greener and more textured compared to the surrounding bare, brownish dirt or gravel. It lacks the distinct canopy shape of a tree and is not a built structure, suggesting it is a small patch of grass, weeds, or other low-lying vegetation.",
+          "The region enclosed by the red contour contains a cluster of small, rectangular structures with light-colored (white or light gray) roofs. These shapes are distinct from the surrounding vegetation and bare ground. In the wider view, the object is situated adjacent to larger industrial-style buildings and paved areas, consistent with the layout of a small auxiliary building, shed, or container within an industrial or commercial complex."
+        ],
+        "cost_cny": 0.0003196
+      },
+      "true_pair": [
+        1,
+        2
+      ],
+      "before_agrees": true,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0
+    },
+    {
+      "id": "train_147_1to5",
+      "split": "tune",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "classes": [
+          "low vegetation",
+          "building"
+        ],
+        "pair": [
+          1,
+          5
+        ],
+        "evidence": [
+          "The area within the red contour displays a mottled texture with patches of dull green and brownish earth tones. This appearance is characteristic of sparse grass, weeds, or uncultivated ground cover, distinct from the uniform grey of paved surfaces, the dense dark green of tree canopies, or the structured patterns of nearby buildings and agricultural plots.",
+          "The region enclosed by the red contour contains a large structure with a distinct blue roof, which is characteristic of industrial or commercial buildings (e.g., warehouses or factories). The shape is geometric and rectangular with an extension, typical of man-made construction. Surrounding the main blue-roofed structure are smaller auxiliary buildings and paved areas, further indicating a built-up environment rather than natural land cover."
+        ],
+        "cost_cny": 0.000306
+      },
+      "true_pair": [
+        1,
+        5
+      ],
+      "before_agrees": true,
+      "after_agrees": true,
+      "pair_agrees": true,
+      "semantic_review_required": false,
+      "new_cost_cny": 0.0
+    },
+    {
+      "id": "train_1496_2to1",
+      "split": "confirm",
+      "group": "地表类",
+      "has_holes": true,
+      "remaining_gt_pixels": 4,
+      "interpretation": {
+        "classes": [
+          "non-vegetated ground",
+          "building"
+        ],
+        "pair": [
+          2,
+          5
+        ],
+        "evidence": [
+          "The area inside the red contour displays a uniform light brown/tan coloration with a dry, dusty texture, lacking the green hues associated with vegetation. The surface appears bare and flat, consistent with graded soil or dirt lots. It is situated adjacent to a canal and separated from a residential area by a clear boundary, suggesting it is undeveloped land or construction sites awaiting development.",
+          "The area within the red contour is densely packed with numerous rectangular structures featuring bright white or light-gray flat roofs. These objects exhibit sharp geometric edges and are arranged in organized, parallel rows separated by narrow gaps, which is characteristic of a residential housing estate or apartment complex. The high albedo (brightness) of the roofs contrasts with the darker surrounding ground and vegetation, confirming them as man-made impervious surfaces rather than natural features."
+        ],
+        "cost_cny": 0.000322
+      },
+      "true_pair": [
+        2,
+        1
+      ],
+      "before_agrees": true,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0
+    },
+    {
+      "id": "train_1527_5to2",
+      "split": "confirm",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "classes": [
+          "building",
+          "building"
+        ],
+        "pair": [
+          5,
+          5
+        ],
+        "evidence": [
+          "The object within the red contour is a long, rectangular structure with a distinct roof. The roof displays a pattern of blue and white/pinkish panels, which is characteristic of industrial or warehouse roofing materials. Its sharp geometric shape and location adjacent to other large industrial buildings and paved areas strongly indicate it is a man-made structure, specifically a building.",
+          "The region within the red contour shows a structure with a light gray, flat or low-pitched roof, consistent with industrial or warehouse buildings seen nearby. In the close view, it appears as an elongated rectangular shape adjacent to larger blue-roofed buildings. The wide view confirms its position between two large structures and aligned with the surrounding built environment. Its uniform color and geometric shape distinguish it from vegetation or bare ground, and it lacks features of water or playgrounds."
+        ],
+        "cost_cny": 0.000318
+      },
+      "true_pair": [
+        5,
+        2
+      ],
+      "before_agrees": true,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0
+    },
+    {
+      "id": "train_1535_4to1",
+      "split": "confirm",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 14,
+      "interpretation": {
+        "classes": [
+          "water",
+          "water"
+        ],
+        "pair": [
+          4,
+          4
+        ],
+        "evidence": [
+          "The region inside the red contour is located within a large, dark blue-grey body that has the smooth, uniform texture and reflective properties typical of a lake or pond. It is surrounded by a landscaped park area with paths and vegetation, confirming it is an artificial water feature. The color and lack of surface texture (like trees or buildings) are consistent with open water.",
+          "The region within the red contour is located inside a larger, clearly defined lake or pond. It shares the same dark, near-black coloration and smooth surface texture as the surrounding water body, indicating it is part of the same water feature. The context of being enclosed by a landscaped embankment further supports that this is an open water area."
+        ],
+        "cost_cny": 0.00030119999999999995
+      },
+      "true_pair": [
+        4,
+        1
+      ],
+      "before_agrees": true,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0
+    },
+    {
+      "id": "train_1538_1to3",
+      "split": "tune",
+      "group": "地表类",
+      "has_holes": true,
+      "remaining_gt_pixels": 5243,
+      "interpretation": {
+        "classes": [
+          "non-vegetated ground",
+          "tree"
+        ],
+        "pair": [
+          2,
+          3
+        ],
+        "evidence": [
+          "The area inside the red contour appears as a patch of bare earth or dirt, characterized by its brownish-grey color and lack of distinct vegetation texture. It is situated between large industrial buildings with blue roofs and what appears to be a storage yard or paved area, consistent with an unpaved access road, construction site, or vacant lot within an industrial complex.",
+          "The enclosed area contains a linear row of distinct, dark green, rounded canopies consistent with individual trees. The objects show texture and shadowing indicative of foliage and are planted in an organized line along the side of a building, which is typical for landscaping trees in an industrial or urban setting."
+        ],
+        "cost_cny": 0.000294
+      },
+      "true_pair": [
+        1,
+        3
+      ],
+      "before_agrees": false,
+      "after_agrees": true,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0
+    },
+    {
+      "id": "train_156_2to3",
+      "split": "confirm",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "classes": [
+          "non-vegetated ground",
+          "tree"
+        ],
+        "pair": [
+          2,
+          3
+        ],
+        "evidence": [
+          "The area inside the red contour displays a uniform, light grayish-brown color with a smooth, featureless texture. It lacks the green tones and structural patterns associated with vegetation or crops seen in adjacent fields. The surface appears bare and flat, consistent with exposed soil, sand, or a cleared plot of land.",
+          "The area within the red contour exhibits a dark green color and a rough, clumpy texture with visible individual canopy shapes, which is characteristic of dense tree cover or a forested patch. This contrasts sharply with the smoother, linear patterns of the adjacent agricultural fields and the geometric shapes of the buildings nearby."
+        ],
+        "cost_cny": 0.0002892
+      },
+      "true_pair": [
+        2,
+        3
+      ],
+      "before_agrees": true,
+      "after_agrees": true,
+      "pair_agrees": true,
+      "semantic_review_required": false,
+      "new_cost_cny": 0.0
+    },
+    {
+      "id": "train_1659_1to2",
+      "split": "tune",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 7720,
+      "interpretation": {
+        "classes": [
+          "low vegetation",
+          "low vegetation"
+        ],
+        "pair": [
+          1,
+          1
+        ],
+        "evidence": [
+          "The area inside the red contour displays a greenish-brown color and a relatively uniform, fine texture, which is characteristic of grassy fields or agricultural crops. In the wide view, the contoured region is part of a larger patchwork of similar-looking plots, suggesting it is a field or pasture. It lacks the distinct individual shapes of trees, the hard edges of buildings, or the smooth, dark appearance of water.",
+          "In the wide view, the area inside the red contour is a small, irregularly shaped patch of green land situated on a slope next to a dirt road. It is surrounded by darker, denser tree cover and other agricultural fields. The texture within the contour appears relatively uniform and lacks the distinct canopy structure of trees or the bare earth appearance of non-vegetated ground. Its color is a lighter green compared to the surrounding forest, which is characteristic of grass, crops, or shrubs (low vegetation). The close-up view confirms this homogeneous, slightly textured green/brownish-green surface without any buildings or water features."
+        ],
+        "cost_cny": 0.0003572
+      },
+      "true_pair": [
+        1,
+        2
+      ],
+      "before_agrees": true,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0
+    },
+    {
+      "id": "train_1745_5to2",
+      "split": "tune",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 12451,
+      "interpretation": {
+        "classes": [
+          "building",
+          "building"
+        ],
+        "pair": [
+          5,
+          5
+        ],
+        "evidence": [
+          "The region inside the red contour shows a rectangular structure with a flat, blue-colored roof. This appearance is consistent with the other large industrial or warehouse buildings visible in the wider view, which also feature similar blue roofs. The shape and context within an industrial complex strongly indicate it is a building.",
+          "In the wide view, the red contour highlights a small, dark, rectangular structure situated adjacent to larger buildings with blue roofs. The shape is geometric and distinct from the surrounding dirt ground. In the close-up view, this corresponds to the dark, shadowed area next to a lighter, possibly concrete or paved surface, consistent with the roof or side of a small industrial shed or outbuilding within a larger complex."
+        ],
+        "cost_cny": 0.0002996
+      },
+      "true_pair": [
+        5,
+        2
+      ],
+      "before_agrees": true,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0
+    },
+    {
+      "id": "train_1754_5to1",
+      "split": "tune",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 6067,
+      "interpretation": {
+        "classes": [
+          "building",
+          "building"
+        ],
+        "pair": [
+          5,
+          5
+        ],
+        "evidence": [
+          "In the wide view, the area within the red contour shows a small, rectangular structure with a light-colored roof, typical of a small building or shed. It is situated on bare ground next to a larger blue-roofed structure and near the end of a row of larger residential buildings. The shape is distinctly geometric and man-made, contrasting with the organic texture of the trees nearby and the flat texture of the surrounding dirt ground.",
+          "In the wide view, the red contour highlights a small, rectangular structure with a reddish-brown roof, consistent with a small building or shed. It is located near other similar structures and dirt paths, within an area that appears to be agricultural (with rows of greenhouses or covered beds). The close-up view shows a blurry but distinct rectangular shape with a different color than the surrounding ground/vegetation, supporting the identification as a man-made structure."
+        ],
+        "cost_cny": 0.00032920000000000003
+      },
+      "true_pair": [
+        5,
+        1
+      ],
+      "before_agrees": true,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0
+    },
+    {
+      "id": "train_1798_2to6",
+      "split": "tune",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "classes": [
+          "building",
+          "building"
+        ],
+        "pair": [
+          5,
+          5
+        ],
+        "evidence": [
+          "The region inside the red contour contains a long, rectangular structure with a distinct blue roof. The shape is geometric and regular, typical of man-made construction. It is situated adjacent to other similar large, flat-roofed structures that appear to be part of an industrial or institutional complex. The blue color is uniform, suggesting a metal or painted roof material common in warehouses or workshops.",
+          "The region within the red contour contains three parallel, rectangular structures with flat, greyish-brown roofs. These features exhibit sharp geometric edges and uniform dimensions typical of man-made construction. They are situated adjacent to other large industrial-style buildings and paved areas, consistent with the layout of a factory or warehouse complex."
+        ],
+        "cost_cny": 0.00029720000000000007
+      },
+      "true_pair": [
+        2,
+        6
+      ],
+      "before_agrees": false,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0
+    },
+    {
+      "id": "train_1808_2to1",
+      "split": "tune",
+      "group": "地表类",
+      "has_holes": true,
+      "remaining_gt_pixels": 7641,
+      "interpretation": {
+        "classes": [
+          "tree",
+          "tree"
+        ],
+        "pair": [
+          3,
+          3
+        ],
+        "evidence": [
+          "The area within the red contour displays a dark, mottled texture with irregular, clumpy shapes characteristic of tree canopies. The color is a deep green to near-black, typical of dense foliage in remote sensing imagery. It is situated between built structures (blue-roofed building above and white-roofed buildings below) and appears as a linear vegetated strip, consistent with a row or cluster of trees acting as a buffer or boundary. The texture lacks the uniformity of grass (low vegetation) and the smoothness of water or bare ground.",
+          "The area within the red contour is characterized by a dense, irregular canopy of dark green vegetation. The texture is rough and clumpy, typical of foliage, and it contrasts sharply with the smooth, man-made surfaces of the adjacent industrial buildings. The shape suggests a cluster or line of mature trees acting as a buffer or boundary between the structures."
+        ],
+        "cost_cny": 0.00033160000000000004
+      },
+      "true_pair": [
+        2,
+        1
+      ],
+      "before_agrees": false,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0
+    },
+    {
+      "id": "train_1884_4to3",
+      "split": "confirm",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "classes": [
+          "water",
+          "water"
+        ],
+        "pair": [
+          4,
+          4
+        ],
+        "evidence": [
+          "The area inside the red contour is a dark, smooth-surfaced body of water, likely a pond or reservoir within an industrial or mining complex. It has a uniform, non-reflective grey-green color typical of turbid or deep water in satellite imagery. Its shape is irregular but contained, and it is surrounded by bare earth, industrial buildings, and what appear to be stockpiles or excavated areas — all consistent with a man-made settling pond or retention basin. The lack of texture or vegetation within the contour further supports its identification as water rather than land cover.",
+          "The area inside the red contour appears as a dark, uniform patch with no visible texture, which is characteristic of deep or stagnant water in satellite imagery. It is situated adjacent to several long, rectangular structures that resemble industrial buildings or sheds, suggesting it could be a retention pond, wastewater lagoon, or canal associated with the facility. The lack of reflection or ripples might indicate stillness or turbidity, but its distinct dark tone contrasts sharply with the surrounding dry, brownish non-vegetated ground and green vegetation."
+        ],
+        "cost_cny": 0.00036360000000000006
+      },
+      "true_pair": [
+        4,
+        3
+      ],
+      "before_agrees": true,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0
+    },
+    {
+      "id": "train_2043_2to3",
+      "split": "confirm",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 386,
+      "interpretation": {
+        "classes": [
+          "low vegetation",
+          "tree"
+        ],
+        "pair": [
+          1,
+          3
+        ],
+        "evidence": [
+          "In the wide view, the red circle is located in a patch of ground to the left of a building and road. This area has a mottled brownish-green texture consistent with sparse grass, dirt, or dry herbaceous plants (low vegetation). It lacks the height or canopy structure of trees, the uniformity of buildings, and the blue reflectance of water. The close-up view shows a blurry, dark, irregular patch that corresponds to this same textured ground cover.",
+          "In the wide view, the area within the red contour is a small, dark, roughly circular patch located in an open yard between industrial buildings. Its dark green/black color and rounded shape are characteristic of a tree canopy viewed from above. The close-up view confirms a dense, textured appearance consistent with foliage, distinct from the surrounding bare ground or paved surfaces."
+        ],
+        "cost_cny": 0.000322
+      },
+      "true_pair": [
+        2,
+        3
+      ],
+      "before_agrees": false,
+      "after_agrees": true,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0
+    },
+    {
+      "id": "train_206_3to4",
+      "split": "confirm",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "classes": [
+          "tree",
+          "low vegetation"
+        ],
+        "pair": [
+          3,
+          1
+        ],
+        "evidence": [
+          "The area within the red contour displays a dark green, textured appearance consistent with foliage. It is located along the bank of a canal or river, forming part of a linear green buffer zone that separates the water from adjacent industrial or commercial buildings. The texture and color are distinct from the smoother water surface and the gray paved areas, indicating dense vegetation, most likely a row of trees.",
+          "The area within the red contour is a narrow strip located on the bank of a canal. It exhibits a green color and a textured, somewhat uneven appearance consistent with grass or ground cover. It is distinct from the darker, taller trees seen elsewhere in the image and lacks the hard, geometric lines of buildings or pavement."
+        ],
+        "cost_cny": 0.0002996
+      },
+      "true_pair": [
+        3,
+        4
+      ],
+      "before_agrees": true,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0
+    },
+    {
+      "id": "train_2075_4to2",
+      "split": "confirm",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "classes": [
+          "water",
+          "non-vegetated ground"
+        ],
+        "pair": [
+          4,
+          2
+        ],
+        "evidence": [
+          "The area inside the red contour is dark blue-grey, consistent with the color of the adjacent water bodies in the lower part of the image. It has a smooth texture lacking the roughness of vegetation or the sharp edges of buildings, indicating a liquid surface.",
+          "The area within the red contour displays a uniform brownish-tan color and an uneven, textured surface consistent with exposed soil or dirt. It lacks the green tones of vegetation, the defined geometric shapes of buildings, or the dark, smooth appearance of water. The context of the surrounding image, which shows active construction sites and bare earth, further supports that this is a patch of disturbed, non-vegetated ground."
+        ],
+        "cost_cny": 0.00029800000000000003
+      },
+      "true_pair": [
+        4,
+        2
+      ],
+      "before_agrees": true,
+      "after_agrees": true,
+      "pair_agrees": true,
+      "semantic_review_required": false,
+      "new_cost_cny": 0.0
+    },
+    {
+      "id": "train_2130_2to4",
+      "split": "confirm",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "classes": [
+          "non-vegetated ground",
+          "water"
+        ],
+        "pair": [
+          2,
+          4
+        ],
+        "evidence": [
+          "The area within the red contour displays a uniform, light brownish-grey color with a smooth texture, lacking the distinct patterns of vegetation, buildings, or water. Its location adjacent to a large paved road and darker patches that appear to be water or dense shadow suggests it is likely bare soil, dirt, or a paved shoulder. The wide view confirms this type of surface is consistent with the surrounding undeveloped or construction-like terrain.",
+          "The area inside the red contour in both images displays a dark, uniform color consistent with the adjacent water bodies visible nearby (e.g., the greenish-dark patches next to the road). In the wide view, it appears as a rectangular pond or paddy field, typical of aquaculture or irrigation systems in this agricultural landscape. The lack of texture and smooth appearance further supports it being a body of water rather than vegetation or bare ground."
+        ],
+        "cost_cny": 0.00032920000000000003
+      },
+      "true_pair": [
+        2,
+        4
+      ],
+      "before_agrees": true,
+      "after_agrees": true,
+      "pair_agrees": true,
+      "semantic_review_required": false,
+      "new_cost_cny": 0.0
+    },
+    {
+      "id": "train_2192_1to5",
+      "split": "confirm",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 25417,
+      "interpretation": {
+        "classes": [
+          "low vegetation",
+          "building"
+        ],
+        "pair": [
+          1,
+          5
+        ],
+        "evidence": [
+          "The area inside the red contour displays a patchwork of green and brownish tones with distinct linear, striated textures. These patterns are characteristic of agricultural fields or cultivated crops (low vegetation), showing rows or tilled soil. It lacks the height or shadowing associated with trees and is not a built structure like the nearby buildings.",
+          "The region within the red contour shows a large, rectangular structure with a flat roof. The roof surface is covered in a distinct grid pattern of dark, uniform panels, which are characteristic of photovoltaic solar arrays installed on an industrial or commercial building. The regular geometry and man-made appearance confirm it is a built structure rather than natural land cover."
+        ],
+        "cost_cny": 0.0002964
+      },
+      "true_pair": [
+        1,
+        5
+      ],
+      "before_agrees": true,
+      "after_agrees": true,
+      "pair_agrees": true,
+      "semantic_review_required": false,
+      "new_cost_cny": 0.0
+    },
+    {
+      "id": "train_2227_3to2",
+      "split": "confirm",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 816,
+      "interpretation": {
+        "classes": [
+          "tree",
+          "low vegetation"
+        ],
+        "pair": [
+          3,
+          1
+        ],
+        "evidence": [
+          "The region within the red contour exhibits a dark green to nearly black coloration and a textured, clumpy appearance, which is characteristic of dense tree canopy shadow and foliage in aerial imagery. In the wide view, the shape corresponds to a distinct, rounded mass consistent with a large tree or a tight cluster of trees located at the edge of a paved area and adjacent to a grassy lawn. It is visually distinct from the surrounding lower-lying grass (low vegetation) and the nearby impervious surfaces (non-vegetated ground).",
+          "The area within the red contour displays a mottled texture with mixed green and brownish-grey tones, characteristic of sparse grass, weeds, or scrubland. It is situated in an open field adjacent to industrial buildings and roads, consistent with uncultivated ground cover rather than bare soil (which would be more uniformly light brown) or dense tree cover (which would appear darker and more textured). The lack of distinct individual tree crowns or structured patterns rules out tree or playground classes."
+        ],
+        "cost_cny": 0.0003516
+      },
+      "true_pair": [
+        3,
+        2
+      ],
+      "before_agrees": true,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0
+    },
+    {
+      "id": "train_2255_2to5",
+      "split": "confirm",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 3859,
+      "interpretation": {
+        "classes": [
+          "non-vegetated ground",
+          "building"
+        ],
+        "pair": [
+          2,
+          5
+        ],
+        "evidence": [
+          "The area within the red contour displays a uniform, light brownish-tan color with a rough, granular texture typical of exposed soil, dirt, or construction debris. There are no visible structures, vegetation, or water features. It appears to be an empty plot of land or a stockpile of earth situated adjacent to buildings and a green mesh-covered area.",
+          "The region enclosed by the red contour contains a large, rectangular structure with a distinct roof. The roof exhibits a pattern of parallel, horizontal stripes in alternating shades of brown and dark grey/black, which is characteristic of corrugated metal or panel roofing commonly found on industrial warehouses or factories. The sharp, geometric edges and uniform size further confirm it is a man-made structure rather than natural land cover."
+        ],
+        "cost_cny": 0.00031079999999999997
+      },
+      "true_pair": [
+        2,
+        5
+      ],
+      "before_agrees": true,
+      "after_agrees": true,
+      "pair_agrees": true,
+      "semantic_review_required": false,
+      "new_cost_cny": 0.0
+    },
+    {
+      "id": "train_23_2to1",
+      "split": "confirm",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 3235,
+      "interpretation": {
+        "classes": [
+          "non-vegetated ground",
+          "tree"
+        ],
+        "pair": [
+          2,
+          3
+        ],
+        "evidence": [
+          "The area within the red contour displays a uniform, light brownish-tan color with a smooth, matte texture. It lacks the green hues associated with vegetation or the distinct geometric patterns of buildings. The surface appears flat and bare, consistent with exposed soil, dirt, or a paved lot without significant cover.",
+          "The area within the red contour displays multiple distinct, dark, roughly circular patches with a textured appearance, characteristic of individual tree canopies viewed from above. These are arranged in a loose grid or row pattern on what appears to be a paved or hard-standing surface (likely a parking lot or open square), consistent with landscaped street trees or park trees. The size, shape, and spacing of these dark features strongly suggest mature trees rather than low vegetation or bare ground."
+        ],
+        "cost_cny": 0.00031400000000000004
+      },
+      "true_pair": [
+        2,
+        1
+      ],
+      "before_agrees": true,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0
+    },
+    {
+      "id": "train_2383_2to5",
+      "split": "confirm",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 14568,
+      "interpretation": {
+        "classes": [
+          "building",
+          "building"
+        ],
+        "pair": [
+          5,
+          5
+        ],
+        "evidence": [
+          "The red contour encloses a long, narrow structure with a flat, light-gray roof, consistent with the adjacent larger industrial buildings. Its rectangular shape and alignment with the building complex indicate it is a man-made structure, likely a shed or corridor connecting parts of the facility.",
+          "The region within the red contour displays a distinct L-shaped structure with a flat, uniform blue-grey roof. This geometric shape and roofing material are characteristic of industrial or warehouse buildings, matching the style of the adjacent structures in the image."
+        ],
+        "cost_cny": 0.0002676
+      },
+      "true_pair": [
+        2,
+        5
+      ],
+      "before_agrees": false,
+      "after_agrees": true,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0
+    },
+    {
+      "id": "train_2437_1to3",
+      "split": "confirm",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "classes": [
+          "non-vegetated ground",
+          "low vegetation"
+        ],
+        "pair": [
+          2,
+          1
+        ],
+        "evidence": [
+          "The area within the red contour displays distinct, parallel curved ridges and furrows characteristic of tilled agricultural soil. The color is a light brownish-tan, consistent with bare earth. There is no visible greenery or canopy to suggest vegetation, trees, or water. It is clearly not a building or playground.",
+          "The area within the red contour displays a dark, textured surface with a distinct pattern of curved, parallel rows or mounds. This appearance is characteristic of cultivated ground cover, such as crops in an agricultural plot or dense low-lying shrubs. It lacks the vertical structure and canopy shape of trees, the uniform flatness of non-vegetated ground or buildings, and the reflective properties of water."
+        ],
+        "cost_cny": 0.00030680000000000003
+      },
+      "true_pair": [
+        1,
+        3
+      ],
+      "before_agrees": false,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0
+    },
+    {
+      "id": "train_2438_5to1",
+      "split": "confirm",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 13025,
+      "interpretation": {
+        "classes": [
+          "building",
+          "non-vegetated ground"
+        ],
+        "pair": [
+          5,
+          2
+        ],
+        "evidence": [
+          "The wide view clearly shows the region is a large, rectangular structure with a distinct blue roof, typical of an industrial warehouse or factory. The close-up view highlights the texture and color of this roof, which is uniform and artificial, contrasting with the surrounding ground and other buildings.",
+          "The area inside the red contour displays a light brown, tan coloration consistent with exposed soil or dirt. The texture appears relatively uniform and bare, lacking the green hues or distinct structural patterns associated with vegetation, trees, or buildings. It is situated adjacent to industrial structures and paved areas, typical of an unpaved yard or construction site."
+        ],
+        "cost_cny": 0.00028840000000000007
+      },
+      "true_pair": [
+        5,
+        1
+      ],
+      "before_agrees": true,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0
+    },
+    {
+      "id": "train_2461_5to3",
+      "split": "confirm",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 887,
+      "interpretation": {
+        "classes": [
+          "building",
+          "building"
+        ],
+        "pair": [
+          5,
+          5
+        ],
+        "evidence": [
+          "The wide view shows a dense urban or industrial area with a grid of streets and structures. The red contour in the wide view is located on the roof of a long, rectangular structure with a reddish-brown color, consistent with the roofs of adjacent buildings. The close-up view, though pixelated, shows a bright white patch (likely a reflection or a specific feature like a skylight or air conditioning unit) on top of a darker, flat surface that aligns with the building identified in the wider context. The shape and surrounding context strongly indicate it is part of a building's roof.",
+          "In the wide view, the red contour is located on a structure with a reddish-brown roof, consistent with the surrounding buildings in this dense settlement. The shape is rectangular and aligns with the rooflines of adjacent structures. In the close-up view, the texture appears smooth and uniform with a terracotta color, typical of a tiled or flat roof, rather than the textured canopy of a tree or the bare earth of non-vegetated ground."
+        ],
+        "cost_cny": 0.0003564
+      },
+      "true_pair": [
+        5,
+        3
+      ],
+      "before_agrees": true,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0
+    },
+    {
+      "id": "train_2571_4to5",
+      "split": "tune",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 6,
+      "interpretation": {
+        "classes": [
+          "tree",
+          "building"
+        ],
+        "pair": [
+          3,
+          5
+        ],
+        "evidence": [
+          "The area inside the red contour exhibits a very dark, almost black-green coloration with a dense, clumped texture, which is characteristic of a thick canopy of trees or dense shrubbery. In the wide view, this feature appears as an elongated, irregular patch situated between agricultural fields and a built-up area, consistent with a windbreak, hedgerow, or small grove. The high contrast against the lighter brown soil and the distinct textural difference from the surrounding non-vegetated ground support the identification as tree cover rather than low vegetation or water.",
+          "The region inside the red contour shows a long, rectangular structure with a reddish-brown roof, consistent with the surrounding buildings in both the close and wide views. The shape, size, and alignment with adjacent similar structures indicate it is part of a built-up area, likely residential or institutional housing. The texture appears uniform and flat, typical of roofing material, and there are no signs of vegetation, water, or open ground within the contour."
+        ],
+        "cost_cny": 0.00035
+      },
+      "true_pair": [
+        4,
+        5
+      ],
+      "before_agrees": false,
+      "after_agrees": true,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0
+    },
+    {
+      "id": "train_2590_3to5",
+      "split": "confirm",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 1014,
+      "interpretation": {
+        "classes": [
+          "building",
+          "building"
+        ],
+        "pair": [
+          5,
+          5
+        ],
+        "evidence": [
+          "The region inside the red contour shows a rectangular structure with a reddish-brown roof, consistent with the color and shape of adjacent buildings visible in both the close-up and wide views. The object has clear linear edges and a flat top surface, typical of man-made construction, and is surrounded by similar structures and vegetation, indicating an urban or semi-urban built environment.",
+          "The region within the red contour shows a rectangular structure with a flat, light-colored roof, consistent with the surrounding buildings. In the wide view, it is part of a dense urban or industrial fabric of similar structures. The shape and alignment with adjacent buildings strongly suggest it is a building, likely a small shed or outbuilding."
+        ],
+        "cost_cny": 0.0002988
+      },
+      "true_pair": [
+        3,
+        5
+      ],
+      "before_agrees": false,
+      "after_agrees": true,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0
+    },
+    {
+      "id": "train_2677_2to1",
+      "split": "tune",
+      "group": "地表类",
+      "has_holes": true,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "classes": [
+          "non-vegetated ground",
+          "non-vegetated ground"
+        ],
+        "pair": [
+          2,
+          2
+        ],
+        "evidence": [
+          "The area inside the red contour displays a uniform brownish-grey color with a rough, uneven texture. It lacks the green tones associated with low vegetation or trees, the smooth reflective surface of water, and the geometric shapes of buildings. The appearance is consistent with bare soil, dirt, or a gravel lot, possibly used for storage or as an unpaved yard adjacent to the industrial buildings.",
+          "The area within the red contour displays a dark, granular, and heterogeneous texture consistent with bare soil, gravel, or compacted earth. It lacks the distinct structural features of buildings, the uniform canopy of trees, or the smooth surface of water. Its location adjacent to large industrial-style buildings suggests it is an unpaved yard, construction site, or storage area for materials."
+        ],
+        "cost_cny": 0.00031560000000000003
+      },
+      "true_pair": [
+        2,
+        1
+      ],
+      "before_agrees": true,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0
+    },
+    {
+      "id": "train_2792_1to5",
+      "split": "confirm",
+      "group": "目标类",
+      "has_holes": true,
+      "remaining_gt_pixels": 5613,
+      "interpretation": {
+        "classes": [
+          "building",
+          "building"
+        ],
+        "pair": [
+          5,
+          5
+        ],
+        "evidence": [
+          "The region inside the red contour shows a long, rectangular structure with a distinct roof. The roof has a light-colored, possibly metallic or concrete surface, contrasting with the darker ground and adjacent blue-roofed buildings. Its geometric shape, uniform dimensions, and alignment with other similar structures in an industrial or warehouse complex strongly indicate it is a building.",
+          "The red contour highlights a long, rectangular structure with a flat, light-gray roof, which is characteristic of an industrial warehouse or factory building. It is part of a larger complex of similar structures and is situated adjacent to paved roads and other large blue-roofed buildings, indicating an industrial or commercial land use."
+        ],
+        "cost_cny": 0.00029160000000000004
+      },
+      "true_pair": [
+        1,
+        5
+      ],
+      "before_agrees": false,
+      "after_agrees": true,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0
+    },
+    {
+      "id": "train_2822_1to2",
+      "split": "tune",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "classes": [
+          "non-vegetated ground",
+          "non-vegetated ground"
+        ],
+        "pair": [
+          2,
+          2
+        ],
+        "evidence": [
+          "The area within the red contour displays a light brown, tan coloration consistent with exposed soil or dirt. The texture appears relatively smooth but uneven, lacking the distinct patterns of vegetation, the sharp geometric lines of buildings, or the dark reflectance of water. It is situated adjacent to a large industrial building and what appears to be a construction or access road, suggesting it is bare earth or a cleared plot of land.",
+          "The area within the red contour displays a patch of bare, brownish earth with a rough, uneven texture. It lacks the structured appearance of buildings or the dense green canopy of trees. The surrounding context shows rows of trees and large industrial buildings, suggesting this specific plot is an undeveloped or cleared lot of soil."
+        ],
+        "cost_cny": 0.0003116
+      },
+      "true_pair": [
+        1,
+        2
+      ],
+      "before_agrees": false,
+      "after_agrees": true,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0
+    },
+    {
+      "id": "train_2828_1to5",
+      "split": "confirm",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 43900,
+      "interpretation": {
+        "classes": [
+          "building",
+          "building"
+        ],
+        "pair": [
+          5,
+          5
+        ],
+        "evidence": [
+          "The region inside the red contour shows a long, rectangular structure with a distinct blue roof, consistent with the adjacent large industrial buildings. The shape is geometric and uniform, typical of man-made structures like warehouses or factories. In both close-up and wide views, it aligns with other similar blue-roofed buildings in an industrial complex.",
+          "The region inside the red contour shows a long, rectangular structure with a flat, blue-colored roof. This shape and color are consistent with the adjacent large structures in both the close-up and wide views, which appear to be industrial or agricultural buildings (warehouses/barns). The uniform texture and sharp edges further support that it is a man-made building rather than natural land cover."
+        ],
+        "cost_cny": 0.000302
+      },
+      "true_pair": [
+        1,
+        5
+      ],
+      "before_agrees": false,
+      "after_agrees": true,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0
+    },
+    {
+      "id": "train_2848_1to4",
+      "split": "tune",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "classes": [
+          "low vegetation",
+          "water"
+        ],
+        "pair": [
+          1,
+          4
+        ],
+        "evidence": [
+          "The area within the red contour displays a textured, mottled appearance with brownish-green tones, distinct from the bare, dusty brown of the surrounding fallow fields and the vibrant green of the cultivated crops to the right. This suggests the presence of sparse, low-growing ground cover or dry grass rather than bare soil, trees, or buildings.",
+          "The area inside the red contour is characterized by a uniform, dark greenish-blue color and a smooth, featureless texture. This appearance is distinct from the surrounding brown, textured soil and the structured, reflective surfaces of the adjacent greenhouses. The lack of visible vegetation structure or building features, combined with the flat, homogeneous tone, is highly indicative of a body of standing water, such as a pond or reservoir used for aquaculture or irrigation."
+        ],
+        "cost_cny": 0.00031560000000000003
+      },
+      "true_pair": [
+        1,
+        4
+      ],
+      "before_agrees": true,
+      "after_agrees": true,
+      "pair_agrees": true,
+      "semantic_review_required": false,
+      "new_cost_cny": 0.0
+    },
+    {
+      "id": "train_2890_5to1",
+      "split": "tune",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 492,
+      "interpretation": {
+        "classes": [
+          "building",
+          "non-vegetated ground"
+        ],
+        "pair": [
+          5,
+          2
+        ],
+        "evidence": [
+          "The region within the red contour displays a distinct rectangular shape with a light gray, uniform roof surface. In the wide view, it is situated adjacent to other industrial-style structures and paved areas, consistent with a warehouse or factory building. The linear features on the roof suggest paneling or seams typical of constructed buildings.",
+          "The area within the red contour displays a uniform, dark brownish-grey color and a smooth, featureless texture. It lacks the distinct patterns of buildings, the green hues of vegetation, or the reflective properties of water. Its appearance is consistent with bare soil, a paved yard, or an industrial storage area, fitting the 'non-vegetated ground' class."
+        ],
+        "cost_cny": 0.0002988
+      },
+      "true_pair": [
+        5,
+        1
+      ],
+      "before_agrees": true,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0
+    },
+    {
+      "id": "train_2912_5to2",
+      "split": "tune",
+      "group": "目标类",
+      "has_holes": true,
+      "remaining_gt_pixels": 429,
+      "interpretation": {
+        "classes": [
+          "building",
+          "building"
+        ],
+        "pair": [
+          5,
+          5
+        ],
+        "evidence": [
+          "The region enclosed by the red contour contains two distinct, rectangular structures with flat, light-colored (likely concrete or white) roofs. These are situated immediately adjacent to a longer building with a red roof, within a developed area characterized by similar industrial or commercial structures, paved surfaces, and roads. The geometric shape and context strongly indicate man-made buildings rather than natural features.",
+          "The region enclosed by the red contour contains two distinct, elongated rectangular structures with reddish-brown roofs. These shapes are consistent with industrial or warehouse buildings seen in the surrounding area. The 'wide' view confirms these are part of a row of similar built structures adjacent to a canal, ruling out natural features like vegetation or water."
+        ],
+        "cost_cny": 0.0002996
+      },
+      "true_pair": [
+        5,
+        2
+      ],
+      "before_agrees": true,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0
+    },
+    {
+      "id": "train_2928_3to1",
+      "split": "tune",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "classes": [
+          "building",
+          "tree"
+        ],
+        "pair": [
+          5,
+          3
+        ],
+        "evidence": [
+          "The area within the red contour shows a long, rectangular structure with a distinct roofline, consistent with an industrial building or warehouse. It is situated adjacent to other similar large structures with blue and grey roofs, typical of an industrial park. The texture appears uniform and hard, lacking the irregular patterns of vegetation or the reflective properties of water.",
+          "The red contour encloses a linear, dark green to black feature with a clumpy, irregular texture consistent with a row of tree canopies. It is situated along the edge of a building and adjacent to bare earth, typical of landscaping or a windbreak in an industrial area. The shape and density do not match low vegetation (too tall/dense), water (opaque, textured), or buildings (irregular organic shape)."
+        ],
+        "cost_cny": 0.0003108
+      },
+      "true_pair": [
+        3,
+        1
+      ],
+      "before_agrees": false,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0
+    },
+    {
+      "id": "train_368_1to2",
+      "split": "confirm",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 70577,
+      "interpretation": {
+        "classes": [
+          "building",
+          "water"
+        ],
+        "pair": [
+          5,
+          4
+        ],
+        "evidence": [
+          "The area within the red contour shows a long, linear structure with a dark, uniform surface, consistent with a roof. It is aligned in a row with other similar rectangular structures that appear to be warehouses or industrial buildings. The shape and context strongly suggest it is a building, likely part of a larger complex of storage or industrial facilities.",
+          "The region inside the red contour is a narrow, linear feature with a dark, uniform color and smooth texture, consistent with a canal or drainage ditch. It runs parallel to the buildings and roads, which is typical for water channels in industrial or urban areas. The surrounding land is mostly bare soil or paved, making the dark linear feature stand out as likely containing water."
+        ],
+        "cost_cny": 0.0002996
+      },
+      "true_pair": [
+        1,
+        2
+      ],
+      "before_agrees": false,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0
+    },
+    {
+      "id": "train_37_4to3",
+      "split": "confirm",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "classes": [
+          "building",
+          "tree"
+        ],
+        "pair": [
+          5,
+          3
+        ],
+        "evidence": [
+          "The region inside the red contour shows a long, rectangular structure with a flat, light-gray roof, typical of modern institutional or campus buildings. It is adjacent to other similar structures and paved areas, and its geometric shape and uniform color contrast with surrounding vegetation and water features. The presence of what appears to be a small white vehicle or object on the roof further supports that this is a man-made structure rather than natural land cover.",
+          "The area within the red contour displays a dark green color and a textured, clumpy surface characteristic of tree canopies. It is situated in a landscaped zone between buildings, consistent with a row or cluster of mature trees. The shadow cast to the left further indicates vertical structure typical of trees."
+        ],
+        "cost_cny": 0.0003028
+      },
+      "true_pair": [
+        4,
+        3
+      ],
+      "before_agrees": false,
+      "after_agrees": true,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0
+    },
+    {
+      "id": "train_378_1to4",
+      "split": "confirm",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "classes": [
+          "water",
+          "water"
+        ],
+        "pair": [
+          4,
+          4
+        ],
+        "evidence": [
+          "The area within the red contour is a narrow, elongated feature with dark blue-black coloration, typical of water bodies in satellite imagery. It runs parallel to other visible canals and fields, consistent with an irrigation or drainage channel. The surface appears smooth and reflective, lacking the texture of vegetation or ground.",
+          "The area inside the red contour displays a distinct dark, bluish-green color typical of water bodies in remote sensing imagery. It has a smooth, uniform texture lacking the roughness of vegetation or the sharp geometric edges of buildings. Its elongated, linear shape and position adjacent to what appears to be an agricultural field or embankment suggest it is a canal, irrigation ditch, or pond."
+        ],
+        "cost_cny": 0.0002996
+      },
+      "true_pair": [
+        1,
+        4
+      ],
+      "before_agrees": false,
+      "after_agrees": true,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0
+    },
+    {
+      "id": "train_385_5to6",
+      "split": "tune",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "classes": [
+          "building",
+          "playground"
+        ],
+        "pair": [
+          5,
+          6
+        ],
+        "evidence": [
+          "The region inside the red contour shows a rectangular structure with a uniform, bright blue color and flat texture, characteristic of a metal or painted roof. In the wide view, it is part of a larger complex of similar blue-roofed structures, typical of industrial warehouses or workshops. The shape is geometric and distinct from natural features like vegetation or water.",
+          "The area inside the red contour displays a distinct reddish-pink surface with faint linear markings, which is characteristic of synthetic sports court surfacing (e.g., basketball or tennis courts). It is situated adjacent to other similar green and red court areas, forming a larger sports complex. The texture appears smooth and uniform, consistent with a man-made recreational ground rather than natural vegetation or bare soil."
+        ],
+        "cost_cny": 0.0003068
+      },
+      "true_pair": [
+        5,
+        6
+      ],
+      "before_agrees": true,
+      "after_agrees": true,
+      "pair_agrees": true,
+      "semantic_review_required": false,
+      "new_cost_cny": 0.0
+    },
+    {
+      "id": "train_427_3to1",
+      "split": "confirm",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 364,
+      "interpretation": {
+        "classes": [
+          "building",
+          "non-vegetated ground"
+        ],
+        "pair": [
+          5,
+          2
+        ],
+        "evidence": [
+          "The area within the red contour displays a series of parallel, elongated structures with a distinct ribbed or arched texture. These features are characteristic of greenhouse roofs or industrial shed roofing. The regular, repeating pattern and linear alignment strongly indicate man-made structures rather than natural land cover like vegetation or ground.",
+          "The area within the red contour displays a brownish, earthy color with a rough, uneven texture. It lacks the distinct green coloration of low vegetation or trees and does not have the geometric shapes or white surfaces associated with buildings (like the nearby greenhouses). The appearance is consistent with bare soil, dirt, or a construction site."
+        ],
+        "cost_cny": 0.00029319999999999997
+      },
+      "true_pair": [
+        3,
+        1
+      ],
+      "before_agrees": false,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0
+    },
+    {
+      "id": "train_443_3to2",
+      "split": "tune",
+      "group": "地表类",
+      "has_holes": true,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "classes": [
+          "non-vegetated ground",
+          "low vegetation"
+        ],
+        "pair": [
+          2,
+          1
+        ],
+        "evidence": [
+          "The area within the red contour appears as a patch of bare earth or dirt, characterized by its brownish-gray color and lack of distinct structure. In the wide view, it is situated between a road and a construction site, consistent with exposed soil on an undeveloped or construction-adjacent lot. It lacks the green color and texture of vegetation, the defined geometric shapes of buildings, or the dark, smooth appearance of water.",
+          "In the wide view, the area within the red contour is part of a landscaped median or park strip between roads. It displays a mottled green texture consistent with grass or low shrubs, distinct from the darker, taller trees lining the adjacent streets. The shape is irregular and contained within a paved urban environment, ruling out water or large buildings."
+        ],
+        "cost_cny": 0.00031800000000000003
+      },
+      "true_pair": [
+        3,
+        2
+      ],
+      "before_agrees": false,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0
+    },
+    {
+      "id": "train_555_4to2",
+      "split": "tune",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "classes": [
+          "water",
+          "non-vegetated ground"
+        ],
+        "pair": [
+          4,
+          2
+        ],
+        "evidence": [
+          "The region inside the red contour displays a dark, greenish-blue color and a smooth, uniform texture consistent with a body of water. In the wide view, it is clearly part of a linear channel or river flowing between banks, distinct from the surrounding buildings, bare soil, and vegetation.",
+          "The region within the red contour displays a uniform, light gray color and smooth texture consistent with paved surfaces like asphalt or concrete. It forms a linear segment of a road that connects to a larger intersection visible in the wide view, surrounded by buildings and vegetation."
+        ],
+        "cost_cny": 0.00027800000000000004
+      },
+      "true_pair": [
+        4,
+        2
+      ],
+      "before_agrees": true,
+      "after_agrees": true,
+      "pair_agrees": true,
+      "semantic_review_required": false,
+      "new_cost_cny": 0.0
+    },
+    {
+      "id": "train_615_3to4",
+      "split": "confirm",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "classes": [
+          "low vegetation",
+          "low vegetation"
+        ],
+        "pair": [
+          1,
+          1
+        ],
+        "evidence": [
+          "In the wide view, the area within the red contour is located along the shoreline, adjacent to large industrial buildings and the water. The texture appears patchy and greenish-brown, distinct from the smooth dark water and the structured, light-colored rooftops of the nearby buildings. This appearance is consistent with a strip of grass, weeds, or other low-growing plants typically found on uncultivated banks or edges of industrial sites.",
+          "In the wide view, the area within the red contour is located on a small peninsula or tip of land at the water's edge, adjacent to a road. The texture inside the contour appears green and somewhat irregular, consistent with grass, shrubs, or small bushes. It lacks the distinct individual canopy shapes of trees and is clearly not bare soil (non-vegetated ground) or a built structure (building). Its location along the waterfront embankment further supports it being landscaped or natural low-growing vegetation."
+        ],
+        "cost_cny": 0.00034040000000000003
+      },
+      "true_pair": [
+        3,
+        4
+      ],
+      "before_agrees": false,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0
+    },
+    {
+      "id": "train_7_1to2",
+      "split": "tune",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 262,
+      "interpretation": {
+        "classes": [
+          "low vegetation",
+          "low vegetation"
+        ],
+        "pair": [
+          1,
+          1
+        ],
+        "evidence": [
+          "The area inside the red contour displays a brownish-red color and a textured, slightly uneven surface consistent with dry grass, scrub, or fallow agricultural land. It is clearly distinct from the smooth, gray paved surfaces of the airport runway and taxiways nearby. The texture lacks the defined structure of buildings or the dark, uniform appearance of water, fitting the characteristics of low-lying vegetative cover.",
+          "The area inside the red contour displays a textured, brownish-tan surface with distinct linear striations or rows. This pattern is consistent with tilled agricultural soil or sparse, low-lying crop residue, which falls under the category of low vegetation or bare ground associated with agriculture. It lacks the height or density of trees or buildings and does not have the uniform appearance of paved non-vegetated ground like the nearby road."
+        ],
+        "cost_cny": 0.00032120000000000006
+      },
+      "true_pair": [
+        1,
+        2
+      ],
+      "before_agrees": true,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0
+    },
+    {
+      "id": "train_786_3to5",
+      "split": "tune",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "classes": [
+          "tree",
+          "building"
+        ],
+        "pair": [
+          3,
+          5
+        ],
+        "evidence": [
+          "In the wide view, the area within the red contour is located in a narrow strip of land between a road and other buildings. This area has a dark, mottled green and grey texture that contrasts with the smoother, lighter-colored rooftops and paved surfaces nearby. The irregular, clumpy shape and coloration are characteristic of tree canopy or dense shrubbery in an urban environment. The close-up view shows a similar dark, textured patch consistent with foliage.",
+          "The region enclosed by the red contour exhibits a distinct rectangular shape with sharp, geometric edges, which is characteristic of man-made structures. In the wide view, it appears as a bright white, flat surface, consistent with a roof material like metal or concrete. Its size and regular form differentiate it from natural features like trees or vegetation, and its opaque, solid appearance rules out water. The context of being situated in a developed area with roads and other similar structures further supports the classification as a building."
+        ],
+        "cost_cny": 0.00034040000000000003
+      },
+      "true_pair": [
+        3,
+        5
+      ],
+      "before_agrees": true,
+      "after_agrees": true,
+      "pair_agrees": true,
+      "semantic_review_required": false,
+      "new_cost_cny": 0.0
+    },
+    {
+      "id": "train_908_4to1",
+      "split": "tune",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "classes": [
+          "low vegetation",
+          "water"
+        ],
+        "pair": [
+          1,
+          4
+        ],
+        "evidence": [
+          "In the wide view, the area inside the red contour is located on the bank of a dark river, adjacent to a patch of darker, denser tree cover. The texture within the contour appears slightly lighter and more uniform than the surrounding forest, consistent with grassy or shrubby riparian vegetation. It lacks the distinct geometric shapes of buildings or playgrounds, the smooth dark appearance of water, or the bare soil look of non-vegetated ground.",
+          "The area inside the red contour is dark blue-grey and uniform in texture, consistent with the adjacent river or canal visible in the wide view. It is located within a waterway channel between built-up banks, and lacks the texture of vegetation or the sharp edges of buildings."
+        ],
+        "cost_cny": 0.0003036
+      },
+      "true_pair": [
+        4,
+        1
+      ],
+      "before_agrees": false,
+      "after_agrees": false,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0
+    },
+    {
+      "id": "train_915_3to4",
+      "split": "tune",
+      "group": "地表类",
+      "has_holes": false,
+      "remaining_gt_pixels": 1,
+      "interpretation": {
+        "classes": [
+          "low vegetation",
+          "water"
+        ],
+        "pair": [
+          1,
+          4
+        ],
+        "evidence": [
+          "The area inside the red contour displays a green, textured appearance consistent with grassy or herbaceous ground cover. It forms a narrow strip along the edge of the dark water body to the right and adjacent to the open field. The texture is finer and more uniform than that of trees, and it lacks the hard edges or geometric shapes of buildings or non-vegetated ground.",
+          "The region inside the red contour is located adjacent to a large, dark body of water on the right side of the image. The area within the contour shares the same dark, uniform color and smooth texture as the adjacent water body, suggesting it is part of the same aquatic feature, possibly a channel or edge of a harbor. There are no visible structures, vegetation, or ground textures that would indicate land cover."
+        ],
+        "cost_cny": 0.0003132
+      },
+      "true_pair": [
+        3,
+        4
+      ],
+      "before_agrees": false,
+      "after_agrees": true,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0
+    },
+    {
+      "id": "train_968_5to3",
+      "split": "confirm",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 62,
+      "interpretation": {
+        "classes": [
+          "tree",
+          "tree"
+        ],
+        "pair": [
+          3,
+          3
+        ],
+        "evidence": [
+          "In the wide view, the area inside the red contour shows a dark, textured patch consistent with tree canopy. It is located in a row of similar vegetation along the edge of a road, adjacent to a large building with a blue roof. The shape and context suggest it is part of a line of trees or shrubs bordering the roadway.",
+          "In the wide view, the area inside the red contour shows a dark green, textured patch consistent with tree canopy, situated in a row alongside other similar vegetation next to a building and road. The close-up view confirms a clumped, irregular shape and dark green coloration typical of foliage, distinct from the adjacent blue roof and light-colored ground."
+        ],
+        "cost_cny": 0.000298
+      },
+      "true_pair": [
+        5,
+        3
+      ],
+      "before_agrees": false,
+      "after_agrees": true,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0
+    },
+    {
+      "id": "train_987_3to5",
+      "split": "tune",
+      "group": "目标类",
+      "has_holes": false,
+      "remaining_gt_pixels": 0,
+      "interpretation": {
+        "classes": [
+          "low vegetation",
+          "building"
+        ],
+        "pair": [
+          1,
+          5
+        ],
+        "evidence": [
+          "The area inside the red contour shows a narrow, linear strip of greenish-brown texture running parallel to the edge of the large building's foundation. This appearance is consistent with a grassy verge, landscaped strip, or unkempt ground cover typically found along the perimeter of industrial structures, distinguishing it from the adjacent paved roads and bare soil.",
+          "The area within the red contour shows a long, rectangular structure with a flat, light-gray roof that matches the material and appearance of the adjacent large industrial buildings. Its geometric shape and alignment with the main building complex indicate it is an extension or an附属 structure (like a loading bay or corridor) of the warehouse."
+        ],
+        "cost_cny": 0.0002956
+      },
+      "true_pair": [
+        3,
+        5
+      ],
+      "before_agrees": false,
+      "after_agrees": true,
+      "pair_agrees": false,
+      "semantic_review_required": true,
+      "new_cost_cny": 0.0
+    }
+  ],
+  "label_agreement_only": true,
+  "summary": [
+    {
+      "split": "all",
+      "group": "全部",
+      "holes": "all",
+      "tasks": 60,
+      "before_label_agreement": 0.5333333333333333,
+      "after_label_agreement": 0.5,
+      "pair_label_agreement": 0.21666666666666667
+    },
+    {
+      "split": "all",
+      "group": "全部",
+      "holes": "holes",
+      "tasks": 7,
+      "before_label_agreement": 0.42857142857142855,
+      "after_label_agreement": 0.2857142857142857,
+      "pair_label_agreement": 0.0
+    },
+    {
+      "split": "all",
+      "group": "全部",
+      "holes": "no_holes",
+      "tasks": 53,
+      "before_label_agreement": 0.5471698113207547,
+      "after_label_agreement": 0.5283018867924528,
+      "pair_label_agreement": 0.24528301886792453
+    },
+    {
+      "split": "all",
+      "group": "目标类",
+      "holes": "all",
+      "tasks": 27,
+      "before_label_agreement": 0.5185185185185185,
+      "after_label_agreement": 0.6666666666666666,
+      "pair_label_agreement": 0.25925925925925924
+    },
+    {
+      "split": "all",
+      "group": "目标类",
+      "holes": "holes",
+      "tasks": 2,
+      "before_label_agreement": 0.5,
+      "after_label_agreement": 0.5,
+      "pair_label_agreement": 0.0
+    },
+    {
+      "split": "all",
+      "group": "目标类",
+      "holes": "no_holes",
+      "tasks": 25,
+      "before_label_agreement": 0.52,
+      "after_label_agreement": 0.68,
+      "pair_label_agreement": 0.28
+    },
+    {
+      "split": "all",
+      "group": "地表类",
+      "holes": "all",
+      "tasks": 33,
+      "before_label_agreement": 0.5454545454545454,
+      "after_label_agreement": 0.36363636363636365,
+      "pair_label_agreement": 0.18181818181818182
+    },
+    {
+      "split": "all",
+      "group": "地表类",
+      "holes": "holes",
+      "tasks": 5,
+      "before_label_agreement": 0.4,
+      "after_label_agreement": 0.2,
+      "pair_label_agreement": 0.0
+    },
+    {
+      "split": "all",
+      "group": "地表类",
+      "holes": "no_holes",
+      "tasks": 28,
+      "before_label_agreement": 0.5714285714285714,
+      "after_label_agreement": 0.39285714285714285,
+      "pair_label_agreement": 0.21428571428571427
+    },
+    {
+      "split": "tune",
+      "group": "全部",
+      "holes": "all",
+      "tasks": 30,
+      "before_label_agreement": 0.5333333333333333,
+      "after_label_agreement": 0.5,
+      "pair_label_agreement": 0.26666666666666666
+    },
+    {
+      "split": "tune",
+      "group": "全部",
+      "holes": "holes",
+      "tasks": 5,
+      "before_label_agreement": 0.4,
+      "after_label_agreement": 0.2,
+      "pair_label_agreement": 0.0
+    },
+    {
+      "split": "tune",
+      "group": "全部",
+      "holes": "no_holes",
+      "tasks": 25,
+      "before_label_agreement": 0.56,
+      "after_label_agreement": 0.56,
+      "pair_label_agreement": 0.32
+    },
+    {
+      "split": "tune",
+      "group": "目标类",
+      "holes": "all",
+      "tasks": 15,
+      "before_label_agreement": 0.6,
+      "after_label_agreement": 0.6,
+      "pair_label_agreement": 0.3333333333333333
+    },
+    {
+      "split": "tune",
+      "group": "目标类",
+      "holes": "holes",
+      "tasks": 1,
+      "before_label_agreement": 1.0,
+      "after_label_agreement": 0.0,
+      "pair_label_agreement": 0.0
+    },
+    {
+      "split": "tune",
+      "group": "目标类",
+      "holes": "no_holes",
+      "tasks": 14,
+      "before_label_agreement": 0.5714285714285714,
+      "after_label_agreement": 0.6428571428571429,
+      "pair_label_agreement": 0.35714285714285715
+    },
+    {
+      "split": "tune",
+      "group": "地表类",
+      "holes": "all",
+      "tasks": 15,
+      "before_label_agreement": 0.4666666666666667,
+      "after_label_agreement": 0.4,
+      "pair_label_agreement": 0.2
+    },
+    {
+      "split": "tune",
+      "group": "地表类",
+      "holes": "holes",
+      "tasks": 4,
+      "before_label_agreement": 0.25,
+      "after_label_agreement": 0.25,
+      "pair_label_agreement": 0.0
+    },
+    {
+      "split": "tune",
+      "group": "地表类",
+      "holes": "no_holes",
+      "tasks": 11,
+      "before_label_agreement": 0.5454545454545454,
+      "after_label_agreement": 0.45454545454545453,
+      "pair_label_agreement": 0.2727272727272727
+    },
+    {
+      "split": "confirm",
+      "group": "全部",
+      "holes": "all",
+      "tasks": 30,
+      "before_label_agreement": 0.5333333333333333,
+      "after_label_agreement": 0.5,
+      "pair_label_agreement": 0.16666666666666666
+    },
+    {
+      "split": "confirm",
+      "group": "全部",
+      "holes": "holes",
+      "tasks": 2,
+      "before_label_agreement": 0.5,
+      "after_label_agreement": 0.5,
+      "pair_label_agreement": 0.0
+    },
+    {
+      "split": "confirm",
+      "group": "全部",
+      "holes": "no_holes",
+      "tasks": 28,
+      "before_label_agreement": 0.5357142857142857,
+      "after_label_agreement": 0.5,
+      "pair_label_agreement": 0.17857142857142858
+    },
+    {
+      "split": "confirm",
+      "group": "目标类",
+      "holes": "all",
+      "tasks": 12,
+      "before_label_agreement": 0.4166666666666667,
+      "after_label_agreement": 0.75,
+      "pair_label_agreement": 0.16666666666666666
+    },
+    {
+      "split": "confirm",
+      "group": "目标类",
+      "holes": "holes",
+      "tasks": 1,
+      "before_label_agreement": 0.0,
+      "after_label_agreement": 1.0,
+      "pair_label_agreement": 0.0
+    },
+    {
+      "split": "confirm",
+      "group": "目标类",
+      "holes": "no_holes",
+      "tasks": 11,
+      "before_label_agreement": 0.45454545454545453,
+      "after_label_agreement": 0.7272727272727273,
+      "pair_label_agreement": 0.18181818181818182
+    },
+    {
+      "split": "confirm",
+      "group": "地表类",
+      "holes": "all",
+      "tasks": 18,
+      "before_label_agreement": 0.6111111111111112,
+      "after_label_agreement": 0.3333333333333333,
+      "pair_label_agreement": 0.16666666666666666
+    },
+    {
+      "split": "confirm",
+      "group": "地表类",
+      "holes": "holes",
+      "tasks": 1,
+      "before_label_agreement": 1.0,
+      "after_label_agreement": 0.0,
+      "pair_label_agreement": 0.0
+    },
+    {
+      "split": "confirm",
+      "group": "地表类",
+      "holes": "no_holes",
+      "tasks": 17,
+      "before_label_agreement": 0.5882352941176471,
+      "after_label_agreement": 0.35294117647058826,
+      "pair_label_agreement": 0.17647058823529413
+    }
+  ],
+  "new_cost_cny": 0.0
+}

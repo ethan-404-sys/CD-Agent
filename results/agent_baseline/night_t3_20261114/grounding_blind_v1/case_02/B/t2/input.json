@@ -1,0 +1,14 @@
+{
+  "system": "Identify land cover only on the bright, unmodified support pixels in the target-date spotlight views. All darkened pixels, including dark holes surrounded by bright support, are excluded. Do not classify objects inside excluded holes. Both views show only this same date.",
+  "question": "Target date is T2. Choose one class from low vegetation, non-vegetated ground, tree, water, building, playground, unknown. Use unknown when the region cannot be identified reliably. Return JSON {\"class\":\"one allowed class\", \"evidence\":\"visible texture, shape, colour and context supporting the choice\"}.",
+  "images": [
+    {
+      "label": "Target date T2 spotlight close",
+      "path": "input_00.png"
+    },
+    {
+      "label": "Target date T2 spotlight wide",
+      "path": "input_01.png"
+    }
+  ]
+}
