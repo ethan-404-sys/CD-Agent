@@ -1,0 +1,17 @@
+{
+  "raw": "{\n\"change\": \"yes\",\n\"example_t1\": \"industrial building with red roof\",\n\"example_t2\": \"industrial building with red roof\",\n\"candidate_t1\": \"industrial building with red roof\",\n\"candidate_t2\": \"demolished site / bare ground\",\n\"reason\": \"The Example region shows a stable industrial building across both time steps (no change). The Candidate region, however, shows a clear transition from an intact industrial building with a red roof at T1 to a demolished site or bare ground at T2. Since the Example is unchanged and the Candidate undergoes demolition, they do not show the same directed land-cover transition.\"\n}",
+  "parsed": {
+    "change": "yes",
+    "example_t1": "industrial building with red roof",
+    "example_t2": "industrial building with red roof",
+    "candidate_t1": "industrial building with red roof",
+    "candidate_t2": "demolished site / bare ground",
+    "reason": "The Example region shows a stable industrial building across both time steps (no change). The Candidate region, however, shows a clear transition from an intact industrial building with a red roof at T1 to a demolished site or bare ground at T2. Since the Example is unchanged and the Candidate undergoes demolition, they do not show the same directed land-cover transition."
+  },
+  "tokens": {
+    "input": 1362,
+    "cached": 0,
+    "output": 145
+  },
+  "cost_cny": 0.0003884
+}

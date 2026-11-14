@@ -1,0 +1,23 @@
+{
+  "attempt": 1,
+  "raw": "{\n\"change\": \"yes\",\n\"example_t1\": \"building with fire\",\n\"example_t2\": \"building without fire\",\n\"candidate_t1\": \"building\",\n\"candidate_t2\": \"building\",\n\"reason\": \"The Example shows a building that is on fire at T1 and is extinguished (or the fire event has passed) at T2, representing a change in state (destruction/burning). The Candidate shows the same building structure at T1 and T2 with no visible fire or structural collapse, indicating no significant land-cover transition occurred in the candidate region compared to the example.\"\n}",
+  "usage": {
+    "prompt_tokens": 1362,
+    "total_tokens": 1494,
+    "completion_tokens": 132,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 1168,
+      "text_tokens": 194
+    },
+    "completion_tokens_details": {
+      "text_tokens": 132
+    }
+  },
+  "http_status": null,
+  "requested_model": "qwen3.7-flash",
+  "error_body": null,
+  "error_type": null,
+  "retryable": null,
+  "seconds": 1.7793974969536066
+}

@@ -1,0 +1,17 @@
+{
+  "raw": "{\n\"change\": \"no\",\n\"example_t1\": \"industrial building with red roof\",\n\"example_t2\": \"industrial building with red roof\",\n\"candidate_t1\": \"industrial building with blue roof\",\n\"candidate_t2\": \"bare ground / demolition site\",\n\"reason\": \"The example region shows no change (same red-roofed building in T1 and T2), while the candidate region shows a transition from a blue-roofed industrial building to bare ground (demolition). Since the example is unchanged and the candidate shows a change, they do not match.\"\n}",
+  "parsed": {
+    "change": "no",
+    "example_t1": "industrial building with red roof",
+    "example_t2": "industrial building with red roof",
+    "candidate_t1": "industrial building with blue roof",
+    "candidate_t2": "bare ground / demolition site",
+    "reason": "The example region shows no change (same red-roofed building in T1 and T2), while the candidate region shows a transition from a blue-roofed industrial building to bare ground (demolition). Since the example is unchanged and the candidate shows a change, they do not match."
+  },
+  "tokens": {
+    "input": 1362,
+    "cached": 0,
+    "output": 131
+  },
+  "cost_cny": 0.00037720000000000006
+}

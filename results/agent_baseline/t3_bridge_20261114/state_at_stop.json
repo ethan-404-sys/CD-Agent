@@ -1,0 +1,155 @@
+{
+  "name": "cd-t3-bridge-20261114",
+  "status": "done",
+  "queue": [],
+  "done": [
+    "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-t3-bridge-20261114/jobs/01-smoke.sbatch",
+    "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-t3-bridge-20261114/jobs/02-dev60.sbatch",
+    "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-t3-bridge-20261114/jobs/03-offline-archive.sbatch"
+  ],
+  "current": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-t3-bridge-20261114/jobs/03-offline-archive.sbatch",
+  "job_id": "186388",
+  "hook_id": "186389",
+  "rounds": 3,
+  "rounds_submitted": 3,
+  "primary_best": null,
+  "cost_cny": 0.262883,
+  "finalized": false,
+  "finalize_requested": true,
+  "started_at": "2026-11-14 21:18:28",
+  "started_epoch": 1794662308.3394065,
+  "history": [
+    {
+      "job": "01-smoke.sbatch",
+      "job_id": "185325",
+      "hook_id": "185326",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0.008628,
+      "metric": {
+        "stage": "smoke",
+        "completed": 3,
+        "failed": 0,
+        "failed_tasks": 0,
+        "cost_cny": 0.008627600000000001,
+        "cumulative": true,
+        "result_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/smoke/summary.json"
+      },
+      "metric_error": null,
+      "at": "2026-11-14 21:21:04"
+    },
+    {
+      "job": "02-dev60.sbatch",
+      "job_id": "185349",
+      "hook_id": "185350",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0.254255,
+      "metric": {
+        "stage": "dev60",
+        "completed": 60,
+        "failed": 0,
+        "failed_tasks": 0,
+        "cost_cny": 0.26288280000000036,
+        "cumulative": true,
+        "result_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/summary.json"
+      },
+      "metric_error": null,
+      "at": "2026-11-14 22:21:39"
+    },
+    {
+      "job": "03-offline-archive.sbatch",
+      "job_id": "186388",
+      "hook_id": "186389",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0.0,
+      "metric": {
+        "stage": "dev60",
+        "completed": 60,
+        "failed": 0,
+        "failed_tasks": 0,
+        "cost_cny": 0.26288280000000036,
+        "cumulative": true,
+        "result_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/summary.json"
+      },
+      "metric_error": null,
+      "at": "2026-11-14 22:54:38"
+    }
+  ],
+  "driver": "dependency",
+  "recorded_current": true,
+  "submitted_at": "2026-11-14 22:54:17",
+  "last_advance_at": "2026-11-14 22:54:17",
+  "hook_attempts": 5,
+  "review_count": 3,
+  "review": {
+    "id": "event-0003",
+    "kind": "round_finished",
+    "error": null,
+    "at": "2026-11-14 22:54:38",
+    "job_id": "186388",
+    "hook_id": "186389",
+    "current": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-t3-bridge-20261114/jobs/03-offline-archive.sbatch",
+    "latest": {
+      "job": "03-offline-archive.sbatch",
+      "job_id": "186388",
+      "hook_id": "186389",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0.0,
+      "metric": {
+        "stage": "dev60",
+        "completed": 60,
+        "failed": 0,
+        "failed_tasks": 0,
+        "cost_cny": 0.26288280000000036,
+        "cumulative": true,
+        "result_path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/summary.json"
+      },
+      "metric_error": null,
+      "at": "2026-11-14 22:54:38"
+    },
+    "queued_jobs": [],
+    "cost_cny": 0.262883,
+    "delivery": "pending",
+    "delivery_error": "thread/resume: {'code': -32600, 'message': 'thread 01a1d014-9f29-76a1-8fce-cdbd93601af4 already has an active writer'}"
+  },
+  "decisions": [
+    {
+      "event_id": "event-0001",
+      "action": "add",
+      "job": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-t3-bridge-20261114/jobs/02-dev60.sbatch",
+      "reason": "Smoke185325 completed 3/3, pair-label agreement2/3, only3 target pixels after exemplar exclusion: pipeline validation only. Run fixed dev60, reuse DINO and successful requests, no sample replacement. Delivery socket mismatch documented; this decision follows persisted actual event.",
+      "at": "2026-11-14 21:40:48"
+    },
+    {
+      "event_id": "event-0002",
+      "action": "add",
+      "job": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-t3-bridge-20261114/jobs/03-offline-archive.sbatch",
+      "reason": "dev60 completed60/60; label-pair agreement13/60 and bridge verified F1 4.216 below matched DINO5.756. Archive complete evidence and geometry; night research changes grounding hypothesis per new N2, no premature online escalation.",
+      "at": "2026-11-14 22:54:15"
+    },
+    {
+      "event_id": "event-0003",
+      "action": "finish",
+      "reason": "Initial fixed-dev60 semantic bridge study and full geometry/report archive complete; all60 parsed, no effectiveness claim (matched bridge verified4.216 vs DINO5.756). Subsequent grounding/retrieval research active independently in cd-night-t3-20261114. Preserve full original records; cost .2628828.",
+      "at": "2026-11-14 22:59:49"
+    }
+  ],
+  "finalize_attempts": 1,
+  "git_committed": false,
+  "git_pushed": false,
+  "notified": false,
+  "stop_reason": "Initial fixed-dev60 semantic bridge study and full geometry/report archive complete; all60 parsed, no effectiveness claim (matched bridge verified4.216 vs DINO5.756). Subsequent grounding/retrieval research active independently in cd-night-t3-20261114. Preserve full original records; cost .2628828.",
+  "finished_at": "2026-11-14 22:59:49",
+  "elapsed_seconds": 6080.9
+}

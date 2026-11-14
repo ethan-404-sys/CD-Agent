@@ -1,0 +1,23 @@
+{
+  "attempt": 1,
+  "raw": "{\n\"change\": \"yes\",\n\"example_t1\": \"impervious surface (white roof)\",\n\"example_t2\": \"vegetation (tree canopy)\",\n\"candidate_t1\": \"impervious surface (orange roof)\",\n\"candidate_t2\": \"impervious surface (darker roof/structure)\",\n\"reason\": \"The Example shows a transition from an impervious surface to vegetation (tree growth), while the Candidate shows a change within impervious surfaces (roof color/material change) without becoming vegetation. Although both involve urban change, the specific land-cover transition type differs (natural vs. built environment modification). However, if 'land-cover transition' is interpreted broadly as any significant spectral change in an urban setting, one might argue yes. But strictly speaking, vegetation vs. non-vegetation is a major land cover class distinction. Given the prompt asks for 'same directed land-cover transition', and one is I->V and the other is I->I (different material), they are not the same directed transition.\"\n}",
+  "usage": {
+    "prompt_tokens": 1362,
+    "total_tokens": 1580,
+    "completion_tokens": 218,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 1168,
+      "text_tokens": 194
+    },
+    "completion_tokens_details": {
+      "text_tokens": 218
+    }
+  },
+  "http_status": null,
+  "requested_model": "qwen3.7-flash",
+  "error_body": null,
+  "error_type": null,
+  "retryable": null,
+  "seconds": 2.466390233486891
+}

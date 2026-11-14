@@ -1,0 +1,17 @@
+{
+  "raw": "{\n\"change\": \"yes\",\n\"example_t1\": \"industrial building with red roof\",\n\"example_t2\": \"industrial building with blue roof\",\n\"candidate_t1\": \"industrial building with blue roof\",\n\"candidate_t2\": \"industrial building with red/brown roof\",\n\"reason\": \"The Example shows a transition from a red-roofed building to a blue-roofed building (or addition of blue roof). The Candidate shows the reverse: a blue-roofed building changing to a red/brown-roofed building. Since the directions are opposite, they do not match.\"\n}",
+  "parsed": {
+    "change": "yes",
+    "example_t1": "industrial building with red roof",
+    "example_t2": "industrial building with blue roof",
+    "candidate_t1": "industrial building with blue roof",
+    "candidate_t2": "industrial building with red/brown roof",
+    "reason": "The Example shows a transition from a red-roofed building to a blue-roofed building (or addition of blue roof). The Candidate shows the reverse: a blue-roofed building changing to a red/brown-roofed building. Since the directions are opposite, they do not match."
+  },
+  "tokens": {
+    "input": 1362,
+    "cached": 0,
+    "output": 134
+  },
+  "cost_cny": 0.0003796
+}

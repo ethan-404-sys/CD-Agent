@@ -1,0 +1,23 @@
+{
+  "attempt": 1,
+  "raw": "{\n\"change\": \"yes\",\n\"example_t1\": \"vegetation\",\n\"example_t2\": \"bare_ground\",\n\"candidate_t1\": \"vegetation\",\n\"candidate_t2\": \"impervious\",\n\"reason\": \"Both regions show a transition from vegetation to a non-vegetated surface. The example shows vegetation being cleared to bare ground (likely construction preparation), while the candidate shows vegetation being replaced by impervious surfaces (buildings/pavement). Both represent the same directed loss of vegetation cover in an urban/industrial context.\"\n}",
+  "usage": {
+    "prompt_tokens": 1362,
+    "total_tokens": 1484,
+    "completion_tokens": 122,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 1168,
+      "text_tokens": 194
+    },
+    "completion_tokens_details": {
+      "text_tokens": 122
+    }
+  },
+  "http_status": null,
+  "requested_model": "qwen3.7-flash",
+  "error_body": null,
+  "error_type": null,
+  "retryable": null,
+  "seconds": 1.987352853640914
+}

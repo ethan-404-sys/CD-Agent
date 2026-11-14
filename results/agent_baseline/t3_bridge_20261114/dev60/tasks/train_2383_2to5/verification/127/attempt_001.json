@@ -1,0 +1,23 @@
+{
+  "attempt": 1,
+  "raw": "{\n\"change\": \"yes\",\n\"example_t1\": \"industrial building\",\n\"example_t2\": \"industrial building\",\n\"candidate_t1\": \"industrial building\",\n\"candidate_t2\": \"industrial building\",\n\"reason\": \"Both regions show an industrial building at T1 that remains an industrial building at T2, but with a visible change in roof color/texture (grey to blue), indicating renovation or re-roofing. This represents the same directed land-cover transition (industrial -> industrial with modification) in both Example and Candidate.\"\n}",
+  "usage": {
+    "prompt_tokens": 1362,
+    "total_tokens": 1485,
+    "completion_tokens": 123,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 1168,
+      "text_tokens": 194
+    },
+    "completion_tokens_details": {
+      "text_tokens": 123
+    }
+  },
+  "http_status": null,
+  "requested_model": "qwen3.7-flash",
+  "error_body": null,
+  "error_type": null,
+  "retryable": null,
+  "seconds": 1.9293668437749147
+}

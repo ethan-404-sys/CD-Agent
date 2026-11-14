@@ -1,0 +1,17 @@
+{
+  "raw": "{\n\"change\": \"no\",\n\"example_t1\": \"industrial building\",\n\"example_t2\": \"industrial building\",\n\"candidate_t1\": \"vehicle\",\n\"candidate_t2\": \"road\",\n\"reason\": \"The example region shows a static industrial building with no land cover change between T1 and T2. The candidate region shows a vehicle at T1 that is absent at T2, revealing the underlying road; this is a transient object removal rather than a directed land-cover transition.\"\n}",
+  "parsed": {
+    "change": "no",
+    "example_t1": "industrial building",
+    "example_t2": "industrial building",
+    "candidate_t1": "vehicle",
+    "candidate_t2": "road",
+    "reason": "The example region shows a static industrial building with no land cover change between T1 and T2. The candidate region shows a vehicle at T1 that is absent at T2, revealing the underlying road; this is a transient object removal rather than a directed land-cover transition."
+  },
+  "tokens": {
+    "input": 1362,
+    "cached": 0,
+    "output": 111
+  },
+  "cost_cny": 0.00036120000000000005
+}

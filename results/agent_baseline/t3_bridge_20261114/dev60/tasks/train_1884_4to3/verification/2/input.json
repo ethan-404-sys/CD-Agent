@@ -1,0 +1,42 @@
+{
+  "system": "Compare land-cover changes in two regions of remote sensing image pairs. Example and Candidate are separate regions. Each has T1/T2 close-ups and wider views. The red contour marks the region. Infer land cover before and after in each region. Reply JSON only. Reverse transitions and unchanged regions are not matches.",
+  "question": "Does the Candidate show the same directed land-cover transition as the Example? Identify what each region was at T1 and becomes at T2. Reply {\"change\":\"yes\" or \"no\", \"example_t1\":\"class\", \"example_t2\":\"class\", \"candidate_t1\":\"class\", \"candidate_t2\":\"class\", \"reason\":\"short explanation\"}.",
+  "images": [
+    {
+      "label": "Example T1 close-up",
+      "path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_1884_4to3/verification/2/00.png"
+    },
+    {
+      "label": "Example T2 close-up",
+      "path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_1884_4to3/verification/2/01.png"
+    },
+    {
+      "label": "Example T1 wider view",
+      "path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_1884_4to3/verification/2/02.png"
+    },
+    {
+      "label": "Example T2 wider view",
+      "path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_1884_4to3/verification/2/03.png"
+    },
+    {
+      "label": "Candidate T1 close-up",
+      "path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_1884_4to3/verification/2/04.png"
+    },
+    {
+      "label": "Candidate T2 close-up",
+      "path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_1884_4to3/verification/2/05.png"
+    },
+    {
+      "label": "Candidate T1 wider view",
+      "path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_1884_4to3/verification/2/06.png"
+    },
+    {
+      "label": "Candidate T2 wider view",
+      "path": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_1884_4to3/verification/2/07.png"
+    }
+  ],
+  "model": "qwen3.7-flash",
+  "seed": 1016,
+  "max_tokens": 768,
+  "temperature": 0
+}

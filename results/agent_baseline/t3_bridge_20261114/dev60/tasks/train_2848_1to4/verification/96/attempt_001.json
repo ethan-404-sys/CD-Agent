@@ -1,0 +1,23 @@
+{
+  "attempt": 1,
+  "raw": "{\n\"change\": \"no\",\n\"example_t1\": \"bare soil\",\n\"example_t2\": \"greenhouse\",\n\"candidate_t1\": \"cropland\",\n\"candidate_t2\": \"building\",\n\"reason\": \"The example shows a transition from bare soil to a greenhouse structure, while the candidate shows a transition from green cropland to a building/impervious surface. The specific land cover classes and the nature of the change (agricultural infrastructure vs. construction on active farm) are different.\"\n}",
+  "usage": {
+    "prompt_tokens": 1362,
+    "total_tokens": 1476,
+    "completion_tokens": 114,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 1168,
+      "text_tokens": 194
+    },
+    "completion_tokens_details": {
+      "text_tokens": 114
+    }
+  },
+  "http_status": null,
+  "requested_model": "qwen3.7-flash",
+  "error_body": null,
+  "error_type": null,
+  "retryable": null,
+  "seconds": 2.219496900215745
+}

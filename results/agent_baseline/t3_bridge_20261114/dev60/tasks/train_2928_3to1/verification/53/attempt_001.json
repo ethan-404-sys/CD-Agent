@@ -1,0 +1,23 @@
+{
+  "attempt": 1,
+  "raw": "{\n\"change\": \"yes\",\n\"example_t1\": \"vegetation/uncleared land\",\n\"example_t2\": \"impervious surface (building/parking)\",\n\"candidate_t1\": \"impervious surface (small building)\",\n\"candidate_t2\": \"impervious surface (road extension)\",\n\"reason\": \"Both regions show a transition from a non-built or natural state (vegetation in Example, small structure in Candidate) to an expanded impervious surface (new building/parking lot in Example, new road segment in Candidate) consistent with urban/industrial expansion.\"\n}",
+  "usage": {
+    "prompt_tokens": 1362,
+    "total_tokens": 1491,
+    "completion_tokens": 129,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 1168,
+      "text_tokens": 194
+    },
+    "completion_tokens_details": {
+      "text_tokens": 129
+    }
+  },
+  "http_status": null,
+  "requested_model": "qwen3.7-flash",
+  "error_body": null,
+  "error_type": null,
+  "retryable": null,
+  "seconds": 2.6312915589660406
+}

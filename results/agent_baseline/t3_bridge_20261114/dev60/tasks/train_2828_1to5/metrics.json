@@ -1,0 +1,546 @@
+{
+  "id": "train_2828_1to5",
+  "group": "目标类",
+  "interpretation": {
+    "classes": [
+      "building",
+      "building"
+    ],
+    "pair": [
+      5,
+      5
+    ],
+    "evidence": [
+      "The region inside the red contour shows a long, rectangular structure with a distinct blue roof, consistent with the adjacent large industrial buildings. The shape is geometric and uniform, typical of man-made structures like warehouses or factories. In both close-up and wide views, it aligns with other similar blue-roofed buildings in an industrial complex.",
+      "The region inside the red contour shows a long, rectangular structure with a flat, blue-colored roof. This shape and color are consistent with the adjacent large structures in both the close-up and wide views, which appear to be industrial or agricultural buildings (warehouses/barns). The uniform texture and sharp edges further support that it is a man-made building rather than natural land cover."
+    ],
+    "cost_cny": 0.000302
+  },
+  "true_pair": [
+    1,
+    5
+  ],
+  "before_correct": false,
+  "after_correct": true,
+  "pair_correct": false,
+  "semantic_review_required": true,
+  "semantic_review_note": "GT class agreement is not an adjudicated visual-understanding accuracy; review both dates for exemplar recognizability, class ambiguity and label discrepancy before assigning a model error.",
+  "proposal_upper": {
+    "gt_instances": 11,
+    "aligned_instances": 7,
+    "truth_pixels": 43900,
+    "covered_pixels": 43298,
+    "proposals": 125,
+    "instance_recall_upper": 0.6363636363636364,
+    "pixel_coverage_upper": 0.9862870159453303,
+    "pixel_f1_upper": 99.30961719305489
+  },
+  "records": [
+    {
+      "method": "dino",
+      "k": 4,
+      "counts": [
+        1595,
+        32328,
+        42305
+      ],
+      "candidates": [
+        121,
+        9,
+        33,
+        122
+      ],
+      "recall": {
+        "gt_instances": 11,
+        "aligned_instances": 0,
+        "truth_pixels": 43900,
+        "covered_pixels": 1595,
+        "proposals": 4,
+        "instance_recall_upper": 0.0,
+        "pixel_coverage_upper": 0.03633257403189066,
+        "pixel_f1_upper": 7.011759534014727
+      }
+    },
+    {
+      "method": "dino",
+      "k": 8,
+      "counts": [
+        1595,
+        33875,
+        42305
+      ],
+      "candidates": [
+        121,
+        9,
+        33,
+        122,
+        85,
+        91,
+        80,
+        20
+      ],
+      "recall": {
+        "gt_instances": 11,
+        "aligned_instances": 0,
+        "truth_pixels": 43900,
+        "covered_pixels": 1595,
+        "proposals": 8,
+        "instance_recall_upper": 0.0,
+        "pixel_coverage_upper": 0.03633257403189066,
+        "pixel_f1_upper": 7.011759534014727
+      }
+    },
+    {
+      "method": "dino",
+      "k": 16,
+      "counts": [
+        1710,
+        36600,
+        42190
+      ],
+      "candidates": [
+        121,
+        9,
+        33,
+        122,
+        85,
+        91,
+        80,
+        20,
+        99,
+        74,
+        76,
+        97,
+        95,
+        23,
+        7,
+        12
+      ],
+      "recall": {
+        "gt_instances": 11,
+        "aligned_instances": 0,
+        "truth_pixels": 43900,
+        "covered_pixels": 1710,
+        "proposals": 16,
+        "instance_recall_upper": 0.0,
+        "pixel_coverage_upper": 0.03895216400911162,
+        "pixel_f1_upper": 7.4983556237667175
+      }
+    },
+    {
+      "method": "dino",
+      "k": 32,
+      "counts": [
+        2798,
+        42177,
+        41102
+      ],
+      "candidates": [
+        121,
+        9,
+        33,
+        122,
+        85,
+        91,
+        80,
+        20,
+        99,
+        74,
+        76,
+        97,
+        95,
+        23,
+        7,
+        12,
+        3,
+        119,
+        110,
+        78,
+        83,
+        26,
+        45,
+        5,
+        104,
+        124,
+        90,
+        22,
+        117,
+        123,
+        106,
+        6
+      ],
+      "recall": {
+        "gt_instances": 11,
+        "aligned_instances": 1,
+        "truth_pixels": 43900,
+        "covered_pixels": 2798,
+        "proposals": 32,
+        "instance_recall_upper": 0.09090909090909091,
+        "pixel_coverage_upper": 0.06373576309794989,
+        "pixel_f1_upper": 11.983382585977987
+      }
+    },
+    {
+      "method": "dino_verified",
+      "k": 8,
+      "counts": [
+        1595,
+        32217,
+        42305
+      ],
+      "candidates": [
+        121,
+        122,
+        80
+      ],
+      "recall": {
+        "gt_instances": 11,
+        "aligned_instances": 0,
+        "truth_pixels": 43900,
+        "covered_pixels": 1595,
+        "proposals": 3,
+        "instance_recall_upper": 0.0,
+        "pixel_coverage_upper": 0.03633257403189066,
+        "pixel_f1_upper": 7.011759534014727
+      }
+    },
+    {
+      "method": "bridge",
+      "k": 4,
+      "counts": [
+        0,
+        0,
+        43900
+      ],
+      "candidates": [],
+      "recall": {
+        "gt_instances": 11,
+        "aligned_instances": 0,
+        "truth_pixels": 43900,
+        "covered_pixels": 0,
+        "proposals": 0,
+        "instance_recall_upper": 0.0,
+        "pixel_coverage_upper": 0.0,
+        "pixel_f1_upper": 0.0
+      }
+    },
+    {
+      "method": "bridge",
+      "k": 8,
+      "counts": [
+        0,
+        0,
+        43900
+      ],
+      "candidates": [],
+      "recall": {
+        "gt_instances": 11,
+        "aligned_instances": 0,
+        "truth_pixels": 43900,
+        "covered_pixels": 0,
+        "proposals": 0,
+        "instance_recall_upper": 0.0,
+        "pixel_coverage_upper": 0.0,
+        "pixel_f1_upper": 0.0
+      }
+    },
+    {
+      "method": "bridge",
+      "k": 16,
+      "counts": [
+        0,
+        0,
+        43900
+      ],
+      "candidates": [],
+      "recall": {
+        "gt_instances": 11,
+        "aligned_instances": 0,
+        "truth_pixels": 43900,
+        "covered_pixels": 0,
+        "proposals": 0,
+        "instance_recall_upper": 0.0,
+        "pixel_coverage_upper": 0.0,
+        "pixel_f1_upper": 0.0
+      }
+    },
+    {
+      "method": "bridge",
+      "k": 32,
+      "counts": [
+        0,
+        0,
+        43900
+      ],
+      "candidates": [],
+      "recall": {
+        "gt_instances": 11,
+        "aligned_instances": 0,
+        "truth_pixels": 43900,
+        "covered_pixels": 0,
+        "proposals": 0,
+        "instance_recall_upper": 0.0,
+        "pixel_coverage_upper": 0.0,
+        "pixel_f1_upper": 0.0
+      }
+    },
+    {
+      "method": "bridge_verified",
+      "k": 8,
+      "counts": [
+        0,
+        0,
+        43900
+      ],
+      "candidates": [],
+      "recall": {
+        "gt_instances": 11,
+        "aligned_instances": 0,
+        "truth_pixels": 43900,
+        "covered_pixels": 0,
+        "proposals": 0,
+        "instance_recall_upper": 0.0,
+        "pixel_coverage_upper": 0.0,
+        "pixel_f1_upper": 0.0
+      }
+    },
+    {
+      "method": "oracle_class_diagnostic",
+      "k": 4,
+      "counts": [
+        1496,
+        866,
+        42404
+      ],
+      "candidates": [
+        117,
+        112,
+        52,
+        93
+      ],
+      "recall": {
+        "gt_instances": 11,
+        "aligned_instances": 0,
+        "truth_pixels": 43900,
+        "covered_pixels": 1496,
+        "proposals": 4,
+        "instance_recall_upper": 0.0,
+        "pixel_coverage_upper": 0.03407744874715262,
+        "pixel_f1_upper": 6.590889065115869
+      }
+    },
+    {
+      "method": "oracle_class_diagnostic",
+      "k": 8,
+      "counts": [
+        8015,
+        4424,
+        35885
+      ],
+      "candidates": [
+        117,
+        112,
+        52,
+        93,
+        47,
+        83,
+        92,
+        70
+      ],
+      "recall": {
+        "gt_instances": 11,
+        "aligned_instances": 2,
+        "truth_pixels": 43900,
+        "covered_pixels": 8015,
+        "proposals": 8,
+        "instance_recall_upper": 0.18181818181818182,
+        "pixel_coverage_upper": 0.1825740318906606,
+        "pixel_f1_upper": 30.87739574304151
+      }
+    },
+    {
+      "method": "oracle_class_diagnostic",
+      "k": 16,
+      "counts": [
+        20739,
+        8276,
+        23161
+      ],
+      "candidates": [
+        117,
+        112,
+        52,
+        93,
+        47,
+        83,
+        92,
+        70,
+        81,
+        73,
+        69,
+        63,
+        64,
+        75,
+        14,
+        102
+      ],
+      "recall": {
+        "gt_instances": 11,
+        "aligned_instances": 4,
+        "truth_pixels": 43900,
+        "covered_pixels": 20739,
+        "proposals": 16,
+        "instance_recall_upper": 0.36363636363636365,
+        "pixel_coverage_upper": 0.4724145785876993,
+        "pixel_f1_upper": 64.16869072850756
+      }
+    },
+    {
+      "method": "oracle_class_diagnostic",
+      "k": 32,
+      "counts": [
+        23885,
+        25707,
+        20015
+      ],
+      "candidates": [
+        117,
+        112,
+        52,
+        93,
+        47,
+        83,
+        92,
+        70,
+        81,
+        73,
+        69,
+        63,
+        64,
+        75,
+        14,
+        102,
+        103,
+        53,
+        54,
+        87,
+        113,
+        118,
+        84,
+        88,
+        60,
+        72,
+        27,
+        71,
+        119,
+        82,
+        24,
+        86
+      ],
+      "recall": {
+        "gt_instances": 11,
+        "aligned_instances": 5,
+        "truth_pixels": 43900,
+        "covered_pixels": 23885,
+        "proposals": 32,
+        "instance_recall_upper": 0.45454545454545453,
+        "pixel_coverage_upper": 0.5440774487471526,
+        "pixel_f1_upper": 70.47281847016302
+      }
+    },
+    {
+      "method": "bridge_dense",
+      "k": 0,
+      "counts": [
+        0,
+        0,
+        43900
+      ]
+    }
+  ],
+  "verification_requests": 8,
+  "verification_unparsed": 0,
+  "verification_audit": [
+    {
+      "index": 9,
+      "answer": "no",
+      "counts": [
+        0,
+        8823,
+        43900
+      ]
+    },
+    {
+      "index": 20,
+      "answer": "no",
+      "counts": [
+        0,
+        20068,
+        43900
+      ]
+    },
+    {
+      "index": 33,
+      "answer": "no",
+      "counts": [
+        0,
+        8863,
+        43900
+      ]
+    },
+    {
+      "index": 80,
+      "answer": "yes",
+      "counts": [
+        0,
+        173,
+        43900
+      ]
+    },
+    {
+      "index": 85,
+      "answer": "no",
+      "counts": [
+        0,
+        6123,
+        43900
+      ]
+    },
+    {
+      "index": 91,
+      "answer": "no",
+      "counts": [
+        1590,
+        32417,
+        42310
+      ]
+    },
+    {
+      "index": 121,
+      "answer": "yes",
+      "counts": [
+        0,
+        26,
+        43900
+      ]
+    },
+    {
+      "index": 122,
+      "answer": "yes",
+      "counts": [
+        1595,
+        32217,
+        42305
+      ]
+    }
+  ],
+  "request_archive": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_2828_1to5",
+  "cost_cny": 0.0031572,
+  "failures": [
+    "exemplar_gt_class_disagreement_requires_review",
+    "verification_removed_true_pixels",
+    "verification_retained_false_pixels",
+    "proposal_coverage_gap",
+    "bridge_top8_ranking_gap"
+  ]
+}

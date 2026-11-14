@@ -1,0 +1,5509 @@
+{
+  "tasks": 60,
+  "semantic_root": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60",
+  "interpretation": "descriptive association only; no causal attribution",
+  "hole_connectivity": "4-connected background",
+  "cross_summary": [
+    {
+      "group": "全部",
+      "holes": "全部",
+      "tasks": 60,
+      "semantic_available": 60,
+      "pair_label_agreed": 13,
+      "pair_label_agreement": 0.21666666666666667,
+      "empty_remaining_gt": 30,
+      "mean_close_support_fraction": 0.02738824524558822,
+      "mean_wide_support_fraction": 0.015197682832013459
+    },
+    {
+      "group": "全部",
+      "holes": "有孔洞",
+      "tasks": 7,
+      "semantic_available": 7,
+      "pair_label_agreed": 0,
+      "pair_label_agreement": 0.0,
+      "empty_remaining_gt": 2,
+      "mean_close_support_fraction": 0.06131248823612262,
+      "mean_wide_support_fraction": 0.05562428065708706
+    },
+    {
+      "group": "全部",
+      "holes": "无孔洞",
+      "tasks": 53,
+      "semantic_available": 53,
+      "pair_label_agreed": 13,
+      "pair_label_agreement": 0.24528301886792453,
+      "empty_remaining_gt": 28,
+      "mean_close_support_fraction": 0.02290768485061198,
+      "mean_wide_support_fraction": 0.009858320855116946
+    },
+    {
+      "group": "目标类",
+      "holes": "全部",
+      "tasks": 27,
+      "semantic_available": 27,
+      "pair_label_agreed": 7,
+      "pair_label_agreement": 0.25925925925925924,
+      "empty_remaining_gt": 11,
+      "mean_close_support_fraction": 0.02243558044139699,
+      "mean_wide_support_fraction": 0.008490156460162303
+    },
+    {
+      "group": "目标类",
+      "holes": "有孔洞",
+      "tasks": 2,
+      "semantic_available": 2,
+      "pair_label_agreed": 0,
+      "pair_label_agreement": 0.0,
+      "empty_remaining_gt": 0,
+      "mean_close_support_fraction": 0.011054633862576747,
+      "mean_wide_support_fraction": 0.0044422149658203125
+    },
+    {
+      "group": "目标类",
+      "holes": "无孔洞",
+      "tasks": 25,
+      "semantic_available": 25,
+      "pair_label_agreed": 7,
+      "pair_label_agreement": 0.28,
+      "empty_remaining_gt": 11,
+      "mean_close_support_fraction": 0.02334605616770261,
+      "mean_wide_support_fraction": 0.008813991779709662
+    },
+    {
+      "group": "地表类",
+      "holes": "全部",
+      "tasks": 33,
+      "semantic_available": 33,
+      "pair_label_agreed": 6,
+      "pair_label_agreement": 0.18181818181818182,
+      "empty_remaining_gt": 19,
+      "mean_close_support_fraction": 0.03144042553992649,
+      "mean_wide_support_fraction": 0.020685658954437136
+    },
+    {
+      "group": "地表类",
+      "holes": "有孔洞",
+      "tasks": 5,
+      "semantic_available": 5,
+      "pair_label_agreed": 0,
+      "pair_label_agreement": 0.0,
+      "empty_remaining_gt": 2,
+      "mean_close_support_fraction": 0.08141562998554097,
+      "mean_wide_support_fraction": 0.07609710693359376
+    },
+    {
+      "group": "地表类",
+      "holes": "无孔洞",
+      "tasks": 28,
+      "semantic_available": 28,
+      "pair_label_agreed": 6,
+      "pair_label_agreement": 0.21428571428571427,
+      "empty_remaining_gt": 17,
+      "mean_close_support_fraction": 0.02251628188892391,
+      "mean_wide_support_fraction": 0.010790757529587741
+    }
+  ],
+  "records": [
+    {
+      "id": "train_1065_2to5",
+      "group": "目标类",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 645,
+      "gt_pixels": 645,
+      "remaining_gt_pixels": 0,
+      "hole_count": 0,
+      "hole_pixels": 0,
+      "has_holes": false,
+      "support_bbox": [
+        31,
+        140,
+        76,
+        171
+      ],
+      "support_touches_image_edge": {
+        "top": false,
+        "bottom": false,
+        "left": false,
+        "right": false
+      },
+      "crops": {
+        "close": {
+          "box": [
+            0,
+            65,
+            180,
+            245
+          ],
+          "pixels": 32400,
+          "support_pixels": 645,
+          "support_fraction": 0.01990740740740741,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.020012749565972224,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": false,
+            "right": false,
+            "bottom": false
+          }
+        },
+        "wide": {
+          "box": [
+            0,
+            0,
+            450,
+            450
+          ],
+          "pixels": 202500,
+          "support_pixels": 645,
+          "support_fraction": 0.003185185185185185,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.003200954861111111,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": true,
+            "right": false,
+            "bottom": false
+          }
+        }
+      },
+      "semantic_available": true,
+      "predicted_pair": [
+        2,
+        5
+      ],
+      "true_pair": [
+        2,
+        5
+      ],
+      "pair_label_agreement": true,
+      "semantic_source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_1065_2to5/metrics.json",
+      "exemplar_path": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/results/agent_baseline/data/t3_tasks_dev_0of1/train_1065_2to5_exemplar.png"
+    },
+    {
+      "id": "train_1129_4to5",
+      "group": "目标类",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 1335,
+      "gt_pixels": 1335,
+      "remaining_gt_pixels": 0,
+      "hole_count": 0,
+      "hole_pixels": 0,
+      "has_holes": false,
+      "support_bbox": [
+        191,
+        261,
+        222,
+        350
+      ],
+      "support_touches_image_edge": {
+        "top": false,
+        "bottom": false,
+        "left": false,
+        "right": false
+      },
+      "crops": {
+        "close": {
+          "box": [
+            28,
+            127,
+            384,
+            483
+          ],
+          "pixels": 126736,
+          "support_pixels": 1335,
+          "support_fraction": 0.010533707865168539,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.010457356770833334,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": false,
+            "top": false,
+            "right": false,
+            "bottom": false
+          }
+        },
+        "wide": {
+          "box": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "pixels": 262144,
+          "support_pixels": 1335,
+          "support_fraction": 0.005092620849609375,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.00506591796875,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          }
+        }
+      },
+      "semantic_available": true,
+      "predicted_pair": [
+        2,
+        5
+      ],
+      "true_pair": [
+        4,
+        5
+      ],
+      "pair_label_agreement": false,
+      "semantic_source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_1129_4to5/metrics.json",
+      "exemplar_path": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/results/agent_baseline/data/t3_tasks_dev_0of1/train_1129_4to5_exemplar.png"
+    },
+    {
+      "id": "train_1136_5to1",
+      "group": "目标类",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 1331,
+      "gt_pixels": 1334,
+      "remaining_gt_pixels": 3,
+      "hole_count": 0,
+      "hole_pixels": 0,
+      "has_holes": false,
+      "support_bbox": [
+        272,
+        403,
+        331,
+        455
+      ],
+      "support_touches_image_edge": {
+        "top": false,
+        "bottom": false,
+        "left": false,
+        "right": false
+      },
+      "crops": {
+        "close": {
+          "box": [
+            183,
+            276,
+            419,
+            512
+          ],
+          "pixels": 55696,
+          "support_pixels": 1331,
+          "support_fraction": 0.023897586900316,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.023878309461805556,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": false,
+            "top": false,
+            "right": false,
+            "bottom": true
+          }
+        },
+        "wide": {
+          "box": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "pixels": 262144,
+          "support_pixels": 1331,
+          "support_fraction": 0.005077362060546875,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.005140516493055556,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          }
+        }
+      },
+      "semantic_available": true,
+      "predicted_pair": [
+        5,
+        1
+      ],
+      "true_pair": [
+        5,
+        1
+      ],
+      "pair_label_agreement": true,
+      "semantic_source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_1136_5to1/metrics.json",
+      "exemplar_path": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/results/agent_baseline/data/t3_tasks_dev_0of1/train_1136_5to1_exemplar.png"
+    },
+    {
+      "id": "train_1166_3to5",
+      "group": "目标类",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 1360,
+      "gt_pixels": 1360,
+      "remaining_gt_pixels": 0,
+      "hole_count": 0,
+      "hole_pixels": 0,
+      "has_holes": false,
+      "support_bbox": [
+        111,
+        475,
+        158,
+        512
+      ],
+      "support_touches_image_edge": {
+        "top": false,
+        "bottom": true,
+        "left": false,
+        "right": false
+      },
+      "crops": {
+        "close": {
+          "box": [
+            40,
+            324,
+            228,
+            512
+          ],
+          "pixels": 35344,
+          "support_pixels": 1360,
+          "support_fraction": 0.03847894975101856,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.038472493489583336,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": true,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": false,
+            "top": false,
+            "right": false,
+            "bottom": true
+          }
+        },
+        "wide": {
+          "box": [
+            0,
+            42,
+            470,
+            512
+          ],
+          "pixels": 220900,
+          "support_pixels": 1360,
+          "support_fraction": 0.00615663196016297,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.006171332465277778,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": true,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": false,
+            "right": false,
+            "bottom": true
+          }
+        }
+      },
+      "semantic_available": true,
+      "predicted_pair": [
+        5,
+        5
+      ],
+      "true_pair": [
+        3,
+        5
+      ],
+      "pair_label_agreement": false,
+      "semantic_source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_1166_3to5/metrics.json",
+      "exemplar_path": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/results/agent_baseline/data/t3_tasks_dev_0of1/train_1166_3to5_exemplar.png"
+    },
+    {
+      "id": "train_1177_2to3",
+      "group": "地表类",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 3646,
+      "gt_pixels": 5332,
+      "remaining_gt_pixels": 1686,
+      "hole_count": 0,
+      "hole_pixels": 0,
+      "has_holes": false,
+      "support_bbox": [
+        238,
+        0,
+        368,
+        72
+      ],
+      "support_touches_image_edge": {
+        "top": true,
+        "bottom": false,
+        "left": false,
+        "right": false
+      },
+      "crops": {
+        "close": {
+          "box": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "pixels": 262144,
+          "support_pixels": 3646,
+          "support_fraction": 0.01390838623046875,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.013909233940972222,
+          "support_touches_crop_edge": {
+            "top": true,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          }
+        },
+        "wide": {
+          "box": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "pixels": 262144,
+          "support_pixels": 3646,
+          "support_fraction": 0.01390838623046875,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.013909233940972222,
+          "support_touches_crop_edge": {
+            "top": true,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          }
+        }
+      },
+      "semantic_available": true,
+      "predicted_pair": [
+        2,
+        5
+      ],
+      "true_pair": [
+        2,
+        3
+      ],
+      "pair_label_agreement": false,
+      "semantic_source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_1177_2to3/metrics.json",
+      "exemplar_path": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/results/agent_baseline/data/t3_tasks_dev_0of1/train_1177_2to3_exemplar.png"
+    },
+    {
+      "id": "train_119_6to2",
+      "group": "目标类",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 7219,
+      "gt_pixels": 7219,
+      "remaining_gt_pixels": 0,
+      "hole_count": 0,
+      "hole_pixels": 0,
+      "has_holes": false,
+      "support_bbox": [
+        1,
+        0,
+        110,
+        73
+      ],
+      "support_touches_image_edge": {
+        "top": true,
+        "bottom": false,
+        "left": false,
+        "right": false
+      },
+      "crops": {
+        "close": {
+          "box": [
+            0,
+            0,
+            436,
+            436
+          ],
+          "pixels": 190096,
+          "support_pixels": 7219,
+          "support_fraction": 0.037975549196195606,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.0379638671875,
+          "support_touches_crop_edge": {
+            "top": true,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": true,
+            "right": false,
+            "bottom": false
+          }
+        },
+        "wide": {
+          "box": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "pixels": 262144,
+          "support_pixels": 7219,
+          "support_fraction": 0.027538299560546875,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.027425130208333332,
+          "support_touches_crop_edge": {
+            "top": true,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          }
+        }
+      },
+      "semantic_available": true,
+      "predicted_pair": [
+        1,
+        1
+      ],
+      "true_pair": [
+        6,
+        2
+      ],
+      "pair_label_agreement": false,
+      "semantic_source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_119_6to2/metrics.json",
+      "exemplar_path": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/results/agent_baseline/data/t3_tasks_dev_0of1/train_119_6to2_exemplar.png"
+    },
+    {
+      "id": "train_127_3to2",
+      "group": "地表类",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 161,
+      "gt_pixels": 161,
+      "remaining_gt_pixels": 0,
+      "hole_count": 0,
+      "hole_pixels": 0,
+      "has_holes": false,
+      "support_bbox": [
+        69,
+        48,
+        89,
+        61
+      ],
+      "support_touches_image_edge": {
+        "top": false,
+        "bottom": false,
+        "left": false,
+        "right": false
+      },
+      "crops": {
+        "close": {
+          "box": [
+            39,
+            14,
+            119,
+            94
+          ],
+          "pixels": 6400,
+          "support_pixels": 161,
+          "support_fraction": 0.02515625,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.025234646267361112,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": false,
+            "top": false,
+            "right": false,
+            "bottom": false
+          }
+        },
+        "wide": {
+          "box": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "pixels": 65536,
+          "support_pixels": 161,
+          "support_fraction": 0.0024566650390625,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.002407497829861111,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": true,
+            "right": false,
+            "bottom": false
+          }
+        }
+      },
+      "semantic_available": true,
+      "predicted_pair": [
+        3,
+        2
+      ],
+      "true_pair": [
+        3,
+        2
+      ],
+      "pair_label_agreement": true,
+      "semantic_source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_127_3to2/metrics.json",
+      "exemplar_path": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/results/agent_baseline/data/t3_tasks_dev_0of1/train_127_3to2_exemplar.png"
+    },
+    {
+      "id": "train_1322_2to4",
+      "group": "地表类",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 1951,
+      "gt_pixels": 1951,
+      "remaining_gt_pixels": 0,
+      "hole_count": 0,
+      "hole_pixels": 0,
+      "has_holes": false,
+      "support_bbox": [
+        57,
+        290,
+        126,
+        320
+      ],
+      "support_touches_image_edge": {
+        "top": false,
+        "bottom": false,
+        "left": false,
+        "right": false
+      },
+      "crops": {
+        "close": {
+          "box": [
+            0,
+            167,
+            276,
+            443
+          ],
+          "pixels": 76176,
+          "support_pixels": 1951,
+          "support_fraction": 0.02561174123083386,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.025465223524305556,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": false,
+            "right": false,
+            "bottom": false
+          }
+        },
+        "wide": {
+          "box": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "pixels": 262144,
+          "support_pixels": 1951,
+          "support_fraction": 0.007442474365234375,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.007710774739583333,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          }
+        }
+      },
+      "semantic_available": true,
+      "predicted_pair": [
+        1,
+        1
+      ],
+      "true_pair": [
+        2,
+        4
+      ],
+      "pair_label_agreement": false,
+      "semantic_source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_1322_2to4/metrics.json",
+      "exemplar_path": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/results/agent_baseline/data/t3_tasks_dev_0of1/train_1322_2to4_exemplar.png"
+    },
+    {
+      "id": "train_1344_2to5",
+      "group": "目标类",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 396,
+      "gt_pixels": 16452,
+      "remaining_gt_pixels": 16056,
+      "hole_count": 0,
+      "hole_pixels": 0,
+      "has_holes": false,
+      "support_bbox": [
+        55,
+        68,
+        102,
+        79
+      ],
+      "support_touches_image_edge": {
+        "top": false,
+        "bottom": false,
+        "left": false,
+        "right": false
+      },
+      "crops": {
+        "close": {
+          "box": [
+            0,
+            0,
+            188,
+            188
+          ],
+          "pixels": 35344,
+          "support_pixels": 396,
+          "support_fraction": 0.01120416478044364,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.010972764756944444,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": true,
+            "right": false,
+            "bottom": false
+          }
+        },
+        "wide": {
+          "box": [
+            0,
+            0,
+            470,
+            470
+          ],
+          "pixels": 220900,
+          "support_pixels": 396,
+          "support_fraction": 0.0017926663648709824,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.001797146267361111,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": true,
+            "right": false,
+            "bottom": false
+          }
+        }
+      },
+      "semantic_available": true,
+      "predicted_pair": [
+        5,
+        5
+      ],
+      "true_pair": [
+        2,
+        5
+      ],
+      "pair_label_agreement": false,
+      "semantic_source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_1344_2to5/metrics.json",
+      "exemplar_path": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/results/agent_baseline/data/t3_tasks_dev_0of1/train_1344_2to5_exemplar.png"
+    },
+    {
+      "id": "train_1370_3to1",
+      "group": "地表类",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 2692,
+      "gt_pixels": 3483,
+      "remaining_gt_pixels": 791,
+      "hole_count": 0,
+      "hole_pixels": 0,
+      "has_holes": false,
+      "support_bbox": [
+        5,
+        348,
+        57,
+        461
+      ],
+      "support_touches_image_edge": {
+        "top": false,
+        "bottom": false,
+        "left": false,
+        "right": false
+      },
+      "crops": {
+        "close": {
+          "box": [
+            0,
+            60,
+            452,
+            512
+          ],
+          "pixels": 204304,
+          "support_pixels": 2692,
+          "support_fraction": 0.013176442947764115,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.013041178385416666,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": false,
+            "right": false,
+            "bottom": true
+          }
+        },
+        "wide": {
+          "box": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "pixels": 262144,
+          "support_pixels": 2692,
+          "support_fraction": 0.0102691650390625,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.010430230034722222,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          }
+        }
+      },
+      "semantic_available": true,
+      "predicted_pair": [
+        3,
+        5
+      ],
+      "true_pair": [
+        3,
+        1
+      ],
+      "pair_label_agreement": false,
+      "semantic_source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_1370_3to1/metrics.json",
+      "exemplar_path": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/results/agent_baseline/data/t3_tasks_dev_0of1/train_1370_3to1_exemplar.png"
+    },
+    {
+      "id": "train_1377_5to3",
+      "group": "目标类",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 1112,
+      "gt_pixels": 1112,
+      "remaining_gt_pixels": 0,
+      "hole_count": 0,
+      "hole_pixels": 0,
+      "has_holes": false,
+      "support_bbox": [
+        336,
+        408,
+        379,
+        508
+      ],
+      "support_touches_image_edge": {
+        "top": false,
+        "bottom": false,
+        "left": false,
+        "right": false
+      },
+      "crops": {
+        "close": {
+          "box": [
+            112,
+            112,
+            512,
+            512
+          ],
+          "pixels": 160000,
+          "support_pixels": 1112,
+          "support_fraction": 0.00695,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.006890190972222222,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": false,
+            "top": false,
+            "right": true,
+            "bottom": true
+          }
+        },
+        "wide": {
+          "box": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "pixels": 262144,
+          "support_pixels": 1112,
+          "support_fraction": 0.004241943359375,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.0042724609375,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          }
+        }
+      },
+      "semantic_available": true,
+      "predicted_pair": [
+        3,
+        3
+      ],
+      "true_pair": [
+        5,
+        3
+      ],
+      "pair_label_agreement": false,
+      "semantic_source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_1377_5to3/metrics.json",
+      "exemplar_path": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/results/agent_baseline/data/t3_tasks_dev_0of1/train_1377_5to3_exemplar.png"
+    },
+    {
+      "id": "train_145_1to2",
+      "group": "地表类",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 546,
+      "gt_pixels": 546,
+      "remaining_gt_pixels": 0,
+      "hole_count": 0,
+      "hole_pixels": 0,
+      "has_holes": false,
+      "support_bbox": [
+        28,
+        288,
+        59,
+        321
+      ],
+      "support_touches_image_edge": {
+        "top": false,
+        "bottom": false,
+        "left": false,
+        "right": false
+      },
+      "crops": {
+        "close": {
+          "box": [
+            0,
+            238,
+            132,
+            370
+          ],
+          "pixels": 17424,
+          "support_pixels": 546,
+          "support_fraction": 0.03133608815426997,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.031500922309027776,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": false,
+            "right": false,
+            "bottom": false
+          }
+        },
+        "wide": {
+          "box": [
+            0,
+            139,
+            330,
+            469
+          ],
+          "pixels": 108900,
+          "support_pixels": 546,
+          "support_fraction": 0.005013774104683196,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.004950629340277778,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": false,
+            "right": false,
+            "bottom": false
+          }
+        }
+      },
+      "semantic_available": true,
+      "predicted_pair": [
+        1,
+        5
+      ],
+      "true_pair": [
+        1,
+        2
+      ],
+      "pair_label_agreement": false,
+      "semantic_source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_145_1to2/metrics.json",
+      "exemplar_path": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/results/agent_baseline/data/t3_tasks_dev_0of1/train_145_1to2_exemplar.png"
+    },
+    {
+      "id": "train_147_1to5",
+      "group": "目标类",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 1679,
+      "gt_pixels": 1679,
+      "remaining_gt_pixels": 0,
+      "hole_count": 0,
+      "hole_pixels": 0,
+      "has_holes": false,
+      "support_bbox": [
+        115,
+        431,
+        173,
+        481
+      ],
+      "support_touches_image_edge": {
+        "top": false,
+        "bottom": false,
+        "left": false,
+        "right": false
+      },
+      "crops": {
+        "close": {
+          "box": [
+            28,
+            280,
+            260,
+            512
+          ],
+          "pixels": 53824,
+          "support_pixels": 1679,
+          "support_fraction": 0.031194262782401904,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.031141493055555556,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": false,
+            "top": false,
+            "right": false,
+            "bottom": true
+          }
+        },
+        "wide": {
+          "box": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "pixels": 262144,
+          "support_pixels": 1679,
+          "support_fraction": 0.006404876708984375,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.006374782986111111,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          }
+        }
+      },
+      "semantic_available": true,
+      "predicted_pair": [
+        1,
+        5
+      ],
+      "true_pair": [
+        1,
+        5
+      ],
+      "pair_label_agreement": true,
+      "semantic_source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_147_1to5/metrics.json",
+      "exemplar_path": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/results/agent_baseline/data/t3_tasks_dev_0of1/train_147_1to5_exemplar.png"
+    },
+    {
+      "id": "train_1496_2to1",
+      "group": "地表类",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 46247,
+      "gt_pixels": 46251,
+      "remaining_gt_pixels": 4,
+      "hole_count": 15,
+      "hole_pixels": 32646,
+      "has_holes": true,
+      "support_bbox": [
+        0,
+        0,
+        290,
+        512
+      ],
+      "support_touches_image_edge": {
+        "top": true,
+        "bottom": true,
+        "left": true,
+        "right": false
+      },
+      "crops": {
+        "close": {
+          "box": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "pixels": 262144,
+          "support_pixels": 46247,
+          "support_fraction": 0.17641830444335938,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.1766289605034722,
+          "support_touches_crop_edge": {
+            "top": true,
+            "bottom": true,
+            "left": true,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          }
+        },
+        "wide": {
+          "box": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "pixels": 262144,
+          "support_pixels": 46247,
+          "support_fraction": 0.17641830444335938,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.1766289605034722,
+          "support_touches_crop_edge": {
+            "top": true,
+            "bottom": true,
+            "left": true,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          }
+        }
+      },
+      "semantic_available": true,
+      "predicted_pair": [
+        2,
+        5
+      ],
+      "true_pair": [
+        2,
+        1
+      ],
+      "pair_label_agreement": false,
+      "semantic_source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_1496_2to1/metrics.json",
+      "exemplar_path": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/results/agent_baseline/data/t3_tasks_dev_0of1/train_1496_2to1_exemplar.png"
+    },
+    {
+      "id": "train_1527_5to2",
+      "group": "目标类",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 1608,
+      "gt_pixels": 1608,
+      "remaining_gt_pixels": 0,
+      "hole_count": 0,
+      "hole_pixels": 0,
+      "has_holes": false,
+      "support_bbox": [
+        248,
+        147,
+        305,
+        211
+      ],
+      "support_touches_image_edge": {
+        "top": false,
+        "bottom": false,
+        "left": false,
+        "right": false
+      },
+      "crops": {
+        "close": {
+          "box": [
+            148,
+            51,
+            404,
+            307
+          ],
+          "pixels": 65536,
+          "support_pixels": 1608,
+          "support_fraction": 0.0245361328125,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.024658203125,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": false,
+            "top": false,
+            "right": false,
+            "bottom": false
+          }
+        },
+        "wide": {
+          "box": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "pixels": 262144,
+          "support_pixels": 1608,
+          "support_fraction": 0.006134033203125,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.006157769097222222,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          }
+        }
+      },
+      "semantic_available": true,
+      "predicted_pair": [
+        5,
+        5
+      ],
+      "true_pair": [
+        5,
+        2
+      ],
+      "pair_label_agreement": false,
+      "semantic_source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_1527_5to2/metrics.json",
+      "exemplar_path": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/results/agent_baseline/data/t3_tasks_dev_0of1/train_1527_5to2_exemplar.png"
+    },
+    {
+      "id": "train_1535_4to1",
+      "group": "地表类",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 10807,
+      "gt_pixels": 10821,
+      "remaining_gt_pixels": 14,
+      "hole_count": 0,
+      "hole_pixels": 0,
+      "has_holes": false,
+      "support_bbox": [
+        215,
+        409,
+        355,
+        512
+      ],
+      "support_touches_image_edge": {
+        "top": false,
+        "bottom": true,
+        "left": false,
+        "right": false
+      },
+      "crops": {
+        "close": {
+          "box": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "pixels": 262144,
+          "support_pixels": 10807,
+          "support_fraction": 0.041225433349609375,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.041436089409722224,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": true,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          }
+        },
+        "wide": {
+          "box": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "pixels": 262144,
+          "support_pixels": 10807,
+          "support_fraction": 0.041225433349609375,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.041436089409722224,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": true,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          }
+        }
+      },
+      "semantic_available": true,
+      "predicted_pair": [
+        4,
+        4
+      ],
+      "true_pair": [
+        4,
+        1
+      ],
+      "pair_label_agreement": false,
+      "semantic_source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_1535_4to1/metrics.json",
+      "exemplar_path": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/results/agent_baseline/data/t3_tasks_dev_0of1/train_1535_4to1_exemplar.png"
+    },
+    {
+      "id": "train_1538_1to3",
+      "group": "地表类",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 1454,
+      "gt_pixels": 6697,
+      "remaining_gt_pixels": 5243,
+      "hole_count": 1,
+      "hole_pixels": 1,
+      "has_holes": true,
+      "support_bbox": [
+        109,
+        63,
+        183,
+        141
+      ],
+      "support_touches_image_edge": {
+        "top": false,
+        "bottom": false,
+        "left": false,
+        "right": false
+      },
+      "crops": {
+        "close": {
+          "box": [
+            0,
+            0,
+            312,
+            312
+          ],
+          "pixels": 97344,
+          "support_pixels": 1454,
+          "support_fraction": 0.01493671926364234,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.014973958333333334,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": true,
+            "right": false,
+            "bottom": false
+          }
+        },
+        "wide": {
+          "box": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "pixels": 262144,
+          "support_pixels": 1454,
+          "support_fraction": 0.00554656982421875,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.005560980902777778,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          }
+        }
+      },
+      "semantic_available": true,
+      "predicted_pair": [
+        2,
+        3
+      ],
+      "true_pair": [
+        1,
+        3
+      ],
+      "pair_label_agreement": false,
+      "semantic_source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_1538_1to3/metrics.json",
+      "exemplar_path": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/results/agent_baseline/data/t3_tasks_dev_0of1/train_1538_1to3_exemplar.png"
+    },
+    {
+      "id": "train_156_2to3",
+      "group": "地表类",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 13742,
+      "gt_pixels": 13742,
+      "remaining_gt_pixels": 0,
+      "hole_count": 0,
+      "hole_pixels": 0,
+      "has_holes": false,
+      "support_bbox": [
+        0,
+        256,
+        105,
+        451
+      ],
+      "support_touches_image_edge": {
+        "top": false,
+        "bottom": false,
+        "left": true,
+        "right": false
+      },
+      "crops": {
+        "close": {
+          "box": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "pixels": 262144,
+          "support_pixels": 13742,
+          "support_fraction": 0.05242156982421875,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.052571614583333336,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": true,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          }
+        },
+        "wide": {
+          "box": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "pixels": 262144,
+          "support_pixels": 13742,
+          "support_fraction": 0.05242156982421875,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.052571614583333336,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": true,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          }
+        }
+      },
+      "semantic_available": true,
+      "predicted_pair": [
+        2,
+        3
+      ],
+      "true_pair": [
+        2,
+        3
+      ],
+      "pair_label_agreement": true,
+      "semantic_source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_156_2to3/metrics.json",
+      "exemplar_path": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/results/agent_baseline/data/t3_tasks_dev_0of1/train_156_2to3_exemplar.png"
+    },
+    {
+      "id": "train_1659_1to2",
+      "group": "地表类",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 350,
+      "gt_pixels": 8070,
+      "remaining_gt_pixels": 7720,
+      "hole_count": 0,
+      "hole_pixels": 0,
+      "has_holes": false,
+      "support_bbox": [
+        110,
+        14,
+        134,
+        39
+      ],
+      "support_touches_image_edge": {
+        "top": false,
+        "bottom": false,
+        "left": false,
+        "right": false
+      },
+      "crops": {
+        "close": {
+          "box": [
+            72,
+            0,
+            172,
+            100
+          ],
+          "pixels": 10000,
+          "support_pixels": 350,
+          "support_fraction": 0.035,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.03502061631944445,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": false,
+            "top": true,
+            "right": false,
+            "bottom": false
+          }
+        },
+        "wide": {
+          "box": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "pixels": 65536,
+          "support_pixels": 350,
+          "support_fraction": 0.005340576171875,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.005316840277777778,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": true,
+            "right": false,
+            "bottom": false
+          }
+        }
+      },
+      "semantic_available": true,
+      "predicted_pair": [
+        1,
+        1
+      ],
+      "true_pair": [
+        1,
+        2
+      ],
+      "pair_label_agreement": false,
+      "semantic_source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_1659_1to2/metrics.json",
+      "exemplar_path": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/results/agent_baseline/data/t3_tasks_dev_0of1/train_1659_1to2_exemplar.png"
+    },
+    {
+      "id": "train_1745_5to2",
+      "group": "目标类",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 140,
+      "gt_pixels": 12591,
+      "remaining_gt_pixels": 12451,
+      "hole_count": 0,
+      "hole_pixels": 0,
+      "has_holes": false,
+      "support_bbox": [
+        298,
+        322,
+        310,
+        341
+      ],
+      "support_touches_image_edge": {
+        "top": false,
+        "bottom": false,
+        "left": false,
+        "right": false
+      },
+      "crops": {
+        "close": {
+          "box": [
+            266,
+            293,
+            342,
+            369
+          ],
+          "pixels": 5776,
+          "support_pixels": 140,
+          "support_fraction": 0.024238227146814405,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.023769802517361112,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": false,
+            "top": false,
+            "right": false,
+            "bottom": false
+          }
+        },
+        "wide": {
+          "box": [
+            176,
+            203,
+            432,
+            459
+          ],
+          "pixels": 65536,
+          "support_pixels": 140,
+          "support_fraction": 0.00213623046875,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.00213623046875,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": false,
+            "top": false,
+            "right": false,
+            "bottom": false
+          }
+        }
+      },
+      "semantic_available": true,
+      "predicted_pair": [
+        5,
+        5
+      ],
+      "true_pair": [
+        5,
+        2
+      ],
+      "pair_label_agreement": false,
+      "semantic_source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_1745_5to2/metrics.json",
+      "exemplar_path": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/results/agent_baseline/data/t3_tasks_dev_0of1/train_1745_5to2_exemplar.png"
+    },
+    {
+      "id": "train_1754_5to1",
+      "group": "目标类",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 43,
+      "gt_pixels": 6110,
+      "remaining_gt_pixels": 6067,
+      "hole_count": 0,
+      "hole_pixels": 0,
+      "has_holes": false,
+      "support_bbox": [
+        144,
+        505,
+        154,
+        510
+      ],
+      "support_touches_image_edge": {
+        "top": false,
+        "bottom": false,
+        "left": false,
+        "right": false
+      },
+      "crops": {
+        "close": {
+          "box": [
+            117,
+            448,
+            181,
+            512
+          ],
+          "pixels": 4096,
+          "support_pixels": 43,
+          "support_fraction": 0.010498046875,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.010498046875,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": false,
+            "top": false,
+            "right": false,
+            "bottom": true
+          }
+        },
+        "wide": {
+          "box": [
+            21,
+            256,
+            277,
+            512
+          ],
+          "pixels": 65536,
+          "support_pixels": 43,
+          "support_fraction": 0.0006561279296875,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.0006374782986111111,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": false,
+            "top": false,
+            "right": false,
+            "bottom": true
+          }
+        }
+      },
+      "semantic_available": true,
+      "predicted_pair": [
+        5,
+        5
+      ],
+      "true_pair": [
+        5,
+        1
+      ],
+      "pair_label_agreement": false,
+      "semantic_source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_1754_5to1/metrics.json",
+      "exemplar_path": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/results/agent_baseline/data/t3_tasks_dev_0of1/train_1754_5to1_exemplar.png"
+    },
+    {
+      "id": "train_1798_2to6",
+      "group": "目标类",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 4729,
+      "gt_pixels": 4729,
+      "remaining_gt_pixels": 0,
+      "hole_count": 0,
+      "hole_pixels": 0,
+      "has_holes": false,
+      "support_bbox": [
+        302,
+        97,
+        411,
+        159
+      ],
+      "support_touches_image_edge": {
+        "top": false,
+        "bottom": false,
+        "left": false,
+        "right": false
+      },
+      "crops": {
+        "close": {
+          "box": [
+            76,
+            0,
+            512,
+            436
+          ],
+          "pixels": 190096,
+          "support_pixels": 4729,
+          "support_fraction": 0.024876904300984767,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.024692111545138888,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": false,
+            "top": true,
+            "right": true,
+            "bottom": false
+          }
+        },
+        "wide": {
+          "box": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "pixels": 262144,
+          "support_pixels": 4729,
+          "support_fraction": 0.018039703369140625,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.018012152777777776,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          }
+        }
+      },
+      "semantic_available": true,
+      "predicted_pair": [
+        5,
+        5
+      ],
+      "true_pair": [
+        2,
+        6
+      ],
+      "pair_label_agreement": false,
+      "semantic_source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_1798_2to6/metrics.json",
+      "exemplar_path": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/results/agent_baseline/data/t3_tasks_dev_0of1/train_1798_2to6_exemplar.png"
+    },
+    {
+      "id": "train_1808_2to1",
+      "group": "地表类",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 13067,
+      "gt_pixels": 20708,
+      "remaining_gt_pixels": 7641,
+      "hole_count": 1,
+      "hole_pixels": 2,
+      "has_holes": true,
+      "support_bbox": [
+        71,
+        276,
+        512,
+        384
+      ],
+      "support_touches_image_edge": {
+        "top": false,
+        "bottom": false,
+        "left": false,
+        "right": true
+      },
+      "crops": {
+        "close": {
+          "box": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "pixels": 262144,
+          "support_pixels": 13067,
+          "support_fraction": 0.049846649169921875,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.05059814453125,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": true
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          }
+        },
+        "wide": {
+          "box": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "pixels": 262144,
+          "support_pixels": 13067,
+          "support_fraction": 0.049846649169921875,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.05059814453125,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": true
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          }
+        }
+      },
+      "semantic_available": true,
+      "predicted_pair": [
+        3,
+        3
+      ],
+      "true_pair": [
+        2,
+        1
+      ],
+      "pair_label_agreement": false,
+      "semantic_source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_1808_2to1/metrics.json",
+      "exemplar_path": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/results/agent_baseline/data/t3_tasks_dev_0of1/train_1808_2to1_exemplar.png"
+    },
+    {
+      "id": "train_1884_4to3",
+      "group": "地表类",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 914,
+      "gt_pixels": 914,
+      "remaining_gt_pixels": 0,
+      "hole_count": 0,
+      "hole_pixels": 0,
+      "has_holes": false,
+      "support_bbox": [
+        387,
+        86,
+        416,
+        148
+      ],
+      "support_touches_image_edge": {
+        "top": false,
+        "bottom": false,
+        "left": false,
+        "right": false
+      },
+      "crops": {
+        "close": {
+          "box": [
+            264,
+            0,
+            512,
+            248
+          ],
+          "pixels": 61504,
+          "support_pixels": 914,
+          "support_fraction": 0.014860822060353798,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.014845106336805556,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": false,
+            "top": true,
+            "right": true,
+            "bottom": false
+          }
+        },
+        "wide": {
+          "box": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "pixels": 262144,
+          "support_pixels": 914,
+          "support_fraction": 0.00348663330078125,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.003445095486111111,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          }
+        }
+      },
+      "semantic_available": true,
+      "predicted_pair": [
+        4,
+        4
+      ],
+      "true_pair": [
+        4,
+        3
+      ],
+      "pair_label_agreement": false,
+      "semantic_source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_1884_4to3/metrics.json",
+      "exemplar_path": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/results/agent_baseline/data/t3_tasks_dev_0of1/train_1884_4to3_exemplar.png"
+    },
+    {
+      "id": "train_2043_2to3",
+      "group": "地表类",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 162,
+      "gt_pixels": 548,
+      "remaining_gt_pixels": 386,
+      "hole_count": 0,
+      "hole_pixels": 0,
+      "has_holes": false,
+      "support_bbox": [
+        175,
+        494,
+        190,
+        510
+      ],
+      "support_touches_image_edge": {
+        "top": false,
+        "bottom": false,
+        "left": false,
+        "right": false
+      },
+      "crops": {
+        "close": {
+          "box": [
+            150,
+            448,
+            214,
+            512
+          ],
+          "pixels": 4096,
+          "support_pixels": 162,
+          "support_fraction": 0.03955078125,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.03955078125,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": false,
+            "top": false,
+            "right": false,
+            "bottom": true
+          }
+        },
+        "wide": {
+          "box": [
+            54,
+            256,
+            310,
+            512
+          ],
+          "pixels": 65536,
+          "support_pixels": 162,
+          "support_fraction": 0.002471923828125,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.002468532986111111,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": false,
+            "top": false,
+            "right": false,
+            "bottom": true
+          }
+        }
+      },
+      "semantic_available": true,
+      "predicted_pair": [
+        1,
+        3
+      ],
+      "true_pair": [
+        2,
+        3
+      ],
+      "pair_label_agreement": false,
+      "semantic_source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_2043_2to3/metrics.json",
+      "exemplar_path": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/results/agent_baseline/data/t3_tasks_dev_0of1/train_2043_2to3_exemplar.png"
+    },
+    {
+      "id": "train_206_3to4",
+      "group": "地表类",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 236,
+      "gt_pixels": 236,
+      "remaining_gt_pixels": 0,
+      "hole_count": 0,
+      "hole_pixels": 0,
+      "has_holes": false,
+      "support_bbox": [
+        49,
+        493,
+        88,
+        508
+      ],
+      "support_touches_image_edge": {
+        "top": false,
+        "bottom": false,
+        "left": false,
+        "right": false
+      },
+      "crops": {
+        "close": {
+          "box": [
+            0,
+            356,
+            156,
+            512
+          ],
+          "pixels": 24336,
+          "support_pixels": 236,
+          "support_fraction": 0.009697567389875083,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.009663899739583334,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": false,
+            "right": false,
+            "bottom": true
+          }
+        },
+        "wide": {
+          "box": [
+            0,
+            122,
+            390,
+            512
+          ],
+          "pixels": 152100,
+          "support_pixels": 236,
+          "support_fraction": 0.0015516107823800131,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.0016004774305555555,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": false,
+            "right": false,
+            "bottom": true
+          }
+        }
+      },
+      "semantic_available": true,
+      "predicted_pair": [
+        3,
+        1
+      ],
+      "true_pair": [
+        3,
+        4
+      ],
+      "pair_label_agreement": false,
+      "semantic_source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_206_3to4/metrics.json",
+      "exemplar_path": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/results/agent_baseline/data/t3_tasks_dev_0of1/train_206_3to4_exemplar.png"
+    },
+    {
+      "id": "train_2075_4to2",
+      "group": "地表类",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 1434,
+      "gt_pixels": 1434,
+      "remaining_gt_pixels": 0,
+      "hole_count": 0,
+      "hole_pixels": 0,
+      "has_holes": false,
+      "support_bbox": [
+        59,
+        345,
+        93,
+        512
+      ],
+      "support_touches_image_edge": {
+        "top": false,
+        "bottom": true,
+        "left": false,
+        "right": false
+      },
+      "crops": {
+        "close": {
+          "box": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "pixels": 262144,
+          "support_pixels": 1434,
+          "support_fraction": 0.00547027587890625,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.005506727430555556,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": true,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          }
+        },
+        "wide": {
+          "box": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "pixels": 262144,
+          "support_pixels": 1434,
+          "support_fraction": 0.00547027587890625,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.005506727430555556,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": true,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          }
+        }
+      },
+      "semantic_available": true,
+      "predicted_pair": [
+        4,
+        2
+      ],
+      "true_pair": [
+        4,
+        2
+      ],
+      "pair_label_agreement": true,
+      "semantic_source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_2075_4to2/metrics.json",
+      "exemplar_path": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/results/agent_baseline/data/t3_tasks_dev_0of1/train_2075_4to2_exemplar.png"
+    },
+    {
+      "id": "train_2130_2to4",
+      "group": "地表类",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 720,
+      "gt_pixels": 720,
+      "remaining_gt_pixels": 0,
+      "hole_count": 0,
+      "hole_pixels": 0,
+      "has_holes": false,
+      "support_bbox": [
+        0,
+        490,
+        43,
+        512
+      ],
+      "support_touches_image_edge": {
+        "top": false,
+        "bottom": true,
+        "left": true,
+        "right": false
+      },
+      "crops": {
+        "close": {
+          "box": [
+            0,
+            340,
+            172,
+            512
+          ],
+          "pixels": 29584,
+          "support_pixels": 720,
+          "support_fraction": 0.024337479718766902,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.024312337239583332,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": true,
+            "left": true,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": false,
+            "right": false,
+            "bottom": true
+          }
+        },
+        "wide": {
+          "box": [
+            0,
+            82,
+            430,
+            512
+          ],
+          "pixels": 184900,
+          "support_pixels": 720,
+          "support_fraction": 0.0038939967550027043,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.003933376736111111,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": true,
+            "left": true,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": false,
+            "right": false,
+            "bottom": true
+          }
+        }
+      },
+      "semantic_available": true,
+      "predicted_pair": [
+        2,
+        4
+      ],
+      "true_pair": [
+        2,
+        4
+      ],
+      "pair_label_agreement": true,
+      "semantic_source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_2130_2to4/metrics.json",
+      "exemplar_path": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/results/agent_baseline/data/t3_tasks_dev_0of1/train_2130_2to4_exemplar.png"
+    },
+    {
+      "id": "train_2192_1to5",
+      "group": "目标类",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 7208,
+      "gt_pixels": 32625,
+      "remaining_gt_pixels": 25417,
+      "hole_count": 0,
+      "hole_pixels": 0,
+      "has_holes": false,
+      "support_bbox": [
+        62,
+        40,
+        215,
+        111
+      ],
+      "support_touches_image_edge": {
+        "top": false,
+        "bottom": false,
+        "left": false,
+        "right": false
+      },
+      "crops": {
+        "close": {
+          "box": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "pixels": 262144,
+          "support_pixels": 7208,
+          "support_fraction": 0.027496337890625,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.027696397569444444,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          }
+        },
+        "wide": {
+          "box": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "pixels": 262144,
+          "support_pixels": 7208,
+          "support_fraction": 0.027496337890625,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.027696397569444444,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          }
+        }
+      },
+      "semantic_available": true,
+      "predicted_pair": [
+        1,
+        5
+      ],
+      "true_pair": [
+        1,
+        5
+      ],
+      "pair_label_agreement": true,
+      "semantic_source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_2192_1to5/metrics.json",
+      "exemplar_path": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/results/agent_baseline/data/t3_tasks_dev_0of1/train_2192_1to5_exemplar.png"
+    },
+    {
+      "id": "train_2227_3to2",
+      "group": "地表类",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 324,
+      "gt_pixels": 1140,
+      "remaining_gt_pixels": 816,
+      "hole_count": 0,
+      "hole_pixels": 0,
+      "has_holes": false,
+      "support_bbox": [
+        385,
+        367,
+        405,
+        397
+      ],
+      "support_touches_image_edge": {
+        "top": false,
+        "bottom": false,
+        "left": false,
+        "right": false
+      },
+      "crops": {
+        "close": {
+          "box": [
+            335,
+            322,
+            455,
+            442
+          ],
+          "pixels": 14400,
+          "support_pixels": 324,
+          "support_fraction": 0.0225,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.022664388020833332,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": false,
+            "top": false,
+            "right": false,
+            "bottom": false
+          }
+        },
+        "wide": {
+          "box": [
+            212,
+            212,
+            512,
+            512
+          ],
+          "pixels": 90000,
+          "support_pixels": 324,
+          "support_fraction": 0.0036,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.0035400390625,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": false,
+            "top": false,
+            "right": true,
+            "bottom": true
+          }
+        }
+      },
+      "semantic_available": true,
+      "predicted_pair": [
+        3,
+        1
+      ],
+      "true_pair": [
+        3,
+        2
+      ],
+      "pair_label_agreement": false,
+      "semantic_source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_2227_3to2/metrics.json",
+      "exemplar_path": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/results/agent_baseline/data/t3_tasks_dev_0of1/train_2227_3to2_exemplar.png"
+    },
+    {
+      "id": "train_2255_2to5",
+      "group": "目标类",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 15467,
+      "gt_pixels": 19326,
+      "remaining_gt_pixels": 3859,
+      "hole_count": 0,
+      "hole_pixels": 0,
+      "has_holes": false,
+      "support_bbox": [
+        174,
+        403,
+        338,
+        512
+      ],
+      "support_touches_image_edge": {
+        "top": false,
+        "bottom": true,
+        "left": false,
+        "right": false
+      },
+      "crops": {
+        "close": {
+          "box": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "pixels": 262144,
+          "support_pixels": 15467,
+          "support_fraction": 0.059001922607421875,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.058858235677083336,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": true,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          }
+        },
+        "wide": {
+          "box": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "pixels": 262144,
+          "support_pixels": 15467,
+          "support_fraction": 0.059001922607421875,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.058858235677083336,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": true,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          }
+        }
+      },
+      "semantic_available": true,
+      "predicted_pair": [
+        2,
+        5
+      ],
+      "true_pair": [
+        2,
+        5
+      ],
+      "pair_label_agreement": true,
+      "semantic_source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_2255_2to5/metrics.json",
+      "exemplar_path": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/results/agent_baseline/data/t3_tasks_dev_0of1/train_2255_2to5_exemplar.png"
+    },
+    {
+      "id": "train_23_2to1",
+      "group": "地表类",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 737,
+      "gt_pixels": 3972,
+      "remaining_gt_pixels": 3235,
+      "hole_count": 0,
+      "hole_pixels": 0,
+      "has_holes": false,
+      "support_bbox": [
+        1,
+        162,
+        38,
+        199
+      ],
+      "support_touches_image_edge": {
+        "top": false,
+        "bottom": false,
+        "left": false,
+        "right": false
+      },
+      "crops": {
+        "close": {
+          "box": [
+            0,
+            106,
+            148,
+            254
+          ],
+          "pixels": 21904,
+          "support_pixels": 737,
+          "support_fraction": 0.03364682249817385,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.033528645833333336,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": false,
+            "right": false,
+            "bottom": false
+          }
+        },
+        "wide": {
+          "box": [
+            0,
+            0,
+            370,
+            370
+          ],
+          "pixels": 136900,
+          "support_pixels": 737,
+          "support_fraction": 0.005383491599707816,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.005337185329861111,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": true,
+            "right": false,
+            "bottom": false
+          }
+        }
+      },
+      "semantic_available": true,
+      "predicted_pair": [
+        2,
+        3
+      ],
+      "true_pair": [
+        2,
+        1
+      ],
+      "pair_label_agreement": false,
+      "semantic_source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_23_2to1/metrics.json",
+      "exemplar_path": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/results/agent_baseline/data/t3_tasks_dev_0of1/train_23_2to1_exemplar.png"
+    },
+    {
+      "id": "train_2383_2to5",
+      "group": "目标类",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 2223,
+      "gt_pixels": 16791,
+      "remaining_gt_pixels": 14568,
+      "hole_count": 0,
+      "hole_pixels": 0,
+      "has_holes": false,
+      "support_bbox": [
+        356,
+        231,
+        445,
+        287
+      ],
+      "support_touches_image_edge": {
+        "top": false,
+        "bottom": false,
+        "left": false,
+        "right": false
+      },
+      "crops": {
+        "close": {
+          "box": [
+            156,
+            81,
+            512,
+            437
+          ],
+          "pixels": 126736,
+          "support_pixels": 2223,
+          "support_fraction": 0.017540398939527836,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.017544216579861112,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": false,
+            "top": false,
+            "right": true,
+            "bottom": false
+          }
+        },
+        "wide": {
+          "box": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "pixels": 262144,
+          "support_pixels": 2223,
+          "support_fraction": 0.008480072021484375,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.008565266927083334,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          }
+        }
+      },
+      "semantic_available": true,
+      "predicted_pair": [
+        5,
+        5
+      ],
+      "true_pair": [
+        2,
+        5
+      ],
+      "pair_label_agreement": false,
+      "semantic_source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_2383_2to5/metrics.json",
+      "exemplar_path": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/results/agent_baseline/data/t3_tasks_dev_0of1/train_2383_2to5_exemplar.png"
+    },
+    {
+      "id": "train_2437_1to3",
+      "group": "地表类",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 13889,
+      "gt_pixels": 13889,
+      "remaining_gt_pixels": 0,
+      "hole_count": 0,
+      "hole_pixels": 0,
+      "has_holes": false,
+      "support_bbox": [
+        339,
+        379,
+        504,
+        510
+      ],
+      "support_touches_image_edge": {
+        "top": false,
+        "bottom": false,
+        "left": false,
+        "right": false
+      },
+      "crops": {
+        "close": {
+          "box": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "pixels": 262144,
+          "support_pixels": 13889,
+          "support_fraction": 0.052982330322265625,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.053263346354166664,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          }
+        },
+        "wide": {
+          "box": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "pixels": 262144,
+          "support_pixels": 13889,
+          "support_fraction": 0.052982330322265625,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.053263346354166664,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          }
+        }
+      },
+      "semantic_available": true,
+      "predicted_pair": [
+        2,
+        1
+      ],
+      "true_pair": [
+        1,
+        3
+      ],
+      "pair_label_agreement": false,
+      "semantic_source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_2437_1to3/metrics.json",
+      "exemplar_path": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/results/agent_baseline/data/t3_tasks_dev_0of1/train_2437_1to3_exemplar.png"
+    },
+    {
+      "id": "train_2438_5to1",
+      "group": "目标类",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 367,
+      "gt_pixels": 13392,
+      "remaining_gt_pixels": 13025,
+      "hole_count": 0,
+      "hole_pixels": 0,
+      "has_holes": false,
+      "support_bbox": [
+        271,
+        21,
+        294,
+        51
+      ],
+      "support_touches_image_edge": {
+        "top": false,
+        "bottom": false,
+        "left": false,
+        "right": false
+      },
+      "crops": {
+        "close": {
+          "box": [
+            222,
+            0,
+            342,
+            120
+          ],
+          "pixels": 14400,
+          "support_pixels": 367,
+          "support_fraction": 0.025486111111111112,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.025377061631944444,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": false,
+            "top": true,
+            "right": false,
+            "bottom": false
+          }
+        },
+        "wide": {
+          "box": [
+            132,
+            0,
+            432,
+            300
+          ],
+          "pixels": 90000,
+          "support_pixels": 367,
+          "support_fraction": 0.004077777777777777,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.004055447048611111,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": false,
+            "top": true,
+            "right": false,
+            "bottom": false
+          }
+        }
+      },
+      "semantic_available": true,
+      "predicted_pair": [
+        5,
+        2
+      ],
+      "true_pair": [
+        5,
+        1
+      ],
+      "pair_label_agreement": false,
+      "semantic_source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_2438_5to1/metrics.json",
+      "exemplar_path": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/results/agent_baseline/data/t3_tasks_dev_0of1/train_2438_5to1_exemplar.png"
+    },
+    {
+      "id": "train_2461_5to3",
+      "group": "目标类",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 213,
+      "gt_pixels": 1100,
+      "remaining_gt_pixels": 887,
+      "hole_count": 0,
+      "hole_pixels": 0,
+      "has_holes": false,
+      "support_bbox": [
+        166,
+        201,
+        185,
+        214
+      ],
+      "support_touches_image_edge": {
+        "top": false,
+        "bottom": false,
+        "left": false,
+        "right": false
+      },
+      "crops": {
+        "close": {
+          "box": [
+            137,
+            169,
+            213,
+            245
+          ],
+          "pixels": 5776,
+          "support_pixels": 213,
+          "support_fraction": 0.03687673130193906,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.036248101128472224,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": false,
+            "top": false,
+            "right": false,
+            "bottom": false
+          }
+        },
+        "wide": {
+          "box": [
+            47,
+            79,
+            303,
+            335
+          ],
+          "pixels": 65536,
+          "support_pixels": 213,
+          "support_fraction": 0.0032501220703125,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.003200954861111111,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": false,
+            "top": false,
+            "right": false,
+            "bottom": false
+          }
+        }
+      },
+      "semantic_available": true,
+      "predicted_pair": [
+        5,
+        5
+      ],
+      "true_pair": [
+        5,
+        3
+      ],
+      "pair_label_agreement": false,
+      "semantic_source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_2461_5to3/metrics.json",
+      "exemplar_path": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/results/agent_baseline/data/t3_tasks_dev_0of1/train_2461_5to3_exemplar.png"
+    },
+    {
+      "id": "train_2571_4to5",
+      "group": "目标类",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 296,
+      "gt_pixels": 302,
+      "remaining_gt_pixels": 6,
+      "hole_count": 0,
+      "hole_pixels": 0,
+      "has_holes": false,
+      "support_bbox": [
+        142,
+        212,
+        167,
+        242
+      ],
+      "support_touches_image_edge": {
+        "top": false,
+        "bottom": false,
+        "left": false,
+        "right": false
+      },
+      "crops": {
+        "close": {
+          "box": [
+            94,
+            167,
+            214,
+            287
+          ],
+          "pixels": 14400,
+          "support_pixels": 296,
+          "support_fraction": 0.020555555555555556,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.020412868923611112,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": false,
+            "top": false,
+            "right": false,
+            "bottom": false
+          }
+        },
+        "wide": {
+          "box": [
+            4,
+            77,
+            304,
+            377
+          ],
+          "pixels": 90000,
+          "support_pixels": 296,
+          "support_fraction": 0.003288888888888889,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.0033162434895833335,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": false,
+            "top": false,
+            "right": false,
+            "bottom": false
+          }
+        }
+      },
+      "semantic_available": true,
+      "predicted_pair": [
+        3,
+        5
+      ],
+      "true_pair": [
+        4,
+        5
+      ],
+      "pair_label_agreement": false,
+      "semantic_source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_2571_4to5/metrics.json",
+      "exemplar_path": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/results/agent_baseline/data/t3_tasks_dev_0of1/train_2571_4to5_exemplar.png"
+    },
+    {
+      "id": "train_2590_3to5",
+      "group": "目标类",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 340,
+      "gt_pixels": 1354,
+      "remaining_gt_pixels": 1014,
+      "hole_count": 0,
+      "hole_pixels": 0,
+      "has_holes": false,
+      "support_bbox": [
+        352,
+        479,
+        375,
+        512
+      ],
+      "support_touches_image_edge": {
+        "top": false,
+        "bottom": true,
+        "left": false,
+        "right": false
+      },
+      "crops": {
+        "close": {
+          "box": [
+            297,
+            380,
+            429,
+            512
+          ],
+          "pixels": 17424,
+          "support_pixels": 340,
+          "support_fraction": 0.019513314967860424,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.019388834635416668,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": true,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": false,
+            "top": false,
+            "right": false,
+            "bottom": true
+          }
+        },
+        "wide": {
+          "box": [
+            182,
+            182,
+            512,
+            512
+          ],
+          "pixels": 108900,
+          "support_pixels": 340,
+          "support_fraction": 0.0031221303948576677,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.0030653211805555555,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": true,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": false,
+            "top": false,
+            "right": true,
+            "bottom": true
+          }
+        }
+      },
+      "semantic_available": true,
+      "predicted_pair": [
+        5,
+        5
+      ],
+      "true_pair": [
+        3,
+        5
+      ],
+      "pair_label_agreement": false,
+      "semantic_source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_2590_3to5/metrics.json",
+      "exemplar_path": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/results/agent_baseline/data/t3_tasks_dev_0of1/train_2590_3to5_exemplar.png"
+    },
+    {
+      "id": "train_2677_2to1",
+      "group": "地表类",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 38162,
+      "gt_pixels": 38162,
+      "remaining_gt_pixels": 0,
+      "hole_count": 21,
+      "hole_pixels": 110,
+      "has_holes": true,
+      "support_bbox": [
+        13,
+        340,
+        319,
+        509
+      ],
+      "support_touches_image_edge": {
+        "top": false,
+        "bottom": false,
+        "left": false,
+        "right": false
+      },
+      "crops": {
+        "close": {
+          "box": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "pixels": 262144,
+          "support_pixels": 38162,
+          "support_fraction": 0.14557647705078125,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.1454399956597222,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          }
+        },
+        "wide": {
+          "box": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "pixels": 262144,
+          "support_pixels": 38162,
+          "support_fraction": 0.14557647705078125,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.1454399956597222,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          }
+        }
+      },
+      "semantic_available": true,
+      "predicted_pair": [
+        2,
+        2
+      ],
+      "true_pair": [
+        2,
+        1
+      ],
+      "pair_label_agreement": false,
+      "semantic_source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_2677_2to1/metrics.json",
+      "exemplar_path": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/results/agent_baseline/data/t3_tasks_dev_0of1/train_2677_2to1_exemplar.png"
+    },
+    {
+      "id": "train_2792_1to5",
+      "group": "目标类",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 921,
+      "gt_pixels": 6534,
+      "remaining_gt_pixels": 5613,
+      "hole_count": 2,
+      "hole_pixels": 2,
+      "has_holes": true,
+      "support_bbox": [
+        259,
+        307,
+        385,
+        352
+      ],
+      "support_touches_image_edge": {
+        "top": false,
+        "bottom": false,
+        "left": false,
+        "right": false
+      },
+      "crops": {
+        "close": {
+          "box": [
+            8,
+            8,
+            512,
+            512
+          ],
+          "pixels": 254016,
+          "support_pixels": 921,
+          "support_fraction": 0.003625755857898715,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.0036485460069444445,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": false,
+            "top": false,
+            "right": true,
+            "bottom": true
+          }
+        },
+        "wide": {
+          "box": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "pixels": 262144,
+          "support_pixels": 921,
+          "support_fraction": 0.003513336181640625,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.0035264756944444445,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          }
+        }
+      },
+      "semantic_available": true,
+      "predicted_pair": [
+        5,
+        5
+      ],
+      "true_pair": [
+        1,
+        5
+      ],
+      "pair_label_agreement": false,
+      "semantic_source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_2792_1to5/metrics.json",
+      "exemplar_path": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/results/agent_baseline/data/t3_tasks_dev_0of1/train_2792_1to5_exemplar.png"
+    },
+    {
+      "id": "train_2822_1to2",
+      "group": "地表类",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 1034,
+      "gt_pixels": 1034,
+      "remaining_gt_pixels": 0,
+      "hole_count": 0,
+      "hole_pixels": 0,
+      "has_holes": false,
+      "support_bbox": [
+        156,
+        0,
+        227,
+        29
+      ],
+      "support_touches_image_edge": {
+        "top": true,
+        "bottom": false,
+        "left": false,
+        "right": false
+      },
+      "crops": {
+        "close": {
+          "box": [
+            49,
+            0,
+            333,
+            284
+          ],
+          "pixels": 80656,
+          "support_pixels": 1034,
+          "support_fraction": 0.012819877008530054,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.0128173828125,
+          "support_touches_crop_edge": {
+            "top": true,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": false,
+            "top": true,
+            "right": false,
+            "bottom": false
+          }
+        },
+        "wide": {
+          "box": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "pixels": 262144,
+          "support_pixels": 1034,
+          "support_fraction": 0.00394439697265625,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.003960503472222222,
+          "support_touches_crop_edge": {
+            "top": true,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          }
+        }
+      },
+      "semantic_available": true,
+      "predicted_pair": [
+        2,
+        2
+      ],
+      "true_pair": [
+        1,
+        2
+      ],
+      "pair_label_agreement": false,
+      "semantic_source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_2822_1to2/metrics.json",
+      "exemplar_path": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/results/agent_baseline/data/t3_tasks_dev_0of1/train_2822_1to2_exemplar.png"
+    },
+    {
+      "id": "train_2828_1to5",
+      "group": "目标类",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 613,
+      "gt_pixels": 44513,
+      "remaining_gt_pixels": 43900,
+      "hole_count": 0,
+      "hole_pixels": 0,
+      "has_holes": false,
+      "support_bbox": [
+        257,
+        284,
+        329,
+        300
+      ],
+      "support_touches_image_edge": {
+        "top": false,
+        "bottom": false,
+        "left": false,
+        "right": false
+      },
+      "crops": {
+        "close": {
+          "box": [
+            149,
+            148,
+            437,
+            436
+          ],
+          "pixels": 82944,
+          "support_pixels": 613,
+          "support_fraction": 0.007390528549382716,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.007425944010416667,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": false,
+            "top": false,
+            "right": false,
+            "bottom": false
+          }
+        },
+        "wide": {
+          "box": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "pixels": 262144,
+          "support_pixels": 613,
+          "support_fraction": 0.002338409423828125,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.0023057725694444445,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          }
+        }
+      },
+      "semantic_available": true,
+      "predicted_pair": [
+        5,
+        5
+      ],
+      "true_pair": [
+        1,
+        5
+      ],
+      "pair_label_agreement": false,
+      "semantic_source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_2828_1to5/metrics.json",
+      "exemplar_path": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/results/agent_baseline/data/t3_tasks_dev_0of1/train_2828_1to5_exemplar.png"
+    },
+    {
+      "id": "train_2848_1to4",
+      "group": "地表类",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 8377,
+      "gt_pixels": 8377,
+      "remaining_gt_pixels": 0,
+      "hole_count": 0,
+      "hole_pixels": 0,
+      "has_holes": false,
+      "support_bbox": [
+        264,
+        417,
+        375,
+        503
+      ],
+      "support_touches_image_edge": {
+        "top": false,
+        "bottom": false,
+        "left": false,
+        "right": false
+      },
+      "crops": {
+        "close": {
+          "box": [
+            68,
+            68,
+            512,
+            512
+          ],
+          "pixels": 197136,
+          "support_pixels": 8377,
+          "support_fraction": 0.042493507020534046,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.04240587022569445,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": false,
+            "top": false,
+            "right": true,
+            "bottom": true
+          }
+        },
+        "wide": {
+          "box": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "pixels": 262144,
+          "support_pixels": 8377,
+          "support_fraction": 0.031955718994140625,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.03199598524305555,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          }
+        }
+      },
+      "semantic_available": true,
+      "predicted_pair": [
+        1,
+        4
+      ],
+      "true_pair": [
+        1,
+        4
+      ],
+      "pair_label_agreement": true,
+      "semantic_source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_2848_1to4/metrics.json",
+      "exemplar_path": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/results/agent_baseline/data/t3_tasks_dev_0of1/train_2848_1to4_exemplar.png"
+    },
+    {
+      "id": "train_2890_5to1",
+      "group": "目标类",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 2535,
+      "gt_pixels": 3027,
+      "remaining_gt_pixels": 492,
+      "hole_count": 0,
+      "hole_pixels": 0,
+      "has_holes": false,
+      "support_bbox": [
+        327,
+        0,
+        401,
+        50
+      ],
+      "support_touches_image_edge": {
+        "top": true,
+        "bottom": false,
+        "left": false,
+        "right": false
+      },
+      "crops": {
+        "close": {
+          "box": [
+            216,
+            0,
+            512,
+            296
+          ],
+          "pixels": 87616,
+          "support_pixels": 2535,
+          "support_fraction": 0.028933071585098613,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.029140896267361112,
+          "support_touches_crop_edge": {
+            "top": true,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": false,
+            "top": true,
+            "right": true,
+            "bottom": false
+          }
+        },
+        "wide": {
+          "box": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "pixels": 262144,
+          "support_pixels": 2535,
+          "support_fraction": 0.009670257568359375,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.00958251953125,
+          "support_touches_crop_edge": {
+            "top": true,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          }
+        }
+      },
+      "semantic_available": true,
+      "predicted_pair": [
+        5,
+        2
+      ],
+      "true_pair": [
+        5,
+        1
+      ],
+      "pair_label_agreement": false,
+      "semantic_source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_2890_5to1/metrics.json",
+      "exemplar_path": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/results/agent_baseline/data/t3_tasks_dev_0of1/train_2890_5to1_exemplar.png"
+    },
+    {
+      "id": "train_2912_5to2",
+      "group": "目标类",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 1408,
+      "gt_pixels": 1837,
+      "remaining_gt_pixels": 429,
+      "hole_count": 2,
+      "hole_pixels": 224,
+      "has_holes": true,
+      "support_bbox": [
+        28,
+        207,
+        78,
+        276
+      ],
+      "support_touches_image_edge": {
+        "top": false,
+        "bottom": false,
+        "left": false,
+        "right": false
+      },
+      "crops": {
+        "close": {
+          "box": [
+            0,
+            103,
+            276,
+            379
+          ],
+          "pixels": 76176,
+          "support_pixels": 1408,
+          "support_fraction": 0.01848351186725478,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.018575032552083332,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": false,
+            "right": false,
+            "bottom": false
+          }
+        },
+        "wide": {
+          "box": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "pixels": 262144,
+          "support_pixels": 1408,
+          "support_fraction": 0.00537109375,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.005337185329861111,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          }
+        }
+      },
+      "semantic_available": true,
+      "predicted_pair": [
+        5,
+        5
+      ],
+      "true_pair": [
+        5,
+        2
+      ],
+      "pair_label_agreement": false,
+      "semantic_source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_2912_5to2/metrics.json",
+      "exemplar_path": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/results/agent_baseline/data/t3_tasks_dev_0of1/train_2912_5to2_exemplar.png"
+    },
+    {
+      "id": "train_2928_3to1",
+      "group": "地表类",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 1624,
+      "gt_pixels": 1624,
+      "remaining_gt_pixels": 0,
+      "hole_count": 0,
+      "hole_pixels": 0,
+      "has_holes": false,
+      "support_bbox": [
+        141,
+        74,
+        278,
+        143
+      ],
+      "support_touches_image_edge": {
+        "top": false,
+        "bottom": false,
+        "left": false,
+        "right": false
+      },
+      "crops": {
+        "close": {
+          "box": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "pixels": 262144,
+          "support_pixels": 1624,
+          "support_fraction": 0.006195068359375,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.006178114149305556,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          }
+        },
+        "wide": {
+          "box": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "pixels": 262144,
+          "support_pixels": 1624,
+          "support_fraction": 0.006195068359375,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.006178114149305556,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          }
+        }
+      },
+      "semantic_available": true,
+      "predicted_pair": [
+        5,
+        3
+      ],
+      "true_pair": [
+        3,
+        1
+      ],
+      "pair_label_agreement": false,
+      "semantic_source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_2928_3to1/metrics.json",
+      "exemplar_path": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/results/agent_baseline/data/t3_tasks_dev_0of1/train_2928_3to1_exemplar.png"
+    },
+    {
+      "id": "train_368_1to2",
+      "group": "地表类",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 1421,
+      "gt_pixels": 71998,
+      "remaining_gt_pixels": 70577,
+      "hole_count": 0,
+      "hole_pixels": 0,
+      "has_holes": false,
+      "support_bbox": [
+        172,
+        412,
+        261,
+        512
+      ],
+      "support_touches_image_edge": {
+        "top": false,
+        "bottom": true,
+        "left": false,
+        "right": false
+      },
+      "crops": {
+        "close": {
+          "box": [
+            16,
+            112,
+            416,
+            512
+          ],
+          "pixels": 160000,
+          "support_pixels": 1421,
+          "support_fraction": 0.00888125,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.008843315972222222,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": true,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": false,
+            "top": false,
+            "right": false,
+            "bottom": true
+          }
+        },
+        "wide": {
+          "box": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "pixels": 262144,
+          "support_pixels": 1421,
+          "support_fraction": 0.005420684814453125,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.005418565538194444,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": true,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          }
+        }
+      },
+      "semantic_available": true,
+      "predicted_pair": [
+        5,
+        4
+      ],
+      "true_pair": [
+        1,
+        2
+      ],
+      "pair_label_agreement": false,
+      "semantic_source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_368_1to2/metrics.json",
+      "exemplar_path": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/results/agent_baseline/data/t3_tasks_dev_0of1/train_368_1to2_exemplar.png"
+    },
+    {
+      "id": "train_37_4to3",
+      "group": "地表类",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 1460,
+      "gt_pixels": 1460,
+      "remaining_gt_pixels": 0,
+      "hole_count": 0,
+      "hole_pixels": 0,
+      "has_holes": false,
+      "support_bbox": [
+        150,
+        296,
+        223,
+        322
+      ],
+      "support_touches_image_edge": {
+        "top": false,
+        "bottom": false,
+        "left": false,
+        "right": false
+      },
+      "crops": {
+        "close": {
+          "box": [
+            40,
+            163,
+            332,
+            455
+          ],
+          "pixels": 85264,
+          "support_pixels": 1460,
+          "support_fraction": 0.017123287671232876,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.016852484809027776,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": false,
+            "top": false,
+            "right": false,
+            "bottom": false
+          }
+        },
+        "wide": {
+          "box": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "pixels": 262144,
+          "support_pixels": 1460,
+          "support_fraction": 0.0055694580078125,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.005716959635416667,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          }
+        }
+      },
+      "semantic_available": true,
+      "predicted_pair": [
+        5,
+        3
+      ],
+      "true_pair": [
+        4,
+        3
+      ],
+      "pair_label_agreement": false,
+      "semantic_source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_37_4to3/metrics.json",
+      "exemplar_path": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/results/agent_baseline/data/t3_tasks_dev_0of1/train_37_4to3_exemplar.png"
+    },
+    {
+      "id": "train_378_1to4",
+      "group": "地表类",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 333,
+      "gt_pixels": 333,
+      "remaining_gt_pixels": 0,
+      "hole_count": 0,
+      "hole_pixels": 0,
+      "has_holes": false,
+      "support_bbox": [
+        469,
+        429,
+        501,
+        496
+      ],
+      "support_touches_image_edge": {
+        "top": false,
+        "bottom": false,
+        "left": false,
+        "right": false
+      },
+      "crops": {
+        "close": {
+          "box": [
+            244,
+            244,
+            512,
+            512
+          ],
+          "pixels": 71824,
+          "support_pixels": 333,
+          "support_fraction": 0.004636333259077746,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.004597981770833333,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": false,
+            "top": false,
+            "right": true,
+            "bottom": true
+          }
+        },
+        "wide": {
+          "box": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "pixels": 262144,
+          "support_pixels": 333,
+          "support_fraction": 0.001270294189453125,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.0012681749131944445,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          }
+        }
+      },
+      "semantic_available": true,
+      "predicted_pair": [
+        4,
+        4
+      ],
+      "true_pair": [
+        1,
+        4
+      ],
+      "pair_label_agreement": false,
+      "semantic_source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_378_1to4/metrics.json",
+      "exemplar_path": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/results/agent_baseline/data/t3_tasks_dev_0of1/train_378_1to4_exemplar.png"
+    },
+    {
+      "id": "train_385_5to6",
+      "group": "目标类",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 750,
+      "gt_pixels": 750,
+      "remaining_gt_pixels": 0,
+      "hole_count": 0,
+      "hole_pixels": 0,
+      "has_holes": false,
+      "support_bbox": [
+        236,
+        162,
+        271,
+        185
+      ],
+      "support_touches_image_edge": {
+        "top": false,
+        "bottom": false,
+        "left": false,
+        "right": false
+      },
+      "crops": {
+        "close": {
+          "box": [
+            183,
+            103,
+            323,
+            243
+          ],
+          "pixels": 19600,
+          "support_pixels": 750,
+          "support_fraction": 0.03826530612244898,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.03822157118055555,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": false,
+            "top": false,
+            "right": false,
+            "bottom": false
+          }
+        },
+        "wide": {
+          "box": [
+            78,
+            0,
+            428,
+            350
+          ],
+          "pixels": 122500,
+          "support_pixels": 750,
+          "support_fraction": 0.006122448979591836,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.00616455078125,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": false,
+            "top": true,
+            "right": false,
+            "bottom": false
+          }
+        }
+      },
+      "semantic_available": true,
+      "predicted_pair": [
+        5,
+        6
+      ],
+      "true_pair": [
+        5,
+        6
+      ],
+      "pair_label_agreement": true,
+      "semantic_source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_385_5to6/metrics.json",
+      "exemplar_path": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/results/agent_baseline/data/t3_tasks_dev_0of1/train_385_5to6_exemplar.png"
+    },
+    {
+      "id": "train_427_3to1",
+      "group": "地表类",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 71,
+      "gt_pixels": 435,
+      "remaining_gt_pixels": 364,
+      "hole_count": 0,
+      "hole_pixels": 0,
+      "has_holes": false,
+      "support_bbox": [
+        0,
+        205,
+        9,
+        225
+      ],
+      "support_touches_image_edge": {
+        "top": false,
+        "bottom": false,
+        "left": true,
+        "right": false
+      },
+      "crops": {
+        "close": {
+          "box": [
+            0,
+            175,
+            80,
+            255
+          ],
+          "pixels": 6400,
+          "support_pixels": 71,
+          "support_fraction": 0.01109375,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.0111083984375,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": true,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": false,
+            "right": false,
+            "bottom": false
+          }
+        },
+        "wide": {
+          "box": [
+            0,
+            87,
+            256,
+            343
+          ],
+          "pixels": 65536,
+          "support_pixels": 71,
+          "support_fraction": 0.0010833740234375,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.001064724392361111,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": true,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": false,
+            "right": false,
+            "bottom": false
+          }
+        }
+      },
+      "semantic_available": true,
+      "predicted_pair": [
+        5,
+        2
+      ],
+      "true_pair": [
+        3,
+        1
+      ],
+      "pair_label_agreement": false,
+      "semantic_source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_427_3to1/metrics.json",
+      "exemplar_path": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/results/agent_baseline/data/t3_tasks_dev_0of1/train_427_3to1_exemplar.png"
+    },
+    {
+      "id": "train_443_3to2",
+      "group": "地表类",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 203,
+      "gt_pixels": 203,
+      "remaining_gt_pixels": 0,
+      "hole_count": 2,
+      "hole_pixels": 27,
+      "has_holes": true,
+      "support_bbox": [
+        421,
+        196,
+        446,
+        210
+      ],
+      "support_touches_image_edge": {
+        "top": false,
+        "bottom": false,
+        "left": false,
+        "right": false
+      },
+      "crops": {
+        "close": {
+          "box": [
+            383,
+            153,
+            483,
+            253
+          ],
+          "pixels": 10000,
+          "support_pixels": 203,
+          "support_fraction": 0.0203,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.020270453559027776,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": false,
+            "top": false,
+            "right": false,
+            "bottom": false
+          }
+        },
+        "wide": {
+          "box": [
+            256,
+            75,
+            512,
+            331
+          ],
+          "pixels": 65536,
+          "support_pixels": 203,
+          "support_fraction": 0.0030975341796875,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.0030653211805555555,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": false,
+            "top": false,
+            "right": true,
+            "bottom": false
+          }
+        }
+      },
+      "semantic_available": true,
+      "predicted_pair": [
+        2,
+        1
+      ],
+      "true_pair": [
+        3,
+        2
+      ],
+      "pair_label_agreement": false,
+      "semantic_source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_443_3to2/metrics.json",
+      "exemplar_path": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/results/agent_baseline/data/t3_tasks_dev_0of1/train_443_3to2_exemplar.png"
+    },
+    {
+      "id": "train_555_4to2",
+      "group": "地表类",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 450,
+      "gt_pixels": 450,
+      "remaining_gt_pixels": 0,
+      "hole_count": 0,
+      "hole_pixels": 0,
+      "has_holes": false,
+      "support_bbox": [
+        147,
+        42,
+        171,
+        71
+      ],
+      "support_touches_image_edge": {
+        "top": false,
+        "bottom": false,
+        "left": false,
+        "right": false
+      },
+      "crops": {
+        "close": {
+          "box": [
+            101,
+            0,
+            217,
+            116
+          ],
+          "pixels": 13456,
+          "support_pixels": 450,
+          "support_fraction": 0.0334423305588585,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.03341335720486111,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": false,
+            "top": true,
+            "right": false,
+            "bottom": false
+          }
+        },
+        "wide": {
+          "box": [
+            14,
+            0,
+            304,
+            290
+          ],
+          "pixels": 84100,
+          "support_pixels": 450,
+          "support_fraction": 0.00535077288941736,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.005337185329861111,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": false,
+            "top": true,
+            "right": false,
+            "bottom": false
+          }
+        }
+      },
+      "semantic_available": true,
+      "predicted_pair": [
+        4,
+        2
+      ],
+      "true_pair": [
+        4,
+        2
+      ],
+      "pair_label_agreement": true,
+      "semantic_source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_555_4to2/metrics.json",
+      "exemplar_path": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/results/agent_baseline/data/t3_tasks_dev_0of1/train_555_4to2_exemplar.png"
+    },
+    {
+      "id": "train_615_3to4",
+      "group": "地表类",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 56,
+      "gt_pixels": 56,
+      "remaining_gt_pixels": 0,
+      "hole_count": 0,
+      "hole_pixels": 0,
+      "has_holes": false,
+      "support_bbox": [
+        232,
+        87,
+        246,
+        100
+      ],
+      "support_touches_image_edge": {
+        "top": false,
+        "bottom": false,
+        "left": false,
+        "right": false
+      },
+      "crops": {
+        "close": {
+          "box": [
+            207,
+            61,
+            271,
+            125
+          ],
+          "pixels": 4096,
+          "support_pixels": 56,
+          "support_fraction": 0.013671875,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.013671875,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": false,
+            "top": false,
+            "right": false,
+            "bottom": false
+          }
+        },
+        "wide": {
+          "box": [
+            111,
+            0,
+            367,
+            256
+          ],
+          "pixels": 65536,
+          "support_pixels": 56,
+          "support_fraction": 0.0008544921875,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.0008748372395833334,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": false,
+            "top": true,
+            "right": false,
+            "bottom": false
+          }
+        }
+      },
+      "semantic_available": true,
+      "predicted_pair": [
+        1,
+        1
+      ],
+      "true_pair": [
+        3,
+        4
+      ],
+      "pair_label_agreement": false,
+      "semantic_source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_615_3to4/metrics.json",
+      "exemplar_path": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/results/agent_baseline/data/t3_tasks_dev_0of1/train_615_3to4_exemplar.png"
+    },
+    {
+      "id": "train_7_1to2",
+      "group": "地表类",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 2273,
+      "gt_pixels": 2535,
+      "remaining_gt_pixels": 262,
+      "hole_count": 0,
+      "hole_pixels": 0,
+      "has_holes": false,
+      "support_bbox": [
+        7,
+        196,
+        101,
+        246
+      ],
+      "support_touches_image_edge": {
+        "top": false,
+        "bottom": false,
+        "left": false,
+        "right": false
+      },
+      "crops": {
+        "close": {
+          "box": [
+            0,
+            33,
+            376,
+            409
+          ],
+          "pixels": 141376,
+          "support_pixels": 2273,
+          "support_fraction": 0.01607769352648257,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.015821668836805556,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": false,
+            "right": false,
+            "bottom": false
+          }
+        },
+        "wide": {
+          "box": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "pixels": 262144,
+          "support_pixels": 2273,
+          "support_fraction": 0.008670806884765625,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.008700900607638888,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          }
+        }
+      },
+      "semantic_available": true,
+      "predicted_pair": [
+        1,
+        1
+      ],
+      "true_pair": [
+        1,
+        2
+      ],
+      "pair_label_agreement": false,
+      "semantic_source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_7_1to2/metrics.json",
+      "exemplar_path": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/results/agent_baseline/data/t3_tasks_dev_0of1/train_7_1to2_exemplar.png"
+    },
+    {
+      "id": "train_786_3to5",
+      "group": "目标类",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 80,
+      "gt_pixels": 80,
+      "remaining_gt_pixels": 0,
+      "hole_count": 0,
+      "hole_pixels": 0,
+      "has_holes": false,
+      "support_bbox": [
+        315,
+        177,
+        325,
+        190
+      ],
+      "support_touches_image_edge": {
+        "top": false,
+        "bottom": false,
+        "left": false,
+        "right": false
+      },
+      "crops": {
+        "close": {
+          "box": [
+            288,
+            151,
+            352,
+            215
+          ],
+          "pixels": 4096,
+          "support_pixels": 80,
+          "support_fraction": 0.01953125,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.01953125,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": false,
+            "top": false,
+            "right": false,
+            "bottom": false
+          }
+        },
+        "wide": {
+          "box": [
+            192,
+            55,
+            448,
+            311
+          ],
+          "pixels": 65536,
+          "support_pixels": 80,
+          "support_fraction": 0.001220703125,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.0012003580729166667,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": false,
+            "top": false,
+            "right": false,
+            "bottom": false
+          }
+        }
+      },
+      "semantic_available": true,
+      "predicted_pair": [
+        3,
+        5
+      ],
+      "true_pair": [
+        3,
+        5
+      ],
+      "pair_label_agreement": true,
+      "semantic_source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_786_3to5/metrics.json",
+      "exemplar_path": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/results/agent_baseline/data/t3_tasks_dev_0of1/train_786_3to5_exemplar.png"
+    },
+    {
+      "id": "train_908_4to1",
+      "group": "地表类",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 80,
+      "gt_pixels": 80,
+      "remaining_gt_pixels": 0,
+      "hole_count": 0,
+      "hole_pixels": 0,
+      "has_holes": false,
+      "support_bbox": [
+        405,
+        176,
+        428,
+        196
+      ],
+      "support_touches_image_edge": {
+        "top": false,
+        "bottom": false,
+        "left": false,
+        "right": false
+      },
+      "crops": {
+        "close": {
+          "box": [
+            370,
+            140,
+            462,
+            232
+          ],
+          "pixels": 8464,
+          "support_pixels": 80,
+          "support_fraction": 0.00945179584120983,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.00946044921875,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": false,
+            "top": false,
+            "right": false,
+            "bottom": false
+          }
+        },
+        "wide": {
+          "box": [
+            256,
+            58,
+            512,
+            314
+          ],
+          "pixels": 65536,
+          "support_pixels": 80,
+          "support_fraction": 0.001220703125,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.0012342664930555555,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": false,
+            "top": false,
+            "right": true,
+            "bottom": false
+          }
+        }
+      },
+      "semantic_available": true,
+      "predicted_pair": [
+        1,
+        4
+      ],
+      "true_pair": [
+        4,
+        1
+      ],
+      "pair_label_agreement": false,
+      "semantic_source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_908_4to1/metrics.json",
+      "exemplar_path": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/results/agent_baseline/data/t3_tasks_dev_0of1/train_908_4to1_exemplar.png"
+    },
+    {
+      "id": "train_915_3to4",
+      "group": "地表类",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 3588,
+      "gt_pixels": 3589,
+      "remaining_gt_pixels": 1,
+      "hole_count": 0,
+      "hole_pixels": 0,
+      "has_holes": false,
+      "support_bbox": [
+        429,
+        254,
+        462,
+        474
+      ],
+      "support_touches_image_edge": {
+        "top": false,
+        "bottom": false,
+        "left": false,
+        "right": false
+      },
+      "crops": {
+        "close": {
+          "box": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "pixels": 262144,
+          "support_pixels": 3588,
+          "support_fraction": 0.0136871337890625,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.013536241319444444,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          }
+        },
+        "wide": {
+          "box": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "pixels": 262144,
+          "support_pixels": 3588,
+          "support_fraction": 0.0136871337890625,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.013536241319444444,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          }
+        }
+      },
+      "semantic_available": true,
+      "predicted_pair": [
+        1,
+        4
+      ],
+      "true_pair": [
+        3,
+        4
+      ],
+      "pair_label_agreement": false,
+      "semantic_source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_915_3to4/metrics.json",
+      "exemplar_path": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/results/agent_baseline/data/t3_tasks_dev_0of1/train_915_3to4_exemplar.png"
+    },
+    {
+      "id": "train_968_5to3",
+      "group": "目标类",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 45,
+      "gt_pixels": 107,
+      "remaining_gt_pixels": 62,
+      "hole_count": 0,
+      "hole_pixels": 0,
+      "has_holes": false,
+      "support_bbox": [
+        364,
+        194,
+        372,
+        210
+      ],
+      "support_touches_image_edge": {
+        "top": false,
+        "bottom": false,
+        "left": false,
+        "right": false
+      },
+      "crops": {
+        "close": {
+          "box": [
+            336,
+            170,
+            400,
+            234
+          ],
+          "pixels": 4096,
+          "support_pixels": 45,
+          "support_fraction": 0.010986328125,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.010986328125,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": false,
+            "top": false,
+            "right": false,
+            "bottom": false
+          }
+        },
+        "wide": {
+          "box": [
+            240,
+            74,
+            496,
+            330
+          ],
+          "pixels": 65536,
+          "support_pixels": 45,
+          "support_fraction": 0.0006866455078125,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.0006849500868055555,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": false,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": false,
+            "top": false,
+            "right": false,
+            "bottom": false
+          }
+        }
+      },
+      "semantic_available": true,
+      "predicted_pair": [
+        3,
+        3
+      ],
+      "true_pair": [
+        5,
+        3
+      ],
+      "pair_label_agreement": false,
+      "semantic_source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_968_5to3/metrics.json",
+      "exemplar_path": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/results/agent_baseline/data/t3_tasks_dev_0of1/train_968_5to3_exemplar.png"
+    },
+    {
+      "id": "train_987_3to5",
+      "group": "目标类",
+      "shape": [
+        512,
+        512
+      ],
+      "exemplar_pixels": 1347,
+      "gt_pixels": 1347,
+      "remaining_gt_pixels": 0,
+      "hole_count": 0,
+      "hole_pixels": 0,
+      "has_holes": false,
+      "support_bbox": [
+        160,
+        481,
+        264,
+        512
+      ],
+      "support_touches_image_edge": {
+        "top": false,
+        "bottom": true,
+        "left": false,
+        "right": false
+      },
+      "crops": {
+        "close": {
+          "box": [
+            4,
+            96,
+            420,
+            512
+          ],
+          "pixels": 173056,
+          "support_pixels": 1347,
+          "support_fraction": 0.007783607618343195,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.007765028211805556,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": true,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": false,
+            "top": false,
+            "right": false,
+            "bottom": true
+          }
+        },
+        "wide": {
+          "box": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "pixels": 262144,
+          "support_pixels": 1347,
+          "support_fraction": 0.005138397216796875,
+          "exemplar_visible_fraction": 1.0,
+          "displayed_support_fraction": 0.005113389756944444,
+          "support_touches_crop_edge": {
+            "top": false,
+            "bottom": true,
+            "left": false,
+            "right": false
+          },
+          "crop_touches_image_edge": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          }
+        }
+      },
+      "semantic_available": true,
+      "predicted_pair": [
+        1,
+        5
+      ],
+      "true_pair": [
+        3,
+        5
+      ],
+      "pair_label_agreement": false,
+      "semantic_source": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/t3_bridge_20261114/dev60/tasks/train_987_3to5/metrics.json",
+      "exemplar_path": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/results/agent_baseline/data/t3_tasks_dev_0of1/train_987_3to5_exemplar.png"
+    }
+  ]
+}

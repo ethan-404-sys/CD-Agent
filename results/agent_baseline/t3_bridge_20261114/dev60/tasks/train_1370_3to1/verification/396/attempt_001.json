@@ -1,0 +1,23 @@
+{
+  "attempt": 1,
+  "raw": "{\n\"change\": \"yes\",\n\"example_t1\": \"dense industrial buildings with blue roofs\",\n\"example_t2\": \"open dirt ground / cleared land\",\n\"candidate_t1\": \"dense industrial buildings with blue roofs\",\n\"candidate_t2\": \"open dirt ground / cleared land\",\n\"reason\": \"Both regions show the same directed transition: a cluster of blue-roofed industrial structures in T1 is replaced by bare/cleared ground in T2, indicating demolition or land clearing. No reverse or unchanged patterns are present.\"\n}",
+  "usage": {
+    "prompt_tokens": 1362,
+    "total_tokens": 1479,
+    "completion_tokens": 117,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 1168,
+      "text_tokens": 194
+    },
+    "completion_tokens_details": {
+      "text_tokens": 117
+    }
+  },
+  "http_status": null,
+  "requested_model": "qwen3.7-flash",
+  "error_body": null,
+  "error_type": null,
+  "retryable": null,
+  "seconds": 1.6503010112792253
+}

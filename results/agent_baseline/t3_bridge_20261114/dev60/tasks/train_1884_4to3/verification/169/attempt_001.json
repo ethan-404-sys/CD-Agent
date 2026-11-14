@@ -1,0 +1,23 @@
+{
+  "attempt": 1,
+  "raw": "{\n\"change\": \"yes\",\n\"example_t1\": \"water\",\n\"example_t2\": \"vegetation\",\n\"candidate_t1\": \"water\",\n\"candidate_t2\": \"bare_ground\",\n\"reason\": \"Both regions show a transition from a water body at T1 to a non-water surface at T2. In the example, the water is replaced by vegetation, while in the candidate, the water recedes or is filled, leaving bare ground/soil. Both represent a loss of open water cover.\"\n}",
+  "usage": {
+    "prompt_tokens": 1362,
+    "total_tokens": 1477,
+    "completion_tokens": 115,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 1168,
+      "text_tokens": 194
+    },
+    "completion_tokens_details": {
+      "text_tokens": 115
+    }
+  },
+  "http_status": null,
+  "requested_model": "qwen3.7-flash",
+  "error_body": null,
+  "error_type": null,
+  "retryable": null,
+  "seconds": 1.3256304133683443
+}

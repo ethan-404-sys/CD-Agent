@@ -1,0 +1,23 @@
+{
+  "attempt": 1,
+  "raw": "{\n\"change\": \"yes\",\n\"example_t1\": \"vegetation/landfill\",\n\"example_t2\": \"impervious surface (building)\",\n\"candidate_t1\": \"impervious surface (building)\",\n\"candidate_t2\": \"bare soil\",\n\"reason\": \"The Example shows a transition from vegetation/bare ground to an impervious building structure. The Candidate shows the reverse: an impervious building is removed and becomes bare soil. Since the directions are opposite, they do not match.\"\n}",
+  "usage": {
+    "prompt_tokens": 1362,
+    "total_tokens": 1476,
+    "completion_tokens": 114,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 1168,
+      "text_tokens": 194
+    },
+    "completion_tokens_details": {
+      "text_tokens": 114
+    }
+  },
+  "http_status": null,
+  "requested_model": "qwen3.7-flash",
+  "error_body": null,
+  "error_type": null,
+  "retryable": null,
+  "seconds": 1.471809333190322
+}

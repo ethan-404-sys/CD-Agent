@@ -1,0 +1,23 @@
+{
+  "attempt": 1,
+  "raw": "{\n\"change\": \"yes\",\n\"example_t1\": \"bare ground\",\n\"example_t2\": \"impervious\",\n\"candidate_t1\": \"impervious\",\n\"candidate_t2\": \"impervious\",\n\"reason\": \"The example shows a transition from bare ground to impervious surface (building expansion), while the candidate region remains as impervious surface across both time steps. Since the candidate does not show the same directed change (bare ground → impervious), it is a mismatch.\"\n}",
+  "usage": {
+    "prompt_tokens": 1362,
+    "total_tokens": 1476,
+    "completion_tokens": 114,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 1168,
+      "text_tokens": 194
+    },
+    "completion_tokens_details": {
+      "text_tokens": 114
+    }
+  },
+  "http_status": null,
+  "requested_model": "qwen3.7-flash",
+  "error_body": null,
+  "error_type": null,
+  "retryable": null,
+  "seconds": 1.031255690380931
+}
