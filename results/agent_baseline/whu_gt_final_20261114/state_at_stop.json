@@ -1,0 +1,369 @@
+{
+  "name": "cd-whu-final-20261114",
+  "status": "done",
+  "queue": [],
+  "done": [
+    "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-whu-final-20261114/jobs/01-inventory.sbatch",
+    "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-whu-final-20261114/jobs/02-build.sbatch",
+    "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-whu-final-20261114/jobs/03-final-check-cleanup.sbatch",
+    "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-whu-final-20261114/jobs/03-final-check-cleanup.sbatch",
+    "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-whu-final-20261114/jobs/04-score-regression.sbatch"
+  ],
+  "current": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-whu-final-20261114/jobs/04-score-regression.sbatch",
+  "job_id": "185025",
+  "hook_id": "185026",
+  "rounds": 5,
+  "rounds_submitted": 5,
+  "primary_best": null,
+  "cost_cny": 0.0,
+  "finalized": false,
+  "finalize_requested": true,
+  "started_at": "2026-11-14 02:57:12",
+  "started_epoch": 1794625032.2655687,
+  "history": [
+    {
+      "job": "01-inventory.sbatch",
+      "job_id": "184999",
+      "hook_id": "185000",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0.0,
+      "metric": {
+        "stage": "inventory",
+        "cost_cny": 0,
+        "manifests": 16
+      },
+      "metric_error": null,
+      "at": "2026-11-14 02:59:31"
+    },
+    {
+      "job": "02-build.sbatch",
+      "job_id": "185015",
+      "hook_id": "185016",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0.0,
+      "metric": {},
+      "metric_error": "Expecting value: line 1 column 1 (char 0)",
+      "at": "2026-11-14 03:07:05"
+    },
+    {
+      "job": "03-final-check-cleanup.sbatch",
+      "job_id": "185019",
+      "hook_id": "185020",
+      "state": "CANCELLED",
+      "exit": "0:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0.0,
+      "metric": {
+        "stage": "build_and_rescore",
+        "version": "whu_official_v3_20261114",
+        "images": 188,
+        "splits": {
+          "val": {
+            "images": 128,
+            "total_pixels": 33554432,
+            "official_pixels": 1968113,
+            "appeared_pixels": 1606025,
+            "disappeared_pixels": 174922,
+            "ignore_pixels": 187166,
+            "official_empty": 56,
+            "tiny_official_positive": 1,
+            "direction_fully_ambiguous": 0,
+            "images_with_ignore": 46
+          },
+          "dev": {
+            "images": 60,
+            "total_pixels": 15728640,
+            "official_pixels": 1236166,
+            "appeared_pixels": 1183292,
+            "disappeared_pixels": 29034,
+            "ignore_pixels": 23840,
+            "official_empty": 22,
+            "tiny_official_positive": 2,
+            "direction_fully_ambiguous": 1,
+            "images_with_ignore": 28
+          }
+        },
+        "updated_manifests": 12,
+        "updated_manifest_rows": 1128,
+        "canonical_task_rows": 564,
+        "gt_root": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/whu/gt_official_v3",
+        "git_mirror": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/whu_gt_final_20261114/gt_official_v3",
+        "rescore": {
+          "predictions": 1950,
+          "groups": 18,
+          "missing": 0,
+          "by_direction": {
+            "any": 650,
+            "appeared": 650,
+            "disappeared": 650
+          }
+        },
+        "api_calls": 0,
+        "cost_cny": 0,
+        "cleanup_complete": false
+      },
+      "metric_error": null,
+      "at": "2026-11-14 03:17:10"
+    },
+    {
+      "job": "03-final-check-cleanup.sbatch",
+      "job_id": "185022",
+      "hook_id": "185023",
+      "state": "FAILED",
+      "exit": "1:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0.0,
+      "metric": {
+        "stage": "build_and_rescore",
+        "version": "whu_official_v3_20261114",
+        "images": 188,
+        "splits": {
+          "val": {
+            "images": 128,
+            "total_pixels": 33554432,
+            "official_pixels": 1968113,
+            "appeared_pixels": 1606025,
+            "disappeared_pixels": 174922,
+            "ignore_pixels": 187166,
+            "official_empty": 56,
+            "tiny_official_positive": 1,
+            "direction_fully_ambiguous": 0,
+            "images_with_ignore": 46
+          },
+          "dev": {
+            "images": 60,
+            "total_pixels": 15728640,
+            "official_pixels": 1236166,
+            "appeared_pixels": 1183292,
+            "disappeared_pixels": 29034,
+            "ignore_pixels": 23840,
+            "official_empty": 22,
+            "tiny_official_positive": 2,
+            "direction_fully_ambiguous": 1,
+            "images_with_ignore": 28
+          }
+        },
+        "updated_manifests": 12,
+        "updated_manifest_rows": 1128,
+        "canonical_task_rows": 564,
+        "gt_root": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/whu/gt_official_v3",
+        "git_mirror": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/whu_gt_final_20261114/gt_official_v3",
+        "rescore": {
+          "predictions": 1950,
+          "groups": 18,
+          "missing": 0,
+          "by_direction": {
+            "any": 650,
+            "appeared": 650,
+            "disappeared": 650
+          }
+        },
+        "api_calls": 0,
+        "cost_cny": 0,
+        "cleanup_complete": false
+      },
+      "metric_error": null,
+      "at": "2026-11-14 03:20:03"
+    },
+    {
+      "job": "04-score-regression.sbatch",
+      "job_id": "185025",
+      "hook_id": "185026",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0.0,
+      "metric": {
+        "stage": "final_archive",
+        "version": "whu_official_v3_20261114",
+        "images": 188,
+        "splits": {
+          "val": {
+            "images": 128,
+            "total_pixels": 33554432,
+            "official_pixels": 1968113,
+            "appeared_pixels": 1606025,
+            "disappeared_pixels": 174922,
+            "ignore_pixels": 187166,
+            "official_empty": 56,
+            "tiny_official_positive": 1,
+            "direction_fully_ambiguous": 0,
+            "images_with_ignore": 46
+          },
+          "dev": {
+            "images": 60,
+            "total_pixels": 15728640,
+            "official_pixels": 1236166,
+            "appeared_pixels": 1183292,
+            "disappeared_pixels": 29034,
+            "ignore_pixels": 23840,
+            "official_empty": 22,
+            "tiny_official_positive": 2,
+            "direction_fully_ambiguous": 1,
+            "images_with_ignore": 28
+          }
+        },
+        "updated_manifests": 12,
+        "updated_manifest_rows": 1128,
+        "canonical_task_rows": 564,
+        "gt_root": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/whu/gt_official_v3",
+        "git_mirror": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/whu_gt_final_20261114/gt_official_v3",
+        "rescore": {
+          "predictions": 1950,
+          "groups": 18,
+          "missing": 0,
+          "by_direction": {
+            "any": 650,
+            "appeared": 650,
+            "disappeared": 650
+          }
+        },
+        "api_calls": 0,
+        "cost_cny": 0,
+        "cleanup_complete": true,
+        "deleted_gt_files": 564,
+        "regression_passed": true,
+        "tests": 80
+      },
+      "metric_error": null,
+      "at": "2026-11-14 03:21:48"
+    }
+  ],
+  "driver": "dependency",
+  "recorded_current": true,
+  "submitted_at": "2026-11-14 03:20:56",
+  "last_advance_at": "2026-11-14 03:20:56",
+  "hook_attempts": 9,
+  "review_count": 5,
+  "review": {
+    "id": "event-0005",
+    "kind": "round_finished",
+    "error": null,
+    "at": "2026-11-14 03:21:48",
+    "job_id": "185025",
+    "hook_id": "185026",
+    "current": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-whu-final-20261114/jobs/04-score-regression.sbatch",
+    "latest": {
+      "job": "04-score-regression.sbatch",
+      "job_id": "185025",
+      "hook_id": "185026",
+      "state": "COMPLETED",
+      "exit": "0:0",
+      "primary": null,
+      "gain": null,
+      "cost_cny": 0.0,
+      "metric": {
+        "stage": "final_archive",
+        "version": "whu_official_v3_20261114",
+        "images": 188,
+        "splits": {
+          "val": {
+            "images": 128,
+            "total_pixels": 33554432,
+            "official_pixels": 1968113,
+            "appeared_pixels": 1606025,
+            "disappeared_pixels": 174922,
+            "ignore_pixels": 187166,
+            "official_empty": 56,
+            "tiny_official_positive": 1,
+            "direction_fully_ambiguous": 0,
+            "images_with_ignore": 46
+          },
+          "dev": {
+            "images": 60,
+            "total_pixels": 15728640,
+            "official_pixels": 1236166,
+            "appeared_pixels": 1183292,
+            "disappeared_pixels": 29034,
+            "ignore_pixels": 23840,
+            "official_empty": 22,
+            "tiny_official_positive": 2,
+            "direction_fully_ambiguous": 1,
+            "images_with_ignore": 28
+          }
+        },
+        "updated_manifests": 12,
+        "updated_manifest_rows": 1128,
+        "canonical_task_rows": 564,
+        "gt_root": "/guisongxia01/pangchao/wangyihan/wyh/exp6_staging/agent_baseline_run/whu/gt_official_v3",
+        "git_mirror": "/guisongxia01/pangchao/wangyihan/wyh/CD-Agent/results/agent_baseline/whu_gt_final_20261114/gt_official_v3",
+        "rescore": {
+          "predictions": 1950,
+          "groups": 18,
+          "missing": 0,
+          "by_direction": {
+            "any": 650,
+            "appeared": 650,
+            "disappeared": 650
+          }
+        },
+        "api_calls": 0,
+        "cost_cny": 0,
+        "cleanup_complete": true,
+        "deleted_gt_files": 564,
+        "regression_passed": true,
+        "tests": 80
+      },
+      "metric_error": null,
+      "at": "2026-11-14 03:21:48"
+    },
+    "queued_jobs": [],
+    "cost_cny": 0.0,
+    "delivery": "accepted",
+    "delivered_at": "2026-11-14 03:21:49",
+    "delivery_turn_id": "01a1d7f9-b981-7203-a997-f8c5faa256f2",
+    "delivery_via": "hook_http"
+  },
+  "decisions": [
+    {
+      "event_id": "event-0001",
+      "action": "add",
+      "job": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-whu-final-20261114/jobs/02-build.sbatch",
+      "reason": "Inventory completed: frozen report128/dev60 and twelve C0/C1 manifests identified. Validate official-constrained direction masks plus true ignore scoring, then rescore complete existing prediction inventory. No deletion until validated; independent map-update tasks retained pending scope decision.",
+      "at": "2026-11-14 03:03:44"
+    },
+    {
+      "event_id": "event-0002",
+      "action": "add",
+      "job": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-whu-final-20261114/jobs/03-final-check-cleanup.sbatch",
+      "reason": "Validated build and scoring; final reference audit, regression and authorized derived-GT cleanup",
+      "at": "2026-11-14 03:10:44"
+    },
+    {
+      "event_id": "event-0003",
+      "action": "retry",
+      "job": "/guisongxia01/pangchao/wangyihan/wyh/exp-loop/experiments/cd-whu-final-20261114/jobs/03-final-check-cleanup.sbatch",
+      "reason": "Intentional cancellation of overbroad history traversal after 76 passing tests; prune frozen code, session archives and assets, retain all runnable manifest directories; build results preserved",
+      "at": "2026-11-14 03:17:41"
+    },
+    {
+      "event_id": "event-0004",
+      "action": "continue",
+      "job": null,
+      "reason": "185022 passed 80 tests, full inventory and validation and deleted 564 obsolete GT files; only final metric write failed from duplicate cost keyword. Fix metric write and preserve original deletion record on idempotent cleanup, then archive evidence.",
+      "at": "2026-11-14 03:20:55"
+    },
+    {
+      "event_id": "event-0005",
+      "action": "finish",
+      "reason": "WHU full dev60 report128 correction complete: 564 tasks, official C0 and constrained C1 ignore, 80 passing tests, 1950 offline rescored predictions, 564 incorrect GT files removed; archive job185025 passed; code and results pushed; API cost0, no new inference. Preserve T54 map-update scope.",
+      "at": "2026-11-14 03:22:44"
+    }
+  ],
+  "finalize_attempts": 1,
+  "git_committed": false,
+  "git_pushed": false,
+  "notified": false,
+  "stop_reason": "WHU full dev60 report128 correction complete: 564 tasks, official C0 and constrained C1 ignore, 80 passing tests, 1950 offline rescored predictions, 564 incorrect GT files removed; archive job185025 passed; code and results pushed; API cost0, no new inference. Preserve T54 map-update scope.",
+  "finished_at": "2026-11-14 03:22:44",
+  "elapsed_seconds": 1532.2
+}
