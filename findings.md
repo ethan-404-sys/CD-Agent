@@ -336,3 +336,5 @@ T3 train_1496_2to1实际输入审查：示例支持为楼间空地、屋顶为�
 2026-11-14 夜间方法依据复核（不替代实验）：[Fine-Grained Visual Prompting](https://arxiv.org/abs/2306.04356)研究在CLIP区域理解中对目标外背景模糊以保留空间上下文；不能直接把其结果外推为qwen3.7-flash遥感变化核验收益。[Alpha-CLIP](https://arxiv.org/abs/2312.03818)增加显式alpha输入并用区域文本数据训练，区别于把RGB简单压暗后交现有API；本轮没有下载/训练/调用Alpha-CLIP。已有B1真实输入极性正确但1496/1177仍偏向排除区域，下一不同假设应检查显式支持表示/局部采样，而不是无限扫65%/70%暗化。原图、掩码与响应证据保留在night_t3_20261114/support_review.md；这是身份已知的机制审查，不是盲审统计。
 
 2026-11-14 两项实证更新：B1完整类别对一致5/60（tune4、confirm1）比B0 13/60差，且已见明确支持错指，故本轮70%压暗未解决Grounding；转试不同支持表示而非无限调暗度。旧拆除structured汇总涨分强烈集中，train1322一个大屋顶候选的原four yes+rebuilt违反已提供scope；结构化可能帮助应用排除规则，但不能把这当跨数据集召回普遍提升，LEVIR三臂仍全部退化。原始输入和实际规则引用见night_missed_20261114/manual_old_disappeared_contribution.md。
+
+2026-11-14 夜间并行推进：T3 B0固定60例GPU提议生成186439/hook186440已提交（不发API），供后续同池R1/R2/R3消融复用；25例unknown/同类预测仍以空R2记录，不用GT补正。原始S5代码确认是合并reference后统一匹配，当前LEVIR提取已观察到精确复现，不因计算慢误判卡死。论文动机及B3可证伪假设见night_t3_20261114/grounding_notes.md；B3尚未跑完不得写收益。
