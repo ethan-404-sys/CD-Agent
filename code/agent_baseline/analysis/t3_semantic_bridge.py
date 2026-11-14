@@ -14,13 +14,11 @@ from PIL import Image
 from agent_baseline.planner import Planner, usage_tokens, request_cost
 from agent_baseline.backends import encode_image, CROP_WORDS
 from agent_baseline.view import ask_images
-from agent_baseline.tools_t13 import Features
 from mllm import parse_json
 from .io_retry import read_image, read_text, write_json, exists
 from .t3_routes import load_dev, CLASSES, GROUPS, GRID, group, pair_id, pixel_counts, pooled
 from .t3_routes_cache import CachedVision, read_npz
 from .t3_routes_match import bbox, T3_SYSTEM, T3_QUESTION
-from .probe_t3 import task_scores
 from .t3_diag import proposal_metrics
 
 from agent_baseline.exemplar_semantics import (
@@ -36,6 +34,19 @@ def bridge_scores(masks, probabilities, pair):
 
 def rank(scores):
     return [] if scores is None else sorted(range(len(scores)), key=lambda i: (-float(scores[i]), i))
+
+
+def cached_dino_ranking(path, masks):
+    """Reuse historical top32 after checking stable proposal identity in Slurm."""
+    saved = read_npz(path)
+    indices = saved['indices'].astype(int).tolist()
+    shape = tuple(map(int, saved['shape']))
+    if shape != tuple(masks.shape[1:]) or len(indices) != min(max(GRID), len(masks)):
+        raise ValueError('Historical DINO candidate shape/count differs')
+    archived = np.unpackbits(saved['masks'], axis=1, count=int(np.prod(shape))).reshape(-1,*shape).astype(bool)
+    if not np.array_equal(archived, masks[indices]):
+        raise ValueError('Historical DINO candidate masks differ from current SAM proposals')
+    return indices
 
 
 def verification_views(images, exemplar, candidate):
@@ -64,10 +75,9 @@ def evaluate_task(row, run, historical, out, verify_k, seed):
     interpretation = interpret(images, ex, request_folder / 'interpretation', seed)
     backend = CachedVision(run / 't3_diag/cache/vision').for_row(row)
     masks = np.concatenate([backend('segment_everything', time=t) for t in ('t1','t2')])
-    features = [Features(backend('extract_features', time=t), ex.shape, t) for t in ('t1','t2')]
-    similarities = task_scores(masks, *features, dict(instances=[np.flatnonzero(ex).tolist()], exemplar_index=0)) if len(masks) else np.zeros(0)
+    dino_ranking = cached_dino_ranking(historical / 'route_b/candidates' / f"{row['id']}.npz", masks)
     probabilities = [read_npz(historical / 'route_a/semantic' / f"{row['id']}_{t}.npz")['data'] for t in ('t1','t2')]
-    rankings = dict(dino=rank(similarities), bridge=rank(bridge_scores(masks, probabilities, interpretation['pair'])))
+    rankings = dict(dino=dino_ranking, bridge=rank(bridge_scores(masks, probabilities, interpretation['pair'])))
     # Actual rankings and verification inputs are fixed before reading GT.
     write_json(folder / 'prediction.json', dict(interpretation=interpretation,
         rankings=rankings, verify_k=verify_k, proposal_count=len(masks)))
@@ -163,6 +173,7 @@ def main():
     policy = dict(version=1, task_ids=[r['id'] for r in rows], model=MODEL, seed=args.seed,
         verify_k=args.verify_k, classes=list(VOCAB), ranking='mean region product of predicted source/target probability',
         verification='shared original eight-image transition question; no class predictions supplied',
+        dino='historical top32 original proposal indices; exact packed-mask identity checked before reuse',
         unknown='empty bridge ranking and dense prediction; no GT correction',
         run=str(args.run), historical=str(args.historical))
     settings = args.output / 'settings.json'
