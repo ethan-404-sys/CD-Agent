@@ -170,12 +170,15 @@ def score(a):
             budgets={}
             for k in (3,5,10,20):
                 chosen=outcomes[:k];pred=base.copy();covered=np.zeros(base.shape,bool)
-                errors=dict(proxy_true_yes=0,proxy_false_yes=0,proxy_true_no=0,proxy_false_no=0,unknown=0,missing=0,truncated=0)
+                errors=dict(proxy_true_yes=0,proxy_false_yes=0,proxy_true_no=0,proxy_false_no=0,
+                    proxy_positive_total=0,proxy_negative_total=0,unknown=0,missing=0,truncated=0)
                 for c,m,answer in chosen:
                     covered|=m
+                    tp=int((m&gt).sum());fp=int((m&~gt).sum())
+                    errors['proxy_positive_total' if tp>fp else 'proxy_negative_total']+=1
                     if answer is None:errors['missing']+=1;continue
                     if answer.get('finish_reason')=='length':errors['truncated']+=1
-                    decision=answer.get('answer');tp=int((m&gt).sum());fp=int((m&~gt).sum())
+                    decision=answer.get('answer')
                     if decision=='yes':pred|=m
                     if decision not in ('yes','no'):errors['unknown']+=1
                     else:errors['proxy_'+('true' if ((tp>fp)==(decision=='yes')) else 'false')+'_'+decision]+=1
@@ -184,6 +187,10 @@ def score(a):
                     candidate_missing_pixel_recall=float((covered&gt&~base).sum()/(gt&~base).sum()) if (gt&~base).any() else None,
                     errors=errors,criterion='TP>FP is a pixel-benefit proxy, not semantic annotation')
             row['variants'][variant]=budgets
+        for variant in VARIANTS:
+            for k in (3,5,10,20):
+                result=row['variants'][variant][str(k)];reference=row['variants']['V0'][str(k)]['metrics']
+                result['delta_vs_v0']=result['metrics']['f1']-reference['f1'] if result['metrics'] and reference else None
         records.append(row);write_json(a.out/'scores'/item['group']/(item['stem']+'.json'),row)
     summaries={}
     for group in sorted({r['group'] for r in records}):
@@ -198,12 +205,23 @@ def score(a):
                     if len(usable)!=len(rows):output[variant][str(k)]=dict(complete=False,available=len(usable),expected=len(rows));continue
                     before=np.asarray([[r['baseline'][n] for n in ('tp','fp','fn')] for r in rows])
                     after=np.asarray([[r['variants'][variant][str(k)]['metrics'][n] for n in ('tp','fp','fn')] for r in rows])
+                    v0_ready=all(r['variants']['V0'][str(k)]['metrics'] for r in rows)
+                    v0=np.asarray([[r['variants']['V0'][str(k)]['metrics'][n] for n in ('tp','fp','fn')] for r in rows]) if v0_ready else None
                     delta=metrics(after.sum(axis=0))['f1']-metrics(before.sum(axis=0))['f1']
-                    rng=np.random.default_rng(1016);boot=[]
+                    rng=np.random.default_rng(1016);boot=[];boot_v0=[]
                     for _ in range(2000):
                         index=rng.integers(0,len(rows),len(rows));boot.append(metrics(after[index].sum(axis=0))['f1']-metrics(before[index].sum(axis=0))['f1'])
+                        if v0_ready:boot_v0.append(metrics(after[index].sum(axis=0))['f1']-metrics(v0[index].sum(axis=0))['f1'])
+                    totals={key:sum(r['variants'][variant][str(k)]['errors'][key] for r in rows) for key in rows[0]['variants'][variant][str(k)]['errors']}
+                    accepted=totals['proxy_true_yes']+totals['proxy_false_yes'];positive=totals['proxy_positive_total']
                     output[variant][str(k)]=dict(complete=True,images=len(rows),metrics=metrics(after.sum(axis=0)),delta_f1=delta,
                         paired_image_bootstrap_95_percentile=np.quantile(boot,[.025,.975]).tolist(),
+                        delta_vs_v0=metrics(after.sum(axis=0))['f1']-metrics(v0.sum(axis=0))['f1'] if v0_ready else None,
+                        paired_vs_v0_bootstrap95=np.quantile(boot_v0,[.025,.975]).tolist() if boot_v0 else None,
+                        candidate_proxy_counts=totals,candidate_proxy_precision=totals['proxy_true_yes']/accepted if accepted else None,
+                        candidate_proxy_recall=totals['proxy_true_yes']/positive if positive else None,
+                        candidate_proxy_denominators=dict(precision_accepted_candidates=accepted,recall_all_tp_gt_fp_candidates=positive,
+                            policy='TP>FP proxy, not semantic labels; missing/unknown are not accepted but remain in recall denominator'),
                         positive_images=sum(r['variants'][variant][str(k)]['delta_f1']>0 for r in rows))
             summaries[group+'/'+split]=output
     write_json(a.out/('score_smoke.json' if a.smoke else 'score_summary.json'),dict(groups=summaries,images=records,
