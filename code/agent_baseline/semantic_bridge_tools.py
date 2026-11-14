@@ -13,7 +13,7 @@ def schemas():
         'Independently inspect the visual example at each date. Returns before/after land-cover classes, possibly unknown, and visual evidence. Does not find changes or set the answer.',
         dict(mask=arg('string', description='Existing visual-example mask handle.')), ['mask']),
         schema('rank_semantic_transition',
-        'Score an existing proposal set by mean two-date semantic probability for a directed before-to-after transition. Returns a new props handle and per-ID scores; no threshold, verification, answer selection or submission. Semantic predictions may be wrong; unknown/same classes yield zero scores.',
+        'Score an existing proposal set by mean two-date semantic probability for a directed before-to-after transition. Returns a new props handle, per-ID scores and ranked_ids in descending score order (ties by ID). Choose your own IDs from ranked_ids with select(set=returned props, ids=[...]); there is no automatic top-k, threshold, verification or answer selection. Semantic predictions may be wrong; unknown/same classes yield zero scores.',
         dict(props=arg('string'), before=label, after=label), ['props','before','after'])]
 
 
@@ -51,10 +51,15 @@ class SemanticBridgeTools:
         scores = np.zeros(len(item.items))
         if before in reverse and after in reverse and before != after:
             probabilities = [self._vision('classify', time=t, classes=list(CLASSES.values())) for t in ('t1','t2')]
+            # DynamicBackend.semantic prepends background to the requested six
+            # classes; this is also the existing classify tool's public contract.
+            if any(p.shape != (len(CLASSES)+1, *self.session.shape) for p in probabilities):
+                raise ToolError('backend_error', 'Expected background plus six aligned semantic channels.')
             product = (probabilities[0][reverse[before]] * probabilities[1][reverse[after]]).ravel()
             scores = [float(product[r['idx']].mean()) for r in item.items]
         rows = [dict(row, score=float(score)) for row,score in zip(item.items,scores)]
         result = self._props(rows, item.time, (props,))
         result.update(before=before, after=after,
+            ranked_ids=[row['id'] for row in sorted(rows,key=lambda row:(-row['score'],row['id']))],
             scores=[dict(id=row['id'], score=row['score']) for row in rows])
         return result
