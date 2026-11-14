@@ -82,7 +82,7 @@ def summaries(records):
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--run',type=Path,required=True);p.add_argument('--night',type=Path,required=True)
-    p.add_argument('--parse-variant',choices=['B0','B1','B2'],default='B1');p.add_argument('--split',choices=['tune','confirm','all'],default='all')
+    p.add_argument('--parse-variant',choices=['B0','B1','B2'],default='B0');p.add_argument('--split',choices=['tune','confirm','all'],default='all')
     p.add_argument('--verify-k',type=int,default=8,choices=[0,4,8,16]);a=p.parse_args()
     if not os.environ.get('SLURM_JOB_ID'):raise RuntimeError('Run in a Slurm GPU allocation')
     source=json.loads(read_text(a.night/a.parse_variant/'summary.json'))
