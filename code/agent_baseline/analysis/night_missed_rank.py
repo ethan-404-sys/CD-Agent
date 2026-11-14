@@ -32,6 +32,12 @@ def ordering(records,kind):
     return sorted(range(len(records)),key=lambda i:(-records[i]['evidence_score'],i))
 
 
+def candidate_images(rgb,mask,base,bbox,variant):
+    from agent_baseline.view import ask_images
+    # V0/V3 must never enter the spotlight renderer, including new masks.
+    return ask_images(rgb,mask,bbox,True) if variant in ('V0','V3') else render(rgb,mask,base,bbox,variant)[0]
+
+
 def prepare(a):
     selected=load(a.gates/'score_summary.json')['selection'];items=load(a.gates/'manifest.json')
     old={(r['group'],r['stem']):r for r in load(a.pilot/'manifest.json')}
@@ -84,7 +90,6 @@ def prepare(a):
 
 
 def verify(a):
-    from agent_baseline.view import ask_images
     settings=load(a.out/'settings.json')
     if settings['variant']!=a.variant:raise ValueError('Verifier differs from frozen rank policy')
     stop=a.out/'STOP.json'
@@ -110,7 +115,7 @@ def verify(a):
             template=load(a.pilot/'answers'/'four'/(item['template_uid'].replace(':','__')+'.json'))
             request=load(Path(template['input_path'])/'request.json');messages=json.loads(json.dumps(request['messages']))
             directory=a.out/'inputs'/name;directory.mkdir(parents=True,exist_ok=True)
-            images=ask_images(rgb,mask,candidate['bbox'],True) if a.variant in ('V0','V3') else render(rgb,mask,base,candidate['bbox'],a.variant)[0]
+            images=candidate_images(rgb,mask,base,candidate['bbox'],a.variant)
             blocks=messages[1]['content'];n=0
             for block in blocks:
                 if block.get('type')=='image_url':

@@ -5,9 +5,18 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 import numpy as np
 from PIL import Image
-from agent_baseline.analysis.night_missed_rank import ordering,prepare,verify,SOURCES
+from agent_baseline.analysis.night_missed_rank import ordering,prepare,verify,candidate_images,SOURCES
 
 class NightRankTest(unittest.TestCase):
+    def test_new_v0_and_v3_candidates_preserve_original_background(self):
+        mask=np.zeros((64,64),bool);mask[24:40,24:40]=True
+        rgb=[np.full((64,64,3),200,np.uint8)]*2;base=np.zeros_like(mask)
+        for variant in ('V0','V3'):
+            images=candidate_images(rgb,mask,base,[24,24,40,40],variant)
+            self.assertTrue(np.all(np.asarray(images[0])[0,0]==200))
+        images=candidate_images(rgb,mask,base,[24,24,40,40],'V1')
+        self.assertTrue(np.all(np.asarray(images[0])[0,0]==60))
+
     def test_rankings_are_explicit_stable_and_label_free(self):
         rows=[dict(area=10,dino=.2,evidence_score=.04),dict(area=20,dino=.1,evidence_score=.02),dict(area=10,dino=.2,evidence_score=.04)]
         self.assertEqual(ordering(rows,'balanced'),[0,1,2])
