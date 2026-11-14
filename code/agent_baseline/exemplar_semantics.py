@@ -66,6 +66,9 @@ def request(folder, system, question, views, seed=1016):
                 requested_model=event['request']['model'], error_body=error_body,
                 error_type=event.get('error_type'), retryable=event.get('retryable'),
                 seconds=event.get('seconds')))
+        if (event.get('http_status') in (401,402,403,404) or event.get('quota_error')) and os.environ.get('AGENT_STOP_FILE'):
+            write_json(os.environ['AGENT_STOP_FILE'], dict(reason='semantic API rejected request',
+                http_status=event.get('http_status'), evidence=str(folder)))
     planner = Planner(seed=seed, record=record, max_attempts=3,
         parameters=dict(model=MODEL, max_tokens=768, temperature=0,
                         response_format={'type':'json_object'}))
