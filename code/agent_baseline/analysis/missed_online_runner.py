@@ -13,6 +13,7 @@ import time
 import numpy as np
 from agent_baseline.find_missed import CachedMissedCandidates, GROUPS, SOURCES
 from .io_retry import write_json, write_text
+from .missed_online_report import complete_final
 
 SEEDS=(1016,2027,3038)
 ARMS=('baseline','find_missed')
@@ -85,7 +86,7 @@ def prepare(args):
                 'export PYTHONPATH='+shlex.quote(str(args.code.resolve().parent)),
                 'export OVCD_CODE='+shlex.quote(str(args.ovcd.resolve())),
                 'export PYTHONDONTWRITEBYTECODE=1 OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1',
-                'report_on_exit() { status=$?; trap - EXIT; '+shlex.join([args.python,'-B','-m','agent_baseline.analysis.missed_online_report','--out',str(args.out.resolve())])+' || true; exit "$status"; }',
+                'report_on_exit() { status=$?; trap - EXIT; '+shlex.join([args.python,'-B','-m','agent_baseline.analysis.missed_online_report','--out',str(args.out.resolve()),'--publish-root'])+' || true; exit "$status"; }',
                 'trap report_on_exit EXIT',
                 shlex.join(cmd),''])
             write_text(path,script)
@@ -99,7 +100,7 @@ def attempts(out,group,seed,arm,stem):
 
 def successful(path,task):
     final=path/task/'val'/path.parent.name/'final.json'
-    return final.exists() and bool(read_json(final).get('eval')) and read_json(final).get('submitted_by')!='error'
+    return final.exists() and complete_final(read_json(final))
 
 
 def run(args):
@@ -127,18 +128,22 @@ def run(args):
             work.append(item)
     if not commands:
         from .missed_online_report import report
-        report(args.out);return
+        summary=report(args.out,publish_root=True)
+        current=[r for r in summary['sessions'] if r['group']==args.group and r['seed']==args.seed]
+        if not all(r['complete'] for r in current):
+            raise SystemExit('Previous failed attempts preserved; use --retry-failed after review')
+        return
     command=['bash',str(code/'run_agent.sbatch'),*commands]
     write_json(args.out/'launches'/f'{args.group}-seed{args.seed}-{os.environ["SLURM_JOB_ID"]}.json',dict(command=command,sessions=work))
     result=subprocess.run(command,env=env,check=False)
     for item in work:
         destination=Path(item['directory']);final=destination/'final.json'
-        status='complete' if final.exists() and read_json(final).get('eval') else 'failed_or_not_reached'
+        status='complete' if final.exists() and complete_final(read_json(final)) else 'failed_or_not_reached'
         write_json(destination.parent.parent.parent/'attempt.json',dict(item,status=status,returncode=result.returncode,ended_at=time.time()))
     from .missed_online_report import report
-    report(args.out)
+    report(args.out,publish_root=True)
     if result.returncode:raise SystemExit(result.returncode)
-    if any(not (Path(item['directory'])/'final.json').exists() or not read_json(Path(item['directory'])/'final.json').get('eval') for item in work):
+    if any(not (Path(item['directory'])/'final.json').exists() or not complete_final(read_json(Path(item['directory'])/'final.json')) for item in work):
         raise SystemExit('At least one Agent session failed or remained incomplete; artifacts preserved')
 
 
