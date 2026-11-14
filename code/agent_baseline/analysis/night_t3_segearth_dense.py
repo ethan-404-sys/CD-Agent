@@ -68,6 +68,7 @@ def main():
         routeA='original semantic_route: foreground mean probability over example; dense argmax includes background',
         VLM='existing B0/B2/B3 predicted pair; argmax(T1)==source AND argmax(T2)==target; unknown/same empty',
         selection='no confidence thresholds, morphological filters, GT-driven class corrections or new models',
+        archived_masks='all four archived masks explicitly exclude exemplar support; scoring exclusion remains unchanged',
         new_scope='B2/B3 only; B0 bridge_dense and routeA already evaluated historically, now reproducibility references',api_calls=0,new_model_calls=0)
     if exists(out/'settings.json') and json.loads(read_text(out/'settings.json'))!=settings:raise ValueError('Settings differ')
     write_json(out/'settings.json',settings)
@@ -83,7 +84,7 @@ def main():
         probabilities=[read_npz(path)['data'] for path in paths]
         pair_a,pred_a=semantic_route(probabilities,ex) # validates shape and finite probabilities
         maps=[p.argmax(axis=0) for p in probabilities]
-        pairs={'routeA_historical':pair_a};predictions={'routeA_historical':pred_a}
+        pairs={'routeA_historical':pair_a};predictions={'routeA_historical':pred_a & ~ex}
         for variant in ('B0','B2','B3'):
             name=variant+'_historical' if variant=='B0' else variant+'_dense'
             pair=parses[variant][row['id']]['interpretation']['pair'];pairs[name]=pair
