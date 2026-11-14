@@ -1,0 +1,33 @@
+{
+  "scope": "Manual review of completed 192-request tune smoke, not a confirmation-set conclusion",
+  "selection": "Previously reviewed shoreline and 52-pixel fragment are mechanism follow-ups; selection is biased and not an accuracy sample",
+  "cost_cny": 0.0461168,
+  "top20_f1": {
+    "second_appeared_train_1065": {"initial":69.19918454072989,"V0":76.45722007247711,"V1":76.30273461522692,"V2":70.68355853218743,"V3":76.37369391518132,"V4":75.00334060843615},
+    "levir_any_train_106": {"initial":85.5607738243344,"V0":73.77365571221787,"V1":83.20894111597589,"V2":76.39747673474486,"V3":72.33304423243712,"V4":79.18347970567292}
+  },
+  "uncertainty": "Only one image per group: bootstrap intervals collapse to a point and do not establish dataset-level certainty. SECOND directions are the same scene, not independent images.",
+  "cases": [
+    {
+      "uid": "levir_any:train_106:3",
+      "inputs_viewed": ["inputs/V1/levir_any__train_106__3/1.jpg", "inputs/V2/levir_any__train_106__3/1.jpg"],
+      "answers": {"V0":"no","V1":"no","V2":"no","V3":"no","V4":"no"},
+      "observations": "V1 retains the shoreline candidate brightness and suppresses surrounding housing; V2 additionally marks existing-answer roofs blue. Candidate support is not blue. All new arms reject the shoreline as non-building; this removes the historical structured-prompt yes, but is not improvement over V0, which already said no.",
+      "finish": "V1-V4 stop; outputs 53/58/54/46 tokens, no truncation in this case"
+    },
+    {
+      "uid": "second_appeared:train_1065:4",
+      "inputs_viewed": ["inputs/V2/second_appeared__train_1065__4/1.jpg"],
+      "answers": {"V0":"yes","V1":"yes","V2":"no","V3":"yes","V4":"no"},
+      "observations": "The 52-pixel candidate is a grey patch left unoccluded in a large blue existing-answer roof. V2 and V4 call it the same-shape object with tonal change; the unchanged red annotation itself can be mistaken for an object boundary, while the useful whole-roof context is blue. This is a plausible candidate-granularity/context failure, not evidence of blue polarity reversal. No GT was used for this visual judgment.",
+      "finish": "V1-V4 stop; outputs 47/80/44/63 tokens"
+    },
+    {
+      "uid": "second_disappeared:train_1065:1",
+      "inputs_viewed": ["inputs/V4/second_disappeared__train_1065__1/0.jpg"],
+      "observations": "Spotlight preserves the actual small light structure inside the contour and darkens surroundings. The implementation visually respects the target support. Group F1 remains zero in this one-image smoke, so do not use it to claim retrieval improvement."
+    }
+  ],
+  "candidate_stage_partial_evidence": "First extracted SECOND train_1065 has real DINO features, six visual-cache files and old_rematch_equals_cache=true. Its S5 feature list contains many one-pixel components with substantial DINO change; a low DINO threshold is not guaranteed to remove boundary fragments. Await fixed-gate TP-retention results rather than retuning on this observation.",
+  "next": "Complete all fixed tune images across V1-V4; retain these negatives. Choose/freeze from tune only before confirmation. Do not promote a single-image improvement to online Agent evidence."
+}
